@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node src/app.js",
-  "test": "node --test test/*.test.js"
+  "start": "node --env-file=.env src/app.js",
+  "test": "node --test test/*.test.js",
+  "test:integrasi": "node --env-file=.env scripts/integrasi.js"
 },
   "repository": {
     "type": "git",
