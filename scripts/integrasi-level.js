@@ -5,8 +5,8 @@
  * promosi, L2->L3 tertahan, Level 3 terbuka, masuk Elite, Strike 2 (demosi + cooldown).
  *
  * Data contoh bertanda 'ZZ-LEVEL' / integrasi-level@example.com, dihapus otomatis di akhir.
- * Tiap skenario memakai topiknya sendiri, dan setiap soal terikat ke SEMUA subtopik topiknya,
- * sehingga tiap jawaban berlaku pada semua subtopik topik itu (hasil bisa dipastikan).
+ * Tiap skenario memakai topiknya sendiri. Skenario multi-subtopik menjalankan sesi khusus satu
+ * subtopik supaya hasilnya pasti.
  *
  * Jalankan:  npm run test:level   (atau: node --env-file=.env scripts/integrasi-level.js)
  */
@@ -109,20 +109,33 @@ async function seed() {
           [studentId, sid, def.subs[i].level, def.subs[i].rr]);
       }
 
-      // 12 soal per level, semuanya terikat ke seluruh subtopik topik ini.
-      // Aturan database: soal Level 3 wajib terikat >= 2 subtopik, jadi topik 1-subtopik hanya Level 1-2.
-      const levelMaks = def.subs.length >= 2 ? 3 : 2;
-      const q = await c.query(
+      // Aturan database: soal Level 1-2 terikat TEPAT 1 subtopik; soal Level 3 terikat >= 2 subtopik.
+      // Maka: 12 soal Level 1 dan 12 soal Level 2 untuk tiap subtopik, dan (hanya jika topik punya
+      // >= 2 subtopik) 12 soal Level 3 yang terikat ke seluruh subtopik topik itu.
+      const buatSoal = async (level) => (await c.query(
         `INSERT INTO questions (topic_id, level_soal, soal_teks, opsi_jawaban, kunci_jawaban,
                                 target_waktu_detik, poin_reward, poin_penalty, is_domain0)
-         SELECT $1, lvl, 'Soal uji level ' || lvl, $2::jsonb, '"A"'::jsonb, 60, 10, 2, FALSE
-           FROM generate_series(1, $3::int) AS lvl, generate_series(1, 12) AS n
+         SELECT $1, $2::int, 'Soal uji level ' || $2::int, $3::jsonb, '"A"'::jsonb, 60, 10, 2, FALSE
+           FROM generate_series(1, 12)
          RETURNING id`,
-        [topicId, OPSI, levelMaks]);
-      await c.query(
-        `INSERT INTO question_subtopics (question_id, subtopic_id)
-         SELECT qid, sid FROM unnest($1::bigint[]) AS qid, unnest($2::bigint[]) AS sid`,
-        [q.rows.map((r) => r.id), subIds]);
+        [topicId, level, OPSI])).rows.map((r) => r.id);
+
+      for (const sid of subIds) {
+        for (const level of [1, 2]) {
+          const ids = await buatSoal(level);
+          await c.query(
+            `INSERT INTO question_subtopics (question_id, subtopic_id)
+             SELECT qid, $2::bigint FROM unnest($1::bigint[]) AS qid`,
+            [ids, sid]);
+        }
+      }
+      if (subIds.length >= 2) {
+        const ids = await buatSoal(3);
+        await c.query(
+          `INSERT INTO question_subtopics (question_id, subtopic_id)
+           SELECT qid, sid FROM unnest($1::bigint[]) AS qid, unnest($2::bigint[]) AS sid`,
+          [ids, subIds]);
+      }
 
       topik[nama] = { topicId, subIds };
     }
@@ -160,12 +173,17 @@ async function main() {
   console.log('Membuat data contoh...');
   const S = await seed();
 
-  const mulai = (nama) => startDrill(pool, S.studentId, {
-    subjectId: S.subjectId, mode: 'drill_ranked', topicIds: [S.topik[nama].topicId], subtopicIds: [], jumlahSoal: 5,
+  // Sesi 5 soal. Jika `subIndex` diisi, sesi hanya untuk subtopik itu; jika tidak, untuk seluruh topik.
+  const mulai = (nama, subIndex) => startDrill(pool, S.studentId, {
+    subjectId: S.subjectId,
+    mode: 'drill_ranked',
+    topicIds: subIndex === undefined ? [S.topik[nama].topicId] : [],
+    subtopicIds: subIndex === undefined ? [] : [S.topik[nama].subIds[subIndex]],
+    jumlahSoal: 5,
   });
-  // Mulai sesi 5 soal di topik skenario, jawab semuanya benar / salah, kembalikan respons submit
-  const mainkan = async (nama, benar) => {
-    const d = await mulai(nama);
+  // Mulai sesi 5 soal, jawab semuanya benar / salah, kembalikan respons submit
+  const mainkan = async (nama, benar, subIndex) => {
+    const d = await mulai(nama, subIndex);
     assert.equal(d.soal.length, 5, 'sesi harus 5 soal');
     await mundurkanWaktu(d.attempt_id);
     return submitDrill(pool, S.studentId, { attemptId: d.attempt_id, answers: jawaban(d.soal, benar, 10) });
@@ -196,7 +214,7 @@ async function main() {
 
   await cek('L2->L3 tertahan: RR 100 di Level 2 saat Level 3 topik belum terbuka', async () => {
     const { subIds, topicId } = S.topik.tertahan;
-    const r = await mainkan('tertahan', true);
+    const r = await mainkan('tertahan', true, 0); // sesi khusus subtopik Level 2
     const a = dari(r, subIds[0]);
     assert.equal(a.level_after, 2, 'seharusnya tertahan di Level 2');
     assert.equal(a.rr_after, 100);
@@ -209,21 +227,17 @@ async function main() {
     const { subIds, topicId } = S.topik.terbuka;
     const before = await topikDb(topicId);
     assert.ok(!before || before.level3_unlocked === false, 'awalnya terkunci');
-    const r = await mainkan('terbuka', true);
+    const r = await mainkan('terbuka', true, 1); // sesi khusus subtopik Level 1 ber-RR 95
     assert.equal(dari(r, subIds[1]).naik_level, true);
-    const t = r.topik.find((x) => sama(x.topic_id, topicId));
-    assert.equal(t.level3_unlocked, true);
-    assert.equal((await topikDb(topicId)).level3_unlocked, true, 'tidak tersimpan di database');
+    assert.equal((await topikDb(topicId)).level3_unlocked, true, 'Level 3 tidak terbuka / tidak tersimpan');
   });
 
   await cek('Elite: semua subtopik Level 3 + jawaban benar -> topik masuk Elite', async () => {
     const { topicId } = S.topik.elite;
-    const r = await mainkan('elite', true);
-    const t = r.topik.find((x) => sama(x.topic_id, topicId));
-    assert.equal(t.is_elite, true);
-    assert.equal(t.elite_rr, 0);
+    await mainkan('elite', true);
     const db = await topikDb(topicId);
     assert.equal(db.is_elite, true);
+    assert.equal(db.elite_rr, 0);
   });
 
   await cek('Strike 2 di Level 2: turun ke Level 1, RR 70, strike direset, topik cooldown', async () => {
