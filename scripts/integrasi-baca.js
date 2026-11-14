@@ -200,8 +200,9 @@ async function main() {
 
     const ins = (mode, benar, salah, geser) => pool.query(
       `INSERT INTO student_attempts (student_id, subject_id, curriculum_group_id, mode, jumlah_soal,
-                                     status, jumlah_benar, jumlah_salah, finished_at)
-       VALUES ($1, $2, $3, $4, $5, 'selesai', $6, $7, now() - $8::interval)`,
+                                     status, jumlah_benar, jumlah_salah, started_at, finished_at)
+       VALUES ($1, $2, $3, $4, $5, 'selesai', $6, $7,
+               now() - $8::interval - interval '10 minutes', now() - $8::interval)`,
       [S.studentId, S.s1, S.A, mode, benar + salah, benar, salah, geser]);
     await ins('drill_ranked', 5, 2, '0 days');      // hari ini: 7 soal
     await ins('drill_free', 4, 1, '1 day');         // kemarin
