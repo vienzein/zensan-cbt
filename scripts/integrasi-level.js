@@ -109,14 +109,16 @@ async function seed() {
           [studentId, sid, def.subs[i].level, def.subs[i].rr]);
       }
 
-      // 12 soal per level (1-3), semuanya terikat ke seluruh subtopik topik ini
+      // 12 soal per level, semuanya terikat ke seluruh subtopik topik ini.
+      // Aturan database: soal Level 3 wajib terikat >= 2 subtopik, jadi topik 1-subtopik hanya Level 1-2.
+      const levelMaks = def.subs.length >= 2 ? 3 : 2;
       const q = await c.query(
         `INSERT INTO questions (topic_id, level_soal, soal_teks, opsi_jawaban, kunci_jawaban,
                                 target_waktu_detik, poin_reward, poin_penalty, is_domain0)
          SELECT $1, lvl, 'Soal uji level ' || lvl, $2::jsonb, '"A"'::jsonb, 60, 10, 2, FALSE
-           FROM generate_series(1, 3) AS lvl, generate_series(1, 12) AS n
+           FROM generate_series(1, $3::int) AS lvl, generate_series(1, 12) AS n
          RETURNING id`,
-        [topicId, OPSI]);
+        [topicId, OPSI, levelMaks]);
       await c.query(
         `INSERT INTO question_subtopics (question_id, subtopic_id)
          SELECT qid, sid FROM unnest($1::bigint[]) AS qid, unnest($2::bigint[]) AS sid`,
