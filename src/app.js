@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+const pool = require('./db');
+const { createAuth } = require('./middleware/auth');
 const drillRouter = require('./routes/drill');
 const domain0Router = require('./routes/domain0');
 const tryoutRouter = require('./routes/tryout');
@@ -8,8 +10,8 @@ const tryoutRouter = require('./routes/tryout');
 const app = express();
 app.use(express.json({ limit: '100kb' }));
 
-// TODO: pasang middleware autentikasi Anda di sini; ia harus mengisi req.user = { id: <uuid students.id> }
-// app.use('/api', requireAuth);
+// Semua endpoint /api wajib login (token Supabase); middleware mengisi req.user.id
+app.use('/api', createAuth({ pool }));
 
 app.use('/api/drill', drillRouter);
 app.use('/api/domain0', domain0Router);
