@@ -6,6 +6,8 @@ const { createAuth } = require('./middleware/auth');
 const drillRouter = require('./routes/drill');
 const domain0Router = require('./routes/domain0');
 const tryoutRouter = require('./routes/tryout');
+const meRouter = require('./routes/me');
+const kurikulumRouter = require('./routes/kurikulum');
 
 const app = express();
 app.use(express.json({ limit: '100kb' }));
@@ -16,6 +18,8 @@ app.use('/api', createAuth({ pool }));
 app.use('/api/drill', drillRouter);
 app.use('/api/domain0', domain0Router);
 app.use('/api/tryout', tryoutRouter);
+app.use('/api/me', meRouter);
+app.use('/api/kurikulum', kurikulumRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
