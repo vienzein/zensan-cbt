@@ -64,6 +64,7 @@ function jawabDrill(pool, studentId, { attemptId, answer }) {
     let efek = 'tanpa_rr';
     let speed = false;
     let tebakan;
+    let kenaStrike = 0;
     const mine = scored.find((a) => a.questionId === answer.questionId);
 
     if (attempt.mode === RANKED_MODE) {
@@ -79,6 +80,7 @@ function jawabDrill(pool, studentId, { attemptId, answer }) {
       efek = r.efek;
       speed = r.isSpeedBonus;
       tebakan = r.isFlaggedGuess;
+      kenaStrike = r.kenaStrike || 0;
     } else {
       tebakan = scoreAnswer(mine).isFlaggedGuess;
     }
@@ -94,6 +96,7 @@ function jawabDrill(pool, studentId, { attemptId, answer }) {
       is_speed_bonus: speed,
       is_flagged_guess: tebakan,
       efek,
+      kena_strike: kenaStrike,
       streak_benar: streak,
       jumlah_dijawab: scored.length,
       jumlah_soal: attempt.jumlah_soal,

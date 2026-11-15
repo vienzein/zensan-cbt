@@ -128,7 +128,12 @@ async function prepareSubmission(client, studentId, { attemptId, answers }, allo
   const locked = await loadLockedAnswers(client, attemptId);
   if (locked.length) {
     const lockedIds = new Set(locked.map((l) => l.questionId));
+    // Urutan pemrosesan = urutan soal di sesi (deterministik, tidak bergantung waktu request tiba)
+    const urutanSesi = new Map((await client.query(
+      `SELECT question_id, urutan FROM student_attempt_questions WHERE attempt_id = $1`, [attemptId],
+    )).rows.map((r) => [r.question_id, r.urutan]));
     answers = [...locked, ...answers.filter((a) => !lockedIds.has(a.questionId))]
+      .sort((x, y) => (urutanSesi.get(x.questionId) ?? 1e9) - (urutanSesi.get(y.questionId) ?? 1e9))
       .map((a, i) => ({ ...a, urutan: i + 1 }));
   }
   if (answers.length > attempt.jumlah_soal) {
@@ -180,7 +185,7 @@ async function loadLockedAnswers(client, attemptId) {
     `SELECT question_id, jawaban_terkunci, durasi_terkunci
        FROM student_attempt_questions
       WHERE attempt_id = $1 AND dijawab_at IS NOT NULL
-      ORDER BY dijawab_at, urutan`,
+      ORDER BY urutan`,
     [attemptId],
   );
   return rows.map((r, i) => ({
@@ -462,6 +467,7 @@ function buildResponse({ attemptId, mode, scored, calc, topicRows, jumlahBenar, 
         rr_delta: r.rrDelta,
         is_speed_bonus: r.isSpeedBonus,
         is_flagged_guess: r.isFlaggedGuess,
+        kena_strike: r.kenaStrike || 0,
         efek: r.efek,
       };
     }),

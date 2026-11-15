@@ -18,6 +18,7 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
   const [galat, setGalat] = useState('');
   const [umpan, setUmpan] = useState(null); // umpan balik RR terakhir (popup)
   const timerUmpan = useRef(null);
+  const rantai = useRef(Promise.resolve()); // jawaban dikunci berurutan, satu per satu
 
   const jawaban = useRef([]); // { question_id, jawaban_siswa, durasi_pengerjaan_detik }
   const mulai = useRef(performance.now());
@@ -72,15 +73,21 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
 
   // Kunci jawaban di server dan ambil umpan balik. Gagal (mis. jaringan) tidak menghentikan sesi:
   // submit akhir tetap membawa semua jawaban.
-  async function kunci(entry) {
-    if (mode !== 'drill') return null;
-    try {
-      const u = await api.jawabDrill({ attempt_id: attemptId, ...entry });
-      tampilkanUmpan(u);
-      return u;
-    } catch {
-      return null;
-    }
+  function kunci(entry) {
+    if (mode !== 'drill') return Promise.resolve(null);
+    // Dirantai: permintaan berikutnya baru dikirim setelah yang sebelumnya selesai, supaya server
+    // menerima jawaban sesuai urutan soal (penting untuk hitungan RR dan Strike).
+    const hasil = rantai.current.then(async () => {
+      try {
+        const u = await api.jawabDrill({ attempt_id: attemptId, ...entry });
+        tampilkanUmpan(u);
+        return u;
+      } catch {
+        return null;
+      }
+    });
+    rantai.current = hasil;
+    return hasil;
   }
 
   function lanjut(nilai) {
@@ -222,6 +229,8 @@ function Popup({ u }) {
   const ranked = u.efek !== 'tanpa_rr';
   const rr = u.rr_delta > 0 ? `+${u.rr_delta} RR` : u.rr_delta < 0 ? `−${Math.abs(u.rr_delta)} RR` : 'RR tetap';
   const baris = [];
+  if (u.kena_strike === 1) baris.push('⚠️ Strike 1: RR tetap 0');
+  if (u.kena_strike === 2) baris.push('⚠️ Strike 2: turun level');
   if (u.is_correct && u.is_speed_bonus) baris.push('⚡ Bonus kecepatan');
   if (u.is_correct && u.streak_benar >= 3) baris.push(`🔥 Streak ${u.streak_benar}`);
   if (u.is_flagged_guess) baris.push('Terlalu cepat, dianggap tebakan');
@@ -235,7 +244,7 @@ function Popup({ u }) {
     >
       <p className="font-extrabold">
         {u.is_correct ? 'Benar!' : 'Salah'}
-        {ranked ? ` ${rr}` : ''}
+        {ranked && !u.kena_strike ? ` ${rr}` : ''}
       </p>
       {baris.map((b) => (
         <p key={b} className="text-xs font-semibold opacity-90">

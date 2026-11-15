@@ -81,10 +81,14 @@ export default function Hasil({ mode, hasil, onKembali }) {
             <span className="flex items-center gap-3">
               {h.is_speed_bonus && <span className="text-xs text-emas">⚡ cepat</span>}
               {h.is_flagged_guess && <span className="text-xs text-redup">tebakan</span>}
-              <span className={h.rr_delta >= 0 ? 'font-bold text-lime' : 'font-bold text-bahaya'}>
-                {h.is_correct ? '✓' : '✗'} {h.rr_delta > 0 ? '+' : ''}
-                {h.rr_delta}
-              </span>
+              {h.kena_strike > 0 ? (
+                <span className="font-bold text-emas">✗ ⚠️ Strike {h.kena_strike}</span>
+              ) : (
+                <span className={h.rr_delta >= 0 ? 'font-bold text-lime' : 'font-bold text-bahaya'}>
+                  {h.is_correct ? '✓' : '✗'} {h.rr_delta > 0 ? '+' : ''}
+                  {h.rr_delta}
+                </span>
+              )}
             </span>
           </div>
         ))}

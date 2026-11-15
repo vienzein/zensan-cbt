@@ -40,18 +40,20 @@ function scoreAnswer({ isCorrect, durasi, targetWaktu, poinReward }) {
 function applyRr(state, rrKey, delta, isCorrect) {
   const rrBefore = state[rrKey];
   let strike2 = false;
+  let strike1 = false;
 
   if (isCorrect) {
     state[rrKey] = clamp(rrBefore + delta);
   } else if (state.strike_count === 0 && rrBefore <= C.STRIKE_AT_RR) {
     state.strike_count = 1;
+    strike1 = true;
   } else if (state.strike_count === 1 && rrBefore < C.STRIKE2_BELOW_RR) {
     strike2 = true;
   } else {
     state[rrKey] = clamp(rrBefore + delta);
   }
 
-  return { rrBefore, strike2, strikeAfter: strike2 ? 2 : state.strike_count };
+  return { rrBefore, strike2, strike1, strikeAfter: strike2 ? 2 : state.strike_count };
 }
 
 // Perbarui hitungan subtopik per level ketika satu subtopik berpindah level
@@ -123,6 +125,9 @@ function calculateSessionRR({ answers, subtopicState, topicState, topicCounts = 
 
     const topic = tops.get(tid);
     let strike2 = false;
+    // Perubahan RR yang benar-benar terjadi. Strike 1 (salah saat RR 0) tidak mengurangi RR, jadi 0.
+    let efektif = delta;
+    let kenaStrike = 0;
 
     if (a.levelSoal === 4) {
       // Level 4 hanya memengaruhi RR topik, dan hanya untuk topik Elite
@@ -132,6 +137,10 @@ function calculateSessionRR({ answers, subtopicState, topicState, topicCounts = 
         continue;
       }
       const r = applyRr(topic, 'elite_rr', delta, a.isCorrect);
+      if (r.strike1) {
+        efektif = 0;
+        kenaStrike = 1;
+      }
       if (r.strike2) {
         topic.is_elite = false; // keluar dari Elite
         topic.elite_rr = 0;
@@ -154,12 +163,14 @@ function calculateSessionRR({ answers, subtopicState, topicState, topicCounts = 
       if (!a.subtopicIds.length) {
         throw new Error(`Soal ${a.questionId} (level ${a.levelSoal}) tidak punya subtopik`);
       }
+      let jumlahStrike1 = 0;
       for (const sid of a.subtopicIds) {
         const st = subs.get(sid);
         if (!st) throw new Error(`State mastery subtopik ${sid} tidak ditemukan`);
 
         const levelBefore = st.current_level;
         const r = applyRr(st, 'rank_rating', delta, a.isCorrect);
+        if (r.strike1) jumlahStrike1 += 1;
 
         if (r.strike2) {
           if (st.current_level > C.LEVEL_MIN) {
@@ -211,10 +222,16 @@ function calculateSessionRR({ answers, subtopicState, topicState, topicCounts = 
           strikeAfter: r.strikeAfter, // bernilai 2 pada kejadian demosi
         });
       }
+      if (jumlahStrike1 > 0) {
+        kenaStrike = 1;
+        // semua subtopik hanya kena Strike 1 -> tidak ada RR yang berubah
+        if (jumlahStrike1 === a.subtopicIds.length) efektif = 0;
+      }
     }
 
-    res.rrDelta = delta;
-    totalRrDelta += delta;
+    res.rrDelta = efektif;
+    res.kenaStrike = strike2 ? 2 : kenaStrike;
+    totalRrDelta += efektif;
 
     // Aturan 4: cooldown jika Strike 2 ATAU 5 salah beruntun pada topik yang sama
     const streak = a.isCorrect ? 0 : (wrongStreak.get(tid) || 0) + 1;

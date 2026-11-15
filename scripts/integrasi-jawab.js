@@ -179,6 +179,30 @@ async function main() {
     assert.equal(r.efek, 'tanpa_rr');
   });
 
+  await cek('Strike 1 dan urutan: salah-benar-benar-salah-salah tidak memicu jeda, RR akhir 16', async () => {
+    // siswa dan data baru supaya RR mulai dari 0
+    await pool.query('DELETE FROM student_mastery WHERE student_id = $1', [S.studentId]);
+    await pool.query('DELETE FROM student_topic_mastery WHERE student_id = $1', [S.studentId]);
+    const s3 = await mulai('drill_ranked');
+    await mundurkanWaktu(s3.attempt_id);
+    const urutanBenar = [false, true, true, false, false];
+    const umpan = [];
+    for (let i = 0; i < 5; i += 1) {
+      umpan.push(await jawab(s3.attempt_id, s3.soal[i], urutanBenar[i] ? 'A' : 'B', 30));
+    }
+    assert.equal(umpan[0].kena_strike, 1, 'salah pertama saat RR 0 = Strike 1');
+    assert.equal(umpan[0].rr_delta, 0, 'Strike 1 tidak mengurangi RR');
+    const jumlahUmpan = umpan.reduce((t, u) => t + u.rr_delta, 0);
+    const r = await submitDrill(pool, S.studentId, {
+      attemptId: s3.attempt_id,
+      answers: s3.soal.map((q, i) => ({ urutan: i + 1, questionId: q.question_id, jawaban: 'A', durasi: 1 })),
+    });
+    assert.equal(r.ringkasan.total_rr_delta, jumlahUmpan, 'jumlah popup = total resmi');
+    assert.equal(r.mastery[0].rr_after, jumlahUmpan);
+    assert.equal(r.topik.some((t) => t.cooldown_until && new Date(t.cooldown_until) > new Date()), false,
+      'tidak ada jeda');
+  });
+
   console.log(`\n${lulus} lulus, ${gagal} gagal`);
 }
 
