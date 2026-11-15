@@ -5,15 +5,18 @@
  *
  *   npm run impor:soal -- seed/soal-saya.csv            # SIMULASI: memeriksa semuanya, tidak menyimpan
  *   npm run impor:soal -- seed/soal-saya.csv --tulis    # menyimpan
+ *   npm run impor:soal -- seed/soal-saya.docx           # sama, dari dokumen Word (lihat PETUNJUK-IMPOR-WORD.md)
  *
  * Aturan: tes dan subtes harus sudah ada; topik dan subtopik yang belum ada dibuat otomatis; soal yang
  * sama (topik + teks soal) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
  * Format kolom: lihat seed/PETUNJUK-IMPOR-SOAL.md dan seed/templat-soal.csv.
+ * Format Word: lihat seed/PETUNJUK-IMPOR-WORD.md dan seed/templat-soal.docx.
  */
 
 const fs = require('node:fs');
 const pool = require('../src/db');
 const { parseCsv, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
+const { docxKeBaris } = require('../src/services/imporWord');
 
 const [, , berkas, ...flag] = process.argv;
 const tulis = flag.includes('--tulis');
@@ -24,13 +27,32 @@ function keluar(kode, pesan) {
 }
 
 async function main() {
-  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv> [--tulis]');
+  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv | berkas.docx> [--tulis]');
   if (!fs.existsSync(berkas)) keluar(2, `Berkas tidak ditemukan: ${berkas}`);
 
-  const { soal, galat } = validasi(parseCsv(fs.readFileSync(berkas, 'utf8')));
+  const dariWord = /\.docx$/i.test(berkas);
+  let terbaca;
+  let galatBaca = [];
+  const cuplikan = new Map();
+  if (dariWord) {
+    let w;
+    try { w = docxKeBaris(fs.readFileSync(berkas)); } catch (e) { keluar(1, e.message); }
+    w.peringatan.forEach((p) => console.warn(`  perhatian: ${p}`));
+    w.baris.forEach((r) => cuplikan.set(r._nomor, r._cuplikan));
+    galatBaca = w.galat;
+    terbaca = { kolom: w.kolom, baris: w.baris };
+  } else {
+    terbaca = parseCsv(fs.readFileSync(berkas, 'utf8'));
+  }
+  // Penunjuk lokasi masalah: nomor baris di spreadsheet, atau nomor soal (+ awal kalimatnya) di Word.
+  const lokasi = (n) => (dariWord ? `soal ke-${n}${cuplikan.get(n) ? ` ("${cuplikan.get(n)}")` : ''}` : `baris ${n}`);
+
+  const hasil = validasi(terbaca);
+  const { soal } = hasil;
+  const galat = [...galatBaca, ...hasil.galat];
   if (galat.length) {
     console.error(`Ada ${galat.length} masalah di berkas. Perbaiki lalu jalankan lagi (belum ada yang disimpan):\n`);
-    galat.slice(0, 50).forEach((g) => console.error(`  baris ${g.baris}: ${g.pesan}`));
+    galat.slice(0, 50).forEach((g) => console.error(`  ${lokasi(g.baris)}: ${g.pesan}`));
     if (galat.length > 50) console.error(`  ... dan ${galat.length - 50} lainnya`);
     keluar(1);
   }
@@ -108,7 +130,7 @@ async function main() {
     if (masalah.length) {
       await c.query('ROLLBACK');
       console.error(`Ada ${masalah.length} masalah (belum ada yang disimpan):\n`);
-      masalah.slice(0, 50).forEach((g) => console.error(`  baris ${g.baris}: ${g.pesan}`));
+      masalah.slice(0, 50).forEach((g) => console.error(`  ${lokasi(g.baris)}: ${g.pesan}`));
       keluar(1);
     }
 

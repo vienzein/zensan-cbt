@@ -1,5 +1,7 @@
 # Petunjuk mengisi bank soal (untuk tim akademik)
 
+> Lebih suka mengetik di Word? Lihat `PETUNJUK-IMPOR-WORD.md` dan `templat-soal.docx`. Aturan isinya sama.
+
 1. Buka `templat-soal.csv` di Excel atau Google Sheets. Satu baris = satu soal.
 2. Hapus 3 baris contoh (bertanda `[Contoh-hapus]`), isi soal sendiri.
 3. Simpan sebagai **CSV (UTF-8)**. Excel Indonesia memakai titik koma sebagai pemisah, dan itu tidak masalah (koma dan tab juga dikenali).

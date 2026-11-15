@@ -11,7 +11,8 @@
   "test:kalibrasi": "node --env-file=.env scripts/integrasi-kalibrasi.js",
   "test:baca": "node --env-file=.env scripts/integrasi-baca.js",
   "test:jawab": "node --env-file=.env scripts/integrasi-jawab.js",
-  "impor:soal": "node --env-file=.env scripts/impor-soal.js"
+  "impor:soal": "node --env-file=.env scripts/impor-soal.js",
+  "docx:csv": "node scripts/docx-ke-csv.js"
 },
   "repository": {
     "type": "git",
