@@ -41,4 +41,8 @@ export const api = {
   pilihTes: (id) => panggil('PUT', '/me/tes', { curriculum_group_id: id }),
   daftarTes: async () => (await panggil('GET', '/kurikulum')).tes,
   beranda: (id) => panggil('GET', `/kurikulum/${id}/beranda`),
+  mulaiDrill: (body) => panggil('POST', '/drill/start', body),
+  kirimDrill: (body) => panggil('POST', '/drill/submit', body),
+  mulaiDomain0: (id) => panggil('POST', '/domain0/start', { curriculum_group_id: id }),
+  kirimDomain0: (body) => panggil('POST', '/domain0/submit', body),
 };

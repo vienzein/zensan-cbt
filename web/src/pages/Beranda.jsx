@@ -48,9 +48,23 @@ function KartuTopik({ t }) {
   );
 }
 
-export default function Beranda({ me, onGantiTes }) {
+export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi }) {
   const [data, setData] = useState(null);
   const [galat, setGalat] = useState('');
+  const [sibukD0, setSibukD0] = useState(false);
+  const [galatD0, setGalatD0] = useState('');
+
+  async function mulaiDomain0() {
+    setSibukD0(true);
+    setGalatD0('');
+    try {
+      const r = await api.mulaiDomain0(me.tes_aktif.id);
+      onSesi({ ...r, mode: 'domain0', judul: 'Ujian Kelayakan Dasar' });
+    } catch (e) {
+      setGalatD0(e.message);
+      setSibukD0(false);
+    }
+  }
 
   const muat = useCallback(async () => {
     setGalat('');
@@ -108,12 +122,11 @@ export default function Beranda({ me, onGantiTes }) {
             {kuota.terpakai}/{kuota.batas}
           </span>
         </div>
-        {/* Tombol ini disambung ke halaman ujian pada langkah berikutnya. */}
         <button
-          disabled
-          className="mt-4 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg opacity-50"
+          onClick={() => onPilihDrill(data)}
+          className="mt-4 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg"
         >
-          Mulai Drill (segera)
+          Mulai Drill
         </button>
       </section>
 
@@ -124,6 +137,14 @@ export default function Beranda({ me, onGantiTes }) {
             Beberapa topik terkunci sampai Anda lulus ujian singkat ini.
             {domain0.cooldown_until ? ` Bisa diulang setelah ${jam(domain0.cooldown_until)}.` : ''}
           </p>
+          {galatD0 && <p className="mt-2 text-sm text-bahaya">{galatD0}</p>}
+          <button
+            onClick={mulaiDomain0}
+            disabled={sibukD0 || (domain0.cooldown_until && new Date(domain0.cooldown_until) > new Date())}
+            className="mt-3 w-full rounded-2xl bg-lime py-3 font-bold text-bg disabled:opacity-40"
+          >
+            {sibukD0 ? 'Menyiapkan…' : 'Mulai Ujian'}
+          </button>
         </section>
       )}
 

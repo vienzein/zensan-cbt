@@ -4,6 +4,9 @@ import { api } from './lib/api.js';
 import Masuk from './pages/Masuk.jsx';
 import PilihTes from './pages/PilihTes.jsx';
 import Beranda from './pages/Beranda.jsx';
+import PilihDrill from './pages/PilihDrill.jsx';
+import Ujian from './pages/Ujian.jsx';
+import Hasil from './pages/Hasil.jsx';
 import { Layar, Memuat, Galat } from './components/Dasar.jsx';
 
 export default function App() {
@@ -11,6 +14,8 @@ export default function App() {
   const [me, setMe] = useState(null);
   const [galat, setGalat] = useState('');
   const [ganti, setGanti] = useState(false); // true = tampilkan layar pilih tes
+  // Layar di atas Beranda: null | {nama:'pilih', data} | {nama:'ujian', sesi} | {nama:'hasil', mode, hasil}
+  const [layar, setLayar] = useState(null);
 
   useEffect(() => {
     if (!supabaseSiap) return undefined;
@@ -69,5 +74,37 @@ export default function App() {
     );
   }
 
-  return <Beranda me={me} onGantiTes={() => setGanti(true)} />;
+  const kembali = () => setLayar(null);
+
+  if (layar?.nama === 'pilih') {
+    return (
+      <PilihDrill
+        data={layar.data}
+        onBatal={kembali}
+        onMulai={(sesi) => setLayar({ nama: 'ujian', sesi })}
+      />
+    );
+  }
+  if (layar?.nama === 'ujian') {
+    return (
+      <Ujian
+        key={layar.sesi.attempt_id}
+        sesi={layar.sesi}
+        onKeluar={kembali}
+        onSelesai={(hasil) => setLayar({ nama: 'hasil', mode: layar.sesi.mode, hasil })}
+      />
+    );
+  }
+  if (layar?.nama === 'hasil') {
+    return <Hasil mode={layar.mode} hasil={layar.hasil} onKembali={kembali} />;
+  }
+
+  return (
+    <Beranda
+      me={me}
+      onGantiTes={() => setGanti(true)}
+      onPilihDrill={(data) => setLayar({ nama: 'pilih', data })}
+      onSesi={(sesi) => setLayar({ nama: 'ujian', sesi })}
+    />
+  );
 }
