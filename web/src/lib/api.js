@@ -39,6 +39,6 @@ async function panggil(method, path, body) {
 export const api = {
   me: () => panggil('GET', '/me'),
   pilihTes: (id) => panggil('PUT', '/me/tes', { curriculum_group_id: id }),
-  daftarTes: () => panggil('GET', '/kurikulum'),
+  daftarTes: async () => (await panggil('GET', '/kurikulum')).tes,
   beranda: (id) => panggil('GET', `/kurikulum/${id}/beranda`),
 };
