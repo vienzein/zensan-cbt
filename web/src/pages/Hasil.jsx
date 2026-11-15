@@ -81,7 +81,9 @@ export default function Hasil({ mode, hasil, onKembali }) {
             <span className="flex items-center gap-3">
               {h.is_speed_bonus && <span className="text-xs text-emas">⚡ cepat</span>}
               {h.is_flagged_guess && <span className="text-xs text-redup">terlalu cepat</span>}
-              {h.kena_strike > 0 ? (
+              {h.efek === 'waktu_habis' ? (
+                <span className="font-bold text-redup">⏰ Waktu habis · RR tetap</span>
+              ) : h.kena_strike > 0 ? (
                 <span className="font-bold text-emas">✗ ⚠️ Strike {h.kena_strike}</span>
               ) : (
                 <span className={h.rr_delta >= 0 ? 'font-bold text-lime' : 'font-bold text-bahaya'}>

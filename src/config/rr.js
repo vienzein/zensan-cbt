@@ -36,6 +36,11 @@ module.exports = Object.freeze({
   CALIBRATION_RR_CLEAN: 30,     // RR awal hasil kalibrasi (PRD)
   CALIBRATION_RR_WRONG: 10,     // RR awal jika ada salah di level yang ditetapkan (PRD)
 
+  // Waktu habis tanpa jawaban di Level 1-2 tidak mengurangi RR, asalkan durasinya benar-benar
+  // mendekati batas waktu soal (server memeriksa; tombol Lewati tidak termasuk).
+  TIMEOUT_MIN_RATIO: 0.95,
+  TIMEOUT_FREE_MAX_LEVEL: 2,
+
   // Aturan 4: Cooldown
   COOLDOWN_MINUTES: 10,
   CONSECUTIVE_WRONG_COOLDOWN: 5, // 5 salah beruntun dalam satu topik

@@ -52,10 +52,11 @@ function jawabDrill(pool, studentId, { attemptId, answer }) {
 
     await client.query(
       `UPDATE student_attempt_questions
-          SET dijawab_at = now(), jawaban_terkunci = $3::jsonb, durasi_terkunci = $4
+          SET dijawab_at = now(), jawaban_terkunci = $3::jsonb, durasi_terkunci = $4, waktu_habis = $5
         WHERE attempt_id = $1 AND question_id = $2`,
       [attemptId, answer.questionId,
-        answer.jawaban === null ? null : JSON.stringify(answer.jawaban), answer.durasi],
+        answer.jawaban === null ? null : JSON.stringify(answer.jawaban), answer.durasi,
+        answer.waktuHabis === true],
     );
 
     // Hitung umpan balik (simulasi tanpa menulis RR)

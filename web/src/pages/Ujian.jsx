@@ -90,7 +90,7 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
     return hasil;
   }
 
-  function lanjut(nilai) {
+  function lanjut(nilai, waktuHabis = false) {
     if (sudahMaju.current || mengirim) return;
     sudahMaju.current = true;
     const detik = Math.round(((performance.now() - mulai.current) / 1000) * 10) / 10;
@@ -98,6 +98,8 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
       question_id: q.question_id,
       jawaban_siswa: nilai === '' ? null : nilai,
       durasi_pengerjaan_detik: detik,
+      // waktu soal habis tanpa pilihan (server memverifikasi lagi)
+      ...(waktuHabis && nilai === '' ? { waktu_habis: true } : {}),
     };
     jawaban.current.push(entry);
     if (terakhir) {
@@ -120,7 +122,7 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
     const t = setInterval(() => {
       const habis = q.target_waktu_detik - (performance.now() - mulai.current) / 1000;
       setSisa(Math.max(0, Math.ceil(habis)));
-      if (habis <= 0) lanjut(pilihanRef.current ?? '');
+      if (habis <= 0) lanjut(pilihanRef.current ?? '', true);
     }, 250);
     return () => clearInterval(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -227,8 +229,10 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
 // Popup umpan balik per jawaban: hijau bila benar, merah bila salah.
 function Popup({ u }) {
   const ranked = u.efek !== 'tanpa_rr';
+  const waktuHabis = u.efek === 'waktu_habis';
   const rr = u.rr_delta > 0 ? `+${u.rr_delta} RR` : u.rr_delta < 0 ? `−${Math.abs(u.rr_delta)} RR` : 'RR tetap';
   const baris = [];
+  if (waktuHabis) baris.push('RR tidak berkurang');
   if (u.kena_strike === 1) baris.push('⚠️ Strike 1: RR tetap 0');
   if (u.kena_strike === 2) baris.push('⚠️ Strike 2: turun level');
   if (u.is_correct && u.is_speed_bonus) baris.push('⚡ Bonus kecepatan');
@@ -239,12 +243,12 @@ function Popup({ u }) {
     <div
       role="status"
       className={`fixed top-4 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 rounded-2xl px-4 py-3 shadow-lg ${
-        u.is_correct ? 'bg-lime text-bg' : 'bg-bahaya text-white'
+        waktuHabis ? 'bg-card-2 text-teks' : u.is_correct ? 'bg-lime text-bg' : 'bg-bahaya text-white'
       }`}
     >
       <p className="font-extrabold">
-        {u.is_correct ? 'Benar!' : 'Salah'}
-        {ranked && !u.kena_strike ? ` ${rr}` : ''}
+        {waktuHabis ? '⏰ Waktu habis' : u.is_correct ? 'Benar!' : 'Salah'}
+        {ranked && !u.kena_strike && !waktuHabis ? ` ${rr}` : ''}
       </p>
       {baris.map((b) => (
         <p key={b} className="text-xs font-semibold opacity-90">

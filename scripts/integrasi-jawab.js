@@ -203,6 +203,28 @@ async function main() {
       'tidak ada jeda');
   });
 
+  await cek('waktu habis Level 1: tidak mengurangi RR; tombol Lewati (tanpa waktu habis) tetap dihitung salah', async () => {
+    await pool.query('DELETE FROM student_mastery WHERE student_id = $1', [S.studentId]);
+    await pool.query('DELETE FROM student_topic_mastery WHERE student_id = $1', [S.studentId]);
+    const s4 = await mulai('drill_ranked');
+    await mundurkanWaktu(s4.attempt_id);
+    const kirim = (q, jawaban, durasi, waktuHabis) => jawabDrill(pool, S.studentId, {
+      attemptId: s4.attempt_id,
+      answer: { urutan: 1, questionId: q.question_id, jawaban, durasi, waktuHabis },
+    });
+    const a = await kirim(s4.soal[0], 'A', 40, false);         // benar, RR naik
+    assert.ok(a.rr_delta > 0);
+    const b = await kirim(s4.soal[1], null, 58, true);          // waktu habis (target 60 detik)
+    assert.equal(b.efek, 'waktu_habis');
+    assert.equal(b.rr_delta, 0);
+    const c = await kirim(s4.soal[2], null, 58, false);         // Lewati: bukan waktu habis
+    assert.equal(c.efek, 'diterapkan');
+    assert.ok(c.rr_delta < 0);
+    const d = await kirim(s4.soal[3], null, 20, true);          // klaim waktu habis tetapi terlalu cepat
+    assert.equal(d.efek, 'diterapkan');
+    assert.ok(d.rr_delta < 0);
+  });
+
   console.log(`\n${lulus} lulus, ${gagal} gagal`);
 }
 

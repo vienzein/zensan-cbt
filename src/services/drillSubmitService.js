@@ -182,7 +182,7 @@ async function buildScored(client, answers) {
 /** Jawaban yang sudah dikunci server pada sesi ini, urut waktu dijawab. */
 async function loadLockedAnswers(client, attemptId) {
   const { rows } = await client.query(
-    `SELECT question_id, jawaban_terkunci, durasi_terkunci
+    `SELECT question_id, jawaban_terkunci, durasi_terkunci, waktu_habis
        FROM student_attempt_questions
       WHERE attempt_id = $1 AND dijawab_at IS NOT NULL
       ORDER BY urutan`,
@@ -193,6 +193,7 @@ async function loadLockedAnswers(client, attemptId) {
     questionId: r.question_id,
     jawaban: r.jawaban_terkunci,
     durasi: Number(r.durasi_terkunci),
+    waktuHabis: r.waktu_habis,
   }));
 }
 

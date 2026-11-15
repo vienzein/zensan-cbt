@@ -267,3 +267,48 @@ test('urutan kacau (dua salah lebih dulu) memang memicu Strike 2 dan jeda: uruta
   const r = run(kacau, { rank_rating: 0, current_level: 1 });
   assert.equal(r.topicUpdates.some((t) => t.cooldownTriggered), true);
 });
+
+// --- Waktu habis tanpa jawaban di Level 1-2 ---
+const habis = (o = {}) => ans({ isCorrect: false, jawaban: null, waktuHabis: true, durasi: 98, ...o });
+
+test('waktu habis Level 1: tidak mengurangi RR, tidak ada Strike', () => {
+  const r = run([habis()], { rank_rating: 0, current_level: 1 });
+  assert.equal(r.results[0].efek, 'waktu_habis');
+  assert.equal(r.results[0].rrDelta, 0);
+  assert.equal(r.results[0].kenaStrike, 0);
+  assert.equal(r.subtopicUpdates.length, 0);
+  assert.equal(r.totalRrDelta, 0);
+});
+
+test('waktu habis tidak ikut menghitung salah beruntun (5 kali tidak memicu jeda)', () => {
+  const lima = [1, 2, 3, 4, 5].map((i) => habis({ urutan: i, questionId: String(i) }));
+  const r = run(lima, { rank_rating: 30, current_level: 1 });
+  assert.equal(r.topicUpdates.some((t) => t.cooldownTriggered), false);
+  assert.equal(r.subtopicUpdates.length, 0);
+});
+
+test('waktu habis tidak memutus hitungan salah beruntun milik jawaban salah sungguhan', () => {
+  const salah = (i) => ans({ urutan: i, questionId: String(i), isCorrect: false, jawaban: 'B', durasi: 80 });
+  const urut = [salah(1), salah(2), habis({ urutan: 3, questionId: '3' }), salah(4), salah(5), salah(6)];
+  const r = run(urut, { rank_rating: 50, current_level: 2 });
+  // 5 salah sungguhan (1,2,4,5,6) -> jeda; soal 3 netral
+  assert.equal(r.topicUpdates.some((t) => t.cooldownTriggered), true);
+});
+
+test('waktu habis di Level 3 tetap dihitung salah', () => {
+  const r = run([habis({ levelSoal: 3 })], { rank_rating: 40 });
+  assert.equal(r.results[0].efek, 'diterapkan');
+  assert.equal(r.results[0].rrDelta, -2);
+});
+
+test('klaim waktu habis dengan durasi pendek ditolak (dihitung salah)', () => {
+  const r = run([habis({ durasi: 30 })], { rank_rating: 40, current_level: 1 });
+  assert.equal(r.results[0].efek, 'diterapkan');
+  assert.equal(r.results[0].rrDelta, -2);
+});
+
+test('klaim waktu habis tetapi ada jawaban: dinilai biasa', () => {
+  const r = run([habis({ jawaban: 'B' })], { rank_rating: 40, current_level: 1 });
+  assert.equal(r.results[0].efek, 'diterapkan');
+  assert.equal(r.results[0].rrDelta, -2);
+});
