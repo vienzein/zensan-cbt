@@ -15,6 +15,7 @@ async function panggil(method, path, body) {
   const token = data.session?.access_token;
   const res = await fetch(`/api${path}`, {
     method,
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
