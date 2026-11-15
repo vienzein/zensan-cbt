@@ -227,3 +227,43 @@ test('demosi menurunkan hitungan, lalu naik lagi dalam sesi yang sama tetap kons
   assert.equal(r.subtopicUpdates[0].current_level, 1);
   assert.equal(r.subtopicUpdates[0].rank_rating, 70);
 });
+
+test('Strike 1 tidak mengurangi RR: rrDelta 0 dan ditandai kenaStrike 1', () => {
+  const r = run([ans({ isCorrect: false })], { rank_rating: 0 });
+  assert.equal(r.results[0].rrDelta, 0);
+  assert.equal(r.results[0].kenaStrike, 1);
+  assert.equal(r.totalRrDelta, 0);
+});
+
+test('salah biasa (RR di atas 0) tetap mengurangi RR dan tidak ditandai strike', () => {
+  const r = run([ans({ isCorrect: false })], { rank_rating: 30 });
+  assert.equal(r.results[0].rrDelta, -2);
+  assert.equal(r.results[0].kenaStrike, 0);
+});
+
+test('Strike 2 ditandai kenaStrike 2', () => {
+  const r = run(
+    [ans({ urutan: 1, isCorrect: false }), ans({ urutan: 2, questionId: '2', isCorrect: false })],
+    { rank_rating: 0 },
+  );
+  assert.equal(r.results[0].kenaStrike, 1);
+  assert.equal(r.results[1].kenaStrike, 2);
+});
+
+test('urutan jawaban menentukan hasil: salah-benar-benar-salah-salah tidak kena Strike 2 atau jeda', () => {
+  const urut = [false, true, true, false, false].map((ok, i) =>
+    ans({ urutan: i + 1, questionId: String(i + 1), isCorrect: ok, durasi: 80 }));
+  const r = run(urut, { rank_rating: 0, current_level: 1 });
+  assert.equal(r.topicUpdates.some((t) => t.cooldownTriggered), false);
+  assert.equal(r.results[0].kenaStrike, 1);
+  // Strike 1 (0) + 10 + 10 - 2 - 2 = 16: sama dengan perubahan RR yang sebenarnya
+  assert.equal(r.totalRrDelta, 16);
+  assert.equal(r.subtopicUpdates[0].rank_rating, 16);
+});
+
+test('urutan kacau (dua salah lebih dulu) memang memicu Strike 2 dan jeda: urutan harus dijaga di server', () => {
+  const kacau = [false, false, true, true, false].map((ok, i) =>
+    ans({ urutan: i + 1, questionId: String(i + 1), isCorrect: ok, durasi: 80 }));
+  const r = run(kacau, { rank_rating: 0, current_level: 1 });
+  assert.equal(r.topicUpdates.some((t) => t.cooldownTriggered), true);
+});
