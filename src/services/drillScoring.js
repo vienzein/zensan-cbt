@@ -110,11 +110,25 @@ function calculateSessionRR({ answers, subtopicState, topicState, topicCounts = 
       rrDelta: 0,
       isSpeedBonus,
       isFlaggedGuess,
-      efek: 'diterapkan', // 'diterapkan' | 'cooldown' | 'diabaikan'
+      efek: 'diterapkan', // 'diterapkan' | 'cooldown' | 'diabaikan' | 'waktu_habis'
     };
     results.push(res);
 
     const tid = a.topicId;
+
+    // Waktu habis tanpa jawaban di Level 1-2: tidak ada perubahan RR, tidak ada Strike, dan tidak
+    // memutus atau menambah hitungan salah beruntun. Hanya berlaku bila durasinya memang mendekati
+    // batas waktu soal (jadi tombol Lewati tidak bisa dipakai untuk menghindari pengurangan RR).
+    if (
+      a.waktuHabis === true && a.jawaban === null && a.levelSoal <= C.TIMEOUT_FREE_MAX_LEVEL &&
+      a.durasi >= a.targetWaktu * C.TIMEOUT_MIN_RATIO && !lockedTopics.has(tid)
+    ) {
+      res.efek = 'waktu_habis';
+      res.isSpeedBonus = false;
+      res.isFlaggedGuess = false;
+      res.kenaStrike = 0;
+      continue;
+    }
 
     // Topik terkunci cooldown: jawaban tetap dicatat, tetapi RR tidak berubah
     if (lockedTopics.has(tid)) {

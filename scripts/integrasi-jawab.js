@@ -162,6 +162,11 @@ async function main() {
     assert.equal(r.ringkasan.jumlah_benar, 4);
     assert.equal(r.ringkasan.jumlah_salah, 1);
     assert.equal(r.hasil[0].is_correct, true, 'jawaban terkunci soal 1 tidak bisa diganti');
+    // bahan tinjauan dikirim setelah sesi selesai
+    assert.equal(r.hasil[0].kunci_jawaban, 'A');
+    assert.match(r.hasil[0].soal_teks, /Soal uji jawab/);
+    assert.equal(r.hasil[0].jawaban_siswa, 'A', 'tinjauan memakai jawaban terkunci');
+    assert.equal(r.hasil[1].jawaban_siswa, 'B');
     // 12 (cepat) - 2 (salah) + 3 x 12 (benar cepat) = 46, sama dengan jumlah umpan balik per soal
     assert.equal(r.ringkasan.total_rr_delta, 46);
     assert.equal(r.mastery[0].rr_after, 46);
@@ -201,6 +206,28 @@ async function main() {
     assert.equal(r.mastery[0].rr_after, jumlahUmpan);
     assert.equal(r.topik.some((t) => t.cooldown_until && new Date(t.cooldown_until) > new Date()), false,
       'tidak ada jeda');
+  });
+
+  await cek('waktu habis Level 1: tidak mengurangi RR; tombol Lewati (tanpa waktu habis) tetap dihitung salah', async () => {
+    await pool.query('DELETE FROM student_mastery WHERE student_id = $1', [S.studentId]);
+    await pool.query('DELETE FROM student_topic_mastery WHERE student_id = $1', [S.studentId]);
+    const s4 = await mulai('drill_ranked');
+    await mundurkanWaktu(s4.attempt_id);
+    const kirim = (q, jawaban, durasi, waktuHabis) => jawabDrill(pool, S.studentId, {
+      attemptId: s4.attempt_id,
+      answer: { urutan: 1, questionId: q.question_id, jawaban, durasi, waktuHabis },
+    });
+    const a = await kirim(s4.soal[0], 'A', 40, false);         // benar, RR naik
+    assert.ok(a.rr_delta > 0);
+    const b = await kirim(s4.soal[1], null, 58, true);          // waktu habis (target 60 detik)
+    assert.equal(b.efek, 'waktu_habis');
+    assert.equal(b.rr_delta, 0);
+    const c = await kirim(s4.soal[2], null, 58, false);         // Lewati: bukan waktu habis
+    assert.equal(c.efek, 'diterapkan');
+    assert.ok(c.rr_delta < 0);
+    const d = await kirim(s4.soal[3], null, 20, true);          // klaim waktu habis tetapi terlalu cepat
+    assert.equal(d.efek, 'diterapkan');
+    assert.ok(d.rr_delta < 0);
   });
 
   console.log(`\n${lulus} lulus, ${gagal} gagal`);

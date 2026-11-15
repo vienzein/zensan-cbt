@@ -82,11 +82,14 @@ async function submitDrill(pool, studentId, { attemptId, answers }) {
       [attemptId, totalDurasiInt, jumlahBenar, jumlahSalah, calc.totalRrDelta],
     );
 
+    // Bahan tinjauan (kunci + pembahasan) baru dikirim SETELAH sesi selesai
+    const review = await loadReview(client, scored.map((a) => a.questionId));
+
     await client.query('COMMIT');
 
     return buildResponse({
       attemptId, mode: attempt.mode, scored, calc, topicRows,
-      jumlahBenar, jumlahSalah, totalDurasiInt,
+      jumlahBenar, jumlahSalah, totalDurasiInt, review,
     });
   } catch (err) {
     try {
@@ -182,7 +185,7 @@ async function buildScored(client, answers) {
 /** Jawaban yang sudah dikunci server pada sesi ini, urut waktu dijawab. */
 async function loadLockedAnswers(client, attemptId) {
   const { rows } = await client.query(
-    `SELECT question_id, jawaban_terkunci, durasi_terkunci
+    `SELECT question_id, jawaban_terkunci, durasi_terkunci, waktu_habis
        FROM student_attempt_questions
       WHERE attempt_id = $1 AND dijawab_at IS NOT NULL
       ORDER BY urutan`,
@@ -193,7 +196,18 @@ async function loadLockedAnswers(client, attemptId) {
     questionId: r.question_id,
     jawaban: r.jawaban_terkunci,
     durasi: Number(r.durasi_terkunci),
+    waktuHabis: r.waktu_habis,
   }));
+}
+
+/** Soal, kunci, dan pembahasan untuk layar tinjauan (hanya dipakai setelah sesi selesai). */
+async function loadReview(client, questionIds) {
+  const { rows } = await client.query(
+    `SELECT id, soal_teks, opsi_jawaban, kunci_jawaban, pembahasan, pembahasan_gambar_url
+       FROM questions WHERE id = ANY($1::bigint[])`,
+    [questionIds],
+  );
+  return new Map(rows.map((r) => [r.id, r]));
 }
 
 /** Tutup attempt: status selesai + ringkasan hasil. */
@@ -441,7 +455,9 @@ async function updateTopicMastery(client, studentId, updates) {
 // Response
 // ---------------------------------------------------------------------------
 
-function buildResponse({ attemptId, mode, scored, calc, topicRows, jumlahBenar, jumlahSalah, totalDurasiInt }) {
+function buildResponse({
+  attemptId, mode, scored, calc, topicRows, jumlahBenar, jumlahSalah, totalDurasiInt, review = new Map(),
+}) {
   const firstLog = new Map();
   for (const l of calc.logs) {
     if (l.subtopicId && !firstLog.has(l.subtopicId)) firstLog.set(l.subtopicId, l);
@@ -460,10 +476,17 @@ function buildResponse({ attemptId, mode, scored, calc, topicRows, jumlahBenar, 
     },
     hasil: calc.results.map((r) => {
       const a = scored.find((x) => x.urutan === r.urutan);
+      const tinjau = review.get(r.questionId) || {};
       return {
         urutan: r.urutan,
         question_id: r.questionId,
         is_correct: a.isCorrect,
+        soal_teks: tinjau.soal_teks ?? null,
+        opsi_jawaban: tinjau.opsi_jawaban ?? null,
+        jawaban_siswa: a.jawaban,
+        kunci_jawaban: tinjau.kunci_jawaban ?? null,
+        pembahasan: tinjau.pembahasan ?? null,
+        pembahasan_gambar_url: tinjau.pembahasan_gambar_url ?? null,
         rr_delta: r.rrDelta,
         is_speed_bonus: r.isSpeedBonus,
         is_flagged_guess: r.isFlaggedGuess,

@@ -81,6 +81,8 @@ function parseSubmitBody(body) {
       questionId: qidStr,
       jawaban: ans === INVALID ? null : ans,
       durasi: Math.round((typeof d === 'number' ? d : 0) * 100) / 100, // NUMERIC(8,2)
+      // true = layar menghabiskan waktu soal tanpa pilihan; server memverifikasi lagi
+      waktuHabis: Boolean(it && it.waktu_habis === true),
     };
   });
 
