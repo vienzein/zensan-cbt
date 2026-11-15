@@ -39,10 +39,16 @@ TUGAS (kerjakan berurutan)
 2. RANCANG VARIASI
    Untuk setiap pola, rancang variasi yang mengukur kemampuan yang sama tetapi tampil berbeda: ubah angka, konteks/cerita, urutan langkah, dan bentuk pertanyaan (mis. dari "hitung nilai" menjadi "pilih pernyataan yang benar"). Jangan menyalin kalimat atau angka dari bahan. Jangan membuat dua soal yang hanya beda angka kecil.
 
-3. TULIS SOAL sesuai definisi level di bawah, sebanyak jumlah di PARAMETER.
+3. TULIS SOAL sesuai definisi level di bawah, sebanyak jumlah di PARAMETER. Semua soal harus ORIGINAL (lihat ORIGINALITAS).
 
 4. VERIFIKASI MANDIRI (wajib)
    Setelah semua soal ditulis, kerjakan setiap soal dari nol seolah-olah kunci belum ada, lalu bandingkan dengan kunci yang kamu tulis. Pastikan: tepat satu opsi benar; setiap pengecoh mewakili kesalahan yang masuk akal (salah tanda, salah rumus, lupa satu langkah); tidak ada dua opsi bernilai sama; pembahasan konsisten dengan kunci. Ganti soal yang bermasalah sebelum mengeluarkan jawaban akhir.
+
+ORIGINALITAS (wajib)
+- Soal yang kamu buat harus karya baru, bukan salinan atau terjemahan soal dari bahan, dari soal UTBK/SNBT/CPNS resmi, buku, atau bimbel lain, juga bukan soal yang kamu hafal dari sumber mana pun.
+- Pertahankan hanya POLA PENALARAN (jenis kemampuan yang diukur). Konteks, tokoh, angka, struktur kalimat, urutan opsi, dan jebakan harus dirancang baru.
+- Bila sebuah soal terasa mirip dengan soal yang kamu kenal, buang dan buat ulang dengan rancangan lain.
+- Pembahasan ditulis dengan kalimatmu sendiri, bukan disalin dari bahan.
 
 DEFINISI LEVEL
 - Level 1 (dasar): satu konsep, satu atau dua langkah, bentuk soal paling langsung. Siswa pemula yang paham konsep dapat menjawab.
