@@ -162,6 +162,11 @@ async function main() {
     assert.equal(r.ringkasan.jumlah_benar, 4);
     assert.equal(r.ringkasan.jumlah_salah, 1);
     assert.equal(r.hasil[0].is_correct, true, 'jawaban terkunci soal 1 tidak bisa diganti');
+    // bahan tinjauan dikirim setelah sesi selesai
+    assert.equal(r.hasil[0].kunci_jawaban, 'A');
+    assert.match(r.hasil[0].soal_teks, /Soal uji jawab/);
+    assert.equal(r.hasil[0].jawaban_siswa, 'A', 'tinjauan memakai jawaban terkunci');
+    assert.equal(r.hasil[1].jawaban_siswa, 'B');
     // 12 (cepat) - 2 (salah) + 3 x 12 (benar cepat) = 46, sama dengan jumlah umpan balik per soal
     assert.equal(r.ringkasan.total_rr_delta, 46);
     assert.equal(r.mastery[0].rr_after, 46);

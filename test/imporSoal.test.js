@@ -37,6 +37,15 @@ test('baris valid: waktu bawaan mengikuti subtes dan level, poin bawaan 10', () 
   assert.deepEqual(soal[0].opsi.map((o) => o.kode), ['A', 'B', 'C', 'D']);
 });
 
+test('kolom pembahasan opsional dibaca bila ada', () => {
+  const t = `${HEADER},pembahasan,pembahasan_gambar_url\nSNBT,PM,A,S,1,q,a,b,,,,A,,,,"Karena x²=9, maka x=±3",https://x/y.png`;
+  const { soal, galat } = validasi(parseCsv(t));
+  assert.deepEqual(galat, []);
+  assert.equal(soal[0].pembahasan, 'Karena x²=9, maka x=±3');
+  assert.equal(soal[0].pembahasanGambarUrl, 'https://x/y.png');
+  assert.equal(validasi(parseCsv(csv(ok))).soal[0].pembahasan, null);
+});
+
 test('waktu_detik di file menimpa waktu bawaan', () => {
   const { soal } = validasi(parseCsv(csv('SNBT,PM,A,S,1,q,a,b,,,,A,40,,')));
   assert.equal(soal[0].waktu, 40);

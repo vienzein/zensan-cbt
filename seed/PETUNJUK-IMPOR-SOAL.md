@@ -23,6 +23,8 @@
 | `domain0` | tidak | `ya` bila soal ini bagian dari Ujian Kelayakan Dasar (prasyarat matematika). Kosong = tidak |
 | `butuh_domain0_topik` | tidak | Hanya berlaku bila topik baru dibuat: `ya` jika topik ini terkunci sampai lulus Domain 0. Kosong = ya untuk subtes PK dan PM, tidak untuk lainnya |
 | `gambar_url` | tidak | Alamat gambar soal |
+| `pembahasan` | tidak | Penjelasan jawaban. Tampil di layar hasil **setelah** sesi selesai |
+| `pembahasan_gambar_url` | tidak | Alamat gambar untuk pembahasan |
 
 ## Aturan ikatan subtopik (dijaga database)
 - **Level 1 dan 2:** terikat **tepat 1** subtopik.
@@ -44,4 +46,4 @@ Soal Level 1-2 harus benar-benar bisa diselesaikan siswa pemula dalam waktu itu.
 
 ## Catatan
 - Menjalankan ulang berkas yang sama aman: soal yang sama (topik + teks soal) dilewati.
-- Kolom pembahasan belum didukung pada tahap ini.
+- Pembahasan tidak pernah ditampilkan saat siswa masih mengerjakan; hanya di layar hasil.

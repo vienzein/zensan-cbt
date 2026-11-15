@@ -89,10 +89,12 @@ async function main() {
 
       const q = await c.query(
         `INSERT INTO questions (topic_id, level_soal, soal_teks, soal_gambar_url, opsi_jawaban, kunci_jawaban,
-                                target_waktu_detik, poin_reward, poin_penalty, is_domain0)
-         VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10) RETURNING id`,
+                                target_waktu_detik, poin_reward, poin_penalty, is_domain0,
+                                pembahasan, pembahasan_gambar_url)
+         VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11, $12) RETURNING id`,
         [topicId.id, s.level, s.teks, s.gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
-          s.waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), s.domain0],
+          s.waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), s.domain0,
+          s.pembahasan, s.pembahasanGambarUrl],
       );
       for (const sid of subIds) {
         await c.query('INSERT INTO question_subtopics (question_id, subtopic_id) VALUES ($1, $2)', [q.rows[0].id, sid]);

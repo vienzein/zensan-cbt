@@ -125,6 +125,8 @@ function validasi({ kolom, baris }) {
         // hanya dipakai bila topiknya baru dibuat; kosong = ikut aturan bawaan (matematika: ya)
         topikButuhDomain0: bdTopik ? ya(bdTopik) : null,
         gambarUrl: r.gambar_url || null,
+        pembahasan: r.pembahasan || null,
+        pembahasanGambarUrl: r.pembahasan_gambar_url || null,
       });
     }
   }
