@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Galat } from '../components/Dasar.jsx';
 
-const JUMLAH = [5, 10, 20, 30];
+const MAKS_SOAL = 10; // batas satu sesi drill
 
 function jam(iso) {
   return new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -12,7 +12,7 @@ function jam(iso) {
 export default function PilihDrill({ data, onMulai, onBatal }) {
   const [subtes, setSubtes] = useState(data.subtes[0]?.id ?? null);
   const [topik, setTopik] = useState([]);
-  const [jumlah, setJumlah] = useState(10);
+  const [jumlah, setJumlah] = useState(5);
   const [sibuk, setSibuk] = useState(false);
   const [galat, setGalat] = useState('');
 
@@ -101,19 +101,39 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
         })}
       </div>
 
-      <p className="mt-6 mb-2 text-sm font-bold">Jumlah soal</p>
-      <div className="grid grid-cols-4 gap-2">
-        {JUMLAH.map((n) => (
-          <button
-            key={n}
-            onClick={() => setJumlah(n)}
-            className={`rounded-2xl border py-3 font-bold ${
-              jumlah === n ? 'border-aksen bg-card-2 text-aksen' : 'border-line bg-card text-redup'
-            }`}
-          >
-            {n}
-          </button>
-        ))}
+      <div className="mt-6 flex items-center justify-between">
+        <p className="text-sm font-bold">Jumlah soal</p>
+        <span className="text-xs text-redup">maksimal {MAKS_SOAL} per sesi</span>
+      </div>
+      <div className="mt-3 flex items-center gap-4 rounded-2xl border border-line bg-card p-3">
+        <button
+          onClick={() => setJumlah((n) => Math.max(1, n - 1))}
+          disabled={jumlah <= 1}
+          aria-label="Kurangi"
+          className="h-11 w-11 shrink-0 rounded-xl bg-line text-xl font-bold disabled:opacity-30"
+        >
+          −
+        </button>
+        <div className="flex-1 text-center">
+          <p className="text-3xl font-extrabold tabular-nums text-aksen">{jumlah}</p>
+          <input
+            type="range"
+            min={1}
+            max={MAKS_SOAL}
+            value={jumlah}
+            onChange={(e) => setJumlah(Number(e.target.value))}
+            aria-label="Jumlah soal"
+            className="mt-1 w-full accent-[#5cc0d6]"
+          />
+        </div>
+        <button
+          onClick={() => setJumlah((n) => Math.min(MAKS_SOAL, n + 1))}
+          disabled={jumlah >= MAKS_SOAL}
+          aria-label="Tambah"
+          className="h-11 w-11 shrink-0 rounded-xl bg-line text-xl font-bold disabled:opacity-30"
+        >
+          +
+        </button>
       </div>
 
       {galat && (
