@@ -3,7 +3,8 @@
 /**
  * Impor bank soal dari dokumen Word (.docx). Bagian murni (tanpa database, tanpa paket tambahan):
  *   1. bacaDocx   : membuka .docx (arsip zip) dan mengambil teks tiap paragraf, termasuk
- *                   pangkat/indeks (x²), persamaan Word (pecahan, akar, dst.) dan daftar bernomor/berhuruf;
+ *                   pangkat/indeks (x²), persamaan Word (pecahan, akar, dst.), daftar bernomor/berhuruf,
+ *                   dan gambar tertanam (isi file gambarnya diambil dari word/media);
  *   2. parseSoalWord : membaca pola label ("Soal:", "A.", "Kunci:", ...) menjadi baris yang sama
  *                   bentuknya dengan hasil parseCsv, sehingga diperiksa oleh validasi() yang sama.
  *
@@ -17,6 +18,7 @@ const zlib = require('node:zlib');
 // ---------------------------------------------------------------------------------------------
 
 function bacaZip(buf, perlu) {
+  const mau = typeof perlu === 'function' ? perlu : (nama) => perlu.includes(nama);
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 22 - 65535); i -= 1) {
     if (buf.readUInt32LE(i) === 0x06054b50) { eocd = i; break; }
@@ -36,7 +38,7 @@ function bacaZip(buf, perlu) {
     const lokal = buf.readUInt32LE(p + 42);
     const nama = buf.toString('utf8', p + 46, p + 46 + nLen);
     p += 46 + nLen + eLen + cLen;
-    if (!perlu.includes(nama)) continue;
+    if (!mau(nama)) continue;
 
     const lnLen = buf.readUInt16LE(lokal + 26);
     const leLen = buf.readUInt16LE(lokal + 28);
@@ -95,7 +97,6 @@ function parseXml(xml) {
 const anak = (n, tag) => (n ? n.anak.find((c) => c.tag === tag) : undefined);
 const semua = (n, tag) => (n ? n.anak.filter((c) => c.tag === tag) : []);
 const ambilTeks = (n) => n.anak.filter((c) => c.tag === '#teks').map((c) => c.teks).join('');
-const punyaTag = (n, tag) => n.tag === tag || (n.anak || []).some((c) => punyaTag(c, tag));
 
 // ---------------------------------------------------------------------------------------------
 // 1c. Pangkat / indeks -> karakter Unicode bila bisa, kalau tidak ^(...) atau _(...)
@@ -188,6 +189,23 @@ function math(n) {
 // 1e. Paragraf Word -> teks
 // ---------------------------------------------------------------------------------------------
 
+// Format gambar yang bisa ditampilkan semua browser. EMF/WMF (gambar bawaan Windows, juga hasil MathType)
+// tidak bisa; ditolak dengan pesan khusus.
+const TIPE_GAMBAR = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp' };
+const MAKS_GAMBAR = 2 * 1024 * 1024; // galat bila lebih besar
+const PERINGATKAN_GAMBAR = 500 * 1024; // peringatan bila lebih besar
+
+function kumpulkanRid(n, hasil) {
+  if (n.tag === 'a:blip') {
+    const id = n.attrs['r:embed'] || n.attrs['r:link'];
+    if (id) hasil.add(id);
+  } else if (n.tag === 'v:imagedata') {
+    const id = n.attrs['r:id'] || n.attrs['r:href'];
+    if (id) hasil.add(id);
+  }
+  (n.anak || []).forEach((c) => kumpulkanRid(c, hasil));
+}
+
 const KONTAINER_TEKS = new Set([
   'w:ins', 'w:moveTo', 'w:hyperlink', 'w:smartTag', 'w:sdt', 'w:sdtContent', 'w:fldSimple', 'w:customXml',
 ]);
@@ -202,8 +220,13 @@ function teksRun(r, ctx) {
       case 'w:tab': s += ' '; break;
       case 'w:br': case 'w:cr': s += '\n'; break;
       case 'w:noBreakHyphen': s += '-'; break;
-      case 'w:drawing': case 'w:pict': case 'w:object': ctx.gambar = true; break;
-      case 'mc:AlternateContent': if (punyaTag(c, 'w:drawing') || punyaTag(c, 'w:pict')) ctx.gambar = true; break;
+      case 'w:drawing': case 'w:pict': case 'w:object': kumpulkanRid(c, ctx.rid); break;
+      case 'mc:AlternateContent': {
+        // Word menyimpan gambar dua kali (Choice dan Fallback); ambil salah satunya saja.
+        const pilih = anak(c, 'mc:Choice') || anak(c, 'mc:Fallback');
+        if (pilih) kumpulkanRid(pilih, ctx.rid);
+        break;
+      }
       default: break;
     }
   }
@@ -251,23 +274,47 @@ function petaPenomoran(xml) {
   };
 }
 
+/** Peta id relasi -> jalur berkas gambar di dalam arsip (mis. rId5 -> word/media/image1.png). */
+function petaRelasi(xml) {
+  const peta = {};
+  const cari = (n) => {
+    if (n.tag === 'Relationship' && n.attrs.Id && n.attrs.Target && n.attrs.TargetMode !== 'External') {
+      const t = n.attrs.Target.replace(/^\//, '');
+      const jalur = t.startsWith('word/') ? t : `word/${t}`;
+      if (jalur.startsWith('word/media/')) peta[n.attrs.Id] = jalur;
+    }
+    (n.anak || []).forEach(cari);
+  };
+  cari(xml);
+  return peta;
+}
+
 /**
- * Membuka .docx dan mengembalikan daftar paragraf berurutan:
- *   { teks, gambar: ada gambar?, daftar: null | { jenis: 'huruf'|'angka'|'butir', kunci } }
+ * Membuka .docx. Mengembalikan:
+ *   paragraf: daftar berurutan { teks, gambar: [jalur berkas gambar], daftar: null | { jenis, kunci } }
+ *   media   : Map jalur -> Buffer isi file gambar
  */
-function bacaDocx(buf) {
-  const berkas = bacaZip(buf, ['word/document.xml', 'word/numbering.xml']);
+function bacaDocxLengkap(buf) {
+  const berkas = bacaZip(buf, (nama) => nama === 'word/document.xml' || nama === 'word/numbering.xml'
+    || nama === 'word/_rels/document.xml.rels' || nama.startsWith('word/media/'));
   if (!berkas['word/document.xml']) throw new Error('Isi dokumen Word tidak ditemukan (word/document.xml).');
   const dokumen = parseXml(berkas['word/document.xml'].toString('utf8'));
   const formatNomor = berkas['word/numbering.xml']
     ? petaPenomoran(parseXml(berkas['word/numbering.xml'].toString('utf8')))
     : () => null;
 
-  const paragraf = [];
-  kumpulkanParagraf(dokumen, paragraf);
-  return paragraf.map((p) => {
-    const ctx = { gambar: false };
+  const relasi = berkas['word/_rels/document.xml.rels']
+    ? petaRelasi(parseXml(berkas['word/_rels/document.xml.rels'].toString('utf8')))
+    : {};
+  const media = new Map(Object.entries(berkas).filter(([nama]) => nama.startsWith('word/media/')));
+
+  const paragrafXml = [];
+  kumpulkanParagraf(dokumen, paragrafXml);
+  const paragraf = paragrafXml.map((p) => {
+    const ctx = { rid: new Set() };
     const teks = p.anak.map((c) => teksNode(c, ctx)).join('');
+    // id yang tidak ada di daftar relasi (mis. gambar dari alamat luar) ditandai "?id" agar dilaporkan
+    const gambar = [...ctx.rid].map((id) => relasi[id] || `?${id}`);
 
     let daftar = null;
     const np = anak(anak(p, 'w:pPr'), 'w:numPr');
@@ -282,8 +329,14 @@ function bacaDocx(buf) {
         daftar = { jenis, kunci: `${numId}:${ilvl}` };
       }
     }
-    return { teks, gambar: ctx.gambar, daftar };
+    return { teks, gambar, daftar };
   });
+  return { paragraf, media };
+}
+
+/** Hanya paragrafnya (tanpa isi file gambar). */
+function bacaDocx(buf) {
+  return bacaDocxLengkap(buf).paragraf;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -351,7 +404,8 @@ function parseSoalWord(paragraf) {
   let nomor = 0;
 
   const bersih = () => ({
-    nilai: {}, aktif: null, opsiN: 0, hitung: {}, catatan: [], adaLabel: false, galat: [], gambar: false,
+    nilai: {}, aktif: null, opsiN: 0, hitung: {}, catatan: [], adaLabel: false, galat: [],
+    gambarSoal: [], gambarPembahasan: [],
   });
   let blok = bersih();
 
@@ -390,16 +444,44 @@ function parseSoalWord(paragraf) {
     baris.push(baru);
     WARISAN.forEach((k) => { if (n[k]) terakhir[k] = n[k]; });
 
-    blok.galat.forEach((pesan) => galat.push({ baris: nomor, pesan }));
-    if (blok.gambar) {
-      peringatan.push(`Soal ke-${nomor}: ada gambar di dokumen, tetapi gambar tidak ikut terbaca. Unggah gambarnya terpisah dan isi baris "Gambar:" dengan alamatnya.`);
+    // Gambar tertanam: satu untuk soal, satu untuk pembahasan. Alamat yang diketik (Gambar:) didahulukan.
+    baru._gambarSoal = blok.gambarSoal[0] ?? null;
+    baru._gambarPembahasan = blok.gambarPembahasan[0] ?? null;
+    if (blok.gambarSoal.length > 1) {
+      peringatan.push(`Soal ke-${nomor}: ada ${blok.gambarSoal.length} gambar di soal, hanya yang pertama dipakai (satu soal menampung satu gambar).`);
     }
+    if (blok.gambarPembahasan.length > 1) {
+      peringatan.push(`Soal ke-${nomor}: ada ${blok.gambarPembahasan.length} gambar di pembahasan, hanya yang pertama dipakai.`);
+    }
+    if (baru.gambar_url && baru._gambarSoal) {
+      peringatan.push(`Soal ke-${nomor}: ada alamat "Gambar:" sekaligus gambar tertanam; yang dipakai alamatnya.`);
+    }
+    if (baru.pembahasan_gambar_url && baru._gambarPembahasan) {
+      peringatan.push(`Soal ke-${nomor}: ada alamat "Pembahasan gambar:" sekaligus gambar tertanam; yang dipakai alamatnya.`);
+    }
+
+    // Penanda dari prompt AI yang belum diselesaikan jangan sampai tersimpan sebagai teks soal.
+    const sisa = Object.values(n).join('\n').match(/\[(?:PERLU GAMBAR|TIDAK TERBACA)[^\]]*\]/i);
+    if (sisa) blok.galat.push(`masih ada penanda yang belum diselesaikan: ${ringkas(sisa[0], 60)}`);
+
+    blok.galat.forEach((pesan) => galat.push({ baris: nomor, pesan }));
     blok = bersih();
   };
 
   for (const p of paragraf) {
     const teks = p.teks.replace(/\u00a0/g, ' ').trim();
-    if (p.gambar) blok.gambar = true;
+    const gambarP = Array.isArray(p.gambar) ? p.gambar : [];
+    if (gambarP.length) {
+      const a = blok.aktif;
+      const no = nomor + 1;
+      if (a === 'pembahasan' || a === 'pembahasan_gambar_url') blok.gambarPembahasan.push(...gambarP);
+      else if (a === 'soal' || a === 'gambar_url') blok.gambarSoal.push(...gambarP);
+      else if (a && a.startsWith('opsi_')) {
+        peringatan.push(`Soal ke-${no}: gambar di bawah opsi ${a.slice(5).toUpperCase()} diabaikan (gambar di opsi belum didukung). Letakkan gambar tepat setelah teks Soal, atau di bawah baris "Gambar:".`);
+      } else {
+        peringatan.push(`Soal ke-${no}: gambar di bawah label "${a || 'kosong'}" diabaikan. Letakkan gambar setelah Soal, Pembahasan, atau di bawah baris "Gambar:" / "Pembahasan gambar:".`);
+      }
+    }
     if (!teks) continue;
 
     if (POLA_PEMISAH.test(teks)) { tutupBlok(); continue; }
@@ -442,9 +524,43 @@ function parseSoalWord(paragraf) {
   return { kolom: KOLOM_CSV, baris, galat, peringatan };
 }
 
-/** Pembungkus: buffer .docx -> { kolom, baris, galat, peringatan } siap diberikan ke validasi(). */
+/** Memeriksa gambar tertanam: ada isinya, format bisa tampil di browser, ukuran wajar. */
+function periksaGambar({ baris, galat, peringatan }, media) {
+  const cek = (nomor, nama, bagian) => {
+    if (!nama) return;
+    const salah = (pesan) => galat.push({ baris: nomor, pesan });
+    if (nama.startsWith('?') || !media.has(nama)) {
+      salah(`gambar di ${bagian} tidak ditemukan di dalam dokumen (gambar dari alamat luar tidak didukung; tempel gambarnya langsung)`);
+      return;
+    }
+    const ekstensi = nama.split('.').pop().toLowerCase();
+    if (ekstensi === 'emf' || ekstensi === 'wmf') {
+      salah(`gambar di ${bagian} berformat ${ekstensi.toUpperCase()} yang tidak bisa tampil di browser (biasanya persamaan MathType atau gambar bawaan Windows). Tempel ulang sebagai PNG (Tempel Spesial > Gambar (PNG)), atau pakai Persamaan bawaan Word`);
+      return;
+    }
+    if (!TIPE_GAMBAR[ekstensi]) {
+      salah(`gambar di ${bagian} berformat .${ekstensi}, yang didukung hanya PNG, JPG, GIF, WEBP`);
+      return;
+    }
+    const ukuran = media.get(nama).length;
+    if (ukuran > MAKS_GAMBAR) {
+      salah(`gambar di ${bagian} terlalu besar (${(ukuran / 1048576).toFixed(1)} MB, batas ${MAKS_GAMBAR / 1048576} MB). Perkecil atau kompres dulu`);
+    } else if (ukuran > PERINGATKAN_GAMBAR) {
+      peringatan.push(`Soal ke-${nomor}: gambar di ${bagian} cukup besar (${Math.round(ukuran / 1024)} KB) dan akan lambat dimuat di ponsel siswa. Sebaiknya dikompres.`);
+    }
+  };
+  baris.forEach((r) => {
+    if (!r.gambar_url) cek(r._nomor, r._gambarSoal, 'soal');
+    if (!r.pembahasan_gambar_url) cek(r._nomor, r._gambarPembahasan, 'pembahasan');
+  });
+}
+
+/** Pembungkus: buffer .docx -> { kolom, baris, galat, peringatan, media } siap diberikan ke validasi(). */
 function docxKeBaris(buf) {
-  return parseSoalWord(bacaDocx(buf));
+  const { paragraf, media } = bacaDocxLengkap(buf);
+  const hasil = parseSoalWord(paragraf);
+  periksaGambar(hasil, media);
+  return { ...hasil, media };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -460,4 +576,6 @@ function keCsv(kolom, baris) {
   return `\ufeff${isi.join('\r\n')}\r\n`;
 }
 
-module.exports = { bacaDocx, parseSoalWord, docxKeBaris, keCsv, KOLOM_CSV, bacaZip, parseXml };
+module.exports = {
+  bacaDocx, bacaDocxLengkap, parseSoalWord, docxKeBaris, keCsv, KOLOM_CSV, TIPE_GAMBAR, bacaZip, parseXml,
+};

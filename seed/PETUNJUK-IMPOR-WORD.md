@@ -50,16 +50,42 @@ Pembahasan: Faktorkan menjadi (x−3)(x−4) = 0, akarnya 3 dan 4, jumlahnya 7.
 | Pangkat dan indeks (format atas/bawah) | `x²`, `H₂O`. Bila tidak bisa jadi karakter Unicode, ditulis `^(...)` atau `_(...)` |
 | Persamaan Word (Sisipkan, Persamaan) | Pecahan jadi `a/b`, akar jadi `√x`, pangkat jadi `x²`. Persamaan rumit (matriks, integral bertingkat) hanya didekati, jadi periksa hasil di langkah 3 |
 | Daftar berhuruf otomatis (A. B. C. buatan Word) | Dibaca sebagai opsi A, B, C. Daftar bernomor di dalam soal dipertahankan sebagai `1. ...` |
-| Tabel | Teks di dalam sel dibaca berurutan, tetapi kolom tidak dipertahankan. Untuk soal bertabel, jelaskan dalam kalimat atau pakai gambar |
+| Gambar yang ditempel | Diunggah otomatis ke Supabase Storage saat `--tulis`. Lihat bagian "Gambar" di bawah |
+| Tabel | Teks di dalam sel dibaca berurutan, tetapi kolom tidak dipertahankan. Untuk soal bertabel, jelaskan dalam kalimat atau jadikan gambar |
 
 | Tidak ikut | Penanganannya |
 |---|---|
-| Gambar, bagan, kotak teks | Peringatan muncul. Unggah gambar terpisah, isi `Gambar:` dengan alamatnya |
+| Bagan SmartArt, kotak teks, gambar di dalam opsi | Diabaikan dengan peringatan |
 | Riwayat perubahan (track changes) | Teks yang dihapus diabaikan, teks yang disisipkan dibaca. **Terima atau tolak perubahan dulu** supaya jelas |
 
 Format lama `.doc` tidak didukung. Simpan sebagai `.docx`.
 
-## Prompt untuk AI (isi bagian dalam kurung)
+## Gambar
+
+**Pengaturan sekali saja** (tanpa ini, dokumen bergambar tidak bisa disimpan):
+
+1. Supabase > **Storage** > **New bucket**. Nama `soal`, centang **Public bucket**, lalu Create.
+2. Supabase > **Project Settings > API Keys** > salin **Secret key** (diawali `sb_secret_`).
+3. Di file `.env` di folder proyek, tambahkan dua baris (tanpa tanda kutip):
+   ```
+   SUPABASE_SECRET_KEY=sb_secret_...isi_kunci_anda...
+   SUPABASE_BUCKET_SOAL=soal
+   ```
+   Kunci ini melewati semua aturan keamanan database. **Jangan** ditempel di chat, jangan di-commit, jangan dimasukkan ke `web/.env`. Cukup ada di komputer atau server tempat Anda menjalankan impor.
+
+**Memakai:**
+
+- Tempel gambar langsung di Word, **tepat setelah teks `Soal:`** (sebelum opsi A) untuk gambar soal, atau **setelah teks `Pembahasan:`** untuk gambar pembahasan.
+- Kalau gambar terlanjur ada di tempat lain (misalnya sesudah opsi), tulis satu baris `Gambar:` (atau `Pembahasan gambar:`) lalu tempel gambarnya di bawah baris itu. Gambar di bawah opsi A-E diabaikan dengan peringatan.
+- Simulasi (`npm run impor:soal -- berkas.docx`) memeriksa kunci dan bucket, lalu menyebut berapa gambar yang akan diunggah. Pengunggahan terjadi saat `--tulis`. Gambar yang sama persis hanya terunggah sekali, jadi aman dijalankan ulang.
+- Satu soal menampung **satu** gambar soal dan **satu** gambar pembahasan. Kalau ada lebih dari satu, yang pertama dipakai dan muncul peringatan. Gambar yang butuh beberapa panel sebaiknya digabung jadi satu gambar sebelum ditempel.
+- Format: PNG, JPG, GIF, WEBP. Batas 2 MB per gambar (galat bila lebih), dan peringatan mulai 500 KB karena lambat di ponsel siswa. Di Word: klik gambar > Format Gambar > **Kompres Gambar**, atau potong (crop) bagian yang perlu saja.
+- **Persamaan MathType atau gambar bawaan Windows (EMF/WMF) ditolak** dengan pesan jelas, karena browser tidak bisa menampilkannya. Pakai Persamaan bawaan Word (Sisipkan > Persamaan), atau tempel ulang sebagai PNG (Tempel Spesial > Gambar (PNG)).
+- Gambar dari alamat luar (tertaut, bukan tertanam) tidak didukung; tempel gambarnya langsung. Alamat gambar yang diketik di baris `Gambar:` tetap boleh dan didahulukan.
+
+## Prompt untuk AI
+
+Prompt lengkap (bahan dilampirkan, AI menganalisis lalu membuat soal variasi) ada di `seed/PROMPT-AI-BUAT-SOAL.md`. Versi pendek di bawah cukup untuk soal sederhana (isi bagian dalam kurung):
 
 > Buatkan **15 soal pilihan ganda** tipe UTBK-SNBT untuk subtes **(PM)**, topik **(Aljabar dan Fungsi)**, subtopik **(Persamaan kuadrat)**, **level (2)** dari skala 1 (dasar) sampai 4 (sangat sulit). Soal harus orisinal dan bukan salinan soal resmi.
 >

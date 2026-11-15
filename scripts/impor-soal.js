@@ -17,6 +17,7 @@ const fs = require('node:fs');
 const pool = require('../src/db');
 const { parseCsv, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
+const { dariEnv } = require('../src/services/penyimpananGambar');
 
 const [, , berkas, ...flag] = process.argv;
 const tulis = flag.includes('--tulis');
@@ -33,6 +34,7 @@ async function main() {
   const dariWord = /\.docx$/i.test(berkas);
   let terbaca;
   let galatBaca = [];
+  let media = new Map();
   const cuplikan = new Map();
   if (dariWord) {
     let w;
@@ -40,6 +42,7 @@ async function main() {
     w.peringatan.forEach((p) => console.warn(`  perhatian: ${p}`));
     w.baris.forEach((r) => cuplikan.set(r._nomor, r._cuplikan));
     galatBaca = w.galat;
+    media = w.media;
     terbaca = { kolom: w.kolom, baris: w.baris };
   } else {
     terbaca = parseCsv(fs.readFileSync(berkas, 'utf8'));
@@ -57,6 +60,36 @@ async function main() {
     keluar(1);
   }
   if (!soal.length) keluar(1, 'Tidak ada soal di berkas.');
+
+  // Gambar tertanam di Word diunggah ke Supabase Storage saat --tulis. Periksa pengaturannya SEBELUM menyentuh database.
+  const perluGambar = soal.some((s) => s.gambarBerkas || s.pembahasanGambarBerkas);
+  let simpanGambar = null;
+  if (perluGambar) {
+    const { penyimpanan, kurang } = dariEnv();
+    let masalahGambar = null;
+    if (!penyimpanan) {
+      masalahGambar = `Dokumen berisi gambar, tetapi pengaturan penyimpanan di .env belum lengkap: ${kurang.join(', ')}. Lihat seed/PETUNJUK-IMPOR-WORD.md bagian "Gambar".`;
+    } else {
+      try {
+        const cek = await penyimpanan.periksa();
+        if (cek.ok) simpanGambar = penyimpanan; else masalahGambar = cek.pesan;
+      } catch (e) { masalahGambar = e.message; }
+    }
+    if (masalahGambar) {
+      if (tulis) keluar(1, `${masalahGambar}\n\nBelum ada yang disimpan.`);
+      console.warn(`  perhatian: ${masalahGambar}\n             (Simulasi tetap jalan, tetapi --tulis akan berhenti sebelum menyimpan apa pun.)`);
+    }
+  }
+  const cacheGambar = new Map(); // nama berkas di dokumen -> alamat publik
+  const gambarSiap = new Set();
+  const alamatGambar = async (nama) => {
+    gambarSiap.add(nama);
+    if (!tulis) return null;
+    if (!cacheGambar.has(nama)) {
+      cacheGambar.set(nama, await simpanGambar.unggah(media.get(nama), nama.split('.').pop()));
+    }
+    return cacheGambar.get(nama);
+  };
 
   const c = await pool.connect();
   const masalah = [];
@@ -109,14 +142,16 @@ async function main() {
       const sudah = await c.query('SELECT 1 FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
       if (sudah.rows.length) { stat.ada += 1; continue; }
 
+      const gambarUrl = s.gambarBerkas ? await alamatGambar(s.gambarBerkas) : s.gambarUrl;
+      const pembahasanGambarUrl = s.pembahasanGambarBerkas ? await alamatGambar(s.pembahasanGambarBerkas) : s.pembahasanGambarUrl;
       const q = await c.query(
         `INSERT INTO questions (topic_id, level_soal, soal_teks, soal_gambar_url, opsi_jawaban, kunci_jawaban,
                                 target_waktu_detik, poin_reward, poin_penalty, is_domain0,
                                 pembahasan, pembahasan_gambar_url)
          VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11, $12) RETURNING id`,
-        [topicId.id, s.level, s.teks, s.gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
+        [topicId.id, s.level, s.teks, gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
           s.waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), s.domain0,
-          s.pembahasan, s.pembahasanGambarUrl],
+          s.pembahasan, pembahasanGambarUrl],
       );
       for (const sid of subIds) {
         await c.query('INSERT INTO question_subtopics (question_id, subtopic_id) VALUES ($1, $2)', [q.rows[0].id, sid]);
@@ -142,7 +177,7 @@ async function main() {
     }
   } catch (e) {
     try { await c.query('ROLLBACK'); } catch { /* sudah ditutup */ }
-    keluar(1, `Dibatalkan, tidak ada yang disimpan. Penyebab dari database:\n  ${e.message}`);
+    keluar(1, `Dibatalkan, tidak ada yang disimpan. Penyebab:\n  ${e.message}`);
   } finally {
     c.release();
   }
@@ -153,6 +188,11 @@ async function main() {
   if (stat.kembar) console.log(`  kembar di berkas     : ${stat.kembar}`);
   console.log(`  topik baru           : ${stat.topikBaru}`);
   console.log(`  subtopik baru        : ${stat.subBaru}`);
+  if (gambarSiap.size) {
+    console.log(tulis
+      ? `  gambar diunggah      : ${gambarSiap.size}`
+      : `  gambar (diunggah saat --tulis): ${gambarSiap.size}`);
+  }
   if (stat.domain0TakTerpakai) {
     console.log(`  PERHATIAN: ${stat.domain0TakTerpakai} soal bertanda domain0 berada di topik yang tidak butuh Domain 0, jadi tidak akan dipakai.`);
   }

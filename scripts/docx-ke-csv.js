@@ -31,6 +31,10 @@ fs.writeFileSync(tujuan, keCsv(w.kolom, w.baris));
 console.log(`Terbaca ${w.baris.length} soal -> ${tujuan}`);
 
 w.peringatan.forEach((p) => console.warn(`  perhatian: ${p}`));
+const bergambar = w.baris.filter((r) => r._gambarSoal || r._gambarPembahasan).length;
+if (bergambar) {
+  console.log(`  ${bergambar} soal memiliki gambar tertanam. Kolom gambar_url di CSV ini kosong; gambar baru diunggah saat impor dengan --tulis.`);
+}
 
 const { galat } = validasi({ kolom: w.kolom, baris: w.baris });
 const semuaGalat = [...w.galat, ...galat];

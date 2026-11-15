@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const zlib = require('node:zlib');
 const { parseCsv, validasi } = require('../src/services/imporSoal');
-const { parseSoalWord, bacaDocx, docxKeBaris, keCsv, KOLOM_CSV } = require('../src/services/imporWord');
+const { parseSoalWord, bacaDocx, bacaDocxLengkap, docxKeBaris, keCsv, KOLOM_CSV } = require('../src/services/imporWord');
 
 // ---- pembantu: membuat .docx kecil di memori --------------------------------------------------
 
@@ -52,7 +52,7 @@ function buatZip(berkas, simpanSaja = false) {
   return Buffer.concat([...lokal, dir, akhir]);
 }
 
-const NS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"';
+const NS = 'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"';
 const dokumen = (isi) => `<?xml version="1.0" encoding="UTF-8"?><w:document ${NS}><w:body>${isi}</w:body></w:document>`;
 const para = (isi, ppr = '') => `<w:p>${ppr ? `<w:pPr>${ppr}</w:pPr>` : ''}${isi}</w:p>`;
 const run = (t, rpr = '') => `<w:r>${rpr ? `<w:rPr>${rpr}</w:rPr>` : ''}<w:t xml:space="preserve">${t}</w:t></w:r>`;
@@ -168,6 +168,16 @@ test('nilai dirapikan: "Level 3", "L3", kunci "(c)", waktu "60 detik"', () => {
   assert.deepEqual(validasi({ kolom: r.kolom, baris: r.baris }).galat, []);
 });
 
+test('penanda AI yang belum diselesaikan ([PERLU GAMBAR], [TIDAK TERBACA]) ditolak', () => {
+  const r = parseSoalWord(P(
+    'Tes: SNBT', 'Subtes: PM', 'Topik: T', 'Subtopik: S', 'Level: 1',
+    'Soal: Perhatikan grafik. [PERLU GAMBAR: parabola membuka ke atas]', 'A. a', 'B. b', 'Kunci: A',
+    'Pembahasan: ok [TIDAK TERBACA]',
+  ));
+  assert.match(r.galat[0].pesan, /penanda/);
+  assert.equal(r.galat[0].baris, 1);
+});
+
 test('daftar berhuruf otomatis Word menjadi opsi A-E, tanpa menggeser nomor antar soal', () => {
   const huruf = { jenis: 'huruf', kunci: '1:0' };
   const p = (teks, daftar = null) => ({ teks, gambar: false, daftar });
@@ -191,15 +201,51 @@ test('daftar bernomor di dalam soal dipertahankan sebagai teks "1. ..."', () => 
   assert.equal(r.baris[0].soal, 'Perhatikan pernyataan berikut:\n1. Semua A adalah B\n2. Sebagian B adalah C');
 });
 
-test('gambar di dokumen menghasilkan peringatan', () => {
+test('gambar tertanam: setelah Soal -> gambar soal, setelah Pembahasan -> gambar pembahasan', () => {
+  const g = (...nama) => nama;
+  const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
   const r = parseSoalWord([
-    { teks: 'Tes: SNBT', gambar: false, daftar: null }, { teks: 'Subtes: PU', gambar: false, daftar: null },
-    { teks: 'Topik: T', gambar: false, daftar: null }, { teks: 'Subtopik: S', gambar: false, daftar: null },
-    { teks: 'Level: 1', gambar: false, daftar: null }, { teks: 'Soal: lihat gambar', gambar: true, daftar: null },
-    { teks: 'A. a', gambar: false, daftar: null }, { teks: 'B. b', gambar: false, daftar: null },
-    { teks: 'Kunci: A', gambar: false, daftar: null },
+    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Soal: lihat grafik'), p('', g('word/media/image1.png')),
+    p('A. a'), p('B. b'), p('Kunci: A'),
+    p('Pembahasan: lihat'), p('', g('word/media/image2.jpg')),
   ]);
-  assert.match(r.peringatan[0], /gambar/);
+  assert.deepEqual(r.galat, []);
+  assert.equal(r.baris[0]._gambarSoal, 'word/media/image1.png');
+  assert.equal(r.baris[0]._gambarPembahasan, 'word/media/image2.jpg');
+  const v = validasi({ kolom: r.kolom, baris: r.baris });
+  assert.equal(v.soal[0].gambarBerkas, 'word/media/image1.png');
+  assert.equal(v.soal[0].pembahasanGambarBerkas, 'word/media/image2.jpg');
+});
+
+test('gambar di bawah label "Gambar:" dipakai walau diletakkan setelah opsi; alamat ketikan didahulukan', () => {
+  const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
+  const r = parseSoalWord([
+    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Soal: s'), p('A. a'), p('B. b'), p('Gambar:'), p('', ['word/media/image1.png']), p('Kunci: A'),
+    p('---'),
+    p('Soal: s2'), p('A. a'), p('B. b'), p('Gambar: https://x/y.png'), p('', ['word/media/image2.png']), p('Kunci: A'),
+  ]);
+  assert.equal(r.baris[0]._gambarSoal, 'word/media/image1.png');
+  assert.equal(r.baris[0].opsi_b, 'b');
+  const v = validasi({ kolom: r.kolom, baris: r.baris });
+  assert.equal(v.soal[0].gambarBerkas, 'word/media/image1.png');
+  assert.equal(v.soal[1].gambarUrl, 'https://x/y.png');
+  assert.equal(v.soal[1].gambarBerkas, null);
+  assert.ok(r.peringatan.some((x) => /yang dipakai alamatnya/.test(x)));
+});
+
+test('gambar di bawah opsi atau label lain diabaikan dengan peringatan; lebih dari satu gambar: pakai yang pertama', () => {
+  const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
+  const r = parseSoalWord([
+    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Soal: s'), p('', ['word/media/a.png', 'word/media/b.png']),
+    p('A. a'), p('', ['word/media/c.png']), p('B. b'), p('Kunci: A'), p('', ['word/media/d.png']),
+  ]);
+  assert.equal(r.baris[0]._gambarSoal, 'word/media/a.png');
+  assert.equal(r.peringatan.filter((x) => /hanya yang pertama/.test(x)).length, 1);
+  assert.ok(r.peringatan.some((x) => /opsi A/.test(x)));
+  assert.ok(r.peringatan.some((x) => /label "kunci"/.test(x)));
 });
 
 // ---- bacaDocx: .docx sungguhan (zip + XML) ----------------------------------------------------
@@ -242,9 +288,55 @@ test('bacaDocx: jenis daftar dibaca dari numbering.xml (huruf / angka / butir)',
   assert.deepEqual(ps.map((p) => p.daftar && p.daftar.jenis), ['huruf', 'angka', 'butir', null]);
 });
 
-test('bacaDocx: gambar terdeteksi; berkas yang bukan docx ditolak dengan pesan jelas', () => {
-  const xml = dokumen(para('<w:r><w:drawing/></w:r>'));
-  assert.equal(bacaDocx(buatZip({ 'word/document.xml': xml }))[0].gambar, true);
+const GAMBAR_XML = (id) => `<w:r><w:drawing><wp:inline><a:graphic><a:graphicData><pic:pic><pic:blipFill><a:blip r:embed="${id}"/></pic:blipFill></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>`;
+const RELASI = (peta) => `<?xml version="1.0"?><Relationships>${Object.entries(peta).map(([id, t]) => `<Relationship Id="${id}" Type="x/image" Target="${t}"/>`).join('')}<Relationship Id="rIdLuar" Type="x/image" Target="https://contoh.com/a.png" TargetMode="External"/></Relationships>`;
+
+test('bacaDocxLengkap: gambar dipetakan lewat relasi ke isi file di word/media; Choice/Fallback tidak dobel', () => {
+  const xml = dokumen([
+    para(GAMBAR_XML('rId5')),
+    para(`<w:r><mc:AlternateContent><mc:Choice>${GAMBAR_XML('rId6')}</mc:Choice><mc:Fallback><w:pict><v:imagedata r:id="rId7"/></w:pict></mc:Fallback></mc:AlternateContent></w:r>`),
+    para(GAMBAR_XML('rIdLuar')),
+    para(`<w:r><w:object><v:imagedata r:id="rId8"/></w:object></w:r>`),
+    teksSaja('tanpa gambar'),
+  ].join(''));
+  const { paragraf, media } = bacaDocxLengkap(buatZip({
+    'word/document.xml': xml,
+    'word/_rels/document.xml.rels': RELASI({ rId5: 'media/image1.png', rId6: 'media/image2.jpg', rId7: 'media/image3.png', rId8: 'media/image4.emf' }),
+    'word/media/image1.png': 'AAA', 'word/media/image2.jpg': 'BBBB', 'word/media/image4.emf': 'E',
+  }));
+  assert.deepEqual(paragraf.map((p) => p.gambar), [
+    ['word/media/image1.png'], ['word/media/image2.jpg'], ['?rIdLuar'], ['word/media/image4.emf'], [],
+  ]);
+  assert.equal(media.get('word/media/image2.jpg').toString(), 'BBBB');
+  assert.equal(media.size, 3);
+});
+
+test('docxKeBaris memeriksa gambar: emf, format tak dikenal, terlalu besar, hilang, ukuran peringatan', () => {
+  const kepala = ['Tes: SNBT', 'Subtes: PM', 'Topik: T', 'Subtopik: S', 'Level: 1'].map(teksSaja).join('');
+  const soalDenganGambar = (id, no) => `${teksSaja(`Soal: s${no}`)}${para(GAMBAR_XML(id))}${teksSaja('A. a')}${teksSaja('B. b')}${teksSaja('Kunci: A')}${teksSaja('---')}`;
+  const xml = dokumen(kepala + [
+    soalDenganGambar('r1', 1), soalDenganGambar('r2', 2), soalDenganGambar('r3', 3),
+    soalDenganGambar('r4', 4), soalDenganGambar('rIdLuar', 5), soalDenganGambar('r6', 6),
+  ].join(''));
+  const besar = Buffer.alloc(2 * 1024 * 1024 + 1);
+  const sedang = Buffer.alloc(600 * 1024);
+  const w = docxKeBaris(buatZip({
+    'word/document.xml': xml,
+    'word/_rels/document.xml.rels': RELASI({ r1: 'media/a.emf', r2: 'media/b.bmp', r3: 'media/c.png', r4: 'media/d.png', r6: 'media/e.png' }),
+    'word/media/a.emf': 'x', 'word/media/b.bmp': 'x', 'word/media/c.png': besar, 'word/media/d.png': 'kecil', 'word/media/e.png': sedang,
+  }));
+  const pesan = (no) => w.galat.filter((g) => g.baris === no).map((g) => g.pesan).join(' | ');
+  assert.match(pesan(1), /EMF/);
+  assert.match(pesan(2), /\.bmp/);
+  assert.match(pesan(3), /terlalu besar/);
+  assert.equal(pesan(4), '');
+  assert.match(pesan(5), /tidak ditemukan/);
+  assert.equal(pesan(6), '');
+  assert.ok(w.peringatan.some((x) => /Soal ke-6.*dikompres/.test(x)));
+  assert.equal(w.media.size, 5);
+});
+
+test('bacaDocx: berkas yang bukan docx ditolak dengan pesan jelas', () => {
   assert.throws(() => bacaDocx(Buffer.from('ini bukan zip sama sekali, hanya teks biasa')), /bukan dokumen Word/);
   assert.throws(() => bacaDocx(buatZip({ 'lain.txt': 'x' })), /word\/document\.xml/);
 });

@@ -127,6 +127,9 @@ function validasi({ kolom, baris }) {
         gambarUrl: r.gambar_url || null,
         pembahasan: r.pembahasan || null,
         pembahasanGambarUrl: r.pembahasan_gambar_url || null,
+        // hanya dari impor Word: nama berkas gambar tertanam (diunggah saat --tulis); alamat yang diketik didahulukan
+        gambarBerkas: r.gambar_url ? null : (r._gambarSoal || null),
+        pembahasanGambarBerkas: r.pembahasan_gambar_url ? null : (r._gambarPembahasan || null),
       });
     }
   }
