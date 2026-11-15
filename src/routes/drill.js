@@ -7,6 +7,8 @@ const { parseSubmitBody } = require('../validators/drillSubmit');
 const { submitDrill } = require('../services/drillSubmitService');
 const { parseStartBody } = require('../validators/drillStart');
 const { startDrill } = require('../services/drillStartService');
+const { parseAnswerBody } = require('../validators/drillAnswer');
+const { jawabDrill } = require('../services/drillAnswerService');
 
 const router = express.Router();
 
@@ -19,6 +21,18 @@ router.post('/start', async (req, res, next) => {
     const payload = parseStartBody(req.body);
     const result = await startDrill(pool, studentId, payload);
     res.status(201).json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** POST /api/drill/jawab — kunci satu jawaban dan kembalikan umpan balik RR langsung. */
+router.post('/jawab', async (req, res, next) => {
+  try {
+    const studentId = req.user && req.user.id;
+    if (!studentId) throw new HttpError(401, 'UNAUTHORIZED', 'Harus login');
+
+    res.status(200).json(await jawabDrill(pool, studentId, parseAnswerBody(req.body)));
   } catch (err) {
     next(err);
   }

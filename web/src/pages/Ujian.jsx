@@ -16,6 +16,8 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
   const [sisa, setSisa] = useState(soal[0].target_waktu_detik);
   const [mengirim, setMengirim] = useState(false);
   const [galat, setGalat] = useState('');
+  const [umpan, setUmpan] = useState(null); // umpan balik RR terakhir (popup)
+  const timerUmpan = useRef(null);
 
   const jawaban = useRef([]); // { question_id, jawaban_siswa, durasi_pengerjaan_detik }
   const mulai = useRef(performance.now());
@@ -60,17 +62,49 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
     }
   }
 
+  // Popup umpan balik RR, hilang sendiri.
+  function tampilkanUmpan(u) {
+    setUmpan(u);
+    clearTimeout(timerUmpan.current);
+    timerUmpan.current = setTimeout(() => setUmpan(null), 1800);
+  }
+  useEffect(() => () => clearTimeout(timerUmpan.current), []);
+
+  // Kunci jawaban di server dan ambil umpan balik. Gagal (mis. jaringan) tidak menghentikan sesi:
+  // submit akhir tetap membawa semua jawaban.
+  async function kunci(entry) {
+    if (mode !== 'drill') return null;
+    try {
+      const u = await api.jawabDrill({ attempt_id: attemptId, ...entry });
+      tampilkanUmpan(u);
+      return u;
+    } catch {
+      return null;
+    }
+  }
+
   function lanjut(nilai) {
     if (sudahMaju.current || mengirim) return;
     sudahMaju.current = true;
     const detik = Math.round(((performance.now() - mulai.current) / 1000) * 10) / 10;
-    jawaban.current.push({
+    const entry = {
       question_id: q.question_id,
       jawaban_siswa: nilai === '' ? null : nilai,
       durasi_pengerjaan_detik: detik,
-    });
-    if (terakhir) kirim();
-    else setIdx(idx + 1);
+    };
+    jawaban.current.push(entry);
+    if (terakhir) {
+      setMengirim(true);
+      (async () => {
+        // Soal terakhir: tunggu jawaban terkunci dulu, beri waktu popup terbaca, baru kirim.
+        const u = await kunci(entry);
+        if (u) await new Promise((r) => setTimeout(r, 1200));
+        kirim();
+      })();
+    } else {
+      setIdx(idx + 1);
+      kunci(entry);
+    }
   }
 
   // Hitung mundur; saat habis, soal dihitung terjawab sesuai pilihan saat itu (atau kosong).
@@ -91,6 +125,8 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
 
   return (
     <Layar>
+      {umpan && <Popup u={umpan} />}
+
       <header className="flex items-center justify-between">
         <button onClick={() => window.confirm('Keluar dari sesi? Jawaban yang belum dikirim hilang.') && onKeluar()} className="text-sm text-redup">
           ✕ Keluar
@@ -178,5 +214,34 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
         </button>
       </footer>
     </Layar>
+  );
+}
+
+// Popup umpan balik per jawaban: hijau bila benar, merah bila salah.
+function Popup({ u }) {
+  const ranked = u.efek !== 'tanpa_rr';
+  const rr = u.rr_delta > 0 ? `+${u.rr_delta} RR` : u.rr_delta < 0 ? `−${Math.abs(u.rr_delta)} RR` : 'RR tetap';
+  const baris = [];
+  if (u.is_correct && u.is_speed_bonus) baris.push('⚡ Bonus kecepatan');
+  if (u.is_correct && u.streak_benar >= 3) baris.push(`🔥 Streak ${u.streak_benar}`);
+  if (u.is_flagged_guess) baris.push('Terlalu cepat, dianggap tebakan');
+  if (u.efek === 'cooldown') baris.push('⏳ Topik sedang dijeda');
+  return (
+    <div
+      role="status"
+      className={`fixed top-4 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-sm -translate-x-1/2 rounded-2xl px-4 py-3 shadow-lg ${
+        u.is_correct ? 'bg-lime text-bg' : 'bg-bahaya text-white'
+      }`}
+    >
+      <p className="font-extrabold">
+        {u.is_correct ? 'Benar!' : 'Salah'}
+        {ranked ? ` ${rr}` : ''}
+      </p>
+      {baris.map((b) => (
+        <p key={b} className="text-xs font-semibold opacity-90">
+          {b}
+        </p>
+      ))}
+    </div>
   );
 }

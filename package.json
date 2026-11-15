@@ -9,7 +9,8 @@
   "test:integrasi": "node --env-file=.env scripts/integrasi.js",
   "test:level": "node --env-file=.env scripts/integrasi-level.js",
   "test:kalibrasi": "node --env-file=.env scripts/integrasi-kalibrasi.js",
-  "test:baca": "node --env-file=.env scripts/integrasi-baca.js"
+  "test:baca": "node --env-file=.env scripts/integrasi-baca.js",
+  "test:jawab": "node --env-file=.env scripts/integrasi-jawab.js"
 },
   "repository": {
     "type": "git",

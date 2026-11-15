@@ -123,6 +123,14 @@ async function prepareSubmission(client, studentId, { attemptId, answers }, allo
   if (!allowedModes.includes(attempt.mode)) {
     throw new HttpError(422, 'MODE_TIDAK_DIDUKUNG', `Mode '${attempt.mode}' tidak diproses endpoint ini`);
   }
+  // 1a. Jawaban yang sudah dikunci lewat /api/drill/jawab menang atas isi body; yang terkunci tetapi
+  //     tidak dikirim ulang tetap dihitung (tidak bisa disembunyikan). Urutan = urutan dijawab.
+  const locked = await loadLockedAnswers(client, attemptId);
+  if (locked.length) {
+    const lockedIds = new Set(locked.map((l) => l.questionId));
+    answers = [...locked, ...answers.filter((a) => !lockedIds.has(a.questionId))]
+      .map((a, i) => ({ ...a, urutan: i + 1 }));
+  }
   if (answers.length > attempt.jumlah_soal) {
     throw new HttpError(422, 'JUMLAH_JAWABAN_MELEBIHI_SOAL',
       `Jawaban (${answers.length}) melebihi jumlah_soal sesi (${attempt.jumlah_soal})`);
@@ -143,8 +151,15 @@ async function prepareSubmission(client, studentId, { attemptId, answers }, allo
   }
 
   // 3. Data soal dari DB (sumber kebenaran: kunci, level, target waktu, poin)
+  const scored = await buildScored(client, answers);
+
+  return { attempt, scored, totalDurasi };
+}
+
+/** Gabungkan jawaban dengan data soal dari DB lalu nilai benar/salahnya. */
+async function buildScored(client, answers) {
   const questions = await loadQuestions(client, answers.map((a) => a.questionId));
-  const scored = answers.map((a) => {
+  return answers.map((a) => {
     const q = questions.byId.get(a.questionId);
     if (!q) throw new HttpError(422, 'SOAL_TIDAK_DITEMUKAN', `Soal ${a.questionId} tidak ditemukan`);
     return {
@@ -157,8 +172,23 @@ async function prepareSubmission(client, studentId, { attemptId, answers }, allo
       subtopicIds: questions.subtopicsByQuestion.get(a.questionId) || [],
     };
   });
+}
 
-  return { attempt, scored, totalDurasi };
+/** Jawaban yang sudah dikunci server pada sesi ini, urut waktu dijawab. */
+async function loadLockedAnswers(client, attemptId) {
+  const { rows } = await client.query(
+    `SELECT question_id, jawaban_terkunci, durasi_terkunci
+       FROM student_attempt_questions
+      WHERE attempt_id = $1 AND dijawab_at IS NOT NULL
+      ORDER BY dijawab_at, urutan`,
+    [attemptId],
+  );
+  return rows.map((r, i) => ({
+    urutan: i + 1,
+    questionId: r.question_id,
+    jawaban: r.jawaban_terkunci,
+    durasi: Number(r.durasi_terkunci),
+  }));
 }
 
 /** Tutup attempt: status selesai + ringkasan hasil. */
@@ -461,6 +491,10 @@ function buildResponse({ attemptId, mode, scored, calc, topicRows, jumlahBenar, 
 
 module.exports = {
   submitDrill,
+  buildScored,
+  loadLockedAnswers,
+  lockAttempt,
+  lockMasteryState,
   prepareSubmission,
   finishAttempt,
   insertAnswerHistory,
