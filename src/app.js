@@ -12,6 +12,13 @@ const kurikulumRouter = require('./routes/kurikulum');
 const app = express();
 app.use(express.json({ limit: '100kb' }));
 
+// Data API selalu segar: jangan di-cache browser dan jangan dijawab 304 tanpa isi.
+app.set('etag', false);
+app.use('/api', (req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
 // Semua endpoint /api wajib login (token Supabase); middleware mengisi req.user.id
 app.use('/api', createAuth({ pool }));
 

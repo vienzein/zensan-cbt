@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+/* Warna dari logo Zensan: teal, lime, charcoal. Mode gelap adalah tampilan utama. */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --color-bg: #0e1b21;
+  --color-card: #15262e;
+  --color-card-2: #1f4452;
+  --color-line: #24404d;
+  --color-teal: #1d6a7e;
+  --color-aksen: #5cc0d6;
+  --color-lime: #8cc63f;
+  --color-teks: #e8f1f4;
+  --color-redup: #8fa7b0;
+  --color-bahaya: #ef6a6a;
+  --color-emas: #f0b840;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-teks);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}

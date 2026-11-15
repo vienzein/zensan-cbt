@@ -3,7 +3,9 @@
 const { HttpError } = require('../errors');
 
 const ID_RE = /^[1-9]\d{0,17}$/;
-const JUMLAH_SOAL = [5, 10, 20, 30];
+// Satu sesi drill: bebas 1 sampai 10 soal (batas sementara, bisa dinaikkan nanti).
+const MIN_SOAL = 1;
+const MAX_SOAL = 10;
 const MODES = ['drill_ranked', 'drill_free'];
 const MAX_IDS = 50;
 
@@ -30,7 +32,7 @@ function parseIdList(raw, name, errors) {
  *   "mode": "drill_ranked",            // opsional, default drill_ranked
  *   "topic_ids": [12, 13],             // salah satu / keduanya wajib ada
  *   "subtopic_ids": [40],
- *   "jumlah_soal": 10                  // 5 | 10 | 20 | 30
+ *   "jumlah_soal": 10                  // bilangan bulat 1-10
  * }
  */
 function parseStartBody(body) {
@@ -45,8 +47,8 @@ function parseStartBody(body) {
   const mode = body.mode === undefined ? 'drill_ranked' : body.mode;
   if (!MODES.includes(mode)) errors.push(`mode harus salah satu dari: ${MODES.join(', ')}`);
 
-  if (!JUMLAH_SOAL.includes(body.jumlah_soal)) {
-    errors.push(`jumlah_soal harus salah satu dari: ${JUMLAH_SOAL.join(', ')}`);
+  if (!Number.isInteger(body.jumlah_soal) || body.jumlah_soal < MIN_SOAL || body.jumlah_soal > MAX_SOAL) {
+    errors.push(`jumlah_soal harus bilangan bulat ${MIN_SOAL}-${MAX_SOAL}`);
   }
 
   const topicIds = parseIdList(body.topic_ids, 'topic_ids', errors);
