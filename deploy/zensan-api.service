@@ -1,0 +1,21 @@
+# Layanan systemd untuk API Zensan. Salin ke /etc/systemd/system/zensan-api.service
+[Unit]
+Description=Zensan CBT API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=zensan
+WorkingDirectory=/home/zensan/zensan-cbt
+ExecStart=/usr/bin/node --env-file=/home/zensan/zensan-cbt/.env src/app.js
+Restart=always
+RestartSec=3
+# Hanya terdengar dari dalam server; Nginx yang membuka ke internet
+Environment=NODE_ENV=production
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
