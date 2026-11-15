@@ -80,7 +80,7 @@ export default function Hasil({ mode, hasil, onKembali }) {
             <span>Soal {h.urutan}</span>
             <span className="flex items-center gap-3">
               {h.is_speed_bonus && <span className="text-xs text-emas">⚡ cepat</span>}
-              {h.is_flagged_guess && <span className="text-xs text-redup">tebakan</span>}
+              {h.is_flagged_guess && <span className="text-xs text-redup">terlalu cepat</span>}
               {h.kena_strike > 0 ? (
                 <span className="font-bold text-emas">✗ ⚠️ Strike {h.kena_strike}</span>
               ) : (

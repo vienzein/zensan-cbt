@@ -233,7 +233,7 @@ function Popup({ u }) {
   if (u.kena_strike === 2) baris.push('⚠️ Strike 2: turun level');
   if (u.is_correct && u.is_speed_bonus) baris.push('⚡ Bonus kecepatan');
   if (u.is_correct && u.streak_benar >= 3) baris.push(`🔥 Streak ${u.streak_benar}`);
-  if (u.is_flagged_guess) baris.push('Terlalu cepat, dianggap tebakan');
+  if (u.is_flagged_guess) baris.push('Terlalu cepat: tanpa bonus kecepatan');
   if (u.efek === 'cooldown') baris.push('⏳ Topik sedang dijeda');
   return (
     <div
