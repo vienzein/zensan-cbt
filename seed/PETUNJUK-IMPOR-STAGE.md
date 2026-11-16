@@ -90,3 +90,13 @@ Pakai Prompt A di `PROMPT-AI-BUAT-SOAL.md` dengan perubahan ini pada bagian PARA
 2. Selama soal stage belum cukup, biarkan `DOMAIN0_MODE` kosong (gerbang memakai Domain 0 lama).
 3. Cek `npm run laporan:stage`; bila stage D0-01 sampai D0-05 sudah berstatus OK, tambahkan `DOMAIN0_MODE=stage` di `.env` server lalu mulai ulang server.
 4. Dalam mode stage, gerbang PK/PM terbuka setelah semua stage D0-01 sampai D0-05 lulus.
+
+## Impor soal stage dari JSON
+
+Berkas `seed/soal-d0-01-05.json` (420 soal, stage D0-01 sampai D0-05) bisa diimpor langsung:
+
+1. `npm run impor:soal -- seed/soal-d0-01-05.json` (simulasi; tes bawaan SNBT, ganti dengan `--tes=KODE`)
+2. Bila bersih: `npm run impor:soal -- seed/soal-d0-01-05.json --tulis`
+3. `npm run laporan:stage -- --topik=D0-01` (ulangi untuk D0-02 sampai D0-05)
+
+Level dan waktu tiap soal otomatis mengikuti stage-nya. Soal yang sama dilewati, jadi aman dijalankan ulang.

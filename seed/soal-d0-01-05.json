@@ -1,0 +1,7567 @@
+{
+ "soalPerStage": 10,
+ "cakupan": "D0-01 sampai D0-05",
+ "jumlahSoal": 420,
+ "soal": [
+  {
+   "id": "D0-01-01.S1.1",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "48 + 37 = ....",
+   "opsi": {
+    "A": "83",
+    "B": "95",
+    "C": "85",
+    "D": "75"
+   },
+   "kunci": "C",
+   "pembahasan": "Satuan 8+7=15, tulis 5 simpan 1; puluhan 4+3+1=8. Hasil 85.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.2",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "356 + 289 = ....",
+   "opsi": {
+    "A": "645",
+    "B": "635",
+    "C": "655",
+    "D": "545"
+   },
+   "kunci": "A",
+   "pembahasan": "Jumlahkan dari satuan dengan menyimpan: 356+289=645.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.3",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "703 − 458 = ....",
+   "opsi": {
+    "A": "255",
+    "B": "355",
+    "C": "345",
+    "D": "245"
+   },
+   "kunci": "D",
+   "pembahasan": "703−458=245 (pinjam dari ratusan).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.4",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "95 + 45 = ....",
+   "opsi": {
+    "A": "140",
+    "B": "30",
+    "C": "150",
+    "D": "240"
+   },
+   "kunci": "A",
+   "pembahasan": "95 + 45 = 140.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.5",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "839 − 645 = ....",
+   "opsi": {
+    "A": "194",
+    "B": "214",
+    "C": "294",
+    "D": "184"
+   },
+   "kunci": "A",
+   "pembahasan": "839 − 645 = 194 (perhatikan peminjaman).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.6",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "859 + 367 = ....",
+   "opsi": {
+    "A": "1.126",
+    "B": "1.226",
+    "C": "116",
+    "D": "1.236"
+   },
+   "kunci": "B",
+   "pembahasan": "859 + 367 = 1.226.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.7",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "598 − 212 = ....",
+   "opsi": {
+    "A": "386",
+    "B": "286",
+    "C": "396",
+    "D": "376"
+   },
+   "kunci": "A",
+   "pembahasan": "598 − 212 = 386 (perhatikan peminjaman).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.8",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "346 + 633 = ....",
+   "opsi": {
+    "A": "1.079",
+    "B": "989",
+    "C": "979",
+    "D": "879"
+   },
+   "kunci": "C",
+   "pembahasan": "346 + 633 = 979.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.9",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "716 − 236 = ....",
+   "opsi": {
+    "A": "470",
+    "B": "490",
+    "C": "380",
+    "D": "480"
+   },
+   "kunci": "D",
+   "pembahasan": "716 − 236 = 480 (perhatikan peminjaman).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S1.10",
+   "kodeStage": "D0-01-01.S1",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "366 + 263 = ....",
+   "opsi": {
+    "A": "729",
+    "B": "529",
+    "C": "639",
+    "D": "629"
+   },
+   "kunci": "D",
+   "pembahasan": "366 + 263 = 629.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.1",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "−17 + 9 = ....",
+   "opsi": {
+    "A": "26",
+    "B": "8",
+    "C": "−26",
+    "D": "−8"
+   },
+   "kunci": "D",
+   "pembahasan": "Tanda berbeda: 17−9=8, ikut tanda bilangan yang lebih besar nilai mutlaknya, yaitu negatif.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.2",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "25 − 48 = ....",
+   "opsi": {
+    "A": "−23",
+    "B": "−73",
+    "C": "73",
+    "D": "23"
+   },
+   "kunci": "A",
+   "pembahasan": "25−48 = −(48−25) = −23.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.3",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "−36 − 19 = ....",
+   "opsi": {
+    "A": "−55",
+    "B": "−17",
+    "C": "17",
+    "D": "55"
+   },
+   "kunci": "A",
+   "pembahasan": "Sama-sama negatif: −36−19 = −(36+19) = −55.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.4",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "20 + 54 = ....",
+   "opsi": {
+    "A": "74",
+    "B": "−74",
+    "C": "84",
+    "D": "34"
+   },
+   "kunci": "A",
+   "pembahasan": "Perhatikan tanda: 20 + 54 = 74.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.5",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "50 − 33 = ....",
+   "opsi": {
+    "A": "−17",
+    "B": "27",
+    "C": "83",
+    "D": "17"
+   },
+   "kunci": "D",
+   "pembahasan": "Perhatikan tanda: 50 − 33 = 17.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.6",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "−21 − 46 = ....",
+   "opsi": {
+    "A": "67",
+    "B": "−67",
+    "C": "−57",
+    "D": "25"
+   },
+   "kunci": "B",
+   "pembahasan": "Perhatikan tanda: −21 − 46 = −67.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.7",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "56 − (−53) = ....",
+   "opsi": {
+    "A": "−109",
+    "B": "109",
+    "C": "3",
+    "D": "119"
+   },
+   "kunci": "B",
+   "pembahasan": "Perhatikan tanda: 56 − (−53) = 109.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.8",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "−49 − (−22) = ....",
+   "opsi": {
+    "A": "27",
+    "B": "−27",
+    "C": "−17",
+    "D": "71"
+   },
+   "kunci": "B",
+   "pembahasan": "Perhatikan tanda: −49 − (−22) = −27.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.9",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "−35 + 29 = ....",
+   "opsi": {
+    "A": "4",
+    "B": "6",
+    "C": "64",
+    "D": "−6"
+   },
+   "kunci": "D",
+   "pembahasan": "Perhatikan tanda: −35 + 29 = −6.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S2.10",
+   "kodeStage": "D0-01-01.S2",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "−50 + 38 = ....",
+   "opsi": {
+    "A": "88",
+    "B": "12",
+    "C": "−12",
+    "D": "−2"
+   },
+   "kunci": "C",
+   "pembahasan": "Perhatikan tanda: −50 + 38 = −12.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-01-01.S3.1",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "(−8) × 7 = ....",
+   "opsi": {
+    "A": "−63",
+    "B": "56",
+    "C": "−48",
+    "D": "−56"
+   },
+   "kunci": "D",
+   "pembahasan": "Negatif × positif = negatif; 8×7=56.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.2",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "(−72) ÷ (−9) = ....",
+   "opsi": {
+    "A": "9",
+    "B": "8",
+    "C": "−8",
+    "D": "−9"
+   },
+   "kunci": "B",
+   "pembahasan": "Negatif ÷ negatif = positif; 72÷9=8.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.3",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "12 × (−5) ÷ 3 = ....",
+   "opsi": {
+    "A": "20",
+    "B": "−15",
+    "C": "−20",
+    "D": "−180"
+   },
+   "kunci": "C",
+   "pembahasan": "12×(−5) = −60; −60÷3 = −20.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.4",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "(−13) × 9 = ....",
+   "opsi": {
+    "A": "−112",
+    "B": "−130",
+    "C": "−117",
+    "D": "−107"
+   },
+   "kunci": "C",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−13) × 9 = −117.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.5",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "(−12) × 7 = ....",
+   "opsi": {
+    "A": "−72",
+    "B": "−74",
+    "C": "−84",
+    "D": "−79"
+   },
+   "kunci": "C",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−12) × 7 = −84.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.6",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(−8) × (−5) = ....",
+   "opsi": {
+    "A": "32",
+    "B": "4",
+    "C": "48",
+    "D": "40"
+   },
+   "kunci": "D",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−8) × (−5) = 40.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.7",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "(−7) × (−9) = ....",
+   "opsi": {
+    "A": "68",
+    "B": "63",
+    "C": "73",
+    "D": "−63"
+   },
+   "kunci": "B",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−7) × (−9) = 63.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.8",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "(−90) ÷ 9 = ....",
+   "opsi": {
+    "A": "−10",
+    "B": "−11",
+    "C": "−100",
+    "D": "10"
+   },
+   "kunci": "A",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−90) ÷ 9 = −10.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.9",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "(−28) ÷ (−4) = ....",
+   "opsi": {
+    "A": "−7",
+    "B": "8",
+    "C": "7",
+    "D": "6"
+   },
+   "kunci": "C",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: (−28) ÷ (−4) = 7.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-01.S3.10",
+   "kodeStage": "D0-01-01.S3",
+   "kodeIndikator": "D0-01-01",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "5 × (−7) ÷ 7 = ....",
+   "opsi": {
+    "A": "−6",
+    "B": "−50",
+    "C": "−5",
+    "D": "5"
+   },
+   "kunci": "C",
+   "pembahasan": "Hitung nilai mutlaknya, lalu tentukan tanda: 5 × (−7) ÷ 7 = −5.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.1",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "18 + 6 × 3 = ....",
+   "opsi": {
+    "A": "45",
+    "B": "36",
+    "C": "33",
+    "D": "72"
+   },
+   "kunci": "B",
+   "pembahasan": "Kali dahulu: 6×3=18; 18+18=36.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.2",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "40 − 24 ÷ 4 + 2 = ....",
+   "opsi": {
+    "A": "12",
+    "B": "6",
+    "C": "38",
+    "D": "36"
+   },
+   "kunci": "D",
+   "pembahasan": "Bagi dahulu: 24÷4=6; 40−6+2=36.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.3",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "5 × 8 − 36 ÷ 9 = ....",
+   "opsi": {
+    "A": "44",
+    "B": "36",
+    "C": "4",
+    "D": "32"
+   },
+   "kunci": "B",
+   "pembahasan": "5×8=40; 36÷9=4; 40−4=36.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.4",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "5 + 9 × 4 = ....",
+   "opsi": {
+    "A": "40",
+    "B": "56",
+    "C": "31",
+    "D": "41"
+   },
+   "kunci": "D",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 5 + 9 × 4 = 41.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.5",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "85 − 4 × 3 = ....",
+   "opsi": {
+    "A": "72",
+    "B": "74",
+    "C": "73",
+    "D": "63"
+   },
+   "kunci": "C",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 85 − 4 × 3 = 73.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.6",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "58 + 24 ÷ 3 = ....",
+   "opsi": {
+    "A": "65",
+    "B": "76",
+    "C": "67",
+    "D": "66"
+   },
+   "kunci": "D",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 58 + 24 ÷ 3 = 66.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.7",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "6 × 9 − 28 ÷ 4 = ....",
+   "opsi": {
+    "A": "46",
+    "B": "48",
+    "C": "47",
+    "D": "57"
+   },
+   "kunci": "C",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 6 × 9 − 28 ÷ 4 = 47.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.8",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "69 − 24 ÷ 6 + 9 = ....",
+   "opsi": {
+    "A": "74",
+    "B": "75",
+    "C": "64",
+    "D": "84"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 69 − 24 ÷ 6 + 9 = 74.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.9",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "37 + 7 × 3 − 3 = ....",
+   "opsi": {
+    "A": "55",
+    "B": "65",
+    "C": "45",
+    "D": "56"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 37 + 7 × 3 − 3 = 55.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S1.10",
+   "kodeStage": "D0-01-02.S1",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "22 + 6 × 5 = ....",
+   "opsi": {
+    "A": "62",
+    "B": "53",
+    "C": "51",
+    "D": "52"
+   },
+   "kunci": "D",
+   "pembahasan": "Kerjakan × dan ÷ lebih dahulu, baru + dan −: 22 + 6 × 5 = 52.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-02.S2.1",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3 × (4 − 9) + 6 = ....",
+   "opsi": {
+    "A": "9",
+    "B": "−9",
+    "C": "−15",
+    "D": "21"
+   },
+   "kunci": "B",
+   "pembahasan": "Kurung dahulu: 4−9=−5; 3×(−5)=−15; −15+6=−9.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.2",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "−2 × (5 − 8) − 4 = ....",
+   "opsi": {
+    "A": "−10",
+    "B": "2",
+    "C": "10",
+    "D": "−2"
+   },
+   "kunci": "B",
+   "pembahasan": "5−8=−3; −2×(−3)=6; 6−4=2.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.3",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "20 − (−6 + 2) × 3 = ....",
+   "opsi": {
+    "A": "72",
+    "B": "8",
+    "C": "32",
+    "D": "12"
+   },
+   "kunci": "C",
+   "pembahasan": "−6+2=−4; (−4)×3=−12; 20−(−12)=32.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.4",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "3 × (7 − 13) + 8 = ....",
+   "opsi": {
+    "A": "−10",
+    "B": "−8",
+    "C": "−20",
+    "D": "16"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya −10.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.5",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "35 − (5 + 6) × 4 = ....",
+   "opsi": {
+    "A": "−9",
+    "B": "54",
+    "C": "−19",
+    "D": "1"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya −9.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.6",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(15 − 3) × (4 + 3) = ....",
+   "opsi": {
+    "A": "84",
+    "B": "−84",
+    "C": "86",
+    "D": "74"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya 84.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.7",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "13 + (20 − 10) ÷ 2 = ....",
+   "opsi": {
+    "A": "8",
+    "B": "20",
+    "C": "28",
+    "D": "18"
+   },
+   "kunci": "D",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya 18.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.8",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "−6 × (2 − 12) − 5 = ....",
+   "opsi": {
+    "A": "55",
+    "B": "−29",
+    "C": "57",
+    "D": "45"
+   },
+   "kunci": "A",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya 55.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.9",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "2 × (5 − 14) + 3 = ....",
+   "opsi": {
+    "A": "−5",
+    "B": "−1",
+    "C": "−15",
+    "D": "−25"
+   },
+   "kunci": "C",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya −15.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-02.S2.10",
+   "kodeStage": "D0-01-02.S2",
+   "kodeIndikator": "D0-01-02",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "51 − (5 + 6) × 3 = ....",
+   "opsi": {
+    "A": "20",
+    "B": "64",
+    "C": "28",
+    "D": "18"
+   },
+   "kunci": "D",
+   "pembahasan": "Kerjakan kurung dahulu, lalu × ÷, terakhir + −: hasilnya 18.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-01-04.S1.1",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Semua faktor dari 18 adalah ....",
+   "opsi": {
+    "A": "1, 2, 3, 4, 6, 9, 18",
+    "B": "1, 2, 3, 6, 9",
+    "C": "2, 3, 6, 9, 18",
+    "D": "1, 2, 3, 6, 9, 18"
+   },
+   "kunci": "D",
+   "pembahasan": "18 habis dibagi 1, 2, 3, 6, 9, dan 18.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.2",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Bilangan 6 memiliki kelipatan yang antara 20 dan 40, yaitu ....",
+   "opsi": {
+    "A": "26, 30, 36",
+    "B": "24, 30, 36",
+    "C": "24, 32, 36",
+    "D": "24, 30, 38"
+   },
+   "kunci": "B",
+   "pembahasan": "Kelipatan 6: 6, 12, 18, 24, 30, 36, 42.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.3",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Manakah yang merupakan faktor dari 56?",
+   "opsi": {
+    "A": "16",
+    "B": "18",
+    "C": "14",
+    "D": "21"
+   },
+   "kunci": "C",
+   "pembahasan": "56 ÷ 14 = 4 (habis dibagi); 16, 18, 21 tidak membagi 56.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.4",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Semua faktor dari 30 adalah ....",
+   "opsi": {
+    "A": "1, 2, 3, 5, 10, 15, 30",
+    "B": "1, 2, 3, 5, 6, 10, 15, 30",
+    "C": "1, 2, 3, 5, 6, 10, 15",
+    "D": "1, 2, 3, 5, 6, 10, 15, 30, 4"
+   },
+   "kunci": "B",
+   "pembahasan": "30 habis dibagi 1, 2, 3, 5, 6, 10, 15, dan 30.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.5",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Banyak faktor dari 36 adalah ....",
+   "opsi": {
+    "A": "8",
+    "B": "9",
+    "C": "10",
+    "D": "7"
+   },
+   "kunci": "B",
+   "pembahasan": "Faktor 36: 1, 2, 3, 4, 6, 9, 12, 18, 36 (9 faktor).",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.6",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Manakah yang merupakan faktor dari 45?",
+   "opsi": {
+    "A": "18",
+    "B": "25",
+    "C": "12",
+    "D": "15"
+   },
+   "kunci": "D",
+   "pembahasan": "45 ÷ 15 = 3, sedangkan 12, 18, 25 tidak membagi 45.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.7",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Kelipatan 8 yang lebih dari 30 dan kurang dari 60 adalah ....",
+   "opsi": {
+    "A": "40, 48, 56, 64",
+    "B": "40, 48, 58",
+    "C": "32, 40, 48, 56",
+    "D": "32, 40, 48"
+   },
+   "kunci": "C",
+   "pembahasan": "Kelipatan 8: 8, 16, 24, 32, 40, 48, 56, 64.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.8",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Kelipatan 9 terkecil yang lebih dari 100 adalah ....",
+   "opsi": {
+    "A": "109",
+    "B": "108",
+    "C": "117",
+    "D": "99"
+   },
+   "kunci": "B",
+   "pembahasan": "9 × 11 = 99 (belum lebih dari 100), 9 × 12 = 108.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.9",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Bilangan berikut yang BUKAN faktor dari 40 adalah ....",
+   "opsi": {
+    "A": "20",
+    "B": "8",
+    "C": "10",
+    "D": "16"
+   },
+   "kunci": "D",
+   "pembahasan": "40 ÷ 16 tidak habis; 8, 10, dan 20 membagi 40.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S1.10",
+   "kodeStage": "D0-01-04.S1",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Bilangan yang merupakan faktor dari 48 sekaligus faktor dari 72 adalah ....",
+   "opsi": {
+    "A": "12",
+    "B": "16",
+    "C": "18",
+    "D": "9"
+   },
+   "kunci": "A",
+   "pembahasan": "48 = 12×4 dan 72 = 12×6; 16, 18, dan 9 tidak membagi keduanya.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-04.S2.1",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Bilangan prima di antara berikut adalah ....",
+   "opsi": {
+    "A": "29",
+    "B": "39",
+    "C": "21",
+    "D": "27"
+   },
+   "kunci": "A",
+   "pembahasan": "29 hanya habis dibagi 1 dan 29; 21=3×7, 27=3×9, 39=3×13.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.2",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Faktorisasi prima dari 60 adalah ....",
+   "opsi": {
+    "A": "2² × 3 × 5",
+    "B": "2² × 15",
+    "C": "3 × 4 × 5",
+    "D": "2 × 3 × 10"
+   },
+   "kunci": "A",
+   "pembahasan": "60=2×2×3×5; 10, 15, dan 4 bukan bilangan prima.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.3",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Faktorisasi prima dari 84 adalah ....",
+   "opsi": {
+    "A": "4 × 3 × 7",
+    "B": "2³ × 3 × 7",
+    "C": "2 × 3 × 14",
+    "D": "2² × 3 × 7"
+   },
+   "kunci": "D",
+   "pembahasan": "84=2×2×3×7.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.4",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Di antara bilangan berikut, yang merupakan bilangan prima adalah ....",
+   "opsi": {
+    "A": "33",
+    "B": "35",
+    "C": "37",
+    "D": "39"
+   },
+   "kunci": "C",
+   "pembahasan": "37 hanya habis dibagi 1 dan 37; 33=3×11, 35=5×7, 39=3×13.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.5",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Faktorisasi prima dari 72 adalah ....",
+   "opsi": {
+    "A": "2⁴ × 3²",
+    "B": "2³ × 3²",
+    "C": "2³ × 3",
+    "D": "4 × 2 × 3 × 3"
+   },
+   "kunci": "B",
+   "pembahasan": "Bagi berulang dengan bilangan prima: 72 = 2³ × 3².",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.6",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Faktorisasi prima dari 90 adalah ....",
+   "opsi": {
+    "A": "2 × 3² × 5",
+    "B": "2² × 3² × 5",
+    "C": "2 × 3²",
+    "D": "6 × 3 × 5"
+   },
+   "kunci": "A",
+   "pembahasan": "Bagi berulang dengan bilangan prima: 90 = 2 × 3² × 5.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.7",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Faktorisasi prima dari 126 adalah ....",
+   "opsi": {
+    "A": "2 × 3²",
+    "B": "2 × 3² × 7",
+    "C": "6 × 3 × 7",
+    "D": "2² × 3² × 7"
+   },
+   "kunci": "B",
+   "pembahasan": "Bagi berulang dengan bilangan prima: 126 = 2 × 3² × 7.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.8",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Banyak bilangan prima yang lebih dari 20 dan kurang dari 40 adalah ....",
+   "opsi": {
+    "A": "4",
+    "B": "5",
+    "C": "3",
+    "D": "6"
+   },
+   "kunci": "A",
+   "pembahasan": "Bilangan prima 20–40: 23, 29, 31, 37 (4 bilangan).",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.9",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Bilangan prima terkecil yang lebih dari 50 adalah ....",
+   "opsi": {
+    "A": "55",
+    "B": "57",
+    "C": "51",
+    "D": "53"
+   },
+   "kunci": "D",
+   "pembahasan": "51 = 3×17 dan 55, 57 bukan prima; 53 prima.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-04.S2.10",
+   "kodeStage": "D0-01-04.S2",
+   "kodeIndikator": "D0-01-04",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Satu-satunya bilangan prima genap adalah ....",
+   "opsi": {
+    "A": "0",
+    "B": "2",
+    "C": "6",
+    "D": "4"
+   },
+   "kunci": "B",
+   "pembahasan": "Semua bilangan genap lain habis dibagi 2, sehingga bukan prima.",
+   "targetDetikPerSoal": 25
+  },
+  {
+   "id": "D0-01-05.S1.1",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Hasil pembulatan 4.763 ke ratusan terdekat adalah ....",
+   "opsi": {
+    "A": "4.800",
+    "B": "4.760",
+    "C": "4.700",
+    "D": "5.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Angka puluhan 6 ≥ 5, ratusan naik: 4.700 menjadi 4.800.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.2",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Hasil pembulatan 3,847 sampai dua tempat desimal adalah ....",
+   "opsi": {
+    "A": "3,8",
+    "B": "3,85",
+    "C": "3,9",
+    "D": "3,84"
+   },
+   "kunci": "B",
+   "pembahasan": "Desimal ketiga 7 ≥ 5, maka 3,84 menjadi 3,85.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.3",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Perkiraan terbaik hasil 49 × 21 adalah ....",
+   "opsi": {
+    "A": "1.200",
+    "B": "800",
+    "C": "1.500",
+    "D": "1.000"
+   },
+   "kunci": "D",
+   "pembahasan": "49≈50 dan 21≈20; 50×20=1.000.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.4",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Hasil pembulatan 3.846 ke puluhan terdekat adalah ....",
+   "opsi": {
+    "A": "3.846",
+    "B": "3.850",
+    "C": "3.860",
+    "D": "3.840"
+   },
+   "kunci": "B",
+   "pembahasan": "Lihat angka di sebelah kanan tempat puluhan: ≥ 5 dibulatkan ke atas, < 5 ke bawah.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.5",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Hasil pembulatan 7.251 ke ratusan terdekat adalah ....",
+   "opsi": {
+    "A": "7.200",
+    "B": "7.251",
+    "C": "7.400",
+    "D": "7.300"
+   },
+   "kunci": "D",
+   "pembahasan": "Lihat angka di sebelah kanan tempat ratusan: ≥ 5 dibulatkan ke atas, < 5 ke bawah.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.6",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Hasil pembulatan 12.480 ke ribuan terdekat adalah ....",
+   "opsi": {
+    "A": "13.000",
+    "B": "12.000",
+    "C": "11.000",
+    "D": "12.480"
+   },
+   "kunci": "B",
+   "pembahasan": "Lihat angka di sebelah kanan tempat ribuan: ≥ 5 dibulatkan ke atas, < 5 ke bawah.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.7",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Hasil pembulatan 6,273 sampai 1 tempat desimal adalah ....",
+   "opsi": {
+    "A": "6,273",
+    "B": "6,3",
+    "C": "6,2",
+    "D": "6,4"
+   },
+   "kunci": "B",
+   "pembahasan": "Lihat angka desimal berikutnya untuk menentukan naik atau turun.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.8",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Hasil pembulatan 14,586 sampai 2 tempat desimal adalah ....",
+   "opsi": {
+    "A": "14,586",
+    "B": "14,58",
+    "C": "14,59",
+    "D": "14,6"
+   },
+   "kunci": "C",
+   "pembahasan": "Lihat angka desimal berikutnya untuk menentukan naik atau turun.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.9",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Perkiraan terbaik hasil 62 × 38 adalah ....",
+   "opsi": {
+    "A": "2.400",
+    "B": "240",
+    "C": "3.000",
+    "D": "2.000"
+   },
+   "kunci": "A",
+   "pembahasan": "62≈60 dan 38≈40; 60×40 = 2.400.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01-05.S1.10",
+   "kodeStage": "D0-01-05.S1",
+   "kodeIndikator": "D0-01-05",
+   "kodeTopik": "D0-01",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Perkiraan terbaik hasil 4.980 ÷ 51 adalah ....",
+   "opsi": {
+    "A": "1.000",
+    "B": "50",
+    "C": "100",
+    "D": "10"
+   },
+   "kunci": "C",
+   "pembahasan": "4.980≈5.000 dan 51≈50; 5.000÷50=100.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-01.G.1",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 1,
+   "soal": "Suhu awal −5°C naik 12°C, lalu turun 9°C. Suhu akhir adalah ....",
+   "opsi": {
+    "A": "2°C",
+    "B": "−2°C",
+    "C": "−26°C",
+    "D": "16°C"
+   },
+   "kunci": "B",
+   "pembahasan": "−5+12=7; 7−9=−2.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.2",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 2,
+   "soal": "Seorang penyelam berada pada −25 m dari permukaan laut dan seekor burung terbang pada +18 m. Selisih tinggi keduanya adalah ....",
+   "opsi": {
+    "A": "7 m",
+    "B": "−43 m",
+    "C": "25 m",
+    "D": "43 m"
+   },
+   "kunci": "D",
+   "pembahasan": "Selisih = 18 − (−25) = 43.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.3",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 3,
+   "soal": "Sebuah toko memiliki 6 kardus berisi 24 buah. Terjual 58 buah, lalu datang 3 kardus lagi berisi 24 buah. Banyak buah sekarang adalah ....",
+   "opsi": {
+    "A": "158",
+    "B": "216",
+    "C": "130",
+    "D": "86"
+   },
+   "kunci": "A",
+   "pembahasan": "6×24=144; 144−58=86; 3×24=72; 86+72=158.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.4",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 4,
+   "soal": "Lift berada di lantai 3, turun 5 lantai, lalu naik 8 lantai. Lift berada di lantai ....",
+   "opsi": {
+    "A": "6",
+    "B": "3",
+    "C": "16",
+    "D": "0"
+   },
+   "kunci": "A",
+   "pembahasan": "3 − 5 + 8 = 6.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.5",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 5,
+   "soal": "Saldo awal Rp150.000, ditarik Rp75.000, masuk transfer Rp40.000, lalu bayar listrik Rp120.000. Saldo akhir adalah ....",
+   "opsi": {
+    "A": "−Rp5.000",
+    "B": "−Rp45.000",
+    "C": "Rp5.000",
+    "D": "Rp85.000"
+   },
+   "kunci": "A",
+   "pembahasan": "150.000 − 75.000 + 40.000 − 120.000 = −5.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.6",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 6,
+   "soal": "Sebuah toko menerima 8 kotak berisi 24 pensil. Terjual 95 pensil. Sisa pensil adalah ....",
+   "opsi": {
+    "A": "87",
+    "B": "107",
+    "C": "97",
+    "D": "191"
+   },
+   "kunci": "C",
+   "pembahasan": "8×24=192; 192−95 = 97.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.7",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 7,
+   "soal": "Suhu −12°C naik 3°C setiap jam selama 5 jam. Suhu akhir adalah ....",
+   "opsi": {
+    "A": "−27°C",
+    "B": "27°C",
+    "C": "−3°C",
+    "D": "3°C"
+   },
+   "kunci": "D",
+   "pembahasan": "−12 + 3×5 = 3.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.8",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 8,
+   "soal": "Puncak gunung berada 1.250 m di atas permukaan laut dan dasar palung −800 m. Selisih tingginya adalah ....",
+   "opsi": {
+    "A": "2.050 m",
+    "B": "−2.050 m",
+    "C": "2.150 m",
+    "D": "450 m"
+   },
+   "kunci": "A",
+   "pembahasan": "1.250 − (−800) = 2.050.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.9",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 9,
+   "soal": "Pada sebuah kuis, jawaban benar +4, salah −1, kosong 0. Seorang siswa menjawab 18 benar, 6 salah, dan 6 kosong. Skornya adalah ....",
+   "opsi": {
+    "A": "72",
+    "B": "78",
+    "C": "66",
+    "D": "90"
+   },
+   "kunci": "C",
+   "pembahasan": "18×4 − 6×1 = 72 − 6 = 66.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-01.G.10",
+   "kodeStage": "D0-01.G",
+   "kodeIndikator": "D0-01 (gabungan)",
+   "kodeTopik": "D0-01",
+   "level": "L3",
+   "nomorDalamStage": 10,
+   "soal": "Ada 72 buku dibagi rata ke 9 rak. Dari tiap rak diambil 3 buku. Banyak buku yang tersisa adalah ....",
+   "opsi": {
+    "A": "27",
+    "B": "45",
+    "C": "69",
+    "D": "63"
+   },
+   "kunci": "B",
+   "pembahasan": "72÷9=8 buku per rak; 8−3=5; 5×9 = 45.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02-01.S1.1",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Bentuk paling sederhana dari 12/18 adalah ....",
+   "opsi": {
+    "A": "3/5",
+    "B": "2/3",
+    "C": "1/2",
+    "D": "3/4"
+   },
+   "kunci": "B",
+   "pembahasan": "FPB 12 dan 18 adalah 6; 12/18 = 2/3.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.2",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Pecahan yang senilai dengan 3/5 adalah ....",
+   "opsi": {
+    "A": "12/20",
+    "B": "9/20",
+    "C": "6/9",
+    "D": "15/20"
+   },
+   "kunci": "A",
+   "pembahasan": "3/5 × 4/4 = 12/20.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.3",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Pecahan terbesar di antara 3/4, 2/3, 5/8, dan 7/12 adalah ....",
+   "opsi": {
+    "A": "5/8",
+    "B": "3/4",
+    "C": "2/3",
+    "D": "7/12"
+   },
+   "kunci": "B",
+   "pembahasan": "Samakan penyebut 24: 18/24, 16/24, 15/24, 14/24.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.4",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Bentuk paling sederhana dari 10/16 adalah ....",
+   "opsi": {
+    "A": "5/9",
+    "B": "5/16",
+    "C": "5/8",
+    "D": "5/4"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB 10 dan 16 adalah 2; 10/16 = 5/8.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.5",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Bentuk paling sederhana dari 25/45 adalah ....",
+   "opsi": {
+    "A": "5/9",
+    "B": "25/9",
+    "C": "1/9",
+    "D": "1/2"
+   },
+   "kunci": "A",
+   "pembahasan": "FPB 25 dan 45 adalah 5; 25/45 = 5/9.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.6",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Bentuk paling sederhana dari 15/55 adalah ....",
+   "opsi": {
+    "A": "3/55",
+    "B": "15/11",
+    "C": "3/11",
+    "D": "1/4"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB 15 dan 55 adalah 5; 15/55 = 3/11.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.7",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Pecahan yang senilai dengan 2/7 adalah ....",
+   "opsi": {
+    "A": "6/21",
+    "B": "5/21",
+    "C": "1/2",
+    "D": "3/11"
+   },
+   "kunci": "A",
+   "pembahasan": "Kalikan pembilang dan penyebut dengan 3: 2/7 = 6/21.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.8",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Pecahan yang senilai dengan 5/6 adalah ....",
+   "opsi": {
+    "A": "20/24",
+    "B": "3/8",
+    "C": "9/10",
+    "D": "4/5"
+   },
+   "kunci": "A",
+   "pembahasan": "Kalikan pembilang dan penyebut dengan 4: 5/6 = 20/24.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.9",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Pecahan terbesar di antara 5/6, 3/4, 7/9, 2/3 adalah ....",
+   "opsi": {
+    "A": "2/3",
+    "B": "7/9",
+    "C": "5/6",
+    "D": "3/4"
+   },
+   "kunci": "C",
+   "pembahasan": "Samakan penyebut (36): 30/36, 27/36, 28/36, 24/36.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-01.S1.10",
+   "kodeStage": "D0-02-01.S1",
+   "kodeIndikator": "D0-02-01",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Pecahan terkecil di antara 3/10, 2/5, 1/4, 7/20 adalah ....",
+   "opsi": {
+    "A": "1/4",
+    "B": "3/10",
+    "C": "7/20",
+    "D": "2/5"
+   },
+   "kunci": "A",
+   "pembahasan": "Samakan penyebut (20): 6/20, 8/20, 5/20, 7/20.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-02.S1.1",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3/8 + 2/8 = ....",
+   "opsi": {
+    "A": "6/8",
+    "B": "5/16",
+    "C": "1/8",
+    "D": "5/8"
+   },
+   "kunci": "D",
+   "pembahasan": "Penyebut sama, jumlahkan pembilang: 3+2=5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.2",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "7/9 − 4/9 = ....",
+   "opsi": {
+    "A": "3/18",
+    "B": "1/9",
+    "C": "11/9",
+    "D": "1/3"
+   },
+   "kunci": "D",
+   "pembahasan": "7−4=3, jadi 3/9 = 1/3.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.3",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "5/12 + 11/12 = ....",
+   "opsi": {
+    "A": "2/3",
+    "B": "1 2/3",
+    "C": "1 1/4",
+    "D": "1 1/3"
+   },
+   "kunci": "D",
+   "pembahasan": "16/12 = 4/3 = 1 1/3.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.4",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "2/9 + 5/9 = ....",
+   "opsi": {
+    "A": "7/18",
+    "B": "2/3",
+    "C": "7/9",
+    "D": "8/9"
+   },
+   "kunci": "C",
+   "pembahasan": "Penyebut sama, jumlahkan pembilangnya: 2/9 + 5/9 = 7/9.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.5",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "4/10 + 7/10 = ....",
+   "opsi": {
+    "A": "1 1/10",
+    "B": "1 1/5",
+    "C": "11/20",
+    "D": "1"
+   },
+   "kunci": "A",
+   "pembahasan": "Penyebut sama, jumlahkan pembilangnya: 4/10 + 7/10 = 1 1/10.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.6",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "5/15 + 13/15 = ....",
+   "opsi": {
+    "A": "1 2/15",
+    "B": "3/5",
+    "C": "1 1/5",
+    "D": "1 4/15"
+   },
+   "kunci": "C",
+   "pembahasan": "Penyebut sama, jumlahkan pembilangnya: 5/15 + 13/15 = 1 1/5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.7",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "7/11 − 2/11 = ....",
+   "opsi": {
+    "A": "4/11",
+    "B": "5/22",
+    "C": "6/11",
+    "D": "5/11"
+   },
+   "kunci": "D",
+   "pembahasan": "Penyebut sama, kurangkan pembilangnya: 7/11 − 2/11 = 5/11.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.8",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "9/12 − 4/12 = ....",
+   "opsi": {
+    "A": "5/12",
+    "B": "1/2",
+    "C": "1/3",
+    "D": "5/24"
+   },
+   "kunci": "A",
+   "pembahasan": "Penyebut sama, kurangkan pembilangnya: 9/12 − 4/12 = 5/12.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.9",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "11/14 − 5/14 = ....",
+   "opsi": {
+    "A": "3/7",
+    "B": "3/14",
+    "C": "1/2",
+    "D": "5/14"
+   },
+   "kunci": "A",
+   "pembahasan": "Penyebut sama, kurangkan pembilangnya: 11/14 − 5/14 = 3/7.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S1.10",
+   "kodeStage": "D0-02-02.S1",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "6/8 + 5/8 = ....",
+   "opsi": {
+    "A": "1 1/4",
+    "B": "11/16",
+    "C": "1 3/8",
+    "D": "1 1/2"
+   },
+   "kunci": "C",
+   "pembahasan": "Penyebut sama, jumlahkan pembilangnya: 6/8 + 5/8 = 1 3/8.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-02.S2.1",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "1/2 + 1/3 = ....",
+   "opsi": {
+    "A": "2/6",
+    "B": "2/5",
+    "C": "5/6",
+    "D": "1/6"
+   },
+   "kunci": "C",
+   "pembahasan": "Penyebut sama 6: 3/6+2/6=5/6.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.2",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "3/4 − 2/5 = ....",
+   "opsi": {
+    "A": "1/20",
+    "B": "11/20",
+    "C": "13/20",
+    "D": "7/20"
+   },
+   "kunci": "D",
+   "pembahasan": "15/20 − 8/20 = 7/20.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.3",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "2 1/2 + 1 3/4 = ....",
+   "opsi": {
+    "A": "3 3/4",
+    "B": "4 1/4",
+    "C": "4 1/2",
+    "D": "3 5/6"
+   },
+   "kunci": "B",
+   "pembahasan": "5/2+7/4 = 10/4+7/4 = 17/4 = 4 1/4.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.4",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "1/4 + 2/3 = ....",
+   "opsi": {
+    "A": "1",
+    "B": "1 1/12",
+    "C": "5/6",
+    "D": "11/12"
+   },
+   "kunci": "D",
+   "pembahasan": "Samakan penyebut lalu operasikan: 1/4 + 2/3 = 11/12.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.5",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "3/5 + 1/2 = ....",
+   "opsi": {
+    "A": "1 1/5",
+    "B": "1",
+    "C": "1 1/10",
+    "D": "1 3/10"
+   },
+   "kunci": "C",
+   "pembahasan": "Samakan penyebut lalu operasikan: 3/5 + 1/2 = 1 1/10.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.6",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "5/6 − 1/4 = ....",
+   "opsi": {
+    "A": "1/2",
+    "B": "3/4",
+    "C": "7/12",
+    "D": "2/3"
+   },
+   "kunci": "C",
+   "pembahasan": "Samakan penyebut lalu operasikan: 5/6 − 1/4 = 7/12.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.7",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "7/8 − 3/5 = ....",
+   "opsi": {
+    "A": "11/40",
+    "B": "3/10",
+    "C": "1/4",
+    "D": "13/40"
+   },
+   "kunci": "A",
+   "pembahasan": "Samakan penyebut lalu operasikan: 7/8 − 3/5 = 11/40.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.8",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "1 1/2 + 2 1/3 = ....",
+   "opsi": {
+    "A": "3 2/3",
+    "B": "4 1/6",
+    "C": "4",
+    "D": "3 5/6"
+   },
+   "kunci": "D",
+   "pembahasan": "Samakan penyebut lalu operasikan: 1 1/2 + 2 1/3 = 3 5/6.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.9",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "3 1/4 − 1 2/5 = ....",
+   "opsi": {
+    "A": "1 9/10",
+    "B": "1 17/20",
+    "C": "1 19/20",
+    "D": "1 4/5"
+   },
+   "kunci": "B",
+   "pembahasan": "Samakan penyebut lalu operasikan: 3 1/4 − 1 2/5 = 1 17/20.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S2.10",
+   "kodeStage": "D0-02-02.S2",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "2 2/3 − 1 1/4 = ....",
+   "opsi": {
+    "A": "1 1/3",
+    "B": "1 7/12",
+    "C": "1 1/2",
+    "D": "1 5/12"
+   },
+   "kunci": "D",
+   "pembahasan": "Samakan penyebut lalu operasikan: 2 2/3 − 1 1/4 = 1 5/12.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-02.S3.1",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "2/3 × 3/5 = ....",
+   "opsi": {
+    "A": "5/8",
+    "B": "2/5",
+    "C": "10/9",
+    "D": "9/10"
+   },
+   "kunci": "B",
+   "pembahasan": "(2×3)/(3×5) = 6/15 = 2/5.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.2",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "3/4 ÷ 3/8 = ....",
+   "opsi": {
+    "A": "9/32",
+    "B": "2",
+    "C": "9/8",
+    "D": "1/2"
+   },
+   "kunci": "B",
+   "pembahasan": "3/4 × 8/3 = 24/12 = 2.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.3",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "1 1/2 × 2/3 ÷ 1/4 = ....",
+   "opsi": {
+    "A": "4",
+    "B": "1",
+    "C": "6",
+    "D": "1/4"
+   },
+   "kunci": "A",
+   "pembahasan": "3/2×2/3=1; 1÷1/4=4.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.4",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "3/4 × 2/9 = ....",
+   "opsi": {
+    "A": "1/12",
+    "B": "1/3",
+    "C": "3 3/8",
+    "D": "1/6"
+   },
+   "kunci": "D",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 1/6.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.5",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "5/6 × 3/10 = ....",
+   "opsi": {
+    "A": "1/2",
+    "B": "1/4",
+    "C": "2 7/9",
+    "D": "1/8"
+   },
+   "kunci": "B",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 1/4.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.6",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "2 1/2 × 4/5 = ....",
+   "opsi": {
+    "A": "1",
+    "B": "2",
+    "C": "3 1/8",
+    "D": "4"
+   },
+   "kunci": "B",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 2.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.7",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "2/3 ÷ 4/9 = ....",
+   "opsi": {
+    "A": "8/27",
+    "B": "3/4",
+    "C": "3",
+    "D": "1 1/2"
+   },
+   "kunci": "D",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 1 1/2.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.8",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "5/8 ÷ 15/16 = ....",
+   "opsi": {
+    "A": "2/3",
+    "B": "1/3",
+    "C": "75/128",
+    "D": "1 1/3"
+   },
+   "kunci": "A",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 2/3.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.9",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "3 ÷ 3/4 = ....",
+   "opsi": {
+    "A": "8",
+    "B": "4",
+    "C": "2",
+    "D": "2 1/4"
+   },
+   "kunci": "B",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 4.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-02.S3.10",
+   "kodeStage": "D0-02-02.S3",
+   "kodeIndikator": "D0-02-02",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "4/5 × 5/6 ÷ 2/3 = ....",
+   "opsi": {
+    "A": "1",
+    "B": "24/25",
+    "C": "2",
+    "D": "1/2"
+   },
+   "kunci": "A",
+   "pembahasan": "Kali: kalikan pembilang dan penyebut; bagi: kalikan dengan kebalikan. Hasil 1.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-03.S1.1",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3/4 = ....",
+   "opsi": {
+    "A": "0,34",
+    "B": "0,43",
+    "C": "0,7",
+    "D": "0,75"
+   },
+   "kunci": "D",
+   "pembahasan": "3÷4 = 0,75.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.2",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "0,6 sama dengan pecahan ....",
+   "opsi": {
+    "A": "3/50",
+    "B": "2/3",
+    "C": "3/5",
+    "D": "6/5"
+   },
+   "kunci": "C",
+   "pembahasan": "0,6 = 6/10 = 3/5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.3",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "5/8 = ....",
+   "opsi": {
+    "A": "0,5",
+    "B": "0,85",
+    "C": "0,625",
+    "D": "0,58"
+   },
+   "kunci": "C",
+   "pembahasan": "5÷8 = 0,625.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.4",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "7/8 = ....",
+   "opsi": {
+    "A": "0,975",
+    "B": "0,875",
+    "C": "0,0875",
+    "D": "8,75"
+   },
+   "kunci": "B",
+   "pembahasan": "7 ÷ 8 = 0,875.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.5",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "9/20 = ....",
+   "opsi": {
+    "A": "0,55",
+    "B": "0,45",
+    "C": "0,045",
+    "D": "4,5"
+   },
+   "kunci": "B",
+   "pembahasan": "9 ÷ 20 = 0,45.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.6",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "3/25 = ....",
+   "opsi": {
+    "A": "1,2",
+    "B": "0,22",
+    "C": "0,012",
+    "D": "0,12"
+   },
+   "kunci": "D",
+   "pembahasan": "3 ÷ 25 = 0,12.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.7",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "13/40 = ....",
+   "opsi": {
+    "A": "0,0325",
+    "B": "0,325",
+    "C": "3,25",
+    "D": "0,425"
+   },
+   "kunci": "B",
+   "pembahasan": "13 ÷ 40 = 0,325.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.8",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "0,35 = ....",
+   "opsi": {
+    "A": "1/35",
+    "B": "7/20",
+    "C": "7/200",
+    "D": "7/2"
+   },
+   "kunci": "B",
+   "pembahasan": "0,35 = 35/100 = 7/20.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.9",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "0,08 = ....",
+   "opsi": {
+    "A": "1/125",
+    "B": "2/25",
+    "C": "4/5",
+    "D": "1/8"
+   },
+   "kunci": "B",
+   "pembahasan": "0,08 = 8/100 = 2/25.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S1.10",
+   "kodeStage": "D0-02-03.S1",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "0,125 = ....",
+   "opsi": {
+    "A": "25/2",
+    "B": "1/8",
+    "C": "1/125",
+    "D": "1/80"
+   },
+   "kunci": "B",
+   "pembahasan": "0,125 = 125/1000 = 1/8.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-02-03.S2.1",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Pecahan yang sama dengan 0,333... adalah ....",
+   "opsi": {
+    "A": "3/10",
+    "B": "1/3",
+    "C": "33/100",
+    "D": "3/100"
+   },
+   "kunci": "B",
+   "pembahasan": "0,333... adalah desimal berulang yang sama dengan 1/3.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.2",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "0,25 × 0,4 = ....",
+   "opsi": {
+    "A": "1",
+    "B": "0,1",
+    "C": "0,65",
+    "D": "0,01"
+   },
+   "kunci": "B",
+   "pembahasan": "25×4=100; ada tiga angka di belakang koma, jadi 0,100 = 0,1.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.3",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "3,6 ÷ 0,12 = ....",
+   "opsi": {
+    "A": "30",
+    "B": "300",
+    "C": "3",
+    "D": "0,3"
+   },
+   "kunci": "A",
+   "pembahasan": "Kalikan keduanya dengan 100: 360 ÷ 12 = 30.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.4",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "0,555... sama dengan pecahan ....",
+   "opsi": {
+    "A": "1/2",
+    "B": "5/9",
+    "C": "5/10",
+    "D": "55/100"
+   },
+   "kunci": "B",
+   "pembahasan": "0,555... = 5/9 (desimal berulang satu angka).",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.5",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "0,1818... sama dengan pecahan ....",
+   "opsi": {
+    "A": "9/50",
+    "B": "2/11",
+    "C": "1/9",
+    "D": "18/100"
+   },
+   "kunci": "B",
+   "pembahasan": "0,1818... = 18/99 = 2/11.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.6",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "0,6 × 0,35 = ....",
+   "opsi": {
+    "A": "2,1",
+    "B": "0,021",
+    "C": "0,21",
+    "D": "21"
+   },
+   "kunci": "C",
+   "pembahasan": "Kalikan tanpa koma lalu hitung jumlah angka di belakang koma: 0,21.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.7",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "1,2 × 0,15 = ....",
+   "opsi": {
+    "A": "0,018",
+    "B": "18",
+    "C": "0,18",
+    "D": "1,8"
+   },
+   "kunci": "C",
+   "pembahasan": "Kalikan tanpa koma lalu hitung jumlah angka di belakang koma: 0,18.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.8",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "2,5 × 0,04 = ....",
+   "opsi": {
+    "A": "1",
+    "B": "10",
+    "C": "0,1",
+    "D": "0,01"
+   },
+   "kunci": "C",
+   "pembahasan": "Kalikan tanpa koma lalu hitung jumlah angka di belakang koma: 0,1.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.9",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "4,5 ÷ 0,15 = ....",
+   "opsi": {
+    "A": "300",
+    "B": "3",
+    "C": "3.000",
+    "D": "30"
+   },
+   "kunci": "D",
+   "pembahasan": "Kalikan keduanya dengan 100: 450 ÷ 15 = 30.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-03.S2.10",
+   "kodeStage": "D0-02-03.S2",
+   "kodeIndikator": "D0-02-03",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "2,4 ÷ 0,08 = ....",
+   "opsi": {
+    "A": "30",
+    "B": "300",
+    "C": "3",
+    "D": "3.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Kalikan keduanya dengan 100: 240 ÷ 8 = 30.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-02-04.S1.1",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3/5 = ....",
+   "opsi": {
+    "A": "53%",
+    "B": "35%",
+    "C": "60%",
+    "D": "6%"
+   },
+   "kunci": "C",
+   "pembahasan": "3/5 = 60/100 = 60%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.2",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "0,075 = ....",
+   "opsi": {
+    "A": "0,75%",
+    "B": "7,5%",
+    "C": "75%",
+    "D": "7,05%"
+   },
+   "kunci": "B",
+   "pembahasan": "0,075 × 100% = 7,5%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.3",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "125% = ....",
+   "opsi": {
+    "A": "12,5",
+    "B": "1,025",
+    "C": "1,25",
+    "D": "0,125"
+   },
+   "kunci": "C",
+   "pembahasan": "125% = 125/100 = 1,25.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.4",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "7/20 = ....",
+   "opsi": {
+    "A": "3,5%",
+    "B": "35%",
+    "C": "350%",
+    "D": "40%"
+   },
+   "kunci": "B",
+   "pembahasan": "7/20 × 100% = 35%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.5",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "3/8 = ....",
+   "opsi": {
+    "A": "3,8%",
+    "B": "375%",
+    "C": "42,5%",
+    "D": "37,5%"
+   },
+   "kunci": "D",
+   "pembahasan": "3/8 × 100% = 37,5%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.6",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "9/25 = ....",
+   "opsi": {
+    "A": "360%",
+    "B": "36%",
+    "C": "41%",
+    "D": "3,6%"
+   },
+   "kunci": "B",
+   "pembahasan": "9/25 × 100% = 36%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.7",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "0,48 = ....",
+   "opsi": {
+    "A": "48%",
+    "B": "4,8%",
+    "C": "480%",
+    "D": "0,48%"
+   },
+   "kunci": "A",
+   "pembahasan": "0,48 × 100% = 48%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.8",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "1,35 = ....",
+   "opsi": {
+    "A": "1.350%",
+    "B": "1,35%",
+    "C": "135%",
+    "D": "13,5%"
+   },
+   "kunci": "C",
+   "pembahasan": "1,35 × 100% = 135%.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.9",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "35% = ....",
+   "opsi": {
+    "A": "0,35",
+    "B": "35",
+    "C": "0,035",
+    "D": "3,5"
+   },
+   "kunci": "A",
+   "pembahasan": "35% = 35/100 = 0,35.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S1.10",
+   "kodeStage": "D0-02-04.S1",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "6% = ....",
+   "opsi": {
+    "A": "0,06",
+    "B": "0,6",
+    "C": "0,006",
+    "D": "6"
+   },
+   "kunci": "A",
+   "pembahasan": "6% = 6/100 = 0,06.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-02-04.S2.1",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "15% dari 240 adalah ....",
+   "opsi": {
+    "A": "3,6",
+    "B": "225",
+    "C": "36",
+    "D": "360"
+   },
+   "kunci": "C",
+   "pembahasan": "15/100 × 240 = 36.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.2",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Jika 40% suatu bilangan adalah 28, bilangan itu adalah ....",
+   "opsi": {
+    "A": "112",
+    "B": "70",
+    "C": "68",
+    "D": "11,2"
+   },
+   "kunci": "B",
+   "pembahasan": "28 ÷ 0,4 = 70.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.3",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "80 adalah berapa persen dari 320?",
+   "opsi": {
+    "A": "25%",
+    "B": "4%",
+    "C": "40%",
+    "D": "250%"
+   },
+   "kunci": "A",
+   "pembahasan": "80/320 = 1/4 = 25%.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.4",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "12% dari 350 adalah ....",
+   "opsi": {
+    "A": "42",
+    "B": "362",
+    "C": "4,2",
+    "D": "420"
+   },
+   "kunci": "A",
+   "pembahasan": "12/100 × 350 = 42.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.5",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "35% dari 240 adalah ....",
+   "opsi": {
+    "A": "84",
+    "B": "275",
+    "C": "840",
+    "D": "8,4"
+   },
+   "kunci": "A",
+   "pembahasan": "35/100 × 240 = 84.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.6",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "8% dari 125 adalah ....",
+   "opsi": {
+    "A": "10",
+    "B": "133",
+    "C": "1",
+    "D": "100"
+   },
+   "kunci": "A",
+   "pembahasan": "8/100 × 125 = 10.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.7",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Jika 25% suatu bilangan adalah 45, bilangan tersebut adalah ....",
+   "opsi": {
+    "A": "11,25",
+    "B": "180",
+    "C": "190",
+    "D": "170"
+   },
+   "kunci": "B",
+   "pembahasan": "45 ÷ 0,25 = 180.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.8",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Jika 60% suatu bilangan adalah 84, bilangan tersebut adalah ....",
+   "opsi": {
+    "A": "130",
+    "B": "150",
+    "C": "140",
+    "D": "50,4"
+   },
+   "kunci": "C",
+   "pembahasan": "84 ÷ 0,6 = 140.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.9",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "18 adalah berapa persen dari 72?",
+   "opsi": {
+    "A": "25%",
+    "B": "400%",
+    "C": "250%",
+    "D": "2,5%"
+   },
+   "kunci": "A",
+   "pembahasan": "18/72 × 100% = 25%.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02-04.S2.10",
+   "kodeStage": "D0-02-04.S2",
+   "kodeIndikator": "D0-02-04",
+   "kodeTopik": "D0-02",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "45 adalah berapa persen dari 36?",
+   "opsi": {
+    "A": "80%",
+    "B": "125%",
+    "C": "12,5%",
+    "D": "1.250%"
+   },
+   "kunci": "B",
+   "pembahasan": "45/36 × 100% = 125%.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-02.G.1",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 1,
+   "soal": "Resep memerlukan 3/4 cangkir gula untuk 1 adonan. Gula yang dibutuhkan untuk 2 1/2 adonan adalah ....",
+   "opsi": {
+    "A": "1 1/4 cangkir",
+    "B": "3 1/4 cangkir",
+    "C": "2 3/8 cangkir",
+    "D": "1 7/8 cangkir"
+   },
+   "kunci": "D",
+   "pembahasan": "3/4 × 5/2 = 15/8 = 1 7/8.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.2",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 2,
+   "soal": "Harga sebuah tas Rp240.000 mendapat diskon 25%. Harga yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp215.000",
+    "B": "Rp180.000",
+    "C": "Rp60.000",
+    "D": "Rp190.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Diskon 25% = 60.000; 240.000−60.000 = 180.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.3",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 3,
+   "soal": "Seutas tali 2,4 m dipotong menjadi potongan sepanjang 0,15 m. Banyak potongan adalah ....",
+   "opsi": {
+    "A": "36",
+    "B": "160",
+    "C": "16",
+    "D": "1,6"
+   },
+   "kunci": "C",
+   "pembahasan": "2,4 ÷ 0,15 = 240 ÷ 15 = 16.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.4",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 4,
+   "soal": "Seutas pita panjangnya 3 1/2 m. Sebanyak 2/5 bagian dipakai. Panjang pita yang tersisa adalah ....",
+   "opsi": {
+    "A": "1 1/2 m",
+    "B": "3 3/10 m",
+    "C": "1 2/5 m",
+    "D": "2 1/10 m"
+   },
+   "kunci": "D",
+   "pembahasan": "Sisa = 3/5 × 3 1/2 = 3/5 × 7/2 = 21/10 = 2 1/10 m.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.5",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 5,
+   "soal": "Harga 1 kg apel Rp32.500. Untuk membeli 2,4 kg apel, uang yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp780.000",
+    "B": "Rp78.000",
+    "C": "Rp34.900",
+    "D": "Rp7.800"
+   },
+   "kunci": "B",
+   "pembahasan": "32.500 × 2,4 = 78.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.6",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 6,
+   "soal": "Dari 480 siswa, 3/8 mengikuti olahraga. Dari siswa yang tidak mengikuti olahraga, 25% mengikuti musik. Banyak siswa yang mengikuti musik adalah ....",
+   "opsi": {
+    "A": "180",
+    "B": "75",
+    "C": "120",
+    "D": "300"
+   },
+   "kunci": "B",
+   "pembahasan": "Tidak olahraga: 480−180=300; 25% × 300 = 75.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.7",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 7,
+   "soal": "Rina menjawab benar 72 dari 90 soal. Persentase soal yang benar adalah ....",
+   "opsi": {
+    "A": "18%",
+    "B": "90%",
+    "C": "80%",
+    "D": "72%"
+   },
+   "kunci": "C",
+   "pembahasan": "72/90 × 100% = 80%.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.8",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 8,
+   "soal": "Tangki berisi 40 liter. Sebanyak 2/5 bagian terpakai, lalu ditambah 7,5 liter. Isi tangki sekarang adalah ....",
+   "opsi": {
+    "A": "24 liter",
+    "B": "16,5 liter",
+    "C": "47,5 liter",
+    "D": "31,5 liter"
+   },
+   "kunci": "D",
+   "pembahasan": "40 − 16 = 24; 24 + 7,5 = 31,5.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.9",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 9,
+   "soal": "Gaji Rp4.800.000: 15% ditabung, kemudian 1/4 dari sisanya untuk sewa. Uang untuk sewa adalah ....",
+   "opsi": {
+    "A": "Rp1.200.000",
+    "B": "Rp1.080.000",
+    "C": "Rp720.000",
+    "D": "Rp1.020.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Tabung 720.000; sisa 4.080.000; 1/4 × 4.080.000 = 1.020.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-02.G.10",
+   "kodeStage": "D0-02.G",
+   "kodeIndikator": "D0-02 (gabungan)",
+   "kodeTopik": "D0-02",
+   "level": "L3",
+   "nomorDalamStage": 10,
+   "soal": "Sebuah botol berisi 1,5 liter air dituang ke gelas berkapasitas 0,25 liter. Banyak gelas yang terisi penuh adalah ....",
+   "opsi": {
+    "A": "5",
+    "B": "15",
+    "C": "6",
+    "D": "4"
+   },
+   "kunci": "C",
+   "pembahasan": "1,5 ÷ 0,25 = 6.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-01.S1.1",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Bentuk paling sederhana perbandingan 24 : 36 adalah ....",
+   "opsi": {
+    "A": "3 : 4",
+    "B": "1 : 2",
+    "C": "2 : 3",
+    "D": "3 : 2"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB 24 dan 36 adalah 12; 24:36 = 2:3.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.2",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Skala peta 1 : 500.000. Jarak 6 cm di peta menyatakan jarak sebenarnya ....",
+   "opsi": {
+    "A": "30 km",
+    "B": "300 km",
+    "C": "3 km",
+    "D": "3.000 km"
+   },
+   "kunci": "A",
+   "pembahasan": "6 × 500.000 = 3.000.000 cm = 30 km.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.3",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Perbandingan 45 menit dan 1,5 jam adalah ....",
+   "opsi": {
+    "A": "1 : 2",
+    "B": "30 : 1",
+    "C": "2 : 1",
+    "D": "3 : 2"
+   },
+   "kunci": "A",
+   "pembahasan": "1,5 jam = 90 menit; 45:90 = 1:2.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.4",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Bentuk paling sederhana perbandingan 36 : 54 adalah ....",
+   "opsi": {
+    "A": "3 : 4",
+    "B": "3 : 2",
+    "C": "1 : 2",
+    "D": "2 : 3"
+   },
+   "kunci": "D",
+   "pembahasan": "FPB 36 dan 54 adalah 18; 36:54 = 2:3.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.5",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Bentuk paling sederhana perbandingan 0,6 : 1,5 adalah ....",
+   "opsi": {
+    "A": "2 : 5",
+    "B": "1 : 4",
+    "C": "5 : 2",
+    "D": "3 : 5"
+   },
+   "kunci": "A",
+   "pembahasan": "Kalikan 10: 6:15 = 2:5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.6",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Perbandingan 2 jam dan 40 menit adalah ....",
+   "opsi": {
+    "A": "2 : 1",
+    "B": "3 : 1",
+    "C": "1 : 2",
+    "D": "1 : 3"
+   },
+   "kunci": "B",
+   "pembahasan": "2 jam = 120 menit; 120:40 = 3:1.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.7",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Peta berskala 1 : 250.000. Jarak dua kota pada peta 8 cm. Jarak sebenarnya adalah ....",
+   "opsi": {
+    "A": "2.000 km",
+    "B": "200 km",
+    "C": "2 km",
+    "D": "20 km"
+   },
+   "kunci": "D",
+   "pembahasan": "8 × 250.000 cm = 2.000.000 cm = 20 km.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.8",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Peta berskala 1 : 1.500.000. Jarak dua kota pada peta 4 cm. Jarak sebenarnya adalah ....",
+   "opsi": {
+    "A": "6.000 km",
+    "B": "600 km",
+    "C": "60 km",
+    "D": "6 km"
+   },
+   "kunci": "C",
+   "pembahasan": "4 × 1.500.000 cm = 6.000.000 cm = 60 km.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.9",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Jarak sebenarnya dua tempat 6 km. Pada peta berskala 1 : 40.000, jaraknya adalah ....",
+   "opsi": {
+    "A": "150 cm",
+    "B": "0,15 cm",
+    "C": "15 cm",
+    "D": "1,5 cm"
+   },
+   "kunci": "C",
+   "pembahasan": "6 km = 600.000 cm; 600.000 ÷ 40.000 = 15 cm.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S1.10",
+   "kodeStage": "D0-03-01.S1",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Perbandingan Rp45.000 dan Rp75.000 adalah ....",
+   "opsi": {
+    "A": "3 : 4",
+    "B": "5 : 3",
+    "C": "3 : 5",
+    "D": "2 : 3"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB 15.000: 45.000:75.000 = 3:5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-03-01.S2.1",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Uang Rp120.000 dibagi untuk A dan B dengan perbandingan 3 : 5. Bagian B adalah ....",
+   "opsi": {
+    "A": "Rp45.000",
+    "B": "Rp72.000",
+    "C": "Rp75.000",
+    "D": "Rp60.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Jumlah bagian 8; 120.000÷8=15.000; B=5×15.000=75.000.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.2",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Panjang ruangan 15 m digambar pada denah berskala 1 : 300. Panjang pada denah adalah ....",
+   "opsi": {
+    "A": "45 cm",
+    "B": "0,5 cm",
+    "C": "50 cm",
+    "D": "5 cm"
+   },
+   "kunci": "D",
+   "pembahasan": "15 m = 1.500 cm; 1.500 ÷ 300 = 5 cm.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.3",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Kelereng A, B, C berbanding 2 : 3 : 5 dengan jumlah 50. Banyak kelereng B adalah ....",
+   "opsi": {
+    "A": "30",
+    "B": "10",
+    "C": "15",
+    "D": "25"
+   },
+   "kunci": "C",
+   "pembahasan": "Jumlah bagian 10; 50÷10=5; B=3×5=15.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.4",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Uang Rp90.000 dibagi untuk A dan B dengan perbandingan 2 : 7. Bagian B adalah ....",
+   "opsi": {
+    "A": "Rp60.000",
+    "B": "Rp20.000",
+    "C": "Rp70.000",
+    "D": "Rp80.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Jumlah bagian 9; satu bagian = 10.000; bagian B = 70.000.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.5",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Uang Rp150.000 dibagi untuk A dan B dengan perbandingan 3 : 2. Bagian A adalah ....",
+   "opsi": {
+    "A": "Rp90.000",
+    "B": "Rp75.000",
+    "C": "Rp120.000",
+    "D": "Rp60.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Jumlah bagian 5; satu bagian = 30.000; bagian A = 90.000.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.6",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Sebanyak 84 kelereng dibagi untuk A dan B dengan perbandingan 5 : 7. Bagian A adalah ....",
+   "opsi": {
+    "A": "49",
+    "B": "28",
+    "C": "42",
+    "D": "35"
+   },
+   "kunci": "D",
+   "pembahasan": "Jumlah bagian 12; satu bagian = 7; bagian A = 35.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.7",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Tiga anak mendapat uang Rp60.000 dengan perbandingan 1 : 2 : 3. Bagian anak ketiga adalah ....",
+   "opsi": {
+    "A": "Rp20.000",
+    "B": "Rp40.000",
+    "C": "Rp10.000",
+    "D": "Rp30.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Jumlah bagian 6; satu bagian = Rp10.000; anak ketiga = Rp30.000.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.8",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Tiga anak mendapat uang Rp120.000 dengan perbandingan 2 : 3 : 5. Bagian anak kedua adalah ....",
+   "opsi": {
+    "A": "Rp60.000",
+    "B": "Rp36.000",
+    "C": "Rp40.000",
+    "D": "Rp24.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Jumlah bagian 10; satu bagian = Rp12.000; anak kedua = Rp36.000.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.9",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Panjang sebuah rumah 18 m digambar pada denah berskala 1 : 600. Panjang pada denah adalah ....",
+   "opsi": {
+    "A": "30 cm",
+    "B": "3 cm",
+    "C": "0,3 cm",
+    "D": "300 cm"
+   },
+   "kunci": "B",
+   "pembahasan": "1.800 cm ÷ 600 = 3 cm.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-01.S2.10",
+   "kodeStage": "D0-03-01.S2",
+   "kodeIndikator": "D0-03-01",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Panjang sebuah rumah 7,5 m digambar pada denah berskala 1 : 250. Panjang pada denah adalah ....",
+   "opsi": {
+    "A": "3 cm",
+    "B": "0,3 cm",
+    "C": "30 cm",
+    "D": "300 cm"
+   },
+   "kunci": "A",
+   "pembahasan": "750 cm ÷ 250 = 3 cm.",
+   "targetDetikPerSoal": 35
+  },
+  {
+   "id": "D0-03-02.S1.1",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Harga 4 buku Rp28.000. Harga 7 buku sejenis adalah ....",
+   "opsi": {
+    "A": "Rp35.000",
+    "B": "Rp42.000",
+    "C": "Rp49.000",
+    "D": "Rp196.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Harga 1 buku 7.000; 7×7.000=49.000.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.2",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Sebuah mobil menempuh 180 km dalam 3 jam dengan kecepatan tetap. Jarak dalam 5 jam adalah ....",
+   "opsi": {
+    "A": "240 km",
+    "B": "300 km",
+    "C": "108 km",
+    "D": "540 km"
+   },
+   "kunci": "B",
+   "pembahasan": "180÷3=60 km/jam; 60×5=300.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.3",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Harga 5 kg gula Rp72.500. Harga 8 kg gula adalah ....",
+   "opsi": {
+    "A": "Rp112.000",
+    "B": "Rp130.000",
+    "C": "Rp116.000",
+    "D": "Rp90.625"
+   },
+   "kunci": "C",
+   "pembahasan": "72.500÷5=14.500; 14.500×8=116.000.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.4",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Harga 6 buah roti Rp27.000. Harga 10 roti adalah ....",
+   "opsi": {
+    "A": "Rp40.500",
+    "B": "Rp45.000",
+    "C": "Rp49.500",
+    "D": "Rp54.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Cari nilai per satuan: 4.500; lalu kalikan dengan 10.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.5",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Sebuah motor menghabiskan 3 liter bensin untuk menempuh 105 km. Dengan 8 liter, jarak yang ditempuh adalah ....",
+   "opsi": {
+    "A": "350 km",
+    "B": "280 km",
+    "C": "315 km",
+    "D": "245 km"
+   },
+   "kunci": "B",
+   "pembahasan": "Cari nilai per satuan: 35; lalu kalikan dengan 8.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.6",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Upah 4 hari kerja Rp340.000. Upah untuk 9 hari kerja adalah ....",
+   "opsi": {
+    "A": "Rp935.000",
+    "B": "Rp850.000",
+    "C": "Rp680.000",
+    "D": "Rp765.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Cari nilai per satuan: 85.000; lalu kalikan dengan 9.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.7",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Sebuah keran mengalirkan 45 liter air dalam 9 menit. Air yang mengalir dalam 14 menit adalah ....",
+   "opsi": {
+    "A": "65 liter",
+    "B": "70 liter",
+    "C": "80 liter",
+    "D": "75 liter"
+   },
+   "kunci": "B",
+   "pembahasan": "Cari nilai per satuan: 5; lalu kalikan dengan 14.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.8",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Kain sepanjang 5 m seharga Rp175.000. Harga kain 12 m adalah ....",
+   "opsi": {
+    "A": "Rp385.000",
+    "B": "Rp455.000",
+    "C": "Rp420.000",
+    "D": "Rp490.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Cari nilai per satuan: 35.000; lalu kalikan dengan 12.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.9",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Harga 3 lusin telur Rp108.000 (1 lusin = 12 butir). Harga 90 butir telur adalah ....",
+   "opsi": {
+    "A": "Rp270.000",
+    "B": "Rp267.000",
+    "C": "Rp273.000",
+    "D": "Rp276.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Cari nilai per satuan: 3.000; lalu kalikan dengan 90.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S1.10",
+   "kodeStage": "D0-03-02.S1",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Seorang pelari menempuh 2,4 km dalam 12 menit. Dengan kecepatan sama, jarak dalam 30 menit adalah ....",
+   "opsi": {
+    "A": "6,4 km",
+    "B": "5,8 km",
+    "C": "6,2 km",
+    "D": "6 km"
+   },
+   "kunci": "D",
+   "pembahasan": "Cari nilai per satuan: 0,2; lalu kalikan dengan 30.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-02.S2.1",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Sebuah pekerjaan selesai 12 hari oleh 6 pekerja. Dengan 9 pekerja, pekerjaan selesai dalam ....",
+   "opsi": {
+    "A": "18 hari",
+    "B": "8 hari",
+    "C": "9 hari",
+    "D": "6 hari"
+   },
+   "kunci": "B",
+   "pembahasan": "Berbalik nilai: 6×12 = 9×x, x=8.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.2",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Motor berkecepatan 60 km/jam menempuh jarak tertentu dalam 4 jam. Dengan kecepatan 80 km/jam, waktunya ....",
+   "opsi": {
+    "A": "2 jam",
+    "B": "4 jam",
+    "C": "5 jam",
+    "D": "3 jam"
+   },
+   "kunci": "D",
+   "pembahasan": "Jarak 240 km; 240÷80 = 3 jam.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.3",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Pasangan besaran berikut yang berbanding terbalik adalah ....",
+   "opsi": {
+    "A": "Jarak tempuh dan banyak bensin yang terpakai",
+    "B": "Banyak pekerja dan waktu penyelesaian pekerjaan yang sama",
+    "C": "Banyak buku dan harga seluruhnya",
+    "D": "Banyak kue dan banyak telur yang dipakai"
+   },
+   "kunci": "B",
+   "pembahasan": "Makin banyak pekerja, makin singkat waktunya; pasangan lain berbanding senilai.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.4",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Sebuah proyek selesai dalam 20 hari oleh 12 pekerja. Dengan 15 pekerja, proyek selesai dalam ....",
+   "opsi": {
+    "A": "18 hari",
+    "B": "14 hari",
+    "C": "20 hari",
+    "D": "16 hari"
+   },
+   "kunci": "D",
+   "pembahasan": "Berbalik nilai: 12 × 20 = 15 × x, sehingga x = 16.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.5",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Persediaan makanan 30 ekor ayam cukup untuk 16 hari. Jika ayam bertambah menjadi 40 ekor, persediaan cukup untuk ....",
+   "opsi": {
+    "A": "16 hari",
+    "B": "14 hari",
+    "C": "12 hari",
+    "D": "10 hari"
+   },
+   "kunci": "C",
+   "pembahasan": "Berbalik nilai: 30 × 16 = 40 × x, sehingga x = 12.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.6",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Sebuah mobil menempuh perjalanan dalam 5 jam dengan kecepatan 72 km/jam. Dengan kecepatan 90 km/jam, waktunya ....",
+   "opsi": {
+    "A": "4 jam",
+    "B": "6 jam",
+    "C": "2 jam",
+    "D": "8 jam"
+   },
+   "kunci": "A",
+   "pembahasan": "Berbalik nilai: 72 × 5 = 90 × x, sehingga x = 4.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.7",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Air di tandon habis dalam 18 menit jika dikeluarkan 25 liter per menit. Jika dikeluarkan 30 liter per menit, habis dalam ....",
+   "opsi": {
+    "A": "19 menit",
+    "B": "15 menit",
+    "C": "13 menit",
+    "D": "17 menit"
+   },
+   "kunci": "B",
+   "pembahasan": "Berbalik nilai: 25 × 18 = 30 × x, sehingga x = 15.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.8",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Sebuah pekerjaan selesai dalam 9 hari oleh 8 orang. Jika 6 orang yang mengerjakan, pekerjaan selesai dalam ....",
+   "opsi": {
+    "A": "12 hari",
+    "B": "16 hari",
+    "C": "10 hari",
+    "D": "14 hari"
+   },
+   "kunci": "A",
+   "pembahasan": "Berbalik nilai: 8 × 9 = 6 × x, sehingga x = 12.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.9",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Pasangan besaran berikut yang berbanding senilai adalah ....",
+   "opsi": {
+    "A": "Kecepatan dan waktu tempuh pada jarak tetap",
+    "B": "Banyak pekerja dan lama pekerjaan selesai",
+    "C": "Banyak mesin dan waktu produksi",
+    "D": "Banyak barang yang dibeli dan total harga"
+   },
+   "kunci": "D",
+   "pembahasan": "Makin banyak barang, makin besar total harga; tiga pasangan lain berbanding terbalik.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-02.S2.10",
+   "kodeStage": "D0-03-02.S2",
+   "kodeIndikator": "D0-03-02",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Hubungan berbanding terbalik terdapat pada pasangan besaran ....",
+   "opsi": {
+    "A": "Kecepatan kendaraan dan waktu tempuh pada jarak tetap",
+    "B": "Berat gula dan harganya",
+    "C": "Banyak buku dan harga seluruhnya",
+    "D": "Banyak kue dan banyak tepung yang dipakai"
+   },
+   "kunci": "A",
+   "pembahasan": "Makin cepat kendaraan, makin singkat waktu tempuhnya.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-03-03.S1.1",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3,5 km = .... m",
+   "opsi": {
+    "A": "350",
+    "B": "350.000",
+    "C": "3.500",
+    "D": "35.000"
+   },
+   "kunci": "C",
+   "pembahasan": "1 km = 1.000 m; 3,5×1.000 = 3.500.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.2",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "2.400 gram = .... kg",
+   "opsi": {
+    "A": "24",
+    "B": "240",
+    "C": "2,4",
+    "D": "0,24"
+   },
+   "kunci": "C",
+   "pembahasan": "1 kg = 1.000 gram; 2.400÷1.000 = 2,4.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.3",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "2,5 jam = .... menit",
+   "opsi": {
+    "A": "150",
+    "B": "125",
+    "C": "250",
+    "D": "90"
+   },
+   "kunci": "A",
+   "pembahasan": "2,5 × 60 = 150.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.4",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "4,8 km = .... m",
+   "opsi": {
+    "A": "4.800",
+    "B": "480",
+    "C": "480.000",
+    "D": "48.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 4.800.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.5",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "7.500 m = .... km",
+   "opsi": {
+    "A": "750",
+    "B": "7,5",
+    "C": "75",
+    "D": "0,75"
+   },
+   "kunci": "B",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 7,5.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.6",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "3,2 kg = .... gram",
+   "opsi": {
+    "A": "32.000",
+    "B": "320",
+    "C": "320.000",
+    "D": "3.200"
+   },
+   "kunci": "D",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 3.200.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.7",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "450 gram = .... kg",
+   "opsi": {
+    "A": "45",
+    "B": "0,45",
+    "C": "4,5",
+    "D": "0,045"
+   },
+   "kunci": "B",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 0,45.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.8",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "3 jam 20 menit = .... menit",
+   "opsi": {
+    "A": "80",
+    "B": "380",
+    "C": "200",
+    "D": "320"
+   },
+   "kunci": "C",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 200.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.9",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "2 hari = .... jam",
+   "opsi": {
+    "A": "12",
+    "B": "48",
+    "C": "24",
+    "D": "60"
+   },
+   "kunci": "B",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 48.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S1.10",
+   "kodeStage": "D0-03-03.S1",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "5.400 detik = .... jam",
+   "opsi": {
+    "A": "90",
+    "B": "1,5",
+    "C": "15",
+    "D": "54"
+   },
+   "kunci": "B",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 1,5.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-03-03.S2.1",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "4,5 m² = .... cm²",
+   "opsi": {
+    "A": "450.000",
+    "B": "450",
+    "C": "4.500",
+    "D": "45.000"
+   },
+   "kunci": "D",
+   "pembahasan": "1 m² = 10.000 cm²; 4,5×10.000=45.000.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.2",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "5 liter = .... cm³",
+   "opsi": {
+    "A": "50",
+    "B": "500",
+    "C": "50.000",
+    "D": "5.000"
+   },
+   "kunci": "D",
+   "pembahasan": "1 liter = 1.000 cm³.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.3",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "72 km/jam = .... m/detik",
+   "opsi": {
+    "A": "12",
+    "B": "7,2",
+    "C": "20",
+    "D": "25"
+   },
+   "kunci": "C",
+   "pembahasan": "72×1.000÷3.600 = 20.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.4",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "35.000 cm² = .... m²",
+   "opsi": {
+    "A": "350",
+    "B": "3,5",
+    "C": "35",
+    "D": "0,35"
+   },
+   "kunci": "B",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 3,5.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.5",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "2,5 ha = .... m² (1 ha = 10.000 m²)",
+   "opsi": {
+    "A": "250",
+    "B": "2.500",
+    "C": "25.000",
+    "D": "250.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 25.000.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.6",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "0,75 m³ = .... liter",
+   "opsi": {
+    "A": "750",
+    "B": "7",
+    "C": "75",
+    "D": "7.500"
+   },
+   "kunci": "A",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 750.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.7",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "3.600 liter = .... m³",
+   "opsi": {
+    "A": "3,6",
+    "B": "36",
+    "C": "360",
+    "D": "0,36"
+   },
+   "kunci": "A",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 3,6.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.8",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "54 km/jam = .... m/detik",
+   "opsi": {
+    "A": "15",
+    "B": "150",
+    "C": "5,4",
+    "D": "9"
+   },
+   "kunci": "A",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 15.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.9",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "25 m/detik = .... km/jam",
+   "opsi": {
+    "A": "9",
+    "B": "250",
+    "C": "2,5",
+    "D": "90"
+   },
+   "kunci": "D",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 90.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-03.S2.10",
+   "kodeStage": "D0-03-03.S2",
+   "kodeIndikator": "D0-03-03",
+   "kodeTopik": "D0-03",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "2,4 m² = .... cm²",
+   "opsi": {
+    "A": "240",
+    "B": "2.400",
+    "C": "24.000",
+    "D": "240.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Gunakan hubungan satuan: hasil = 24.000.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-03-04.S1.1",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "Harga jaket Rp250.000 mendapat diskon 20%. Harga yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp200.000",
+    "B": "Rp225.000",
+    "C": "Rp50.000",
+    "D": "Rp230.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Diskon 50.000; 250.000−50.000 = 200.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.2",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "Harga barang Rp80.000 dikenai PPN 11%. Harga yang harus dibayar adalah ....",
+   "opsi": {
+    "A": "Rp88.000",
+    "B": "Rp8.800",
+    "C": "Rp88.800",
+    "D": "Rp90.800"
+   },
+   "kunci": "C",
+   "pembahasan": "PPN = 8.800; 80.000+8.800 = 88.800.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.3",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "Barang seharga Rp1.000.000 didiskon 20%, kemudian didiskon lagi 10% dari harga baru. Harga akhir adalah ....",
+   "opsi": {
+    "A": "Rp770.000",
+    "B": "Rp750.000",
+    "C": "Rp700.000",
+    "D": "Rp720.000"
+   },
+   "kunci": "D",
+   "pembahasan": "1.000.000×0,8=800.000; 800.000×0,9=720.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.4",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "Harga sepatu Rp340.000 mendapat diskon 15%. Harga yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp51.000",
+    "B": "Rp289.000",
+    "C": "Rp340.000",
+    "D": "Rp238.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Diskon = 51.000; bayar = 340.000 − 51.000 = 289.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.5",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "Harga sepatu Rp185.000 mendapat diskon 40%. Harga yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp111.000",
+    "B": "Rp185.000",
+    "C": "Rp37.000",
+    "D": "Rp74.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Diskon = 74.000; bayar = 185.000 − 74.000 = 111.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.6",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "Harga sepatu Rp72.000 mendapat diskon 25%. Harga yang dibayar adalah ....",
+   "opsi": {
+    "A": "Rp36.000",
+    "B": "Rp54.000",
+    "C": "Rp18.000",
+    "D": "Rp72.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Diskon = 18.000; bayar = 72.000 − 18.000 = 54.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.7",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "Harga barang Rp250.000 dikenai pajak 10%. Harga yang harus dibayar adalah ....",
+   "opsi": {
+    "A": "Rp25.000",
+    "B": "Rp275.000",
+    "C": "Rp250.000",
+    "D": "Rp225.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Pajak = 25.000; total = 275.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.8",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "Harga barang Rp1.200.000 dikenai pajak 11%. Harga yang harus dibayar adalah ....",
+   "opsi": {
+    "A": "Rp132.000",
+    "B": "Rp1.332.000",
+    "C": "Rp1.068.000",
+    "D": "Rp1.200.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Pajak = 132.000; total = 1.332.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.9",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "Harga tas Rp600.000 didiskon 30%, lalu didiskon lagi 10% dari harga setelah diskon pertama. Harga akhir adalah ....",
+   "opsi": {
+    "A": "Rp378.000",
+    "B": "Rp420.000",
+    "C": "Rp390.000",
+    "D": "Rp360.000"
+   },
+   "kunci": "A",
+   "pembahasan": "600.000×0,7=420.000; 420.000×0,9=378.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S1.10",
+   "kodeStage": "D0-03-04.S1",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "Harga barang Rp450.000 didiskon 20%, kemudian dikenai pajak 5% dari harga setelah diskon. Harga akhir adalah ....",
+   "opsi": {
+    "A": "Rp472.500",
+    "B": "Rp378.000",
+    "C": "Rp468.000",
+    "D": "Rp486.000"
+   },
+   "kunci": "B",
+   "pembahasan": "450.000×0,8=360.000; ×1,05=378.000.",
+   "targetDetikPerSoal": 45
+  },
+  {
+   "id": "D0-03-04.S2.1",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "Barang dibeli Rp400.000 dan dijual Rp460.000. Persentase untungnya adalah ....",
+   "opsi": {
+    "A": "20%",
+    "B": "60%",
+    "C": "13%",
+    "D": "15%"
+   },
+   "kunci": "D",
+   "pembahasan": "Untung 60.000; 60.000/400.000×100% = 15%.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.2",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "Barang dibeli Rp150.000 lalu dijual rugi 10%. Harga jualnya adalah ....",
+   "opsi": {
+    "A": "Rp15.000",
+    "B": "Rp135.000",
+    "C": "Rp165.000",
+    "D": "Rp140.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Rugi 15.000; 150.000−15.000 = 135.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.3",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "Modal Rp5.000.000 dibungakan 8% per tahun (bunga tunggal) selama 9 bulan. Bunganya adalah ....",
+   "opsi": {
+    "A": "Rp400.000",
+    "B": "Rp360.000",
+    "C": "Rp30.000",
+    "D": "Rp300.000"
+   },
+   "kunci": "D",
+   "pembahasan": "5.000.000×8%×9/12 = 300.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.4",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "Sebuah barang dibeli Rp250.000 dan dijual Rp300.000. Persentase untung adalah ....",
+   "opsi": {
+    "A": "20%",
+    "B": "40%",
+    "C": "50%",
+    "D": "10%"
+   },
+   "kunci": "A",
+   "pembahasan": "Untung = 50.000; 50.000/250.000 × 100% = 20%.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.5",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "Sebuah barang dibeli Rp80.000 dan dijual Rp68.000. Persentase rugi adalah ....",
+   "opsi": {
+    "A": "7,5%",
+    "B": "12%",
+    "C": "15%",
+    "D": "30%"
+   },
+   "kunci": "C",
+   "pembahasan": "Rugi = 12.000; 12.000/80.000 × 100% = 15%.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.6",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "Sebuah barang dibeli Rp240.000 dan dijual dengan untung 25%. Harga jualnya adalah ....",
+   "opsi": {
+    "A": "Rp300.000",
+    "B": "Rp60.000",
+    "C": "Rp264.000",
+    "D": "Rp360.000"
+   },
+   "kunci": "A",
+   "pembahasan": "Untung = 60.000; jual = 300.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.7",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "Sebuah barang dibeli Rp500.000 dan dijual rugi 15%. Harga jualnya adalah ....",
+   "opsi": {
+    "A": "Rp75.000",
+    "B": "Rp485.000",
+    "C": "Rp575.000",
+    "D": "Rp425.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Rugi = 75.000; jual = 425.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.8",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "Sebuah barang dijual Rp330.000 dengan untung 10%. Harga belinya adalah ....",
+   "opsi": {
+    "A": "Rp297.000",
+    "B": "Rp300.000",
+    "C": "Rp363.000",
+    "D": "Rp320.000"
+   },
+   "kunci": "B",
+   "pembahasan": "Harga jual = 110% × harga beli; beli = 330.000 ÷ 1,1 = 300.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.9",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "Modal Rp4.000.000 dibungakan 6% per tahun (bunga tunggal) selama 15 bulan. Bunga yang diperoleh adalah ....",
+   "opsi": {
+    "A": "Rp300.000",
+    "B": "Rp240.000",
+    "C": "Rp360.000",
+    "D": "Rp24.000"
+   },
+   "kunci": "A",
+   "pembahasan": "4.000.000 × 6% × 15/12 = 300.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03-04.S2.10",
+   "kodeStage": "D0-03-04.S2",
+   "kodeIndikator": "D0-03-04",
+   "kodeTopik": "D0-03",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "Seseorang menabung Rp2.000.000 dengan bunga tunggal 9% per tahun. Bunga setelah 6 bulan adalah ....",
+   "opsi": {
+    "A": "Rp90.000",
+    "B": "Rp18.000",
+    "C": "Rp180.000",
+    "D": "Rp1.090.000"
+   },
+   "kunci": "A",
+   "pembahasan": "2.000.000 × 9% × 6/12 = 90.000.",
+   "targetDetikPerSoal": 60
+  },
+  {
+   "id": "D0-03.G.1",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 1,
+   "soal": "Pada peta berskala 1 : 2.000.000, jarak dua kota 4,5 cm. Dengan kecepatan 60 km/jam, waktu tempuh adalah ....",
+   "opsi": {
+    "A": "2,5 jam",
+    "B": "1,5 jam",
+    "C": "1 jam",
+    "D": "15 jam"
+   },
+   "kunci": "B",
+   "pembahasan": "4,5×2.000.000=9.000.000 cm=90 km; 90÷60=1,5 jam.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.2",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 2,
+   "soal": "12 mesin menyelesaikan produksi dalam 15 hari. Jika hanya 9 mesin, produksi selesai dalam ....",
+   "opsi": {
+    "A": "20 hari",
+    "B": "18 hari",
+    "C": "12 hari",
+    "D": "11,25 hari"
+   },
+   "kunci": "A",
+   "pembahasan": "Berbalik nilai: 12×15=9×x; x=20.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.3",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 3,
+   "soal": "Harga sebuah barang Rp800.000 didiskon 15%, kemudian dikenai PPN 11%. Harga akhir adalah ....",
+   "opsi": {
+    "A": "Rp754.800",
+    "B": "Rp756.800",
+    "C": "Rp880.000",
+    "D": "Rp748.800"
+   },
+   "kunci": "A",
+   "pembahasan": "800.000×0,85=680.000; ×1,11=754.800.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.4",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 4,
+   "soal": "Pada peta berskala 1 : 1.000.000, jarak dua kota 7,2 cm. Sebuah bus menempuhnya dengan kecepatan 48 km/jam. Waktu tempuh bus adalah ....",
+   "opsi": {
+    "A": "2,5 jam",
+    "B": "2 jam",
+    "C": "1,5 jam",
+    "D": "3 jam"
+   },
+   "kunci": "C",
+   "pembahasan": "7,2 cm × 1.000.000 = 72 km; 72 ÷ 48 = 1,5 jam.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.5",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 5,
+   "soal": "Sebuah toko memberi diskon 25% untuk setiap pembelian di atas Rp400.000. Rina membeli barang seharga Rp560.000. Uang yang harus dibayar adalah ....",
+   "opsi": {
+    "A": "Rp535.000",
+    "B": "Rp140.000",
+    "C": "Rp700.000",
+    "D": "Rp420.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Diskon 25% = 140.000; bayar = 420.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.6",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 6,
+   "soal": "Perbandingan uang Ani dan Budi 3 : 5. Jika selisih uang mereka Rp60.000, jumlah uang keduanya adalah ....",
+   "opsi": {
+    "A": "Rp120.000",
+    "B": "Rp300.000",
+    "C": "Rp150.000",
+    "D": "Rp240.000"
+   },
+   "kunci": "D",
+   "pembahasan": "Selisih 2 bagian = 60.000, satu bagian = 30.000; jumlah 8 bagian = 240.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.7",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 7,
+   "soal": "Sebuah mesin mencetak 450 lembar dalam 15 menit. Dengan kecepatan sama, banyak lembar dalam 1,5 jam adalah ....",
+   "opsi": {
+    "A": "675",
+    "B": "1.350",
+    "C": "4.050",
+    "D": "2.700"
+   },
+   "kunci": "D",
+   "pembahasan": "450÷15 = 30 lembar/menit; 1,5 jam = 90 menit; 30×90=2.700.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.8",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 8,
+   "soal": "Seorang pedagang membeli 40 kg beras seharga Rp12.000 per kg. Ia menjual semuanya dengan harga Rp13.500 per kg. Untungnya adalah ....",
+   "opsi": {
+    "A": "Rp540.000",
+    "B": "Rp480.000",
+    "C": "Rp60.000",
+    "D": "Rp6.000"
+   },
+   "kunci": "C",
+   "pembahasan": "Modal 480.000; jual 540.000; untung 60.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.9",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 9,
+   "soal": "Sebuah kolam diisi dengan 2 pompa dan penuh dalam 9 jam. Jika digunakan 3 pompa yang sama, kolam penuh dalam ....",
+   "opsi": {
+    "A": "18 jam",
+    "B": "6 jam",
+    "C": "13,5 jam",
+    "D": "4 jam"
+   },
+   "kunci": "B",
+   "pembahasan": "Berbalik nilai: 2×9 = 3×x; x = 6.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-03.G.10",
+   "kodeStage": "D0-03.G",
+   "kodeIndikator": "D0-03 (gabungan)",
+   "kodeTopik": "D0-03",
+   "level": "L3",
+   "nomorDalamStage": 10,
+   "soal": "Harga 5 kg jeruk Rp87.500. Setelah diskon 20%, harga 8 kg jeruk adalah ....",
+   "opsi": {
+    "A": "Rp112.000",
+    "B": "Rp101.500",
+    "C": "Rp28.000",
+    "D": "Rp140.000"
+   },
+   "kunci": "A",
+   "pembahasan": "87.500÷5 = 17.500 per kg; 8 kg = 140.000; diskon 20% → 112.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04-01.S1.1",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "2⁵ = ....",
+   "opsi": {
+    "A": "32",
+    "B": "10",
+    "C": "16",
+    "D": "25"
+   },
+   "kunci": "A",
+   "pembahasan": "2×2×2×2×2 = 32.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.2",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "3⁴ = ....",
+   "opsi": {
+    "A": "64",
+    "B": "12",
+    "C": "81",
+    "D": "34"
+   },
+   "kunci": "C",
+   "pembahasan": "3×3×3×3 = 81.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.3",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "(−2)³ = ....",
+   "opsi": {
+    "A": "8",
+    "B": "−8",
+    "C": "−6",
+    "D": "6"
+   },
+   "kunci": "B",
+   "pembahasan": "(−2)×(−2)×(−2) = −8.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.4",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "4³ = ....",
+   "opsi": {
+    "A": "12",
+    "B": "64",
+    "C": "81",
+    "D": "16"
+   },
+   "kunci": "B",
+   "pembahasan": "4³ = 4 × 4 × 4 = 64.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.5",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "5³ = ....",
+   "opsi": {
+    "A": "15",
+    "B": "125",
+    "C": "25",
+    "D": "243"
+   },
+   "kunci": "B",
+   "pembahasan": "5³ = 5 × 5 × 5 = 125.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.6",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(−3)⁴ = ....",
+   "opsi": {
+    "A": "−81",
+    "B": "12",
+    "C": "81",
+    "D": "−12"
+   },
+   "kunci": "C",
+   "pembahasan": "Pangkat genap: hasil positif; (−3)⁴ = 81.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.7",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "−3⁴ = ....",
+   "opsi": {
+    "A": "81",
+    "B": "12",
+    "C": "−12",
+    "D": "−81"
+   },
+   "kunci": "D",
+   "pembahasan": "Tanda minus di luar pangkat: −(3⁴) = −81.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.8",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "(−5)² = ....",
+   "opsi": {
+    "A": "−25",
+    "B": "10",
+    "C": "−10",
+    "D": "25"
+   },
+   "kunci": "D",
+   "pembahasan": "(−5)² = (−5) × (−5) = 25.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.9",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "2⁶ = ....",
+   "opsi": {
+    "A": "12",
+    "B": "36",
+    "C": "64",
+    "D": "32"
+   },
+   "kunci": "C",
+   "pembahasan": "2⁶ = 64.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S1.10",
+   "kodeStage": "D0-04-01.S1",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "(2/3)³ = ....",
+   "opsi": {
+    "A": "2/27",
+    "B": "8/27",
+    "C": "2/3",
+    "D": "8/9"
+   },
+   "kunci": "B",
+   "pembahasan": "(2/3)³ = 2³/3³ = 8/27.",
+   "targetDetikPerSoal": 15
+  },
+  {
+   "id": "D0-04-01.S2.1",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "7⁰ = ....",
+   "opsi": {
+    "A": "0",
+    "B": "70",
+    "C": "7",
+    "D": "1"
+   },
+   "kunci": "D",
+   "pembahasan": "Bilangan tak nol berpangkat nol sama dengan 1.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.2",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "2⁻³ = ....",
+   "opsi": {
+    "A": "8",
+    "B": "−8",
+    "C": "1/8",
+    "D": "1/6"
+   },
+   "kunci": "C",
+   "pembahasan": "2⁻³ = 1/2³ = 1/8.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.3",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "(1/3)⁻² = ....",
+   "opsi": {
+    "A": "9",
+    "B": "6",
+    "C": "1/9",
+    "D": "−9"
+   },
+   "kunci": "A",
+   "pembahasan": "(1/3)⁻² = 3² = 9.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.4",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "10⁻² = ....",
+   "opsi": {
+    "A": "1/1000",
+    "B": "100",
+    "C": "1/20",
+    "D": "1/100"
+   },
+   "kunci": "D",
+   "pembahasan": "a⁻ⁿ = 1/aⁿ; 10⁻² = 1/100.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.5",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "4⁻² = ....",
+   "opsi": {
+    "A": "1/4",
+    "B": "1/16",
+    "C": "1/8",
+    "D": "16"
+   },
+   "kunci": "B",
+   "pembahasan": "4⁻² = 1/4² = 1/16.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.6",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(2/5)⁻¹ = ....",
+   "opsi": {
+    "A": "−5/2",
+    "B": "−2/5",
+    "C": "5/2",
+    "D": "2/5"
+   },
+   "kunci": "C",
+   "pembahasan": "Kebalikan: (2/5)⁻¹ = 5/2.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.7",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "(3/2)⁻³ = ....",
+   "opsi": {
+    "A": "9/8",
+    "B": "−27/8",
+    "C": "27/8",
+    "D": "8/27"
+   },
+   "kunci": "D",
+   "pembahasan": "(3/2)⁻³ = (2/3)³ = 8/27.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.8",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "6⁰ + 6¹ = ....",
+   "opsi": {
+    "A": "0",
+    "B": "12",
+    "C": "6",
+    "D": "7"
+   },
+   "kunci": "D",
+   "pembahasan": "6⁰ = 1; 6¹ = 6; jumlahnya 7.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.9",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "9⁰ + 3⁻² = ....",
+   "opsi": {
+    "A": "2 1/9",
+    "B": "1/9",
+    "C": "7/9",
+    "D": "1 1/9"
+   },
+   "kunci": "D",
+   "pembahasan": "9⁰ = 1; 3⁻² = 1/9; jumlah 1 1/9.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-01.S2.10",
+   "kodeStage": "D0-04-01.S2",
+   "kodeIndikator": "D0-04-01",
+   "kodeTopik": "D0-04",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "(−2)⁻³ = ....",
+   "opsi": {
+    "A": "−1/6",
+    "B": "−1/8",
+    "C": "1/8",
+    "D": "8"
+   },
+   "kunci": "B",
+   "pembahasan": "(−2)⁻³ = 1/(−2)³ = −1/8.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-04-02.S1.1",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "2⁴ × 2³ = ....",
+   "opsi": {
+    "A": "4⁷",
+    "B": "2⁷",
+    "C": "2¹²",
+    "D": "4¹²"
+   },
+   "kunci": "B",
+   "pembahasan": "Basis sama, pangkat dijumlahkan: 4+3=7.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.2",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "3⁸ ÷ 3⁵ = ....",
+   "opsi": {
+    "A": "3³",
+    "B": "3¹³",
+    "C": "1³",
+    "D": "3⁵"
+   },
+   "kunci": "A",
+   "pembahasan": "Basis sama, pangkat dikurangkan: 8−5=3.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.3",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "5² × 5⁻⁴ ÷ 5 = ....",
+   "opsi": {
+    "A": "1/25",
+    "B": "125",
+    "C": "−125",
+    "D": "1/125"
+   },
+   "kunci": "D",
+   "pembahasan": "Pangkat: 2−4−1=−3; 5⁻³ = 1/125.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.4",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "7³ × 7⁵ = ....",
+   "opsi": {
+    "A": "7²",
+    "B": "7⁸",
+    "C": "7¹⁵",
+    "D": "49⁸"
+   },
+   "kunci": "B",
+   "pembahasan": "Basis sama, pangkat dijumlahkan: 3 + 5 = 8.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.5",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "5⁶ ÷ 5² = ....",
+   "opsi": {
+    "A": "5⁴",
+    "B": "5³",
+    "C": "1⁴",
+    "D": "5⁸"
+   },
+   "kunci": "A",
+   "pembahasan": "Basis sama, pangkat dikurangkan: 6 − 2 = 4.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.6",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "3 × 3⁴ = ....",
+   "opsi": {
+    "A": "9⁴",
+    "B": "3⁴",
+    "C": "3⁵",
+    "D": "3⁸"
+   },
+   "kunci": "C",
+   "pembahasan": "3 = 3¹; 1 + 4 = 5.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.7",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "a⁴ × a³ = ....",
+   "opsi": {
+    "A": "2a⁷",
+    "B": "a",
+    "C": "a⁷",
+    "D": "a¹²"
+   },
+   "kunci": "C",
+   "pembahasan": "4 + 3 = 7.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.8",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "x⁹ ÷ x⁶ = ....",
+   "opsi": {
+    "A": "x³",
+    "B": "x¹⁵",
+    "C": "x⁵⁴",
+    "D": "1"
+   },
+   "kunci": "A",
+   "pembahasan": "9 − 6 = 3.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.9",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "2⁻³ × 2⁵ = ....",
+   "opsi": {
+    "A": "1/64",
+    "B": "4",
+    "C": "64",
+    "D": "1/4"
+   },
+   "kunci": "B",
+   "pembahasan": "Pangkat dijumlahkan: −3 + 5 = 2; 2² = 4.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S1.10",
+   "kodeStage": "D0-04-02.S1",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "10⁷ ÷ 10⁴ × 10 = ....",
+   "opsi": {
+    "A": "1.000",
+    "B": "10.000",
+    "C": "100.000",
+    "D": "10"
+   },
+   "kunci": "B",
+   "pembahasan": "7 − 4 + 1 = 4; 10⁴ = 10.000.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-04-02.S2.1",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "(2³)⁴ = ....",
+   "opsi": {
+    "A": "8⁷",
+    "B": "2⁷",
+    "C": "6¹²",
+    "D": "2¹²"
+   },
+   "kunci": "D",
+   "pembahasan": "Pangkat dikalikan: 3×4 = 12.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.2",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "(3²)³ × 3⁻⁴ = ....",
+   "opsi": {
+    "A": "9",
+    "B": "3⁻²",
+    "C": "3¹⁰",
+    "D": "27"
+   },
+   "kunci": "A",
+   "pembahasan": "3⁶ × 3⁻⁴ = 3² = 9.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.3",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "Bentuk sederhana dari (2a²)³ adalah ....",
+   "opsi": {
+    "A": "2a⁶",
+    "B": "8a⁶",
+    "C": "6a⁵",
+    "D": "8a⁵"
+   },
+   "kunci": "B",
+   "pembahasan": "2³ = 8 dan (a²)³ = a⁶.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.4",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "(5²)³ = ....",
+   "opsi": {
+    "A": "5⁶",
+    "B": "25⁶",
+    "C": "5⁵",
+    "D": "5⁸"
+   },
+   "kunci": "A",
+   "pembahasan": "Pangkat dikalikan: 2 × 3 = 6.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.5",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "(2⁻²)³ = ....",
+   "opsi": {
+    "A": "1/16",
+    "B": "64",
+    "C": "1/64",
+    "D": "1/32"
+   },
+   "kunci": "C",
+   "pembahasan": "2⁻⁶ = 1/64.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.6",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "Bentuk sederhana dari (3a)² adalah ....",
+   "opsi": {
+    "A": "6a²",
+    "B": "9a",
+    "C": "9a²",
+    "D": "3a²"
+   },
+   "kunci": "C",
+   "pembahasan": "(3a)² = 3²·a² = 9a².",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.7",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "Bentuk sederhana dari (a³b²)⁴ adalah ....",
+   "opsi": {
+    "A": "a⁸b¹²",
+    "B": "a¹²b⁶",
+    "C": "a¹²b⁸",
+    "D": "a⁷b⁶"
+   },
+   "kunci": "C",
+   "pembahasan": "Kalikan tiap pangkat dengan 4.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.8",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "Bentuk sederhana dari (2x³)⁴ adalah ....",
+   "opsi": {
+    "A": "2x¹²",
+    "B": "16x⁷",
+    "C": "16x¹²",
+    "D": "8x¹²"
+   },
+   "kunci": "C",
+   "pembahasan": "2⁴ = 16 dan x³ˣ⁴ = x¹².",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.9",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "(x²)³ × x⁴ = ....",
+   "opsi": {
+    "A": "x¹⁰",
+    "B": "x⁹",
+    "C": "x¹²",
+    "D": "x²⁴"
+   },
+   "kunci": "A",
+   "pembahasan": "x⁶ × x⁴ = x¹⁰.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-02.S2.10",
+   "kodeStage": "D0-04-02.S2",
+   "kodeIndikator": "D0-04-02",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "(a⁵)² ÷ a³ = ....",
+   "opsi": {
+    "A": "a⁴",
+    "B": "a¹³",
+    "C": "a⁷",
+    "D": "a⁹"
+   },
+   "kunci": "C",
+   "pembahasan": "a¹⁰ ÷ a³ = a⁷.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S1.1",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "√144 = ....",
+   "opsi": {
+    "A": "12",
+    "B": "72",
+    "C": "14",
+    "D": "11"
+   },
+   "kunci": "A",
+   "pembahasan": "12 × 12 = 144.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.2",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "√81 + √25 = ....",
+   "opsi": {
+    "A": "√106",
+    "B": "34",
+    "C": "14",
+    "D": "7"
+   },
+   "kunci": "C",
+   "pembahasan": "9 + 5 = 14.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.3",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "√(49 × 4) = ....",
+   "opsi": {
+    "A": "14",
+    "B": "196",
+    "C": "11",
+    "D": "28"
+   },
+   "kunci": "A",
+   "pembahasan": "√196 = 14 (atau 7×2).",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.4",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "√169 = ....",
+   "opsi": {
+    "A": "12",
+    "B": "14",
+    "C": "13",
+    "D": "26"
+   },
+   "kunci": "C",
+   "pembahasan": "13 × 13 = 169.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.5",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "√225 = ....",
+   "opsi": {
+    "A": "15",
+    "B": "14",
+    "C": "16",
+    "D": "25"
+   },
+   "kunci": "A",
+   "pembahasan": "15 × 15 = 225.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.6",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "√0,49 = ....",
+   "opsi": {
+    "A": "7",
+    "B": "0,7",
+    "C": "0,49",
+    "D": "0,07"
+   },
+   "kunci": "B",
+   "pembahasan": "√0,49 = √(49/100) = 7/10 = 0,7.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.7",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "√(16 × 9) = ....",
+   "opsi": {
+    "A": "25",
+    "B": "144",
+    "C": "12",
+    "D": "7"
+   },
+   "kunci": "C",
+   "pembahasan": "√16 × √9 = 4 × 3 = 12.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.8",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "√100 − √36 = ....",
+   "opsi": {
+    "A": "4",
+    "B": "64",
+    "C": "2",
+    "D": "8"
+   },
+   "kunci": "A",
+   "pembahasan": "10 − 6 = 4.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.9",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "√(1/4) = ....",
+   "opsi": {
+    "A": "1/8",
+    "B": "2",
+    "C": "1/4",
+    "D": "1/2"
+   },
+   "kunci": "D",
+   "pembahasan": "√1/√4 = 1/2.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S1.10",
+   "kodeStage": "D0-04-03.S1",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "√196 = ....",
+   "opsi": {
+    "A": "14",
+    "B": "13",
+    "C": "16",
+    "D": "28"
+   },
+   "kunci": "A",
+   "pembahasan": "14 × 14 = 196.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-04-03.S2.1",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "√50 = ....",
+   "opsi": {
+    "A": "2√5",
+    "B": "25√2",
+    "C": "5√2",
+    "D": "10√5"
+   },
+   "kunci": "C",
+   "pembahasan": "√50 = √(25×2) = 5√2.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.2",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "√12 + √27 = ....",
+   "opsi": {
+    "A": "6√3",
+    "B": "√39",
+    "C": "5√6",
+    "D": "5√3"
+   },
+   "kunci": "D",
+   "pembahasan": "2√3 + 3√3 = 5√3.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.3",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "√18 × √2 = ....",
+   "opsi": {
+    "A": "36",
+    "B": "3√2",
+    "C": "20",
+    "D": "6"
+   },
+   "kunci": "D",
+   "pembahasan": "√36 = 6.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.4",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "√72 = ....",
+   "opsi": {
+    "A": "36√2",
+    "B": "2√6",
+    "C": "8√3",
+    "D": "6√2"
+   },
+   "kunci": "D",
+   "pembahasan": "72 = 36 × 2, jadi √72 = 6√2.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.5",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "√45 = ....",
+   "opsi": {
+    "A": "9√5",
+    "B": "15√3",
+    "C": "5√3",
+    "D": "3√5"
+   },
+   "kunci": "D",
+   "pembahasan": "45 = 9 × 5, jadi √45 = 3√5.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.6",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "√8 + √18 = ....",
+   "opsi": {
+    "A": "6√2",
+    "B": "√26",
+    "C": "5√2",
+    "D": "4√5"
+   },
+   "kunci": "C",
+   "pembahasan": "2√2 + 3√2 = 5√2.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.7",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "√75 − √12 = ....",
+   "opsi": {
+    "A": "√63",
+    "B": "2√3",
+    "C": "5√3",
+    "D": "3√3"
+   },
+   "kunci": "D",
+   "pembahasan": "5√3 − 2√3 = 3√3.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.8",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "√6 × √3 = ....",
+   "opsi": {
+    "A": "18",
+    "B": "√9",
+    "C": "3√2",
+    "D": "2√3"
+   },
+   "kunci": "C",
+   "pembahasan": "√18 = √(9 × 2) = 3√2.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.9",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "√20 × √5 = ....",
+   "opsi": {
+    "A": "25",
+    "B": "10",
+    "C": "100",
+    "D": "5"
+   },
+   "kunci": "B",
+   "pembahasan": "√100 = 10.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04-03.S2.10",
+   "kodeStage": "D0-04-03.S2",
+   "kodeIndikator": "D0-04-03",
+   "kodeTopik": "D0-04",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "3√2 × 2√8 = ....",
+   "opsi": {
+    "A": "6√16",
+    "B": "12√2",
+    "C": "12",
+    "D": "24"
+   },
+   "kunci": "D",
+   "pembahasan": "6√16 = 6 × 4 = 24.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-04.G.1",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 1,
+   "soal": "Sebuah koloni bakteri berjumlah 3 pada awal dan menjadi dua kali lipat setiap jam. Jumlahnya setelah 5 jam adalah ....",
+   "opsi": {
+    "A": "30",
+    "B": "1.024",
+    "C": "48",
+    "D": "96"
+   },
+   "kunci": "D",
+   "pembahasan": "3 × 2⁵ = 3 × 32 = 96.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.2",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 2,
+   "soal": "Luas sebuah persegi 169 cm². Keliling persegi tersebut adalah ....",
+   "opsi": {
+    "A": "26 cm",
+    "B": "13 cm",
+    "C": "676 cm",
+    "D": "52 cm"
+   },
+   "kunci": "D",
+   "pembahasan": "Sisi = √169 = 13; keliling = 4×13 = 52.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.3",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 3,
+   "soal": "2⁻¹ + 2⁻² = ....",
+   "opsi": {
+    "A": "1/8",
+    "B": "1/6",
+    "C": "3/4",
+    "D": "3/2"
+   },
+   "kunci": "C",
+   "pembahasan": "1/2 + 1/4 = 3/4.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.4",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 4,
+   "soal": "Koloni bakteri berjumlah 5 pada awal dan menjadi dua kali lipat setiap jam. Jumlahnya setelah 4 jam adalah ....",
+   "opsi": {
+    "A": "160",
+    "B": "80",
+    "C": "40",
+    "D": "20"
+   },
+   "kunci": "B",
+   "pembahasan": "5 × 2⁴ = 80.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.5",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 5,
+   "soal": "Luas sebuah persegi 289 cm². Keliling persegi tersebut adalah ....",
+   "opsi": {
+    "A": "34 cm",
+    "B": "17 cm",
+    "C": "72 cm",
+    "D": "68 cm"
+   },
+   "kunci": "D",
+   "pembahasan": "Sisi = √289 = 17; keliling = 4 × 17 = 68 cm.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.6",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 6,
+   "soal": "5⁻¹ + 5⁻² = ....",
+   "opsi": {
+    "A": "1/10",
+    "B": "2/25",
+    "C": "1/30",
+    "D": "6/25"
+   },
+   "kunci": "D",
+   "pembahasan": "1/5 + 1/25 = 6/25.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.7",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 7,
+   "soal": "Dua sisi tegak segitiga siku-siku 9 cm dan 12 cm. Panjang sisi miringnya adalah ....",
+   "opsi": {
+    "A": "15 cm",
+    "B": "21 cm",
+    "C": "13 cm",
+    "D": "225 cm"
+   },
+   "kunci": "A",
+   "pembahasan": "√(81 + 144) = √225 = 15.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.8",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 8,
+   "soal": "2⁵ × √16 = ....",
+   "opsi": {
+    "A": "40",
+    "B": "128",
+    "C": "256",
+    "D": "64"
+   },
+   "kunci": "B",
+   "pembahasan": "32 × 4 = 128.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.9",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 9,
+   "soal": "Sebuah kubus berusuk 4 cm. Volumenya adalah ....",
+   "opsi": {
+    "A": "16 cm³",
+    "B": "64 cm³",
+    "C": "12 cm³",
+    "D": "48 cm³"
+   },
+   "kunci": "B",
+   "pembahasan": "4³ = 64.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-04.G.10",
+   "kodeStage": "D0-04.G",
+   "kodeIndikator": "D0-04 (gabungan)",
+   "kodeTopik": "D0-04",
+   "level": "L3",
+   "nomorDalamStage": 10,
+   "soal": "Nilai 3² + 2⁻¹ × 4 adalah ....",
+   "opsi": {
+    "A": "13",
+    "B": "10",
+    "C": "11",
+    "D": "9"
+   },
+   "kunci": "C",
+   "pembahasan": "9 + (1/2 × 4) = 9 + 2 = 11.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05-01.S1.1",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Pada bentuk 5x² − 3x + 7, koefisien x adalah ....",
+   "opsi": {
+    "A": "−3",
+    "B": "3",
+    "C": "5",
+    "D": "7"
+   },
+   "kunci": "A",
+   "pembahasan": "Koefisien x adalah angka di depan x, yaitu −3.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.2",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Suku yang sejenis dengan 4ab adalah ....",
+   "opsi": {
+    "A": "3a²b",
+    "B": "4a",
+    "C": "5b",
+    "D": "−7ab"
+   },
+   "kunci": "D",
+   "pembahasan": "Suku sejenis memiliki variabel dan pangkat yang sama: ab.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.3",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Konstanta pada bentuk 2x − 9y + 6 adalah ....",
+   "opsi": {
+    "A": "−3",
+    "B": "6",
+    "C": "−9",
+    "D": "2"
+   },
+   "kunci": "B",
+   "pembahasan": "Konstanta adalah suku tanpa variabel.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.4",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Pada bentuk 7a² + 4a − 9, koefisien a² adalah ....",
+   "opsi": {
+    "A": "4",
+    "B": "7",
+    "C": "−9",
+    "D": "2"
+   },
+   "kunci": "B",
+   "pembahasan": "Koefisien adalah angka yang menemani variabel; pada 7a² koefisiennya 7.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.5",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Banyak suku pada bentuk 3x² − 5x + 8 − 2y adalah ....",
+   "opsi": {
+    "A": "5",
+    "B": "3",
+    "C": "4",
+    "D": "2"
+   },
+   "kunci": "C",
+   "pembahasan": "Suku: 3x², −5x, 8, −2y.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.6",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Variabel pada bentuk 6pq − 4p + 9 adalah ....",
+   "opsi": {
+    "A": "6, 4, dan 9",
+    "B": "p dan q",
+    "C": "hanya p",
+    "D": "pq"
+   },
+   "kunci": "B",
+   "pembahasan": "Variabel adalah huruf pengganti bilangan: p dan q.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.7",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Suku yang sejenis dengan 5x²y adalah ....",
+   "opsi": {
+    "A": "5xy²",
+    "B": "x²",
+    "C": "−3x²y",
+    "D": "5xy"
+   },
+   "kunci": "C",
+   "pembahasan": "Suku sejenis memiliki variabel dan pangkat yang sama.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.8",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Konstanta pada bentuk 4m − 7n − 12 adalah ....",
+   "opsi": {
+    "A": "−7",
+    "B": "−12",
+    "C": "12",
+    "D": "4"
+   },
+   "kunci": "B",
+   "pembahasan": "Konstanta adalah suku tanpa variabel, yaitu −12.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.9",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Koefisien y pada bentuk 2x − y + 5 adalah ....",
+   "opsi": {
+    "A": "2",
+    "B": "0",
+    "C": "−1",
+    "D": "1"
+   },
+   "kunci": "C",
+   "pembahasan": "−y = −1·y, jadi koefisiennya −1.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-01.S1.10",
+   "kodeStage": "D0-05-01.S1",
+   "kodeIndikator": "D0-05-01",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Bentuk berikut yang merupakan binom adalah ....",
+   "opsi": {
+    "A": "3x − 7",
+    "B": "4x² + 2x − 1",
+    "C": "9",
+    "D": "5xy"
+   },
+   "kunci": "A",
+   "pembahasan": "Binom adalah bentuk aljabar dengan dua suku.",
+   "targetDetikPerSoal": 10
+  },
+  {
+   "id": "D0-05-02.S1.1",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3x + 5y − x + 2y = ....",
+   "opsi": {
+    "A": "8xy",
+    "B": "2x + 3y",
+    "C": "2x + 7y",
+    "D": "4x + 7y"
+   },
+   "kunci": "C",
+   "pembahasan": "3x−x=2x dan 5y+2y=7y.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.2",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "(4a − 3b) − (a − 5b) = ....",
+   "opsi": {
+    "A": "3a − 8b",
+    "B": "3a − 2b",
+    "C": "5a + 2b",
+    "D": "3a + 2b"
+   },
+   "kunci": "D",
+   "pembahasan": "4a−a=3a; −3b+5b=2b.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.3",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "6p² − 2p + 3p² + 5p = ....",
+   "opsi": {
+    "A": "3p² + 9p",
+    "B": "9p⁴ + 3p",
+    "C": "9p² + 3p",
+    "D": "9p² − 3p"
+   },
+   "kunci": "C",
+   "pembahasan": "6p²+3p²=9p²; −2p+5p=3p.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.4",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "4x + 3y − 2x + 5y = ....",
+   "opsi": {
+    "A": "2x + 3y",
+    "B": "2x − 2y",
+    "C": "2x + 8y",
+    "D": "6x + 8y"
+   },
+   "kunci": "C",
+   "pembahasan": "Gabungkan suku sejenis: (4x − 2x) + (3y + 5y).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.5",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "5a − 2b + 3a + 4b = ....",
+   "opsi": {
+    "A": "8a + 6b",
+    "B": "2a + 2b",
+    "C": "8a + 2b",
+    "D": "8a − 6b"
+   },
+   "kunci": "C",
+   "pembahasan": "(5a + 3a) + (−2b + 4b).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.6",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(7x − 2y) − (3x − 4y) = ....",
+   "opsi": {
+    "A": "4x − 2y",
+    "B": "4x + 2y",
+    "C": "4x − 6y",
+    "D": "10x + 2y"
+   },
+   "kunci": "B",
+   "pembahasan": "Tanda minus mengalikan tiap suku dalam kurung: 7x − 2y − 3x + 4y.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.7",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "2x² + 5x − x² + 3x = ....",
+   "opsi": {
+    "A": "x² + 8x",
+    "B": "3x² + 8x",
+    "C": "x⁴ + 8x",
+    "D": "x² + 2x"
+   },
+   "kunci": "A",
+   "pembahasan": "(2x² − x²) + (5x + 3x).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.8",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "(a + 2b) + (3a − 5b) = ....",
+   "opsi": {
+    "A": "4a − 3b",
+    "B": "4a + 7b",
+    "C": "2a − 3b",
+    "D": "−2a + 7b"
+   },
+   "kunci": "A",
+   "pembahasan": "(a + 3a) + (2b − 5b).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.9",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "9p − 4q − (2p − q) = ....",
+   "opsi": {
+    "A": "7p − 5q",
+    "B": "11p − 3q",
+    "C": "7p − 3q",
+    "D": "7p + 3q"
+   },
+   "kunci": "C",
+   "pembahasan": "9p − 4q − 2p + q = 7p − 3q.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S1.10",
+   "kodeStage": "D0-05-02.S1",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "3mn + 2m − mn + 5m = ....",
+   "opsi": {
+    "A": "9mn",
+    "B": "4mn + 7m",
+    "C": "2mn + 3m",
+    "D": "2mn + 7m"
+   },
+   "kunci": "D",
+   "pembahasan": "(3mn − mn) + (2m + 5m).",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-02.S2.1",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "3(2x − 5) = ....",
+   "opsi": {
+    "A": "6x − 5",
+    "B": "6x + 15",
+    "C": "6x − 15",
+    "D": "5x − 8"
+   },
+   "kunci": "C",
+   "pembahasan": "3×2x=6x dan 3×(−5)=−15.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.2",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "−2(x − 4) + 3x = ....",
+   "opsi": {
+    "A": "x − 8",
+    "B": "5x + 8",
+    "C": "x + 8",
+    "D": "5x − 8"
+   },
+   "kunci": "C",
+   "pembahasan": "−2x+8+3x = x+8.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.3",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "4(2a + 1) − 3(a − 2) = ....",
+   "opsi": {
+    "A": "11a + 10",
+    "B": "5a + 2",
+    "C": "5a − 2",
+    "D": "5a + 10"
+   },
+   "kunci": "D",
+   "pembahasan": "8a+4−3a+6 = 5a+10.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.4",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "5(2x + 3) = ....",
+   "opsi": {
+    "A": "10x + 8",
+    "B": "7x + 8",
+    "C": "10x + 15",
+    "D": "10x + 3"
+   },
+   "kunci": "C",
+   "pembahasan": "Distributif: 5·2x + 5·3.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.5",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "−3(x − 6) = ....",
+   "opsi": {
+    "A": "−3x + 18",
+    "B": "3x − 18",
+    "C": "−3x − 18",
+    "D": "−3x − 6"
+   },
+   "kunci": "A",
+   "pembahasan": "−3·x + (−3)(−6) = −3x + 18.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.6",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "2(3a − 4) + 5a = ....",
+   "opsi": {
+    "A": "11a + 8",
+    "B": "11a − 4",
+    "C": "6a − 8",
+    "D": "11a − 8"
+   },
+   "kunci": "D",
+   "pembahasan": "6a − 8 + 5a = 11a − 8.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.7",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "4(x + 2) − 2(x − 3) = ....",
+   "opsi": {
+    "A": "2x − 2",
+    "B": "2x + 14",
+    "C": "6x + 14",
+    "D": "2x + 2"
+   },
+   "kunci": "B",
+   "pembahasan": "4x + 8 − 2x + 6 = 2x + 14.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.8",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "x(x + 5) = ....",
+   "opsi": {
+    "A": "x² + 5",
+    "B": "x² + 5x",
+    "C": "x + 5x",
+    "D": "2x + 5"
+   },
+   "kunci": "B",
+   "pembahasan": "x·x + x·5.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.9",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "−2(3x − y) + x = ....",
+   "opsi": {
+    "A": "−7x + 2y",
+    "B": "−5x + 2y",
+    "C": "−5x − 2y",
+    "D": "−6x + 2y"
+   },
+   "kunci": "B",
+   "pembahasan": "−6x + 2y + x = −5x + 2y.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S2.10",
+   "kodeStage": "D0-05-02.S2",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "3(a − 2b) − (a − b) = ....",
+   "opsi": {
+    "A": "2a − b",
+    "B": "2a − 5b",
+    "C": "4a − 5b",
+    "D": "2a − 7b"
+   },
+   "kunci": "B",
+   "pembahasan": "3a − 6b − a + b = 2a − 5b.",
+   "targetDetikPerSoal": 30
+  },
+  {
+   "id": "D0-05-02.S3.1",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "(x + 2)(x + 3) = ....",
+   "opsi": {
+    "A": "x² + 6x + 5",
+    "B": "x² + 6",
+    "C": "2x + 5",
+    "D": "x² + 5x + 6"
+   },
+   "kunci": "D",
+   "pembahasan": "x²+3x+2x+6 = x²+5x+6.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.2",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "(x − 4)(x + 5) = ....",
+   "opsi": {
+    "A": "x² − 20",
+    "B": "x² + x − 20",
+    "C": "x² − x − 20",
+    "D": "x² + 9x − 20"
+   },
+   "kunci": "B",
+   "pembahasan": "x²+5x−4x−20 = x²+x−20.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.3",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "(2x + 1)(x − 3) = ....",
+   "opsi": {
+    "A": "2x² − 7x − 3",
+    "B": "2x² − 3",
+    "C": "2x² − 5x − 3",
+    "D": "2x² + 5x − 3"
+   },
+   "kunci": "C",
+   "pembahasan": "2x²−6x+x−3 = 2x²−5x−3.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.4",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "(x + 1)(x + 6) = ....",
+   "opsi": {
+    "A": "x² + 7",
+    "B": "x² + 6x + 7",
+    "C": "x² + 5x + 6",
+    "D": "x² + 7x + 6"
+   },
+   "kunci": "D",
+   "pembahasan": "x² + 6x + x + 6.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.5",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "(x − 2)(x − 5) = ....",
+   "opsi": {
+    "A": "x² − 7x − 10",
+    "B": "x² + 7x + 10",
+    "C": "x² − 7x + 10",
+    "D": "x² − 3x + 10"
+   },
+   "kunci": "C",
+   "pembahasan": "x² − 5x − 2x + 10.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.6",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "(x + 7)(x − 3) = ....",
+   "opsi": {
+    "A": "x² − 4x − 21",
+    "B": "x² + 4x + 21",
+    "C": "x² + 10x − 21",
+    "D": "x² + 4x − 21"
+   },
+   "kunci": "D",
+   "pembahasan": "x² − 3x + 7x − 21.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.7",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "(x + 4)² = ....",
+   "opsi": {
+    "A": "x² + 4x + 16",
+    "B": "x² + 8x + 8",
+    "C": "x² + 16",
+    "D": "x² + 8x + 16"
+   },
+   "kunci": "D",
+   "pembahasan": "(x + 4)(x + 4) = x² + 8x + 16.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.8",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "(2x − 3)² = ....",
+   "opsi": {
+    "A": "4x² + 9",
+    "B": "4x² − 12x + 9",
+    "C": "4x² − 6x + 9",
+    "D": "2x² − 12x + 9"
+   },
+   "kunci": "B",
+   "pembahasan": "4x² − 6x − 6x + 9.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.9",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "(3x + 2)(x − 4) = ....",
+   "opsi": {
+    "A": "3x² − 10x + 8",
+    "B": "3x² − 10x − 8",
+    "C": "3x² − 14x − 8",
+    "D": "3x² + 10x − 8"
+   },
+   "kunci": "B",
+   "pembahasan": "3x² − 12x + 2x − 8.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-02.S3.10",
+   "kodeStage": "D0-05-02.S3",
+   "kodeIndikator": "D0-05-02",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "(x + 5)(x − 5) = ....",
+   "opsi": {
+    "A": "x² − 10x − 25",
+    "B": "x² − 25",
+    "C": "x² + 25",
+    "D": "x² − 5"
+   },
+   "kunci": "B",
+   "pembahasan": "Selisih kuadrat: x² − 25.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.1",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "Bentuk faktor dari 6x + 9 adalah ....",
+   "opsi": {
+    "A": "6(x + 3)",
+    "B": "3(2x + 9)",
+    "C": "3(2x + 3)",
+    "D": "3(x + 3)"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB 6 dan 9 adalah 3: 3(2x+3).",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.2",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "Bentuk faktor dari 12a²b − 18ab² adalah ....",
+   "opsi": {
+    "A": "12ab(a − b)",
+    "B": "6ab(2a − 3)",
+    "C": "6ab(2a + 3b)",
+    "D": "6ab(2a − 3b)"
+   },
+   "kunci": "D",
+   "pembahasan": "FPB = 6ab; 12a²b÷6ab=2a; 18ab²÷6ab=3b.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.3",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "Bentuk faktor dari x² − 5x adalah ....",
+   "opsi": {
+    "A": "(x − 5)²",
+    "B": "x(x + 5)",
+    "C": "5x(x − 1)",
+    "D": "x(x − 5)"
+   },
+   "kunci": "D",
+   "pembahasan": "Faktor persekutuan x: x(x−5).",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.4",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "Bentuk faktor dari 8x + 12 adalah ....",
+   "opsi": {
+    "A": "4(2x + 4)",
+    "B": "4(2x + 3)",
+    "C": "8(x + 12)",
+    "D": "4(2x + 12)"
+   },
+   "kunci": "B",
+   "pembahasan": "FPB 8 dan 12 adalah 4.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.5",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "Bentuk faktor dari 15a − 25 adalah ....",
+   "opsi": {
+    "A": "5(3a − 5)",
+    "B": "3(5a − 25)",
+    "C": "5(3a − 25)",
+    "D": "15(a − 10)"
+   },
+   "kunci": "A",
+   "pembahasan": "FPB 15 dan 25 adalah 5.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.6",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "Bentuk faktor dari x² + 7x adalah ....",
+   "opsi": {
+    "A": "x(x + 7)",
+    "B": "x(x + 1)",
+    "C": "7(x + 1)",
+    "D": "x²(x + 7)"
+   },
+   "kunci": "A",
+   "pembahasan": "Faktor persekutuan x.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.7",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "Bentuk faktor dari 6a²b + 9ab² adalah ....",
+   "opsi": {
+    "A": "3ab(2a + 3b)",
+    "B": "3ab(2a + 3)",
+    "C": "3ab(2a + 3b²)",
+    "D": "6ab(a + b)"
+   },
+   "kunci": "A",
+   "pembahasan": "FPB: 3ab.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.8",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "Bentuk faktor dari 10p² − 4p adalah ....",
+   "opsi": {
+    "A": "p(10p − 2)",
+    "B": "2p(5p − 4)",
+    "C": "2p(5p − 2)",
+    "D": "2(5p² − p)"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB: 2p.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.9",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "Bentuk faktor dari 14mn − 21n adalah ....",
+   "opsi": {
+    "A": "7n(2m − 21)",
+    "B": "7(2mn − n)",
+    "C": "14n(m − 3)",
+    "D": "7n(2m − 3)"
+   },
+   "kunci": "D",
+   "pembahasan": "FPB: 7n.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S1.10",
+   "kodeStage": "D0-05-03.S1",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "Bentuk faktor dari 9x² − 27x adalah ....",
+   "opsi": {
+    "A": "9(x² − x)",
+    "B": "3x(3x − 3)",
+    "C": "9x(x − 3)",
+    "D": "9x(x − 27)"
+   },
+   "kunci": "C",
+   "pembahasan": "FPB: 9x.",
+   "targetDetikPerSoal": 40
+  },
+  {
+   "id": "D0-05-03.S2.1",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 1,
+   "soal": "x² − 49 = ....",
+   "opsi": {
+    "A": "(x − 7)²",
+    "B": "(x − 7)(x + 7)",
+    "C": "(x + 7)²",
+    "D": "(x − 49)(x + 1)"
+   },
+   "kunci": "B",
+   "pembahasan": "Selisih dua kuadrat: a²−b²=(a−b)(a+b).",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.2",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 2,
+   "soal": "4x² − 25 = ....",
+   "opsi": {
+    "A": "(2x − 25)(2x + 1)",
+    "B": "(2x − 5)(2x + 5)",
+    "C": "(4x − 5)(x + 5)",
+    "D": "(2x − 5)²"
+   },
+   "kunci": "B",
+   "pembahasan": "(2x)²−5² = (2x−5)(2x+5).",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.3",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 3,
+   "soal": "x² + 7x + 12 = ....",
+   "opsi": {
+    "A": "(x + 2)(x + 6)",
+    "B": "(x + 1)(x + 12)",
+    "C": "(x − 3)(x − 4)",
+    "D": "(x + 3)(x + 4)"
+   },
+   "kunci": "D",
+   "pembahasan": "Dua bilangan berjumlah 7 dan berkali 12: 3 dan 4.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.4",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 4,
+   "soal": "x² − 16 = ....",
+   "opsi": {
+    "A": "(x − 4)(x + 4)",
+    "B": "(x − 4)²",
+    "C": "(x − 8)(x + 8)",
+    "D": "(x + 4)²"
+   },
+   "kunci": "A",
+   "pembahasan": "a² − b² = (a − b)(a + b).",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.5",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 5,
+   "soal": "9x² − 4 = ....",
+   "opsi": {
+    "A": "(3x − 2)²",
+    "B": "(3x − 4)(3x + 4)",
+    "C": "(9x − 4)(x + 1)",
+    "D": "(3x − 2)(3x + 2)"
+   },
+   "kunci": "D",
+   "pembahasan": "(3x)² − 2².",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.6",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 6,
+   "soal": "x² + 9x + 20 = ....",
+   "opsi": {
+    "A": "(x − 4)(x − 5)",
+    "B": "(x + 4)(x + 5)",
+    "C": "(x + 2)(x + 10)",
+    "D": "(x + 3)(x + 6)"
+   },
+   "kunci": "B",
+   "pembahasan": "Cari dua bilangan: jumlah 9, hasil kali 20.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.7",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 7,
+   "soal": "x² − 8x + 15 = ....",
+   "opsi": {
+    "A": "(x − 3)(x + 5)",
+    "B": "(x + 3)(x + 5)",
+    "C": "(x − 1)(x − 15)",
+    "D": "(x − 3)(x − 5)"
+   },
+   "kunci": "D",
+   "pembahasan": "Jumlah −8, hasil kali 15.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.8",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 8,
+   "soal": "x² + 2x − 15 = ....",
+   "opsi": {
+    "A": "(x + 15)(x − 1)",
+    "B": "(x − 5)(x + 3)",
+    "C": "(x + 5)(x + 3)",
+    "D": "(x + 5)(x − 3)"
+   },
+   "kunci": "D",
+   "pembahasan": "Jumlah 2, hasil kali −15.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.9",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 9,
+   "soal": "x² − 3x − 10 = ....",
+   "opsi": {
+    "A": "(x − 5)(x + 2)",
+    "B": "(x + 5)(x − 2)",
+    "C": "(x − 10)(x + 1)",
+    "D": "(x − 5)(x − 2)"
+   },
+   "kunci": "A",
+   "pembahasan": "Jumlah −3, hasil kali −10.",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-03.S2.10",
+   "kodeStage": "D0-05-03.S2",
+   "kodeIndikator": "D0-05-03",
+   "kodeTopik": "D0-05",
+   "level": "L2",
+   "nomorDalamStage": 10,
+   "soal": "25x² − 1 = ....",
+   "opsi": {
+    "A": "(5x + 1)²",
+    "B": "(25x − 1)(x + 1)",
+    "C": "(5x − 1)(5x + 1)",
+    "D": "(5x − 1)²"
+   },
+   "kunci": "C",
+   "pembahasan": "(5x)² − 1².",
+   "targetDetikPerSoal": 50
+  },
+  {
+   "id": "D0-05-04.S1.1",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 1,
+   "soal": "Jika x = 3, nilai 2x² − 5 adalah ....",
+   "opsi": {
+    "A": "7",
+    "B": "13",
+    "C": "1",
+    "D": "31"
+   },
+   "kunci": "B",
+   "pembahasan": "2×9−5 = 13.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.2",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 2,
+   "soal": "Jika a = −2 dan b = 3, nilai a² − 2ab adalah ....",
+   "opsi": {
+    "A": "8",
+    "B": "−8",
+    "C": "12",
+    "D": "16"
+   },
+   "kunci": "D",
+   "pembahasan": "4 − 2(−2)(3) = 4+12 = 16.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.3",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 3,
+   "soal": "Jika x = −1 dan y = 2, nilai (x + y)² − xy adalah ....",
+   "opsi": {
+    "A": "5",
+    "B": "−1",
+    "C": "3",
+    "D": "1"
+   },
+   "kunci": "C",
+   "pembahasan": "(1)² − (−2) = 1+2 = 3.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.4",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 4,
+   "soal": "Jika x = 4, nilai 3x² − 7 adalah ....",
+   "opsi": {
+    "A": "5",
+    "B": "17",
+    "C": "41",
+    "D": "29"
+   },
+   "kunci": "C",
+   "pembahasan": "3·16 − 7 = 41.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.5",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 5,
+   "soal": "Jika a = 5, nilai 2a − 3a² adalah ....",
+   "opsi": {
+    "A": "85",
+    "B": "65",
+    "C": "−65",
+    "D": "−5"
+   },
+   "kunci": "C",
+   "pembahasan": "10 − 75 = −65.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.6",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 6,
+   "soal": "Jika x = −2, nilai x² + 3x adalah ....",
+   "opsi": {
+    "A": "10",
+    "B": "2",
+    "C": "−10",
+    "D": "−2"
+   },
+   "kunci": "D",
+   "pembahasan": "4 − 6 = −2.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.7",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 7,
+   "soal": "Jika p = 3 dan q = −2, nilai p² − pq adalah ....",
+   "opsi": {
+    "A": "15",
+    "B": "3",
+    "C": "9",
+    "D": "−3"
+   },
+   "kunci": "A",
+   "pembahasan": "9 − (3)(−2) = 9 + 6 = 15.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.8",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 8,
+   "soal": "Jika a = 2 dan b = −3, nilai (a − b)² + ab adalah ....",
+   "opsi": {
+    "A": "25",
+    "B": "31",
+    "C": "19",
+    "D": "−11"
+   },
+   "kunci": "C",
+   "pembahasan": "(2 + 3)² + (−6) = 25 − 6 = 19.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.9",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 9,
+   "soal": "Jika x = 1/2, nilai 4x² − 2x adalah ....",
+   "opsi": {
+    "A": "0",
+    "B": "−2",
+    "C": "2",
+    "D": "1"
+   },
+   "kunci": "A",
+   "pembahasan": "4·(1/4) − 1 = 0.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05-04.S1.10",
+   "kodeStage": "D0-05-04.S1",
+   "kodeIndikator": "D0-05-04",
+   "kodeTopik": "D0-05",
+   "level": "L1",
+   "nomorDalamStage": 10,
+   "soal": "Jika m = 3, nilai 2(m − 5) + m² adalah ....",
+   "opsi": {
+    "A": "23",
+    "B": "−1",
+    "C": "5",
+    "D": "11"
+   },
+   "kunci": "C",
+   "pembahasan": "2(−2) + 9 = 5.",
+   "targetDetikPerSoal": 20
+  },
+  {
+   "id": "D0-05.G.1",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 1,
+   "soal": "Panjang persegi panjang (2x + 3) cm dan lebarnya x cm. Keliling persegi panjang adalah ....",
+   "opsi": {
+    "A": "(6x + 6) cm",
+    "B": "(2x² + 3x) cm",
+    "C": "(3x + 3) cm",
+    "D": "(6x + 3) cm"
+   },
+   "kunci": "A",
+   "pembahasan": "K = 2(p+l) = 2(3x+3) = 6x+6.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.2",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 2,
+   "soal": "Ani membeli 4 buku seharga x rupiah per buku dan 3 pulpen seharga (x − 2.000) rupiah per pulpen. Total pembayaran adalah ....",
+   "opsi": {
+    "A": "(7x − 6.000) rupiah",
+    "B": "(7x + 6.000) rupiah",
+    "C": "(7x − 2.000) rupiah",
+    "D": "(12x − 2.000) rupiah"
+   },
+   "kunci": "A",
+   "pembahasan": "4x + 3(x−2.000) = 7x − 6.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.3",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 3,
+   "soal": "Luas persegi panjang dengan panjang (x + 4) dan lebar (x + 2) adalah ....",
+   "opsi": {
+    "A": "2x + 6",
+    "B": "x² + 2x + 8",
+    "C": "x² + 8",
+    "D": "x² + 6x + 8"
+   },
+   "kunci": "D",
+   "pembahasan": "(x+4)(x+2) = x²+2x+4x+8.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.4",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 4,
+   "soal": "Panjang persegi panjang (3x + 2) cm dan lebarnya (x − 1) cm. Keliling persegi panjang adalah ....",
+   "opsi": {
+    "A": "(8x + 2) cm",
+    "B": "(4x + 1) cm",
+    "C": "(4x + 2) cm",
+    "D": "(8x − 2) cm"
+   },
+   "kunci": "A",
+   "pembahasan": "K = 2[(3x + 2) + (x − 1)] = 2(4x + 1) = 8x + 2.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.5",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 5,
+   "soal": "Harga 1 buku x rupiah dan 1 pulpen (x − 1.500) rupiah. Budi membeli 3 buku dan 2 pulpen. Total pembayaran adalah ....",
+   "opsi": {
+    "A": "(5x + 3.000) rupiah",
+    "B": "(5x − 3.000) rupiah",
+    "C": "(6x − 3.000) rupiah",
+    "D": "(5x − 1.500) rupiah"
+   },
+   "kunci": "B",
+   "pembahasan": "3x + 2(x − 1.500) = 5x − 3.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.6",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 6,
+   "soal": "Luas persegi panjang dengan panjang (x + 5) dan lebar (x − 2) adalah ....",
+   "opsi": {
+    "A": "x² + 3x + 10",
+    "B": "x² − 3x − 10",
+    "C": "x² + 3x − 10",
+    "D": "x² + 7x − 10"
+   },
+   "kunci": "C",
+   "pembahasan": "(x + 5)(x − 2) = x² − 2x + 5x − 10.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.7",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 7,
+   "soal": "Luas persegi dengan sisi (2x + 1) adalah ....",
+   "opsi": {
+    "A": "4x² + 4x + 1",
+    "B": "4x² + 1",
+    "C": "4x² + 2x + 1",
+    "D": "2x² + 2x + 1"
+   },
+   "kunci": "A",
+   "pembahasan": "(2x + 1)² = 4x² + 4x + 1.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.8",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 8,
+   "soal": "Sebuah taksi tarif awal Rp8.000 ditambah Rp3.000 per km. Untuk perjalanan 9 km, ongkosnya adalah ....",
+   "opsi": {
+    "A": "Rp107.000",
+    "B": "Rp35.000",
+    "C": "Rp27.000",
+    "D": "Rp24.000"
+   },
+   "kunci": "B",
+   "pembahasan": "8.000 + 3.000 × 9 = 35.000.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.9",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 9,
+   "soal": "Jumlah tiga bilangan berurutan adalah 3n + 3 dengan n bilangan terkecil. Jika n = 14, jumlahnya adalah ....",
+   "opsi": {
+    "A": "45",
+    "B": "42",
+    "C": "44",
+    "D": "48"
+   },
+   "kunci": "A",
+   "pembahasan": "3(14) + 3 = 45.",
+   "targetDetikPerSoal": 75
+  },
+  {
+   "id": "D0-05.G.10",
+   "kodeStage": "D0-05.G",
+   "kodeIndikator": "D0-05 (gabungan)",
+   "kodeTopik": "D0-05",
+   "level": "L3",
+   "nomorDalamStage": 10,
+   "soal": "Luas persegi panjang x² + 5x + 6 cm². Jika lebarnya (x + 2) cm, panjangnya adalah ....",
+   "opsi": {
+    "A": "(x + 6) cm",
+    "B": "(x + 2) cm",
+    "C": "(x + 1) cm",
+    "D": "(x + 3) cm"
+   },
+   "kunci": "D",
+   "pembahasan": "x² + 5x + 6 = (x + 2)(x + 3), sehingga panjang = x + 3.",
+   "targetDetikPerSoal": 75
+  }
+ ]
+}

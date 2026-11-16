@@ -6,6 +6,7 @@
  *   npm run impor:soal -- seed/soal-saya.csv            # SIMULASI: memeriksa semuanya, tidak menyimpan
  *   npm run impor:soal -- seed/soal-saya.csv --tulis    # menyimpan
  *   npm run impor:soal -- seed/soal-saya.docx           # sama, dari dokumen Word (lihat PETUNJUK-IMPOR-WORD.md)
+ *   npm run impor:soal -- seed/soal-d0.json             # soal stage dalam JSON (kodeStage, soal, opsi, kunci, pembahasan)
  *
  * Soal diagnostik Domain 0: beri kolom/label "Stage" (mis. D0-01-01.S1); stage harus sudah diimpor
  * (npm run impor:stage). Subtes, topik, subtopik, level, dan waktu soal diambil dari stage-nya.
@@ -18,7 +19,7 @@
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseCsv, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
+const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
 const { dariEnv } = require('../src/services/penyimpananGambar');
 
@@ -31,7 +32,7 @@ function keluar(kode, pesan) {
 }
 
 async function main() {
-  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv | berkas.docx> [--tulis]');
+  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv | berkas.docx | berkas.json> [--tulis] [--tes=SNBT]');
   if (!fs.existsSync(berkas)) keluar(2, `Berkas tidak ditemukan: ${berkas}`);
 
   const dariWord = /\.docx$/i.test(berkas);
@@ -47,6 +48,9 @@ async function main() {
     galatBaca = w.galat;
     media = w.media;
     terbaca = { kolom: w.kolom, baris: w.baris };
+  } else if (/\.json$/i.test(berkas)) {
+    const tesFlag = (flag.find((f) => f.startsWith('--tes=')) || '--tes=SNBT').slice(6).trim().toUpperCase();
+    try { terbaca = jsonKeBaris(fs.readFileSync(berkas, 'utf8'), tesFlag); } catch (e) { keluar(1, e.message); }
   } else {
     terbaca = parseCsv(fs.readFileSync(berkas, 'utf8'));
   }

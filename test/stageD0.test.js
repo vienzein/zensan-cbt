@@ -149,3 +149,29 @@ test('Word: soal biasa dengan Topik sendiri tidak mewarisi Stage', () => {
   const { baris } = parseSoalWord(para(...p));
   assert.deepEqual(baris.map((b) => b.stage), ['D0-01-01.S1', '', '']);
 });
+
+test('JSON soal stage menjadi baris yang lolos pemeriksaan', () => {
+  const { jsonKeBaris, validasi } = require('../src/services/imporSoal');
+  const j = JSON.stringify({
+    soal: [{ kodeStage: 'D0-01-01.S1', soal: '1 + 1 = ....', opsi: { A: '1', B: '2', C: '3', D: '4' }, kunci: 'B', pembahasan: 'Dua.' }],
+  });
+  const { soal, galat } = validasi(jsonKeBaris(j, 'snbt'));
+  assert.deepEqual(galat, []);
+  assert.equal(soal.length, 1);
+  assert.equal(soal[0].stage, 'D0-01-01.S1');
+  assert.equal(soal[0].tes, 'SNBT');
+  assert.equal(soal[0].kunci, 'B');
+  assert.equal(soal[0].opsi.length, 4);
+  assert.throws(() => jsonKeBaris('{bukan json'), /JSON tidak bisa dibaca/);
+});
+
+test('berkas soal D0-01 sampai D0-05: 420 soal lolos dan semua stage ada di silabus', () => {
+  const fs = require('node:fs');
+  const { jsonKeBaris, validasi } = require('../src/services/imporSoal');
+  const { soal, galat } = validasi(jsonKeBaris(fs.readFileSync('seed/soal-d0-01-05.json', 'utf8')));
+  assert.deepEqual(galat, []);
+  assert.equal(soal.length, 420);
+  const kodeSilabus = new Set(parseStageD0(fs.readFileSync('seed/stage-diagnostik-d0.md', 'utf8')).stages.map((s) => s.kode.toUpperCase()));
+  assert.ok(soal.every((s) => kodeSilabus.has(s.stage)));
+  assert.equal(new Set(soal.map((s) => s.stage)).size, 42);
+});

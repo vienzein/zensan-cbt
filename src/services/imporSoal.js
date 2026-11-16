@@ -154,4 +154,31 @@ function validasi({ kolom, baris }) {
 const SUBTES_MATEMATIKA = new Set(['PK', 'PM']);
 const topikButuhDomain0 = (s) => (s.topikButuhDomain0 !== null ? s.topikButuhDomain0 : SUBTES_MATEMATIKA.has(s.subtes));
 
-module.exports = { parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, KOLOM_WAJIB_STAGE, POIN_BAWAAN };
+/**
+ * Soal stage dalam JSON ({ soal: [{ kodeStage, soal, opsi: {A..E}, kunci, pembahasan }] }) menjadi baris
+ * seperti hasil CSV, supaya melewati pemeriksaan dan penyimpanan yang sama. Tes tidak ada di JSON, jadi
+ * diberikan lewat parameter (bawaan SNBT). Level dan waktu soal diambil dari stage saat menyimpan.
+ */
+function jsonKeBaris(teks, tes = 'SNBT') {
+  let data;
+  try { data = JSON.parse(String(teks).replace(/^﻿/, '')); } catch (e) { throw new Error(`JSON tidak bisa dibaca: ${e.message}`); }
+  const daftar = Array.isArray(data) ? data : data && data.soal;
+  if (!Array.isArray(daftar)) throw new Error('JSON harus berisi larik "soal".');
+  const kolom = ['tes', 'stage', 'soal', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e', 'kunci', 'pembahasan'];
+  const baris = daftar.map((q, i) => {
+    const o = q && typeof q.opsi === 'object' && q.opsi ? q.opsi : {};
+    const t = (v) => (v === undefined || v === null ? '' : String(v).trim());
+    return {
+      _nomor: i + 1,
+      tes,
+      stage: t(q && q.kodeStage),
+      soal: t(q && q.soal),
+      opsi_a: t(o.A), opsi_b: t(o.B), opsi_c: t(o.C), opsi_d: t(o.D), opsi_e: t(o.E),
+      kunci: t(q && q.kunci),
+      pembahasan: t(q && q.pembahasan),
+    };
+  });
+  return { kolom, baris };
+}
+
+module.exports = { jsonKeBaris, parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, KOLOM_WAJIB_STAGE, POIN_BAWAAN };
