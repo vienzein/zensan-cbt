@@ -7,10 +7,13 @@ const { scoreAnswer } = require('./drillScoring');
 const {
   assignQuestions, loadAttemptQuestionIds, loadQuestionPayload,
 } = require('./attemptQuestions');
+const S = require('../config/stage');
+const { hasPassedStageGate } = require('./stageService');
 const { prepareSubmission, finishAttempt, insertAnswerHistory } = require('./drillSubmitService');
 
 /** Domain 0 dianggap lulus: ada attempt 'domain0' selesai tanpa salah dan semua soal terjawab benar. */
 async function hasPassedDomain0(client, studentId, curriculumGroupId) {
+  if (S.mode() === 'stage') return hasPassedStageGate(client, studentId, curriculumGroupId);
   const { rows } = await client.query(
     `SELECT EXISTS (
        SELECT 1 FROM student_attempts

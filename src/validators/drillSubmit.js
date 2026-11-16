@@ -92,4 +92,4 @@ function parseSubmitBody(body) {
   return { attemptId, answers };
 }
 
-module.exports = { parseSubmitBody };
+module.exports = { parseSubmitBody, normalizeAnswer, INVALID, UUID_RE, ID_RE };

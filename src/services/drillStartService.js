@@ -3,6 +3,7 @@
 const { HttpError } = require('../errors');
 const { composeSession, poolKey } = require('./sessionComposer');
 const { assignQuestions } = require('./attemptQuestions');
+const { hasPassedDomain0 } = require('./domain0Service');
 
 /**
  * Memulai sesi drill: pilih soal di server, buat attempt, simpan daftar soal sesi.
@@ -51,16 +52,7 @@ async function startDrill(pool, studentId, { subjectId, mode, topicIds, subtopic
     const needD0 = stRows.some((r) => r.requires_domain0);
     let domain0Passed = true;
     if (needD0) {
-      const d0 = await client.query(
-        `SELECT EXISTS (
-           SELECT 1 FROM student_attempts
-            WHERE student_id = $1::uuid AND curriculum_group_id = $2
-              AND mode = 'domain0' AND status = 'selesai'
-              AND jumlah_salah = 0 AND jumlah_benar >= jumlah_soal
-         ) AS ok`,
-        [studentId, curriculumGroupId],
-      );
-      domain0Passed = d0.rows[0].ok;
+      domain0Passed = await hasPassedDomain0(client, studentId, curriculumGroupId);
     }
 
     const dilewati = new Map(); // topicId -> {alasan, cooldown_until}
