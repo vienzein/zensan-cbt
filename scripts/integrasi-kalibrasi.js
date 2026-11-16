@@ -4,7 +4,7 @@
  * Tes integrasi ke database SUNGGUHAN: tryout kalibrasi dan tryout reguler (pay-per-use).
  * Data contoh bertanda 'ZZ-KAL' / integrasi-kalibrasi@example.com, dihapus otomatis di akhir.
  *
- * Aturan ikatan soal-subtopik database: Level 1-2 terikat tepat 1 subtopik, Level 3 minimal 2.
+ * Aturan ikatan soal-subtopik database (sejak migrasi 008): semua level minimal 1 subtopik.
  *
  * Jalankan:  npm run test:kalibrasi   (atau: node --env-file=.env scripts/integrasi-kalibrasi.js)
  */

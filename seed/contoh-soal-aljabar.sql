@@ -1,6 +1,6 @@
 -- Soal CONTOH untuk mencoba aplikasi (topik "Aljabar dan Fungsi" di SNBT / Penalaran Matematika).
 -- Bukan bank soal asli: semua teks diawali "[Contoh]". Aman dijalankan ulang (tidak membuat data ganda).
--- Aturan database: Level 1-2 terikat tepat 1 subtopik; Level 3 terikat >= 2 subtopik.
+-- Aturan database (sejak migrasi 008): semua level minimal 1 subtopik.
 -- Jalankan di Supabase SQL Editor setelah data awal tes SNBT ada.
 
 DO $$
