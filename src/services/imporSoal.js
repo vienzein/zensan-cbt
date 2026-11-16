@@ -8,6 +8,9 @@
 const { waktuSoal } = require('../config/waktu');
 
 const KOLOM_WAJIB = ['tes', 'subtes', 'topik', 'subtopik', 'level', 'soal', 'opsi_a', 'opsi_b', 'kunci'];
+// Berkas soal diagnostik Domain 0 (kolom "stage"): subtes, topik, subtopik, dan level diambil dari stage-nya.
+const KOLOM_WAJIB_STAGE = ['tes', 'stage', 'soal', 'opsi_a', 'opsi_b', 'kunci'];
+const POLA_STAGE = /^D0-\d{2}(?:-\d{2}\.S\d+|\.G)$/i;
 const HURUF_OPSI = ['A', 'B', 'C', 'D', 'E'];
 const POIN_BAWAAN = 10;
 
@@ -59,23 +62,35 @@ const tidak = (v) => ['', 'tidak', 'n', 'no', 'false', '0'].includes(String(v).t
  */
 function validasi({ kolom, baris }) {
   const galat = [];
-  const hilang = KOLOM_WAJIB.filter((k) => !kolom.includes(k));
+  const hilang = (kolom.includes('stage') ? KOLOM_WAJIB_STAGE : KOLOM_WAJIB).filter((k) => !kolom.includes(k));
   if (hilang.length) {
     return { soal: [], galat: [{ baris: 1, pesan: `Kolom wajib tidak ada: ${hilang.join(', ')}` }] };
   }
 
   const soal = [];
-  for (const r of baris) {
+  for (const rAsli of baris) {
+    // kolom yang tidak ada di berkas dianggap kosong (berkas stage tidak wajib punya subtes/topik/level)
+    const r = new Proxy(rAsli, { get: (o, k) => (k in o ? o[k] : (typeof k === 'string' && !k.startsWith('_') ? '' : undefined)) });
     const salah = (pesan) => galat.push({ baris: r._nomor, pesan });
     const n0 = galat.length;
 
-    const level = Number(r.level);
+    const stage = r.stage ? r.stage.trim().toUpperCase() : '';
+    if (stage && !POLA_STAGE.test(stage)) salah(`kode stage tidak dikenali ("${r.stage}"; contoh: D0-01-01.S1 atau D0-01.G)`);
+
+    const level = r.level ? Number(r.level) : NaN;
     const levelSah = Number.isInteger(level) && level >= 1 && level <= 4;
-    if (!levelSah) salah(`level harus 1-4 (isi: "${r.level}")`);
-    for (const k of ['tes', 'subtes', 'topik', 'soal']) if (!r[k]) salah(`kolom ${k} kosong`);
+    if (stage) {
+      // level ditentukan stage; bila ditulis, harus sah (kecocokan dengan stage diperiksa saat menyimpan)
+      if (r.level && !levelSah) salah(`level harus 1-4 (isi: "${r.level}")`);
+      if (!r.tes) salah('kolom tes kosong');
+      if (!r.soal) salah('kolom soal kosong');
+    } else {
+      if (!levelSah) salah(`level harus 1-4 (isi: "${r.level}")`);
+      for (const k of ['tes', 'subtes', 'topik', 'soal']) if (!r[k]) salah(`kolom ${k} kosong`);
+    }
 
     const subtopik = [...new Set(r.subtopik.split('|').map((x) => x.trim()).filter(Boolean))];
-    if (!subtopik.length) salah('subtopik kosong (pisahkan beberapa subtopik dengan tanda |)');
+    if (!stage && !subtopik.length) salah('subtopik kosong (pisahkan beberapa subtopik dengan tanda |)');
 
     const opsi = [];
     HURUF_OPSI.forEach((h) => {
@@ -93,9 +108,9 @@ function validasi({ kolom, baris }) {
     if (r.waktu_detik) {
       waktu = Number(r.waktu_detik);
       if (!Number.isInteger(waktu) || waktu < 5 || waktu > 3600) salah('waktu_detik harus bilangan bulat 5-3600');
-    } else if (levelSah) {
+    } else if (levelSah && !stage) {
       waktu = waktuSoal(r.subtes, level);
-    }
+    } // soal stage tanpa waktu: memakai target per soal milik stage (diisi saat menyimpan)
 
     let poin = POIN_BAWAAN;
     if (r.poin) {
@@ -113,7 +128,8 @@ function validasi({ kolom, baris }) {
         subtes: r.subtes.toUpperCase(),
         topik: r.topik,
         subtopik,
-        level,
+        level: levelSah ? level : null,
+        stage: stage || null,
         teks: r.soal,
         opsi,
         kunci,
@@ -138,4 +154,4 @@ function validasi({ kolom, baris }) {
 const SUBTES_MATEMATIKA = new Set(['PK', 'PM']);
 const topikButuhDomain0 = (s) => (s.topikButuhDomain0 !== null ? s.topikButuhDomain0 : SUBTES_MATEMATIKA.has(s.subtes));
 
-module.exports = { parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, POIN_BAWAAN };
+module.exports = { parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, KOLOM_WAJIB_STAGE, POIN_BAWAAN };

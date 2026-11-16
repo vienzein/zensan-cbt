@@ -347,7 +347,7 @@ const KOLOM_CSV = [
   'tes', 'subtes', 'topik', 'subtopik', 'level', 'soal',
   'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e',
   'kunci', 'waktu_detik', 'poin', 'domain0', 'butuh_domain0_topik',
-  'gambar_url', 'pembahasan', 'pembahasan_gambar_url',
+  'gambar_url', 'pembahasan', 'pembahasan_gambar_url', 'stage',
 ];
 
 const LABEL = {
@@ -366,6 +366,7 @@ const LABEL = {
   butuh_domain0_topik: 'butuh_domain0_topik',
   gambar: 'gambar_url',
   pembahasan_gambar: 'pembahasan_gambar_url',
+  stage: 'stage',
 };
 
 // Diisi dari soal sebelumnya bila dikosongkan, supaya satu topik tidak perlu mengulang 5 baris yang sama.
@@ -437,12 +438,17 @@ function parseSoalWord(paragraf) {
     }
     nomor += 1;
     const n = blok.nilai;
+    // Stage (soal diagnostik Domain 0) ikut diwariskan, kecuali soal itu menulis Topik sendiri (soal biasa).
+    const soalBiasa = n.topik !== undefined && n.stage === undefined;
+    if (soalBiasa) delete terakhir.stage;
     WARISAN.forEach((k) => { if (n[k] === undefined && terakhir[k] !== undefined) n[k] = terakhir[k]; });
+    if (n.stage === undefined && terakhir.stage !== undefined && !soalBiasa) n.stage = terakhir.stage;
 
     const baru = { _nomor: nomor, _cuplikan: ringkas(n.soal || '') };
     KOLOM_CSV.forEach((k) => { baru[k] = rapikan(k, n[k] ?? ''); });
     baris.push(baru);
     WARISAN.forEach((k) => { if (n[k]) terakhir[k] = n[k]; });
+    if (n.stage) terakhir.stage = n.stage;
 
     // Gambar tertanam: satu untuk soal, satu untuk pembahasan. Alamat yang diketik (Gambar:) didahulukan.
     baru._gambarSoal = blok.gambarSoal[0] ?? null;
