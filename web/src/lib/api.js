@@ -46,4 +46,7 @@ export const api = {
   kirimDrill: (body) => panggil('POST', '/drill/submit', body),
   mulaiDomain0: (id) => panggil('POST', '/domain0/start', { curriculum_group_id: id }),
   kirimDomain0: (body) => panggil('POST', '/domain0/submit', body),
+  daftarStage: (id) => panggil('GET', `/domain0/stages?curriculum_group_id=${id}`),
+  mulaiStage: (id) => panggil('POST', '/domain0/stage/start', { curriculum_group_id: id }),
+  kirimStage: (body) => panggil('POST', '/domain0/stage/submit', body),
 };
