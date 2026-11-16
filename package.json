@@ -13,7 +13,9 @@
   "test:jawab": "node --env-file=.env scripts/integrasi-jawab.js",
   "impor:soal": "node --env-file=.env scripts/impor-soal.js",
   "docx:csv": "node scripts/docx-ke-csv.js",
-  "impor:silabus": "node --env-file=.env scripts/impor-silabus.js"
+  "impor:silabus": "node --env-file=.env scripts/impor-silabus.js",
+  "impor:stage": "node --env-file=.env scripts/impor-stage.js",
+  "laporan:stage": "node --env-file=.env scripts/laporan-stage.js"
 },
   "repository": {
     "type": "git",

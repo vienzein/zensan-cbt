@@ -48,7 +48,7 @@ function KartuTopik({ t }) {
   );
 }
 
-export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi }) {
+export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage }) {
   const [data, setData] = useState(null);
   const [galat, setGalat] = useState('');
   const [sibukD0, setSibukD0] = useState(false);
@@ -139,11 +139,11 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi }) {
           </p>
           {galatD0 && <p className="mt-2 text-sm text-bahaya">{galatD0}</p>}
           <button
-            onClick={mulaiDomain0}
+            onClick={domain0.mode === 'stage' ? onStage : mulaiDomain0}
             disabled={sibukD0 || (domain0.cooldown_until && new Date(domain0.cooldown_until) > new Date())}
             className="mt-3 w-full rounded-2xl bg-lime py-3 font-bold text-bg disabled:opacity-40"
           >
-            {sibukD0 ? 'Menyiapkan…' : 'Mulai Ujian'}
+            {sibukD0 ? 'Menyiapkan…' : domain0.mode === 'stage' ? 'Buka Peta Stage' : 'Mulai Ujian'}
           </button>
         </section>
       )}

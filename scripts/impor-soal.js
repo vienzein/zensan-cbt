@@ -6,6 +6,10 @@
  *   npm run impor:soal -- seed/soal-saya.csv            # SIMULASI: memeriksa semuanya, tidak menyimpan
  *   npm run impor:soal -- seed/soal-saya.csv --tulis    # menyimpan
  *   npm run impor:soal -- seed/soal-saya.docx           # sama, dari dokumen Word (lihat PETUNJUK-IMPOR-WORD.md)
+ *   npm run impor:soal -- seed/soal-d0.json             # soal stage dalam JSON (kodeStage, soal, opsi, kunci, pembahasan)
+ *
+ * Soal diagnostik Domain 0: beri kolom/label "Stage" (mis. D0-01-01.S1); stage harus sudah diimpor
+ * (npm run impor:stage). Subtes, topik, subtopik, level, dan waktu soal diambil dari stage-nya.
  *
  * Aturan: tes dan subtes harus sudah ada; topik dan subtopik yang belum ada dibuat otomatis; soal yang
  * sama (topik + teks soal) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
@@ -15,7 +19,7 @@
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseCsv, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
+const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
 const { dariEnv } = require('../src/services/penyimpananGambar');
 
@@ -28,7 +32,7 @@ function keluar(kode, pesan) {
 }
 
 async function main() {
-  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv | berkas.docx> [--tulis]');
+  if (!berkas) keluar(2, 'Pemakaian: npm run impor:soal -- <berkas.csv | berkas.docx | berkas.json> [--tulis] [--tes=SNBT]');
   if (!fs.existsSync(berkas)) keluar(2, `Berkas tidak ditemukan: ${berkas}`);
 
   const dariWord = /\.docx$/i.test(berkas);
@@ -44,6 +48,9 @@ async function main() {
     galatBaca = w.galat;
     media = w.media;
     terbaca = { kolom: w.kolom, baris: w.baris };
+  } else if (/\.json$/i.test(berkas)) {
+    const tesFlag = (flag.find((f) => f.startsWith('--tes=')) || '--tes=SNBT').slice(6).trim().toUpperCase();
+    try { terbaca = jsonKeBaris(fs.readFileSync(berkas, 'utf8'), tesFlag); } catch (e) { keluar(1, e.message); }
   } else {
     terbaca = parseCsv(fs.readFileSync(berkas, 'utf8'));
   }
@@ -110,37 +117,68 @@ async function main() {
         (await c.query('SELECT id FROM curriculum_groups WHERE upper(kode) = $1', [s.tes])).rows[0]?.id ?? null);
       if (!cg) { masalah.push({ baris: s.baris, pesan: `tes "${s.tes}" belum ada di database` }); continue; }
 
-      const subjectId = await sekali(`sj:${cg}:${s.subtes}`, async () =>
-        (await c.query('SELECT id FROM subjects WHERE curriculum_group_id = $1 AND upper(kode) = $2', [cg, s.subtes]))
-          .rows[0]?.id ?? null);
-      if (!subjectId) { masalah.push({ baris: s.baris, pesan: `subtes "${s.subtes}" belum ada di tes ${s.tes}` }); continue; }
+      let topicId;
+      let subIds = [];
+      let level = s.level;
+      let waktu = s.waktu;
+      let stageRow = null;
+      if (s.stage) {
+        // Soal diagnostik Domain 0: topik, subtopik, level, dan waktu ditentukan oleh stage-nya.
+        stageRow = await sekali(`st:${cg}:${s.stage}`, async () =>
+          (await c.query(
+            'SELECT id, topic_id, subtopic_id, level_soal, target_detik_per_soal FROM d0_stages WHERE curriculum_group_id = $1 AND upper(kode) = $2',
+            [cg, s.stage])).rows[0] ?? null);
+        if (!stageRow || !stageRow.topic_id || !stageRow.subtopic_id) {
+          masalah.push({ baris: s.baris, pesan: `stage "${s.stage}" belum ada di database. Jalankan dulu: npm run impor:stage -- seed/stage-diagnostik-d0.md --tulis` });
+          continue;
+        }
+        if (s.level !== null && s.level !== stageRow.level_soal) {
+          masalah.push({ baris: s.baris, pesan: `level ${s.level} tidak sama dengan level stage ${s.stage} (Level ${stageRow.level_soal}); kosongkan Level atau samakan` });
+          continue;
+        }
+        topicId = { id: stageRow.topic_id, butuhD0: false };
+        subIds = [stageRow.subtopic_id];
+        level = stageRow.level_soal;
+        if (waktu === null) waktu = stageRow.target_detik_per_soal;
+      } else {
+        const subjectId = await sekali(`sj:${cg}:${s.subtes}`, async () =>
+          (await c.query('SELECT id FROM subjects WHERE curriculum_group_id = $1 AND upper(kode) = $2', [cg, s.subtes]))
+            .rows[0]?.id ?? null);
+        if (!subjectId) { masalah.push({ baris: s.baris, pesan: `subtes "${s.subtes}" belum ada di tes ${s.tes}` }); continue; }
 
-      const butuhD0 = topikButuhDomain0(s);
-      const topicId = await sekali(`tp:${subjectId}:${s.topik}`, async () => {
-        const ada = await c.query('SELECT id, requires_domain0 FROM topics WHERE subject_id = $1 AND nama = $2', [subjectId, s.topik]);
-        if (ada.rows.length) return { id: ada.rows[0].id, butuhD0: ada.rows[0].requires_domain0 };
-        const baru = await c.query(
-          'INSERT INTO topics (subject_id, nama, requires_domain0) VALUES ($1, $2, $3) RETURNING id', [subjectId, s.topik, butuhD0]);
-        stat.topikBaru += 1;
-        return { id: baru.rows[0].id, butuhD0 };
-      });
+        const butuhD0 = topikButuhDomain0(s);
+        topicId = await sekali(`tp:${subjectId}:${s.topik}`, async () => {
+          const ada = await c.query('SELECT id, requires_domain0 FROM topics WHERE subject_id = $1 AND nama = $2', [subjectId, s.topik]);
+          if (ada.rows.length) return { id: ada.rows[0].id, butuhD0: ada.rows[0].requires_domain0 };
+          const baru = await c.query(
+            'INSERT INTO topics (subject_id, nama, requires_domain0) VALUES ($1, $2, $3) RETURNING id', [subjectId, s.topik, butuhD0]);
+          stat.topikBaru += 1;
+          return { id: baru.rows[0].id, butuhD0 };
+        });
 
-      const subIds = [];
-      for (const nama of s.subtopik) {
-        subIds.push(await sekali(`sb:${topicId.id}:${nama}`, async () => {
-          const ada = await c.query('SELECT id FROM subtopics WHERE topic_id = $1 AND nama = $2', [topicId.id, nama]);
-          if (ada.rows.length) return ada.rows[0].id;
-          const baru = await c.query('INSERT INTO subtopics (topic_id, nama) VALUES ($1, $2) RETURNING id', [topicId.id, nama]);
-          stat.subBaru += 1;
-          return baru.rows[0].id;
-        }));
+        subIds = [];
+        for (const nama of s.subtopik) {
+          subIds.push(await sekali(`sb:${topicId.id}:${nama}`, async () => {
+            const ada = await c.query('SELECT id FROM subtopics WHERE topic_id = $1 AND nama = $2', [topicId.id, nama]);
+            if (ada.rows.length) return ada.rows[0].id;
+            const baru = await c.query('INSERT INTO subtopics (topic_id, nama) VALUES ($1, $2) RETURNING id', [topicId.id, nama]);
+            stat.subBaru += 1;
+            return baru.rows[0].id;
+          }));
+        }
       }
 
       const kunciSoal = `${topicId.id}|${s.teks}`;
       if (dalamBerkas.has(kunciSoal)) { stat.kembar += 1; continue; }
       dalamBerkas.add(kunciSoal);
-      const sudah = await c.query('SELECT 1 FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
-      if (sudah.rows.length) { stat.ada += 1; continue; }
+      const sudah = await c.query('SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
+      if (sudah.rows.length) {
+        stat.ada += 1;
+        if (stageRow) { // pastikan soal lama tetap tertaut ke stage
+          await c.query('INSERT INTO d0_stage_questions (stage_id, question_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [stageRow.id, sudah.rows[0].id]);
+        }
+        continue;
+      }
 
       const gambarUrl = s.gambarBerkas ? await alamatGambar(s.gambarBerkas) : s.gambarUrl;
       const pembahasanGambarUrl = s.pembahasanGambarBerkas ? await alamatGambar(s.pembahasanGambarBerkas) : s.pembahasanGambarUrl;
@@ -149,16 +187,19 @@ async function main() {
                                 target_waktu_detik, poin_reward, poin_penalty, is_domain0,
                                 pembahasan, pembahasan_gambar_url)
          VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11, $12) RETURNING id`,
-        [topicId.id, s.level, s.teks, gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
-          s.waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), s.domain0,
+        [topicId.id, level, s.teks, gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
+          waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), stageRow ? true : s.domain0,
           s.pembahasan, pembahasanGambarUrl],
       );
       for (const sid of subIds) {
         await c.query('INSERT INTO question_subtopics (question_id, subtopic_id) VALUES ($1, $2)', [q.rows[0].id, sid]);
       }
+      if (stageRow) {
+        await c.query('INSERT INTO d0_stage_questions (stage_id, question_id) VALUES ($1, $2)', [stageRow.id, q.rows[0].id]);
+      }
       stat.baru += 1;
-      if (s.domain0 && !topicId.butuhD0) stat.domain0TakTerpakai += 1;
-      const k = `${s.tes} / ${s.subtes} / Level ${s.level}`;
+      if (!stageRow && s.domain0 && !topicId.butuhD0) stat.domain0TakTerpakai += 1;
+      const k = stageRow ? `${s.tes} / Stage ${s.stage}` : `${s.tes} / ${s.subtes} / Level ${level}`;
       perKelompok.set(k, (perKelompok.get(k) || 0) + 1);
     }
 

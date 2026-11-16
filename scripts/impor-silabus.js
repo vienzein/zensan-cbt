@@ -82,13 +82,14 @@ async function main() {
       keluar(1);
     }
 
-    // Topik di database (tes ini) yang tidak ada di silabus: hanya dilaporkan.
+    // Topik AKTIF di database (tes ini) yang tidak ada di silabus: hanya dilaporkan (yang nonaktif, mis. topik
+    // tersembunyi stage Domain 0, tidak dihitung).
     const dalamSilabus = new Set(baris.map((b) => `${b.subtes}|${b.topik}`));
     const semua = await c.query(
       `SELECT upper(s.kode) AS subtes, t.nama AS topik,
               (SELECT count(*) FROM questions q WHERE q.topic_id = t.id) AS soal
          FROM topics t JOIN subjects s ON s.id = t.subject_id
-        WHERE s.curriculum_group_id = $1 ORDER BY 1, 2`, [cg]);
+        WHERE s.curriculum_group_id = $1 AND t.is_active ORDER BY 1, 2`, [cg]);
     const asing = semua.rows.filter((r) => !dalamSilabus.has(`${r.subtes}|${r.topik}`));
 
     if (tulis) await c.query('COMMIT');

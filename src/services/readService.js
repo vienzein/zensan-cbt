@@ -2,6 +2,7 @@
 
 const { HttpError } = require('../errors');
 const plan = require('../config/plan');
+const stageCfg = require('../config/stage');
 const { hasPassedDomain0 } = require('./domain0Service');
 const { hitungStreak, ringkasTopik, levelNama } = require('./progress');
 
@@ -174,6 +175,7 @@ async function getBeranda(pool, studentId, curriculumGroupId) {
     },
     streak_hari: hitungStreak(hari.rows.map((r) => r.d), today),
     domain0: {
+      mode: stageCfg.mode(),
       diperlukan: butuhDomain0,
       lulus: lulusDomain0,
       cooldown_until: domain0Cooldown,
