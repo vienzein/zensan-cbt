@@ -38,7 +38,7 @@ Pembahasan: Faktorkan menjadi (x−3)(x−4) = 0, akarnya 3 dan 4, jumlahnya 7.
 
 - Garis `---` (tiga strip atau lebih) **menutup** satu soal. Wajib ada di antara dua soal.
 - Tes, Subtes, Topik, Subtopik, dan Level **diwarisi** dari soal sebelumnya bila baris itu dihilangkan. Untuk 15 soal satu topik dan level, kelimanya cukup ditulis sekali; soal berikutnya langsung mulai dari `Soal:`. Ganti hanya baris yang berubah (mis. `Level: 3`).
-- Level 1-2: tepat 1 subtopik. Level 3-4: minimal 2 subtopik, dipisah `|` (mis. `Persamaan dan Fungsi Kuadrat | Fungsi dan Operasi Fungsi`).
+- Semua level: 1 subtopik atau lebih dalam topik yang sama. Bila lebih dari satu, dipisah `|` (mis. `Persamaan dan Fungsi Kuadrat | Fungsi dan Operasi Fungsi`).
 - Opsi minimal A dan B, maksimal sampai E, berurutan tanpa lompat. Kunci satu huruf.
 - Soal dan pembahasan boleh beberapa paragraf (baris yang tidak berlabel menyambung ke bagian di atasnya).
 - Label tambahan (opsional): `Waktu:` (detik), `Poin:`, `Gambar:` (alamat gambar soal), `Pembahasan gambar:`. Kosong = waktu otomatis menurut tabel di `PETUNJUK-IMPOR-SOAL.md` dan poin 10.
@@ -121,5 +121,4 @@ Setelah AI selesai: salin hasilnya ke Word (tempel sebagai teks biasa, *Keep Tex
 | `label "soal" muncul dua kali dalam satu soal` | Garis `---` terlewat di antara dua soal |
 | `opsi tidak berurutan: ditemukan C padahal yang diharapkan B` | Opsi B hilang atau salah ketik |
 | `kunci "E" tidak cocok dengan opsi yang ada` | Kunci menunjuk opsi yang tidak ada |
-| `soal Level 3 harus terikat minimal 2 subtopik` | Tulis dua subtopik dipisah `\|` |
 | `Berkas ini bukan dokumen Word (.docx) yang valid` | File `.doc` lama atau rusak; simpan ulang sebagai `.docx` |

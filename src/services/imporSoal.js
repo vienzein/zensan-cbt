@@ -55,7 +55,7 @@ const tidak = (v) => ['', 'tidak', 'n', 'no', 'false', '0'].includes(String(v).t
 
 /**
  * Periksa dan normalkan semua baris. Mengembalikan { soal: [...], galat: [{baris, pesan}] }.
- * Aturan database yang dijaga di sini: Level 1-2 tepat 1 subtopik; Level 3-4 minimal 2 subtopik.
+ * Aturan ikatan subtopik: semua level boleh 1 subtopik atau lebih (dalam topik yang sama); minimal 1.
  */
 function validasi({ kolom, baris }) {
   const galat = [];
@@ -76,8 +76,6 @@ function validasi({ kolom, baris }) {
 
     const subtopik = [...new Set(r.subtopik.split('|').map((x) => x.trim()).filter(Boolean))];
     if (!subtopik.length) salah('subtopik kosong (pisahkan beberapa subtopik dengan tanda |)');
-    else if (levelSah && level <= 2 && subtopik.length !== 1) salah(`soal Level ${level} harus terikat tepat 1 subtopik (ada ${subtopik.length})`);
-    else if (levelSah && level >= 3 && subtopik.length < 2) salah(`soal Level ${level} harus terikat minimal 2 subtopik (ada ${subtopik.length})`);
 
     const opsi = [];
     HURUF_OPSI.forEach((h) => {

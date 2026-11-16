@@ -28,7 +28,7 @@ PARAMETER (saya isi)
 - Tes: [SNBT]
 - Subtes: [PK]   (SNBT: PU, PPU, PBM, PK, LBI, LBE, PM)
 - Topik (nama persis dari silabus): [Aljabar dan Fungsi]
-- Subtopik yang dipakai (nama persis dari silabus; untuk Level 3-4 pilih dua atau lebih dalam topik yang sama): [Persamaan dan Fungsi Kuadrat; Fungsi dan Operasi Fungsi]
+- Subtopik yang dipakai (nama persis dari silabus; boleh lebih dari satu dalam topik yang sama): [Persamaan dan Fungsi Kuadrat; Fungsi dan Operasi Fungsi]
 - Jumlah soal per level: [Level 1: 5, Level 2: 5, Level 3: 5, Level 4: 0]
 - Catatan tambahan (opsional): [mis. fokus pada soal cerita; hindari soal yang butuh gambar]
 
@@ -54,7 +54,7 @@ ORIGINALITAS (wajib)
 DEFINISI LEVEL
 - Level 1 (dasar): satu konsep, satu atau dua langkah, bentuk soal paling langsung. Siswa pemula yang paham konsep dapat menjawab.
 - Level 2 (menengah): penerapan standar, dua sampai tiga langkah, mulai ada pengecoh dari kesalahan umum.
-- Level 3 (lanjut): menggabungkan dua subtopik atau lebih, perlu memilih strategi, ada jebakan.
+- Level 3 (lanjut): sering menggabungkan beberapa subtopik, perlu memilih strategi, ada jebakan.
 - Level 4 (sangat sulit): setara soal tersulit SNBT, banyak konsep, penalaran berlapis, pengecoh kuat.
 
 TARGET WAKTU (siswa yang menguasai materi harus bisa selesai dalam waktu ini; jangan buat soal yang jelas lebih lama)
@@ -65,8 +65,8 @@ TARGET WAKTU (siswa yang menguasai materi harus bisa selesai dalam waktu ini; ja
 - TWK, TIU: L1 35, L2 50, L3 dan L4 60
 
 ATURAN SUBTOPIK
-- Level 1 dan 2: tepat SATU subtopik dari silabus.
-- Level 3 dan 4: DUA subtopik atau lebih dari topik yang sama di silabus, dipisah dengan " | " (contoh: Persamaan dan Fungsi Kuadrat | Fungsi dan Operasi Fungsi). Soal level ini memang harus menggabungkan kedua subtopik itu.
+- Semua level: SATU subtopik atau lebih dari topik yang sama di silabus. Bila lebih dari satu, pisahkan dengan " | " (contoh: Persamaan dan Fungsi Kuadrat | Fungsi dan Operasi Fungsi), dan soalnya memang harus menuntut kedua subtopik itu.
+- Level 1 dan 2 umumnya satu subtopik agar fokus. Level 3 dan 4 sebaiknya menggabungkan subtopik bila wajar, tetapi satu subtopik tetap boleh.
 
 ATURAN PENULISAN
 - Semua soal pilihan ganda, 5 opsi A sampai E (4 opsi A-D hanya bila pola bahan memang 4 opsi). Soal isian, benar/salah, atau pernyataan majemuk diubah menjadi pilihan ganda.
@@ -115,7 +115,7 @@ PARAMETER: Tes [SNBT], Subtes [PK], Topik [Aljabar dan Fungsi], subtopik (nama p
 
 ATURAN
 - Teks polos tanpa markdown dan tanpa LaTeX. Simbol Unicode (x², √, ×, ÷, ≤, ≥, ≠, π, −). Pecahan ditulis (a+b)/(c+d).
-- Level 1 dan 2: satu subtopik. Level 3 dan 4: dua subtopik atau lebih dipisah " | ".
+- Satu subtopik atau lebih (dipisah " | ") dari topik yang sama.
 - Bila kunci atau pembahasan tidak ada di bahan, tulis "Kunci: ?" dan "Pembahasan:" kosong. JANGAN mengarang.
 - Bila ada bagian yang tidak terbaca, tulis [TIDAK TERBACA] di tempatnya.
 - Soal yang membutuhkan gambar: tulis [PERLU GAMBAR: deskripsi] di dalam teks Soal.

@@ -13,7 +13,7 @@
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseSilabus, ringkasSilabus } = require('../src/services/silabus');
+const { parseSilabus } = require('../src/services/silabus');
 const { topikButuhDomain0 } = require('../src/services/imporSoal');
 
 const [, , berkas, ...flag] = process.argv;
@@ -37,7 +37,6 @@ async function main() {
   }
   if (!baris.length) keluar(1, 'Tidak ada subtopik terbaca di silabus.');
 
-  const { tunggal } = ringkasSilabus(baris);
   const c = await pool.connect();
   const stat = { topikBaru: 0, topikAda: 0, subBaru: 0, subAda: 0 };
   const perSubtes = new Map();
@@ -99,10 +98,6 @@ async function main() {
     console.log(`  topik baru      : ${stat.topikBaru}  (sudah ada: ${stat.topikAda})`);
     console.log(`  subtopik baru   : ${stat.subBaru}  (sudah ada: ${stat.subAda})`);
     if (perSubtes.size) console.log(`  subtopik baru per subtes: ${[...perSubtes].map(([k, n]) => `${k} ${n}`).join(', ')}`);
-    if (tunggal.length) {
-      console.log('\nPERHATIAN: topik berikut hanya punya 1 subtopik, jadi TIDAK bisa punya soal Level 3-4 (aturan: minimal 2 subtopik dalam satu topik):');
-      tunggal.forEach((t) => console.log(`  ${t.subtes} / ${t.topik}`));
-    }
     if (asing.length) {
       console.log('\nAda di database tetapi TIDAK ada di silabus (tidak diubah; dibiarkan):');
       asing.forEach((r) => console.log(`  ${r.subtes} / ${r.topik}  (${r.soal} soal)`));

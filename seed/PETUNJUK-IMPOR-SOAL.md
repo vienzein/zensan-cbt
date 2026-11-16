@@ -18,8 +18,6 @@ npm run impor:silabus -- seed/silabus-snbt.md --tulis   # menyimpan
 
 Setelah itu semua topik dan subtopik sudah ada, dan salah ketik nama di dokumen soal tidak lagi membuat topik dobel diam-diam (cek ringkasan "topik baru" saat simulasi impor soal: seharusnya 0).
 
-Catatan: topik **Penalaran Pola Bahasa** (PPU) hanya punya 1 subtopik, sehingga tidak bisa punya soal Level 3-4 (aturan: minimal 2 subtopik dalam satu topik).
-
 ## Kolom
 
 | Kolom | Wajib | Isi |
@@ -42,8 +40,7 @@ Catatan: topik **Penalaran Pola Bahasa** (PPU) hanya punya 1 subtopik, sehingga 
 | `pembahasan_gambar_url` | tidak | Alamat gambar untuk pembahasan |
 
 ## Aturan ikatan subtopik (dijaga database)
-- **Level 1 dan 2:** terikat **tepat 1** subtopik.
-- **Level 3 dan 4:** terikat **minimal 2** subtopik dalam topik yang sama (soal tidak boleh lintas topik).
+- **Semua level:** terikat **1 subtopik atau lebih** dalam topik yang sama (soal tidak boleh lintas topik). Biasanya Level 1-2 cukup 1 subtopik, dan Level 3-4 menggabungkan beberapa subtopik bila soalnya memang menuntut itu, tetapi tidak wajib.
 
 ## Waktu bawaan per soal (detik)
 

@@ -51,14 +51,16 @@ test('waktu_detik di file menimpa waktu bawaan', () => {
   assert.equal(soal[0].waktu, 40);
 });
 
-test('Level 1-2 harus 1 subtopik; Level 3-4 minimal 2 subtopik', () => {
-  const dua = validasi(parseCsv(csv('SNBT,PM,A,S1|S2,1,q,a,b,,,,A,,,')));
-  assert.match(dua.galat[0].pesan, /tepat 1 subtopik/);
-  const satu = validasi(parseCsv(csv('SNBT,PM,A,S1,3,q,a,b,,,,A,,,')));
-  assert.match(satu.galat[0].pesan, /minimal 2 subtopik/);
-  const bagus = validasi(parseCsv(csv('SNBT,PM,A,S1|S2,3,q,a,b,,,,A,,,')));
-  assert.deepEqual(bagus.galat, []);
-  assert.deepEqual(bagus.soal[0].subtopik, ['S1', 'S2']);
+test('semua level boleh 1 subtopik atau lebih; subtopik kosong ditolak; subtopik ganda dalam satu baris disatukan', () => {
+  for (const level of [1, 2, 3, 4]) {
+    const satu = validasi(parseCsv(csv(`SNBT,PM,A,S1,${level},q,a,b,,,,A,,,`)));
+    assert.deepEqual(satu.galat, [], `level ${level} dengan 1 subtopik`);
+    const dua = validasi(parseCsv(csv(`SNBT,PM,A,S1|S2,${level},q,a,b,,,,A,,,`)));
+    assert.deepEqual(dua.galat, [], `level ${level} dengan 2 subtopik`);
+    assert.deepEqual(dua.soal[0].subtopik, ['S1', 'S2']);
+  }
+  assert.deepEqual(validasi(parseCsv(csv('SNBT,PM,A,S1|S1,2,q,a,b,,,,A,,,'))).soal[0].subtopik, ['S1']);
+  assert.match(validasi(parseCsv(csv('SNBT,PM,A,,2,q,a,b,,,,A,,,'))).galat[0].pesan, /subtopik kosong/);
 });
 
 test('kunci harus cocok dengan opsi; opsi minimal A dan B; tidak boleh ada celah', () => {
