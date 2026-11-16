@@ -7,6 +7,7 @@ module.exports = Object.freeze({
   SOAL_PER_STAGE: 3,
   GAGAL_UNTUK_JEDA: 3,        // gagal berturut-turut di stage yang sama
   JEDA_MENIT: 15,
-  TOLERANSI_DETIK: 3,         // selisih jaringan terhadap batas waktu stage
+  TOLERANSI_DETIK: 2,         // selisih jaringan per soal terhadap target waktunya
+  KELONGGARAN_TOTAL_DETIK: 8, // pemuatan layar dan pengiriman, terhadap total waktu stage
   KODE_TOPIK_GERBANG: ['D0-01', 'D0-02', 'D0-03', 'D0-04', 'D0-05'],
 });

@@ -5,7 +5,7 @@ const { HttpError } = require('../errors');
 const { withTx, advisoryLock } = require('./tx');
 const { isAnswerCorrect } = require('./grading');
 const { loadQuestionPayload } = require('./attemptQuestions');
-const { evaluateStage, nextFailState, pickNextStage, gateOpen } = require('./stageRules');
+const { batasStage, evaluateStage, nextFailState, pickNextStage, gateOpen } = require('./stageRules');
 
 const STAGE_COLS = `id, curriculum_group_id, kode, kode_topik, nama_topik, indikator, level_soal, isi, jumlah_soal,
                     target_detik_per_soal, batas_detik, urutan`;
@@ -16,7 +16,12 @@ async function loadStages(client, curriculumGroupId) {
       WHERE curriculum_group_id = $1 AND is_active ORDER BY urutan, id`,
     [curriculumGroupId],
   );
-  return rows;
+  return rows.map(withBatas);
+}
+
+/** Batas stage dihitung dari target per soal (bukan batas_detik lama di tabel). */
+function withBatas(s) {
+  return { ...s, batas_detik: batasStage(s.jumlah_soal, s.target_detik_per_soal) };
 }
 
 async function loadProgress(client, studentId, stageIds) {
@@ -47,6 +52,7 @@ async function assertCurriculum(client, curriculumGroupId) {
 const publicStage = (s) => ({
   id: s.id, kode: s.kode, kode_topik: s.kode_topik, nama_topik: s.nama_topik, indikator: s.indikator,
   level_soal: s.level_soal, jumlah_soal: s.jumlah_soal, batas_detik: s.batas_detik,
+  target_detik_per_soal: s.target_detik_per_soal,
 });
 
 /** GET /api/domain0/stages */
@@ -182,11 +188,11 @@ function submitStage(pool, studentId, { attemptId, answers }) {
     if (!a.rows.length) throw new HttpError(404, 'ATTEMPT_TIDAK_DITEMUKAN', 'Sesi stage tidak ditemukan');
     if (a.rows[0].status !== 'berjalan') throw new HttpError(409, 'SUDAH_DIKIRIM', 'Sesi ini sudah dikirim');
 
-    const stage = (await client.query(
+    const stage = withBatas((await client.query(
       `SELECT ${STAGE_COLS} FROM d0_stages WHERE id = $1`, [a.rows[0].stage_id],
-    )).rows[0];
+    )).rows[0]);
     const qs = (await client.query(
-      `SELECT aq.question_id, q.kunci_jawaban
+      `SELECT aq.question_id, q.kunci_jawaban, q.target_waktu_detik
          FROM d0_stage_attempt_questions aq JOIN questions q ON q.id = aq.question_id
         WHERE aq.attempt_id = $1 ORDER BY aq.urutan`, [attemptId],
     )).rows;
@@ -198,11 +204,15 @@ function submitStage(pool, studentId, { attemptId, answers }) {
     }
 
     let benar = 0;
+    let lewatSoal = 0;
+    const durasiPer = new Map(answers.map((x) => [x.questionId, x.durasi]));
     const hasil = [];
     for (const q of qs) {
       const jwb = byQ.has(String(q.question_id)) ? byQ.get(String(q.question_id)) : null;
       const ok = isAnswerCorrect(q.kunci_jawaban, jwb);
       if (ok) benar += 1;
+      const target = Number(q.target_waktu_detik) || stage.target_detik_per_soal;
+      if ((durasiPer.get(String(q.question_id)) || 0) > target + S.TOLERANSI_DETIK) lewatSoal += 1;
       hasil.push({ question_id: q.question_id, benar: ok });
       await client.query(
         `UPDATE d0_stage_attempt_questions SET jawaban = $3::jsonb, benar = $4
@@ -213,7 +223,7 @@ function submitStage(pool, studentId, { attemptId, answers }) {
 
     const durasi = Math.round(Number(a.rows[0].lewat) * 100) / 100;
     const ev = evaluateStage({
-      jumlahBenar: benar, jumlahSoal: qs.length, durasiDetik: durasi, batasDetik: stage.batas_detik,
+      jumlahBenar: benar, jumlahSoal: qs.length, durasiDetik: durasi, batasDetik: stage.batas_detik, lewatSoal,
     });
     await client.query(
       `UPDATE d0_stage_attempts SET status = 'selesai', selesai_at = now(), lulus = $2,
@@ -232,6 +242,7 @@ function submitStage(pool, studentId, { attemptId, answers }) {
       durasi_detik: durasi,
       batas_detik: stage.batas_detik,
       tepat_waktu: ev.tepatWaktu,
+      soal_lewat_waktu: lewatSoal,
       hasil,
       gagal_beruntun: st.gagalBeruntun,
       cooldown_until: st.cooldownUntil,

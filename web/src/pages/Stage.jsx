@@ -72,8 +72,8 @@ export default function Stage({ tesId, onKembali }) {
       </header>
       <h1 className="mt-4 text-xl font-extrabold">Peta Stage</h1>
       <p className="mt-1 text-sm text-redup">
-        {peta.jumlah_lulus} dari {peta.total_stage} stage lulus. Tiap stage: 3 soal, semua harus benar dan
-        selesai sebelum waktu habis.
+        {peta.jumlah_lulus} dari {peta.total_stage} stage lulus. Tiap stage: 3 soal, semua harus benar. Setiap
+        soal punya batas waktu sendiri.
       </p>
       {peta.gerbang_terbuka && (
         <p className="mt-3 rounded-2xl bg-lime/15 p-3 text-sm font-semibold text-lime">
@@ -104,7 +104,7 @@ export default function Stage({ tesId, onKembali }) {
             <div className="flex items-center justify-between">
               <span className="font-bold">{s.kode}</span>
               <span className="text-xs text-redup">
-                {s.status === 'lulus' ? '✓ Lulus' : s.status === 'berikutnya' ? 'Berikutnya' : '🔒'} · {mmss(s.batas_detik)}
+                {s.status === 'lulus' ? '✓ Lulus' : s.status === 'berikutnya' ? 'Berikutnya' : '🔒'} · {s.target_detik_per_soal} dtk/soal
               </span>
             </div>
             <p className="text-redup">{s.nama_topik} — {s.indikator}</p>
@@ -118,56 +118,79 @@ export default function Stage({ tesId, onKembali }) {
 function Kerjakan({ sesi, onSelesai }) {
   const { soal, attempt_id: attemptId } = sesi;
   const [idx, setIdx] = useState(0);
-  const [jawab, setJawab] = useState({});
-  const [sisa, setSisa] = useState(sesi.sisa_detik);
+  const [pilihan, setPilihan] = useState('');
+  const [sisa, setSisa] = useState(soal[0].target_waktu_detik);
   const [mengirim, setMengirim] = useState(false);
   const [galat, setGalat] = useState('');
-  const selesai = useRef(false);
-  const mulaiMs = useRef(performance.now());
-  const jawabRef = useRef(jawab);
-  jawabRef.current = jawab;
-
-  const kirim = useCallback(async () => {
-    if (selesai.current) return;
-    selesai.current = true;
-    setMengirim(true);
-    setGalat('');
-    try {
-      const jawaban = soal.map((q) => ({
-        question_id: q.question_id,
-        jawaban_siswa: jawabRef.current[q.question_id] ?? null,
-      }));
-      onSelesai(await api.kirimStage({ attempt_id: attemptId, jawaban }));
-    } catch (e) {
-      selesai.current = false;
-      setMengirim(false);
-      setGalat(e.message);
-    }
-  }, [soal, attemptId, onSelesai]);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      const s = Math.max(0, Math.ceil(sesi.sisa_detik - (performance.now() - mulaiMs.current) / 1000));
-      setSisa(s);
-      if (s <= 0) kirim();
-    }, 250);
-    return () => clearInterval(t);
-  }, [sesi.sisa_detik, kirim]);
+  const jawaban = useRef([]); // { question_id, jawaban_siswa, durasi_pengerjaan_detik }
+  const mulai = useRef(performance.now());
+  const sudahMaju = useRef(false);
+  const pilihanRef = useRef('');
+  pilihanRef.current = pilihan;
 
   const q = soal[idx];
   const opsi = Array.isArray(q.opsi_jawaban) ? q.opsi_jawaban : [];
-  const pilihan = jawab[q.question_id] ?? '';
   const terakhir = idx === soal.length - 1;
+
+  // Setiap ganti soal: waktu soal dihitung ulang dari target soal itu.
+  useEffect(() => {
+    mulai.current = performance.now();
+    sudahMaju.current = false;
+    setPilihan('');
+    setSisa(q.target_waktu_detik);
+  }, [idx, q.target_waktu_detik]);
+
+  const kirim = useCallback(async () => {
+    setMengirim(true);
+    setGalat('');
+    try {
+      onSelesai(await api.kirimStage({ attempt_id: attemptId, jawaban: jawaban.current }));
+    } catch (e) {
+      setMengirim(false);
+      setGalat(e.message);
+    }
+  }, [attemptId, onSelesai]);
+
+  function lanjut() {
+    if (sudahMaju.current || mengirim) return;
+    sudahMaju.current = true;
+    const detik = Math.round(((performance.now() - mulai.current) / 1000) * 10) / 10;
+    const nilai = pilihanRef.current;
+    jawaban.current.push({
+      question_id: q.question_id,
+      jawaban_siswa: nilai === '' ? null : nilai,
+      durasi_pengerjaan_detik: Math.min(detik, q.target_waktu_detik),
+    });
+    if (terakhir) kirim();
+    else setIdx(idx + 1);
+  }
+
+  // Hitung mundur per soal; saat habis, pilihan saat itu dikunci dan lanjut otomatis.
+  useEffect(() => {
+    if (mengirim) return undefined;
+    const t = setInterval(() => {
+      const habis = q.target_waktu_detik - (performance.now() - mulai.current) / 1000;
+      setSisa(Math.max(0, Math.ceil(habis)));
+      if (habis <= 0) lanjut();
+    }, 250);
+    return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx, mengirim]);
 
   return (
     <Layar>
       <header className="flex items-center justify-between">
         <span className="text-xs font-semibold text-redup">{sesi.stage.kode}</span>
-        <span className={`rounded-full px-3 py-1 text-sm font-bold tabular-nums ${sisa <= 10 ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'}`}>
+        <span className={`rounded-full px-3 py-1 text-sm font-bold tabular-nums ${sisa <= 5 ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'}`}>
           {mmss(sisa)}
         </span>
       </header>
-      <p className="mt-3 text-xs text-redup">Soal {idx + 1} dari {soal.length}</p>
+      <div className="mt-4 flex gap-1">
+        {soal.map((s, i) => (
+          <div key={s.question_id} className={`h-1.5 flex-1 rounded-full ${i < idx ? 'bg-lime' : i === idx ? 'bg-aksen' : 'bg-line'}`} />
+        ))}
+      </div>
+      <p className="mt-2 text-xs text-redup">Soal {idx + 1} dari {soal.length}</p>
 
       <section className="mt-3 flex-1">
         <p className="whitespace-pre-wrap text-base leading-relaxed">{q.soal_teks}</p>
@@ -176,7 +199,7 @@ function Kerjakan({ sesi, onSelesai }) {
           {opsi.length > 0 ? opsi.map((o) => (
             <button
               key={o.kode}
-              onClick={() => setJawab({ ...jawab, [q.question_id]: o.kode })}
+              onClick={() => setPilihan(o.kode)}
               disabled={mengirim}
               className={`flex w-full items-start gap-3 rounded-2xl border p-3.5 text-left ${pilihan === o.kode ? 'border-aksen bg-card-2' : 'border-line bg-card'}`}
             >
@@ -186,7 +209,7 @@ function Kerjakan({ sesi, onSelesai }) {
           )) : (
             <input
               value={pilihan}
-              onChange={(e) => setJawab({ ...jawab, [q.question_id]: e.target.value })}
+              onChange={(e) => setPilihan(e.target.value)}
               placeholder="Ketik jawaban"
               className="w-full rounded-2xl border border-line bg-card px-4 py-3.5 outline-none focus:border-aksen"
             />
@@ -196,16 +219,11 @@ function Kerjakan({ sesi, onSelesai }) {
 
       {galat && <div className="mt-3"><Galat pesan={galat} aksi="Kirim ulang" onAksi={kirim} /></div>}
 
-      <footer className="sticky bottom-0 mt-6 flex gap-3 bg-bg pt-3 pb-2">
-        {idx > 0 && (
-          <button onClick={() => setIdx(idx - 1)} disabled={mengirim} className="rounded-2xl border border-line px-5 py-3.5 font-semibold text-redup">
-            Sebelumnya
-          </button>
-        )}
+      <footer className="sticky bottom-0 mt-6 bg-bg pt-3 pb-2">
         <button
-          onClick={() => (terakhir ? kirim() : setIdx(idx + 1))}
+          onClick={lanjut}
           disabled={mengirim}
-          className="flex-1 rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+          className="w-full rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
         >
           {mengirim ? 'Mengirim…' : terakhir ? 'Selesai' : 'Lanjut'}
         </button>
@@ -224,10 +242,9 @@ function HasilStage({ sesi, hasil, onLanjut, onBerhenti }) {
         <h1 className="mt-3 text-2xl font-extrabold">{hasil.lulus ? 'Stage lulus!' : 'Belum lulus'}</h1>
         <p className="mt-2 text-sm text-redup">
           {sesi.stage.kode} · {hasil.jumlah_benar}/{hasil.jumlah_soal} benar · {Math.round(hasil.durasi_detik)} dtk
-          (batas {Math.round(hasil.batas_detik)} dtk)
         </p>
         {!hasil.lulus && hasil.jumlah_benar === hasil.jumlah_soal && !hasil.tepat_waktu && (
-          <p className="mt-2 text-sm">Semua benar, tetapi melewati batas waktu.</p>
+          <p className="mt-2 text-sm">Semua benar, tetapi ada soal yang melewati batas waktunya.</p>
         )}
         {!hasil.lulus && !jeda && (
           <p className="mt-2 text-sm text-redup">Kamu boleh langsung mengulang. Kesempatan sebelum jeda: {sisaPercobaan}.</p>

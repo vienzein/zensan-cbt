@@ -3,7 +3,7 @@
 const { HttpError } = require('../errors');
 const { normalizeAnswer, INVALID, UUID_RE, ID_RE } = require('./drillSubmit');
 
-/** { attempt_id, jawaban: [{ question_id, jawaban_siswa }] }  (durasi dihitung server) */
+/** { attempt_id, jawaban: [{ question_id, jawaban_siswa, durasi_pengerjaan_detik }] }  (total waktu dihitung ulang di server) */
 function parseStageSubmitBody(body) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
     throw new HttpError(400, 'BAD_REQUEST', 'Body harus berupa JSON object');
@@ -21,7 +21,11 @@ function parseStageSubmitBody(body) {
     else seen.add(q);
     const a = normalizeAnswer(it && it.jawaban_siswa);
     if (a === INVALID) errors.push(`jawaban[${i}].jawaban_siswa tidak valid`);
-    return { questionId: q, jawaban: a === INVALID ? null : a };
+    const d = it && it.durasi_pengerjaan_detik;
+    if (d !== undefined && (typeof d !== 'number' || !Number.isFinite(d) || d < 0 || d > 3600)) {
+      errors.push(`jawaban[${i}].durasi_pengerjaan_detik harus angka 0-3600`);
+    }
+    return { questionId: q, jawaban: a === INVALID ? null : a, durasi: typeof d === 'number' ? d : 0 };
   });
   if (errors.length) throw new HttpError(422, 'VALIDATION_ERROR', 'Payload tidak valid', errors);
   return { attemptId: body.attempt_id, answers };

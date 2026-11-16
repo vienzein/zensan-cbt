@@ -1,13 +1,18 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert');
-const { evaluateStage, nextFailState, pickNextStage, gateOpen } = require('../src/services/stageRules');
+const { batasStage, evaluateStage, nextFailState, pickNextStage, gateOpen } = require('../src/services/stageRules');
 
-test('lulus hanya bila 3/3 benar dan tepat waktu', () => {
+test('batas stage = jumlah soal x target per soal', () => {
+  assert.equal(batasStage(3, 20), 60);
+});
+
+test('lulus hanya bila 3/3 benar, tiap soal dalam target, dan total waktu wajar', () => {
   const b = { jumlahSoal: 3, batasDetik: 60 };
   assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 60 }).lulus, true);
-  assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 62 }).lulus, true); // toleransi
-  assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 70 }).lulus, false);
+  assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 66 }).lulus, true); // kelonggaran jaringan
+  assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 80 }).lulus, false); // total terlalu lama
+  assert.equal(evaluateStage({ ...b, jumlahBenar: 3, durasiDetik: 30, lewatSoal: 1 }).lulus, false); // satu soal lewat target
   assert.equal(evaluateStage({ ...b, jumlahBenar: 2, durasiDetik: 10 }).lulus, false);
 });
 

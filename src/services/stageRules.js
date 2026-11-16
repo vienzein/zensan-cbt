@@ -2,10 +2,16 @@
 
 const S = require('../config/stage');
 
-/** Lulus stage = semua soal benar DAN durasi (server) <= batas stage + toleransi. */
-function evaluateStage({ jumlahBenar, jumlahSoal, durasiDetik, batasDetik }) {
+/** Batas waktu stage = jumlah soal x target per soal (waktu dihitung per soal, tanpa pengali). */
+const batasStage = (jumlahSoal, targetDetikPerSoal) => jumlahSoal * targetDetikPerSoal;
+
+/**
+ * Lulus stage = semua soal benar, tiap soal dikerjakan dalam target-nya (+ toleransi), dan total waktu
+ * di server tidak melewati batas stage (+ kelonggaran jaringan). `lewatSoal` = jumlah soal yang melewati target.
+ */
+function evaluateStage({ jumlahBenar, jumlahSoal, durasiDetik, batasDetik, lewatSoal = 0 }) {
   const semuaBenar = jumlahSoal > 0 && jumlahBenar >= jumlahSoal;
-  const tepatWaktu = durasiDetik <= batasDetik + S.TOLERANSI_DETIK;
+  const tepatWaktu = lewatSoal === 0 && durasiDetik <= batasDetik + S.TOLERANSI_DETIK * jumlahSoal + S.KELONGGARAN_TOTAL_DETIK;
   return { lulus: semuaBenar && tepatWaktu, semuaBenar, tepatWaktu };
 }
 
@@ -29,4 +35,4 @@ function gateOpen(stages, passedIds) {
   return gate.length > 0 && gate.every((s) => passedIds.has(String(s.id)));
 }
 
-module.exports = { evaluateStage, nextFailState, pickNextStage, gateOpen };
+module.exports = { batasStage, evaluateStage, nextFailState, pickNextStage, gateOpen };
