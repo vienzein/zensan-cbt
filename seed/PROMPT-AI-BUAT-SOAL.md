@@ -29,7 +29,7 @@ PARAMETER (saya isi)
 - Subtes: [PK]   (SNBT: PU, PPU, PBM, PK, LBI, LBE, PM)
 - Topik (nama persis dari silabus): [Aljabar dan Fungsi]
 - Subtopik yang dipakai (nama persis dari silabus; boleh lebih dari satu dalam topik yang sama): [Persamaan dan Fungsi Kuadrat; Fungsi dan Operasi Fungsi]
-- Jumlah soal per level: [Level 1: 5, Level 2: 5, Level 3: 5, Level 4: 0]
+- Jumlah soal per level: [Level 1: 5, Level 2: 5, Level 3: 5, Level 4: 0]   (untuk PM, mis. 3 / 8 / 7 / 0 dari 18 soal)
 - Catatan tambahan (opsional): [mis. fokus pada soal cerita; hindari soal yang butuh gambar]
 
 TUGAS (kerjakan berurutan)
@@ -52,10 +52,22 @@ ORIGINALITAS (wajib)
 - Pembahasan ditulis dengan kalimatmu sendiri, bukan disalin dari bahan.
 
 DEFINISI LEVEL
-- Level 1 (dasar): satu konsep, satu atau dua langkah, bentuk soal paling langsung. Siswa pemula yang paham konsep dapat menjawab.
+- Level 1 (dasar): mengukur PENGENALAN, bukan hitungan panjang. Siswa cukup tahu konsep/rumus yang dipakai, atau mampu menyusun model awal yang tepat, atau mengerjakan satu langkah. Bentuk soal paling langsung; hitungannya ringan.
 - Level 2 (menengah): penerapan standar, dua sampai tiga langkah, mulai ada pengecoh dari kesalahan umum.
 - Level 3 (lanjut): sering menggabungkan beberapa subtopik, perlu memilih strategi, ada jebakan.
 - Level 4 (sangat sulit): setara soal tersulit SNBT, banyak konsep, penalaran berlapis, pengecoh kuat.
+
+BENTUK SOAL LEVEL 1 (pilih yang paling cocok dengan subtopiknya)
+- Satu langkah: substitusi, satu operasi, membaca satu nilai dari data/grafik.
+- Pemodelan awal: opsi berisi persamaan/pertidaksamaan/fungsi; siswa memilih model yang benar tanpa harus menyelesaikannya. Pengecoh = salah tanda, salah tafsir kata ("paling banyak" vs "paling sedikit"), variabel tertukar.
+- Pemilihan rumus/konsep: siswa menentukan rumus atau materi yang tepat untuk situasi itu (mis. luas atau keliling, mean atau median, peluang gabungan atau irisan), lalu menghitung dengan angka sederhana bila perlu.
+- Tafsir sederhana: arti gradien, titik potong, atau nilai tertentu dalam konteks.
+
+CATATAN KHUSUS PM (Penalaran Matematika)
+- Soal PM berbasis konteks nyata. Pada kenyataannya soal PM jarang berada di Level 1, jadi bila saya tidak menulis jumlah per level, pakai komposisi kira-kira 15% Level 1, 45% Level 2, 40% Level 3.
+- Level 2 PM: model sudah harus dibuat dan diselesaikan sendiri (dua sampai tiga langkah), dengan pengecoh dari tafsir konteks yang keliru.
+- Level 3 PM: gabungan subtopik, konteks berlapis, atau perlu memilih strategi; boleh ada informasi berlebih.
+- Untuk subtes lain, abaikan bagian ini.
 
 TARGET WAKTU (siswa yang menguasai materi harus bisa selesai dalam waktu ini; jangan buat soal yang jelas lebih lama)
 - PPU: L1 25 dtk, L2 35 dtk, L3 dan L4 45 dtk
