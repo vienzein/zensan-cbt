@@ -7,14 +7,27 @@
 3. Simpan sebagai **CSV (UTF-8)**. Excel Indonesia memakai titik koma sebagai pemisah, dan itu tidak masalah (koma dan tab juga dikenali).
 4. Kirim berkasnya ke pengembang untuk dimasukkan. Pengembang menjalankan **simulasi** dulu, jadi kesalahan dilaporkan lengkap dengan nomor baris sebelum apa pun disimpan.
 
+## Daftar topik dan subtopik (silabus)
+
+Nama topik dan subtopik yang dipakai di dokumen soal harus **persis** sama dengan `silabus-snbt.md` (110 subtopik, 7 subtes SNBT). Sebelum mengimpor soal, masukkan dulu silabusnya sekali:
+
+```
+npm run impor:silabus -- seed/silabus-snbt.md           # simulasi
+npm run impor:silabus -- seed/silabus-snbt.md --tulis   # menyimpan
+```
+
+Setelah itu semua topik dan subtopik sudah ada, dan salah ketik nama di dokumen soal tidak lagi membuat topik dobel diam-diam (cek ringkasan "topik baru" saat simulasi impor soal: seharusnya 0).
+
+Catatan: topik **Penalaran Pola Bahasa** (PPU) hanya punya 1 subtopik, sehingga tidak bisa punya soal Level 3-4 (aturan: minimal 2 subtopik dalam satu topik).
+
 ## Kolom
 
 | Kolom | Wajib | Isi |
 |---|---|---|
 | `tes` | ya | Kode tes: `SNBT` atau `CPNS` |
 | `subtes` | ya | Kode subtes: SNBT = `PU` `PPU` `PBM` `PK` `LBI` `LBE` `PM`; CPNS = `TWK` `TIU` `TKP` |
-| `topik` | ya | Nama topik, mis. `Aljabar dan Fungsi`. Topik baru dibuat otomatis. Tulis persis sama agar tidak terbuat dobel. |
-| `subtopik` | ya | Nama subtopik. Beberapa subtopik dipisah tanda `\|`, mis. `Persamaan kuadrat\|Fungsi komposisi`. |
+| `topik` | ya | Nama topik persis seperti di `silabus-snbt.md`, mis. `Aljabar dan Fungsi`. Topik yang belum ada dibuat otomatis, jadi salah ketik membuat topik dobel. Aman dan disarankan: jalankan `npm run impor:silabus` dulu (lihat bawah). |
+| `subtopik` | ya | Nama subtopik persis seperti di silabus. Beberapa subtopik dipisah tanda `\|`, mis. `Persamaan dan Fungsi Kuadrat\|Fungsi dan Operasi Fungsi`. |
 | `level` | ya | `1` sampai `4` |
 | `soal` | ya | Teks soal |
 | `opsi_a`, `opsi_b` | ya | Pilihan jawaban |

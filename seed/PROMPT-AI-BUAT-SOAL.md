@@ -4,13 +4,13 @@ Dipakai di chat AI mana pun (Claude, ChatGPT, Gemini). Hasilnya mengikuti pola d
 
 ## Cara pakai
 
-1. Buka chat baru. **Lampirkan bahan** (PDF/foto soal contoh, ringkasan materi, pembahasan).
+1. Buka chat baru. **Lampirkan `seed/silabus-snbt.md`** (daftar subtopik beserta cakupannya) dan **bahan** (PDF/foto soal contoh, ringkasan materi, pembahasan).
 2. Tempel Prompt A di bawah, lalu **isi bagian PARAMETER** (yang bertanda kurung siku).
 3. Baca tabel verifikasi di akhir jawaban. Soal dengan catatan keraguan, atau yang hasil hitungnya berbeda dari kunci, diperiksa ulang atau dibuang.
 4. Salin **isi blok kode** ke Word dengan **Tempel sebagai teks saja** (Keep Text Only). Tempel gambar (kalau ada) tepat di bawah teks Soal atau Pembahasan.
 5. `npm run docx:csv -- berkas.docx` untuk meninjau, lalu `npm run impor:soal -- berkas.docx`, dan bila bersih tambahkan `--tulis`.
 
-Nama topik dan subtopik **harus persis sama** setiap kali dipakai. Salah satu huruf saja membuat topik atau subtopik baru yang terpisah di database.
+Nama topik dan subtopik **harus persis** seperti di silabus. Salah satu huruf saja membuat topik atau subtopik baru yang terpisah di database (itulah gunanya `npm run impor:silabus` dijalankan lebih dulu).
 
 AI bisa salah hitung dan salah kunci, terutama PM dan PK. **Kerjakan ulang tiap soal sendiri (atau oleh tim akademik) sebelum diimpor.** Tabel verifikasi dari AI membantu mencari soal bermasalah, tetapi bukan pengganti pemeriksaan manusia.
 
@@ -21,13 +21,14 @@ PERAN
 Kamu penyusun soal ujian berpengalaman untuk UTBK-SNBT (dan CPNS bila diminta) di lembaga bimbel Zensan Institute. Soalmu dipakai di aplikasi latihan bertingkat (Level 1 sampai 4) dan dikerjakan siswa dengan timer per soal. Kebenaran kunci, kesesuaian level, dan mutu pembahasan lebih penting daripada jumlah soal.
 
 BAHAN
-Bahan terlampir di atas (soal contoh, materi, atau pembahasan). Perlakukan sebagai CONTOH POLA untuk dipelajari, bukan untuk disalin.
+1. Silabus terlampir (silabus-snbt.md): daftar subtes, topik, subtopik, dan cakupannya. Itu satu-satunya sumber nama topik/subtopik, dan kolom Cakupan menentukan isi soal setiap subtopik.
+2. Bahan lain terlampir (soal contoh, materi, atau pembahasan). Perlakukan sebagai CONTOH POLA untuk dipelajari, bukan untuk disalin.
 
 PARAMETER (saya isi)
 - Tes: [SNBT]
-- Subtes: [PM]   (SNBT: PU, PPU, PBM, PK, LBI, LBE, PM. CPNS: TWK, TIU)
-- Topik: [Aljabar dan Fungsi]
-- Daftar subtopik yang boleh dipakai (tulis persis): [Persamaan kuadrat; Fungsi komposisi]
+- Subtes: [PK]   (SNBT: PU, PPU, PBM, PK, LBI, LBE, PM)
+- Topik (nama persis dari silabus): [Aljabar dan Fungsi]
+- Subtopik yang dipakai (nama persis dari silabus; untuk Level 3-4 pilih dua atau lebih dalam topik yang sama): [Persamaan dan Fungsi Kuadrat; Fungsi dan Operasi Fungsi]
 - Jumlah soal per level: [Level 1: 5, Level 2: 5, Level 3: 5, Level 4: 0]
 - Catatan tambahan (opsional): [mis. fokus pada soal cerita; hindari soal yang butuh gambar]
 
@@ -64,8 +65,8 @@ TARGET WAKTU (siswa yang menguasai materi harus bisa selesai dalam waktu ini; ja
 - TWK, TIU: L1 35, L2 50, L3 dan L4 60
 
 ATURAN SUBTOPIK
-- Level 1 dan 2: tepat SATU subtopik dari daftar.
-- Level 3 dan 4: DUA subtopik atau lebih dari daftar, dipisah dengan " | " (contoh: Persamaan kuadrat | Fungsi komposisi). Soal level ini memang harus menggabungkan kedua subtopik itu.
+- Level 1 dan 2: tepat SATU subtopik dari silabus.
+- Level 3 dan 4: DUA subtopik atau lebih dari topik yang sama di silabus, dipisah dengan " | " (contoh: Persamaan dan Fungsi Kuadrat | Fungsi dan Operasi Fungsi). Soal level ini memang harus menggabungkan kedua subtopik itu.
 
 ATURAN PENULISAN
 - Semua soal pilihan ganda, 5 opsi A sampai E (4 opsi A-D hanya bila pola bahan memang 4 opsi). Soal isian, benar/salah, atau pernyataan majemuk diubah menjadi pilihan ganda.
@@ -84,9 +85,9 @@ Bagian 1, di luar blok kode: tabel analisis dari Tugas 1.
 Bagian 2, SATU blok kode berisi seluruh soal. Setiap soal memakai pola berikut, kelima baris awalnya diulang lengkap di tiap soal, dan setiap soal diakhiri satu baris ---
 
 Tes: SNBT
-Subtes: PM
+Subtes: PK
 Topik: Aljabar dan Fungsi
-Subtopik: Persamaan kuadrat
+Subtopik: Persamaan dan Fungsi Kuadrat
 Level: 2
 Soal: (teks soal)
 A. (opsi)
@@ -110,7 +111,7 @@ Untuk soal yang sudah ditulis tim atau dipindai dari dokumen, bila tujuannya han
 ````
 Ubah soal-soal terlampir ke format di bawah TANPA mengubah isi, angka, atau kunci. Hanya rapikan bentuknya.
 
-PARAMETER: Tes [SNBT], Subtes [PM], Topik [Aljabar dan Fungsi], daftar subtopik yang boleh dipakai (tulis persis) [Persamaan kuadrat; Fungsi komposisi], Level [isi per soal bila tidak tertulis di bahan; kalau tidak yakin, tulis "?"].
+PARAMETER: Tes [SNBT], Subtes [PK], Topik [Aljabar dan Fungsi], subtopik (nama persis dari silabus terlampir) [Persamaan dan Fungsi Kuadrat; Fungsi dan Operasi Fungsi], Level [isi per soal bila tidak tertulis di bahan; kalau tidak yakin, tulis "?"].
 
 ATURAN
 - Teks polos tanpa markdown dan tanpa LaTeX. Simbol Unicode (x², √, ×, ÷, ≤, ≥, ≠, π, −). Pecahan ditulis (a+b)/(c+d).
@@ -123,9 +124,9 @@ ATURAN
 KELUARAN: SATU blok kode, setiap soal memakai pola berikut (lima baris awal diulang di tiap soal), diakhiri satu baris ---
 
 Tes: SNBT
-Subtes: PM
+Subtes: PK
 Topik: Aljabar dan Fungsi
-Subtopik: Persamaan kuadrat
+Subtopik: Persamaan dan Fungsi Kuadrat
 Level: 2
 Soal: ...
 A. ...

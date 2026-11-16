@@ -12,7 +12,8 @@
   "test:baca": "node --env-file=.env scripts/integrasi-baca.js",
   "test:jawab": "node --env-file=.env scripts/integrasi-jawab.js",
   "impor:soal": "node --env-file=.env scripts/impor-soal.js",
-  "docx:csv": "node scripts/docx-ke-csv.js"
+  "docx:csv": "node scripts/docx-ke-csv.js",
+  "impor:silabus": "node --env-file=.env scripts/impor-silabus.js"
 },
   "repository": {
     "type": "git",
