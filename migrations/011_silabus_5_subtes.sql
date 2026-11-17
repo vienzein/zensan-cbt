@@ -1,63 +1,33 @@
 -- 011: peralihan ke silabus baru: 5 subtes (PU, KL, NUM, LBI, LBE) menggantikan 7 (PU, PPU, PBM, PK, LBI, LBE, PM).
---   PPU + PBM  -> KL  (Kemampuan Linguistik)   : subtes baru, dibuat oleh `npm run impor:silabus`
---   PK  + PM   -> NUM (Kemampuan Numerasi)     : baris subtes PM diganti nama jadi NUM supaya topik tersembunyi
---                                                stage Domain 0 (D0-xx) ikut dan tetap tersambung
--- Langkah (urutannya penting):
---   1. Jalankan berkas ini SEKALI di SQL Editor Supabase (satu transaksi; bila galat, tidak ada yang berubah).
---   2. npm run impor:silabus -- seed/silabus-snbt.json            (simulasi)
---      npm run impor:silabus -- seed/silabus-snbt.json --tulis    (menyimpan: KL, topik, dan subtopik baru)
---   3. Perbarui kode: git pull (gerbang Domain 0 kini memakai subtes NUM).
--- Topik dan subtopik lama TIDAK dihapus: namanya diberi awalan "[lama] " dan dinonaktifkan, sehingga riwayat
--- (mis. progres akun uji) tetap utuh dan nama silabus baru tidak bentrok dengan nama lama.
--- Topik tersembunyi stage Domain 0 (nama diawali "D0-") tidak disentuh.
+-- CATATAN: SUDAH DIJALANKAN manual di Supabase pemilik pada 17 Nov 2026. Berkas ini adalah catatan SQL yang
+-- benar-benar berjalan; angka id (12..18, 28, 29, 81..85) khusus database itu. Jangan dijalankan ulang di database lain
+-- tanpa mencocokkan id-nya (cek dengan SELECT di subjects/topics).
+--
+-- Urutan yang dipakai: (1) impor:silabus --tulis membuat KL dan NUM beserta topik/subtopik barunya,
+-- (2) SQL di bawah memindahkan topik stage Domain 0 dari PM ke NUM dan mengarsipkan yang lama.
+-- Topik/subtopik lama tidak dihapus: namanya diberi awalan "[lama] " dan dinonaktifkan (soal/riwayat tetap utuh).
+-- PU dan LBI tidak diarsipkan karena nama topiknya sama dengan silabus baru.
+-- Topik id 30 ("Aljabar dan Fungsi" lama di PM, 22 soal) tidak bisa dipindah ke NUM (nama bentrok), jadi diarsipkan di PM.
 
 BEGIN;
 
--- 1) Arsipkan subtopik lama (sebelum topiknya diganti nama, karena penyaringnya memakai nama topik)
-UPDATE subtopics st
-   SET nama = '[lama] ' || st.nama, is_active = false
-  FROM topics t
-  JOIN subjects s ON s.id = t.subject_id
-  JOIN curriculum_groups cg ON cg.id = s.curriculum_group_id
- WHERE t.id = st.topic_id
-   AND upper(cg.kode) = 'SNBT'
-   AND t.nama NOT LIKE 'D0-%'
-   AND t.nama NOT LIKE '[lama]%'
-   AND st.nama NOT LIKE '[lama]%';
+UPDATE topics SET subject_id = 29 WHERE subject_id = 18 AND nama LIKE 'D0-%';
 
--- 2) Arsipkan topik lama
-UPDATE topics t
-   SET nama = '[lama] ' || t.nama, is_active = false
-  FROM subjects s
-  JOIN curriculum_groups cg ON cg.id = s.curriculum_group_id
- WHERE s.id = t.subject_id
-   AND upper(cg.kode) = 'SNBT'
-   AND t.nama NOT LIKE 'D0-%'
-   AND t.nama NOT LIKE '[lama]%';
+UPDATE subtopics SET nama = '[lama] ' || nama, is_active = false
+ WHERE nama NOT LIKE '[lama]%'
+   AND topic_id IN (SELECT id FROM topics WHERE subject_id IN (13, 14, 15, 18) OR id IN (81, 82, 83, 84, 85));
 
--- 3) Subtes: PM menjadi NUM; PK, PPU, PBM dinonaktifkan; urutan menyesuaikan silabus baru
-UPDATE subjects s
-   SET kode = 'NUM', nama = 'Kemampuan Numerasi', urutan = 3
-  FROM curriculum_groups cg
- WHERE cg.id = s.curriculum_group_id AND upper(cg.kode) = 'SNBT' AND upper(s.kode) = 'PM';
+UPDATE topics SET nama = '[lama] ' || nama, is_active = false
+ WHERE nama NOT LIKE '[lama]%'
+   AND (subject_id IN (13, 14, 15, 18) OR id IN (81, 82, 83, 84, 85));
 
-UPDATE subjects s
-   SET is_active = false
-  FROM curriculum_groups cg
- WHERE cg.id = s.curriculum_group_id AND upper(cg.kode) = 'SNBT' AND upper(s.kode) IN ('PK', 'PPU', 'PBM');
+UPDATE subjects SET is_active = false WHERE id IN (13, 14, 15, 18);  -- PPU, PBM, PK, PM
+UPDATE subjects SET urutan = 1 WHERE id = 12;  -- PU
+UPDATE subjects SET urutan = 2 WHERE id = 28;  -- KL
+UPDATE subjects SET urutan = 3 WHERE id = 29;  -- NUM
+UPDATE subjects SET urutan = 4 WHERE id = 16;  -- LBI
+UPDATE subjects SET urutan = 5 WHERE id = 17;  -- LBE
 
-UPDATE subjects s SET urutan = 1
-  FROM curriculum_groups cg WHERE cg.id = s.curriculum_group_id AND upper(cg.kode) = 'SNBT' AND upper(s.kode) = 'PU';
-UPDATE subjects s SET urutan = 4
-  FROM curriculum_groups cg WHERE cg.id = s.curriculum_group_id AND upper(cg.kode) = 'SNBT' AND upper(s.kode) = 'LBI';
-UPDATE subjects s SET urutan = 5
-  FROM curriculum_groups cg WHERE cg.id = s.curriculum_group_id AND upper(cg.kode) = 'SNBT' AND upper(s.kode) = 'LBE';
+UPDATE topics SET requires_domain0 = true WHERE subject_id = 29 AND is_active;
 
 COMMIT;
-
--- Pemeriksaan sesudahnya (hasil yang diharapkan: subtes aktif PU, LBI, LBE, NUM; topik "D0-" tetap di NUM):
--- SELECT s.kode, s.nama, s.urutan, s.is_active,
---        (SELECT count(*) FROM topics t WHERE t.subject_id = s.id AND t.is_active) AS topik_aktif,
---        (SELECT count(*) FROM topics t WHERE t.subject_id = s.id AND t.nama LIKE 'D0-%') AS topik_stage
---   FROM subjects s JOIN curriculum_groups cg ON cg.id = s.curriculum_group_id
---  WHERE upper(cg.kode) = 'SNBT' ORDER BY s.urutan;
