@@ -5,7 +5,7 @@
  *
  *   npm run impor:stage -- seed/stage-diagnostik-d0.md            # SIMULASI: tidak menyimpan
  *   npm run impor:stage -- seed/stage-diagnostik-d0.md --tulis    # menyimpan
- *   opsi: --tes=SNBT (bawaan)  --subtes=PM (subtes tempat topik tersembunyi dibuat; bawaan PM)
+ *   opsi: --tes=SNBT (bawaan)  --subtes=NUM (subtes tempat topik tersembunyi dibuat; bawaan NUM)
  *
  * Yang dibuat: baris d0_stages, serta topik dan subtopik TERSEMBUNYI (is_active = false) tempat soal stage
  * disimpan, supaya soal stage tidak muncul di drill/tryout/beranda. Aman dijalankan ulang: stage yang sudah ada
@@ -21,7 +21,7 @@ const [, , berkas, ...flag] = process.argv;
 const tulis = flag.includes('--tulis');
 const opsi = (nama, bawaan) => ((flag.find((f) => f.startsWith(`--${nama}=`)) || `--${nama}=${bawaan}`).split('=')[1] || bawaan).toUpperCase();
 const tes = opsi('tes', 'SNBT');
-const subtes = opsi('subtes', 'PM');
+const subtes = opsi('subtes', 'NUM');
 
 function keluar(kode, pesan) {
   if (pesan) console.error(pesan);
@@ -29,7 +29,7 @@ function keluar(kode, pesan) {
 }
 
 async function main() {
-  if (!berkas) keluar(2, 'Pemakaian: npm run impor:stage -- <berkas.md> [--tulis] [--tes=SNBT] [--subtes=PM]');
+  if (!berkas) keluar(2, 'Pemakaian: npm run impor:stage -- <berkas.md> [--tulis] [--tes=SNBT] [--subtes=NUM]');
   if (!fs.existsSync(berkas)) keluar(2, `Berkas tidak ditemukan: ${berkas}`);
 
   const { stages, galat, peringatan } = parseStageD0(fs.readFileSync(berkas, 'utf8'));

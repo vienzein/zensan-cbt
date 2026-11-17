@@ -65,7 +65,7 @@ const P = (...teks) => teks.map((t) => ({ teks: t, gambar: false, daftar: null }
 
 test('satu soal lengkap dibaca ke semua kolom dan lolos validasi', () => {
   const r = parseSoalWord(P(
-    'Tes: SNBT', 'Subtes: PM', 'Topik: Aljabar dan Fungsi', 'Subtopik: Persamaan kuadrat', 'Level: 2',
+    'Tes: SNBT', 'Subtes: NUM', 'Topik: Aljabar dan Fungsi', 'Subtopik: Persamaan kuadrat', 'Level: 2',
     'Soal: Akar dari x² − 5x + 6 = 0 adalah ...',
     'A. 1 dan 6', 'B. 2 dan 3', 'C. −2 dan −3', 'D. 1 dan 5', 'E. 3 dan 4',
     'Kunci: b', 'Pembahasan: Faktorkan menjadi (x−2)(x−3) = 0.', '---',
@@ -82,7 +82,7 @@ test('satu soal lengkap dibaca ke semua kolom dan lolos validasi', () => {
   assert.deepEqual(v.galat, []);
   assert.equal(v.soal[0].opsi.length, 5);
   assert.equal(v.soal[0].kunci, 'B');
-  assert.equal(v.soal[0].waktu, 70); // PM level 2: dari config waktu
+  assert.equal(v.soal[0].waktu, 70); // NUM level 2: dari config waktu
 });
 
 test('tes, subtes, topik, subtopik, level diwarisi dari soal sebelumnya bila dikosongkan', () => {
@@ -170,7 +170,7 @@ test('nilai dirapikan: "Level 3", "L3", kunci "(c)", waktu "60 detik"', () => {
 
 test('penanda AI yang belum diselesaikan ([PERLU GAMBAR], [TIDAK TERBACA]) ditolak', () => {
   const r = parseSoalWord(P(
-    'Tes: SNBT', 'Subtes: PM', 'Topik: T', 'Subtopik: S', 'Level: 1',
+    'Tes: SNBT', 'Subtes: NUM', 'Topik: T', 'Subtopik: S', 'Level: 1',
     'Soal: Perhatikan grafik. [PERLU GAMBAR: parabola membuka ke atas]', 'A. a', 'B. b', 'Kunci: A',
     'Pembahasan: ok [TIDAK TERBACA]',
   ));
@@ -205,7 +205,7 @@ test('gambar tertanam: setelah Soal -> gambar soal, setelah Pembahasan -> gambar
   const g = (...nama) => nama;
   const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
   const r = parseSoalWord([
-    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Tes: SNBT'), p('Subtes: NUM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
     p('Soal: lihat grafik'), p('', g('word/media/image1.png')),
     p('A. a'), p('B. b'), p('Kunci: A'),
     p('Pembahasan: lihat'), p('', g('word/media/image2.jpg')),
@@ -221,7 +221,7 @@ test('gambar tertanam: setelah Soal -> gambar soal, setelah Pembahasan -> gambar
 test('gambar di bawah label "Gambar:" dipakai walau diletakkan setelah opsi; alamat ketikan didahulukan', () => {
   const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
   const r = parseSoalWord([
-    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Tes: SNBT'), p('Subtes: NUM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
     p('Soal: s'), p('A. a'), p('B. b'), p('Gambar:'), p('', ['word/media/image1.png']), p('Kunci: A'),
     p('---'),
     p('Soal: s2'), p('A. a'), p('B. b'), p('Gambar: https://x/y.png'), p('', ['word/media/image2.png']), p('Kunci: A'),
@@ -238,7 +238,7 @@ test('gambar di bawah label "Gambar:" dipakai walau diletakkan setelah opsi; ala
 test('gambar di bawah opsi atau label lain diabaikan dengan peringatan; lebih dari satu gambar: pakai yang pertama', () => {
   const p = (teks, gambar = []) => ({ teks, gambar, daftar: null });
   const r = parseSoalWord([
-    p('Tes: SNBT'), p('Subtes: PM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
+    p('Tes: SNBT'), p('Subtes: NUM'), p('Topik: T'), p('Subtopik: S'), p('Level: 1'),
     p('Soal: s'), p('', ['word/media/a.png', 'word/media/b.png']),
     p('A. a'), p('', ['word/media/c.png']), p('B. b'), p('Kunci: A'), p('', ['word/media/d.png']),
   ]);
@@ -312,7 +312,7 @@ test('bacaDocxLengkap: gambar dipetakan lewat relasi ke isi file di word/media; 
 });
 
 test('docxKeBaris memeriksa gambar: emf, format tak dikenal, terlalu besar, hilang, ukuran peringatan', () => {
-  const kepala = ['Tes: SNBT', 'Subtes: PM', 'Topik: T', 'Subtopik: S', 'Level: 1'].map(teksSaja).join('');
+  const kepala = ['Tes: SNBT', 'Subtes: NUM', 'Topik: T', 'Subtopik: S', 'Level: 1'].map(teksSaja).join('');
   const soalDenganGambar = (id, no) => `${teksSaja(`Soal: s${no}`)}${para(GAMBAR_XML(id))}${teksSaja('A. a')}${teksSaja('B. b')}${teksSaja('Kunci: A')}${teksSaja('---')}`;
   const xml = dokumen(kepala + [
     soalDenganGambar('r1', 1), soalDenganGambar('r2', 2), soalDenganGambar('r3', 3),
@@ -347,7 +347,7 @@ test('docxKeBaris ujung ke ujung: daftar huruf otomatis + persamaan lolos valida
     <w:num w:numId="3"><w:abstractNumId w:val="0"/></w:num></w:numbering>`;
   const np = `<w:numPr><w:ilvl w:val="0"/><w:numId w:val="3"/></w:numPr>`;
   const xml = dokumen([
-    teksSaja('Tes: SNBT'), teksSaja('Subtes: PM'), teksSaja('Topik: Aljabar dan Fungsi'),
+    teksSaja('Tes: SNBT'), teksSaja('Subtes: NUM'), teksSaja('Topik: Aljabar dan Fungsi'),
     teksSaja('Subtopik: Persamaan kuadrat'), teksSaja('Level: 1'),
     para(`${run('Soal: Akar-akar ')}<m:oMath>${mr('x')}</m:oMath>${run('2', '<w:vertAlign w:val="superscript"/>')}${run(' − 9 = 0 adalah ...')}`),
     para(run('3 saja'), np), para(run('3 dan −3'), np), para(run('9 dan −9'), np),

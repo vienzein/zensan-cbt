@@ -1,0 +1,626 @@
+{
+  "subtes": [
+    {
+      "kode": "PU",
+      "nama": "Penalaran Umum",
+      "topik": [
+        {
+          "kode": "PU-01",
+          "nama": "Penalaran Deduktif",
+          "subTopik": [
+            {
+              "kode": "PU-01-01",
+              "nama": "Penalaran Logika",
+              "cakupan": "Menerapkan logika proposisi, silogisme berkuantor, dan inferensi (modus ponens, tollens, kontraposisi)."
+            },
+            {
+              "kode": "PU-01-02",
+              "nama": "Penalaran Analitik",
+              "cakupan": "Menentukan urutan, kelompok, pemetaan, dan jadwal berdasarkan sejumlah syarat."
+            }
+          ]
+        },
+        {
+          "kode": "PU-02",
+          "nama": "Penalaran Induktif",
+          "subTopik": [
+            {
+              "kode": "PU-02-01",
+              "nama": "Generalisasi dan Kesimpulan",
+              "cakupan": "Menarik kesimpulan paling mungkin dari fakta, data, dan pernyataan yang diberikan."
+            },
+            {
+              "kode": "PU-02-02",
+              "nama": "Keputusan Berdasarkan Syarat dan Pertimbangan",
+              "cakupan": "Memilih keputusan terbaik berdasarkan syarat serta pertimbangan yang diberikan."
+            },
+            {
+              "kode": "PU-02-03",
+              "nama": "Hubungan Sebab-Akibat dan Hipotesis",
+              "cakupan": "Menilai penjelasan paling tepat serta bukti yang menguatkan atau melemahkan."
+            },
+            {
+              "kode": "PU-02-04",
+              "nama": "Argumen dan Asumsi",
+              "cakupan": "Menentukan asumsi, penguat, dan pelemah argumen, termasuk klaim dua pihak."
+            }
+          ]
+        },
+        {
+          "kode": "PU-03",
+          "nama": "Penalaran Kuantitatif",
+          "subTopik": [
+            {
+              "kode": "PU-03-01",
+              "nama": "Pola",
+              "cakupan": "Menemukan aturan pola bilangan, deret, huruf, simbol, dan gambar."
+            },
+            {
+              "kode": "PU-03-02",
+              "nama": "Perbandingan dan Hubungan Kuantitas",
+              "cakupan": "Membandingkan kuantitas serta memakai aritmetika, persentase, dan pendekatan hasil hitung."
+            },
+            {
+              "kode": "PU-03-03",
+              "nama": "Interpretasi Data Tabel dan Grafik",
+              "cakupan": "Menarik informasi kuantitatif dari tabel dan diagram untuk penalaran."
+            },
+            {
+              "kode": "PU-03-04",
+              "nama": "Soal Cerita",
+              "cakupan": "Memodelkan situasi umur, kecepatan, pekerjaan, dan soal multilangkah menjadi hubungan hitung."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kode": "KL",
+      "nama": "Kemampuan Linguistik",
+      "topik": [
+        {
+          "kode": "KL-01",
+          "nama": "Pembentukan Kata",
+          "subTopik": [
+            {
+              "kode": "KL-01-01",
+              "nama": "Proses Pengimbuhan",
+              "cakupan": "Menentukan bentuk kata tepat setelah imbuhan: peluluhan, menge-, be-, te-, bel-."
+            },
+            {
+              "kode": "KL-01-02",
+              "nama": "Makna Imbuhan",
+              "cakupan": "Menentukan makna gramatikal imbuhan ber-, meng-, ter-, meng-kan berdasarkan kelas kata dasar."
+            },
+            {
+              "kode": "KL-01-03",
+              "nama": "Identifikasi Kata Majemuk",
+              "cakupan": "Mengenali kata majemuk dan maknanya yang baru sebagai satu kesatuan."
+            }
+          ]
+        },
+        {
+          "kode": "KL-02",
+          "nama": "Makna Kata",
+          "subTopik": [
+            {
+              "kode": "KL-02-01",
+              "nama": "Makna Kata dan Kelompok Kata dalam Konteks",
+              "cakupan": "Menentukan makna kata atau kelompok kata berdasarkan konteks kalimat bacaan."
+            },
+            {
+              "kode": "KL-02-02",
+              "nama": "Makna Sebenarnya dan Makna Kiasan",
+              "cakupan": "Membedakan kata bermakna denotatif dan konotatif dalam bacaan."
+            },
+            {
+              "kode": "KL-02-03",
+              "nama": "Pasangan Kata Tetap (Kolokasi)",
+              "cakupan": "Mengenali kelompok kata yang berpasangan tetap dan penggunaannya yang lazim."
+            },
+            {
+              "kode": "KL-02-04",
+              "nama": "Diksi dan Pilihan Kata",
+              "cakupan": "Memilih kata yang tepat, hemat, dan sesuai konteks kalimat."
+            }
+          ]
+        },
+        {
+          "kode": "KL-03",
+          "nama": "Pembentukan Frasa",
+          "subTopik": [
+            {
+              "kode": "KL-03-01",
+              "nama": "Jenis dan Unsur Frasa",
+              "cakupan": "Mengenali frasa nominal, verbal, adjektival, preposisional beserta unsurnya."
+            },
+            {
+              "kode": "KL-03-02",
+              "nama": "Frasa, Kata Majemuk, dan Idiom",
+              "cakupan": "Membedakan frasa, kata majemuk, dan idiom berdasarkan sifat gabungannya."
+            },
+            {
+              "kode": "KL-03-03",
+              "nama": "Makna Frasa",
+              "cakupan": "Menentukan makna frasa nominal, verbal, dan adjektival dari inti dan pewatasnya."
+            }
+          ]
+        },
+        {
+          "kode": "KL-04",
+          "nama": "Tata Kalimat",
+          "subTopik": [
+            {
+              "kode": "KL-04-01",
+              "nama": "Unsur Kalimat",
+              "cakupan": "Mengenali subjek, predikat, objek, pelengkap, dan keterangan dalam kalimat."
+            },
+            {
+              "kode": "KL-04-02",
+              "nama": "Kalimat Tunggal dan Majemuk",
+              "cakupan": "Membedakan kalimat tunggal, majemuk setara, dan majemuk bertingkat."
+            },
+            {
+              "kode": "KL-04-03",
+              "nama": "Kalimat Aktif dan Pasif",
+              "cakupan": "Mengenali serta mengubah kalimat aktif dan pasif dengan unsur yang tepat."
+            }
+          ]
+        },
+        {
+          "kode": "KL-05",
+          "nama": "Kalimat Efektif",
+          "subTopik": [
+            {
+              "kode": "KL-05-01",
+              "nama": "Kehematan dan Pleonasme",
+              "cakupan": "Memperbaiki kalimat yang boros kata atau berlebihan makna."
+            },
+            {
+              "kode": "KL-05-02",
+              "nama": "Ambiguitas dan Paralelisme",
+              "cakupan": "Memperbaiki kalimat berpotensi ganda makna atau tidak sejajar bentuknya."
+            },
+            {
+              "kode": "KL-05-03",
+              "nama": "Kelogisan Kalimat",
+              "cakupan": "Menemukan dan memperbaiki kalimat yang bertentangan atau tidak masuk akal."
+            }
+          ]
+        },
+        {
+          "kode": "KL-06",
+          "nama": "Konjungsi",
+          "subTopik": [
+            {
+              "kode": "KL-06-01",
+              "nama": "Konjungsi Intrakalimat",
+              "cakupan": "Memilih kata penghubung yang tepat dalam kalimat majemuk."
+            },
+            {
+              "kode": "KL-06-02",
+              "nama": "Konjungsi Antarkalimat",
+              "cakupan": "Memilih kata transisi yang tepat antarkalimat dalam paragraf."
+            },
+            {
+              "kode": "KL-06-03",
+              "nama": "Konjungsi Antarparagraf",
+              "cakupan": "Memilih kata penghubung yang tepat untuk menyatukan dua paragraf."
+            }
+          ]
+        },
+        {
+          "kode": "KL-07",
+          "nama": "Ejaan",
+          "subTopik": [
+            {
+              "kode": "KL-07-01",
+              "nama": "Huruf Kapital dan Huruf Miring",
+              "cakupan": "Menerapkan kaidah penggunaan huruf kapital dan huruf miring."
+            },
+            {
+              "kode": "KL-07-02",
+              "nama": "Penulisan Kata dan Unsur Serapan",
+              "cakupan": "Menerapkan kaidah penulisan kata baku, singkatan, angka, dan unsur serapan."
+            },
+            {
+              "kode": "KL-07-03",
+              "nama": "Tanda Baca",
+              "cakupan": "Menggunakan tanda titik, koma, titik dua, dan tanda petik dengan tepat."
+            }
+          ]
+        },
+        {
+          "kode": "KL-08",
+          "nama": "Wacana",
+          "subTopik": [
+            {
+              "kode": "KL-08-01",
+              "nama": "Ide Pokok dan Informasi Teks",
+              "cakupan": "Menentukan ide pokok, kalimat utama, dan informasi penting dalam bacaan."
+            },
+            {
+              "kode": "KL-08-02",
+              "nama": "Kohesi dan Koherensi",
+              "cakupan": "Menggunakan kata transisi dan penghubung agar paragraf padu dan logis."
+            },
+            {
+              "kode": "KL-08-03",
+              "nama": "Penyusunan Kalimat Menjadi Paragraf",
+              "cakupan": "Mengurutkan kalimat acak menjadi paragraf yang runtut."
+            },
+            {
+              "kode": "KL-08-04",
+              "nama": "Kalimat Rumpang dan Penutup Paragraf",
+              "cakupan": "Melengkapi bagian rumpang atau menyimpulkan paragraf dengan kalimat tepat."
+            },
+            {
+              "kode": "KL-08-05",
+              "nama": "Penyuntingan Kesalahan dalam Teks",
+              "cakupan": "Menemukan dan memperbaiki kesalahan ejaan, diksi, dan kalimat dalam teks."
+            },
+            {
+              "kode": "KL-08-06",
+              "nama": "Kelogisan dan Alur Teks Utuh",
+              "cakupan": "Menilai dan memperbaiki alur serta kepaduan teks secara keseluruhan."
+            },
+            {
+              "kode": "KL-08-07",
+              "nama": "Pandangan dan Sikap Penulis",
+              "cakupan": "Menentukan pandangan penulis terhadap suatu peristiwa atau gagasan."
+            }
+          ]
+        },
+        {
+          "kode": "KL-09",
+          "nama": "Analogi dan Bahasa Panda",
+          "subTopik": [
+            {
+              "kode": "KL-09-01",
+              "nama": "Hubungan Analogi",
+              "cakupan": "Menentukan pasangan yang memiliki hubungan sama dengan pasangan contoh."
+            },
+            {
+              "kode": "KL-09-02",
+              "nama": "Menafsirkan Pola Bahasa Asing atau Buatan",
+              "cakupan": "Menerjemahkan kalimat bahasa asing atau buatan dari pola contoh kalimat."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kode": "NUM",
+      "nama": "Kemampuan Numerasi",
+      "topik": [
+        {
+          "kode": "NUM-01",
+          "nama": "Bilangan dan Aritmetika",
+          "subTopik": [
+            {
+              "kode": "NUM-01-01",
+              "nama": "Sifat Bilangan: Faktor, FPB, dan KPK",
+              "cakupan": "Menggunakan bilangan prima, faktor, kelipatan, FPB, dan KPK dalam soal."
+            },
+            {
+              "kode": "NUM-01-02",
+              "nama": "Perbandingan dan Aritmetika Sosial",
+              "cakupan": "Menyelesaikan perbandingan senilai dan berbalik nilai, skala, untung rugi, diskon, pajak, bunga."
+            },
+            {
+              "kode": "NUM-01-03",
+              "nama": "Operasi Bilangan Buatan dan Flowchart",
+              "cakupan": "Menghitung nilai dengan operasi atau fungsi buatan dan menelusuri diagram alir (flowchart)."
+            },
+            {
+              "kode": "NUM-01-04",
+              "nama": "Eksponen dan Akar",
+              "cakupan": "Menyederhanakan bentuk pangkat dan akar menggunakan sifat-sifatnya."
+            },
+            {
+              "kode": "NUM-01-05",
+              "nama": "Barisan dan Deret",
+              "cakupan": "Menentukan suku dan jumlah barisan aritmetika dan geometri, termasuk pola pertumbuhan."
+            },
+            {
+              "kode": "NUM-01-06",
+              "nama": "Himpunan dan Diagram Venn",
+              "cakupan": "Menyelesaikan masalah irisan dan gabungan kelompok memakai diagram Venn."
+            }
+          ]
+        },
+        {
+          "kode": "NUM-02",
+          "nama": "Aljabar dan Fungsi",
+          "subTopik": [
+            {
+              "kode": "NUM-02-01",
+              "nama": "Persamaan dan Pertidaksamaan Linear",
+              "cakupan": "Memodelkan dan menyelesaikan persamaan dan pertidaksamaan linear satu variabel."
+            },
+            {
+              "kode": "NUM-02-02",
+              "nama": "Sistem Persamaan Linear",
+              "cakupan": "Memodelkan dan menyelesaikan sistem persamaan linear dua dan tiga variabel."
+            },
+            {
+              "kode": "NUM-02-03",
+              "nama": "Garis Lurus dan Fungsi Linear",
+              "cakupan": "Menentukan gradien, persamaan garis, dan menafsirkan grafik sebagai laju atau tarif."
+            },
+            {
+              "kode": "NUM-02-04",
+              "nama": "Persamaan dan Fungsi Kuadrat",
+              "cakupan": "Menentukan akar, titik puncak, serta nilai maksimum atau minimum fungsi kuadrat."
+            },
+            {
+              "kode": "NUM-02-05",
+              "nama": "Fungsi dan Operasi Fungsi",
+              "cakupan": "Menentukan nilai fungsi dan hasil operasi dua fungsi."
+            }
+          ]
+        },
+        {
+          "kode": "NUM-03",
+          "nama": "Geometri dan Pengukuran",
+          "subTopik": [
+            {
+              "kode": "NUM-03-01",
+              "nama": "Garis dan Sudut",
+              "cakupan": "Menghitung besar sudut pada garis sejajar, segitiga, dan segibanyak."
+            },
+            {
+              "kode": "NUM-03-02",
+              "nama": "Pencacahan Bangun pada Gambar",
+              "cakupan": "Menghitung banyak persegi atau segitiga pada gambar bangun datar."
+            },
+            {
+              "kode": "NUM-03-03",
+              "nama": "Keliling dan Luas Bangun Datar",
+              "cakupan": "Menghitung keliling dan luas bangun datar tunggal maupun gabungan."
+            },
+            {
+              "kode": "NUM-03-04",
+              "nama": "Pythagoras dan Kesebangunan",
+              "cakupan": "Menggunakan teorema Pythagoras, kesebangunan, dan kekongruenan pada bangun datar."
+            },
+            {
+              "kode": "NUM-03-05",
+              "nama": "Trigonometri Dasar",
+              "cakupan": "Menggunakan sinus, cosinus, tangen pada segitiga siku-siku dan sudut istimewa."
+            },
+            {
+              "kode": "NUM-03-06",
+              "nama": "Lingkaran",
+              "cakupan": "Menghitung busur, juring, dan hubungan sudut pada lingkaran."
+            },
+            {
+              "kode": "NUM-03-07",
+              "nama": "Koordinat Titik pada Bangun Geometri",
+              "cakupan": "Menggunakan koordinat titik sudut untuk menghitung panjang, luas, dan volume."
+            },
+            {
+              "kode": "NUM-03-08",
+              "nama": "Bangun Ruang",
+              "cakupan": "Menghitung tinggi, volume, dan luas permukaan prisma, limas, tabung, kerucut."
+            }
+          ]
+        },
+        {
+          "kode": "NUM-04",
+          "nama": "Statistika dan Peluang",
+          "subTopik": [
+            {
+              "kode": "NUM-04-01",
+              "nama": "Penyajian dan Pembacaan Data",
+              "cakupan": "Membaca dan menyajikan data dalam tabel, diagram, dan histogram."
+            },
+            {
+              "kode": "NUM-04-02",
+              "nama": "Ukuran Pemusatan dan Penyebaran",
+              "cakupan": "Menghitung mean, median, modus, jangkauan, dan simpangan data."
+            },
+            {
+              "kode": "NUM-04-03",
+              "nama": "Kaidah Pencacahan",
+              "cakupan": "Menggunakan aturan perkalian, permutasi, dan kombinasi."
+            },
+            {
+              "kode": "NUM-04-04",
+              "nama": "Peluang Kejadian",
+              "cakupan": "Menghitung peluang kejadian tunggal, majemuk, saling lepas, dan bersyarat."
+            },
+            {
+              "kode": "NUM-04-05",
+              "nama": "Keputusan Berdasarkan Data",
+              "cakupan": "Menilai kesimpulan dan keputusan berdasarkan data serta peluang."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kode": "LBI",
+      "nama": "Literasi dalam Bahasa Indonesia",
+      "topik": [
+        {
+          "kode": "LBI-01",
+          "nama": "Menemukan dan Memahami Informasi",
+          "subTopik": [
+            {
+              "kode": "LBI-01-01",
+              "nama": "Informasi Tersurat",
+              "cakupan": "Menemukan fakta dan mencocokkan pernyataan sesuai atau tidak sesuai teks, dengan scanning dan skimming."
+            },
+            {
+              "kode": "LBI-01-02",
+              "nama": "Makna Kata dan Ungkapan Kontekstual",
+              "cakupan": "Menentukan makna kata atau ungkapan sesuai konteks kalimat."
+            },
+            {
+              "kode": "LBI-01-03",
+              "nama": "Ide Pokok dan Ide Penjelas",
+              "cakupan": "Menentukan ide pokok, letaknya, dan ide penjelas dalam paragraf maupun bacaan."
+            },
+            {
+              "kode": "LBI-01-04",
+              "nama": "Hubungan Antarparagraf",
+              "cakupan": "Mengenali hubungan eksplisit dan implisit antarparagraf: perincian, contoh, sebab, akibat, pertentangan."
+            }
+          ]
+        },
+        {
+          "kode": "LBI-02",
+          "nama": "Interpretasi dan Inferensi",
+          "subTopik": [
+            {
+              "kode": "LBI-02-01",
+              "nama": "Informasi dan Pesan Tersirat",
+              "cakupan": "Menafsirkan pesan dan informasi yang tidak dinyatakan langsung dalam teks."
+            },
+            {
+              "kode": "LBI-02-02",
+              "nama": "Menyimpulkan Isi Bacaan",
+              "cakupan": "Merumuskan simpulan yang akurat dari seluruh isi teks."
+            },
+            {
+              "kode": "LBI-02-03",
+              "nama": "Tujuan Penulisan dan Target Pembaca",
+              "cakupan": "Menentukan tujuan penulis dan sasaran pembaca berdasarkan isi dan gaya bahasa teks."
+            }
+          ]
+        },
+        {
+          "kode": "LBI-03",
+          "nama": "Evaluasi dan Refleksi",
+          "subTopik": [
+            {
+              "kode": "LBI-03-01",
+              "nama": "Asumsi",
+              "cakupan": "Menentukan asumsi tersirat yang mendasari informasi dalam teks."
+            },
+            {
+              "kode": "LBI-03-02",
+              "nama": "Opini dan Fakta",
+              "cakupan": "Membedakan kalimat fakta dan opini serta menentukan opini berdasarkan teks."
+            },
+            {
+              "kode": "LBI-03-03",
+              "nama": "Kelemahan Teks",
+              "cakupan": "Menemukan informasi yang kurang, bahasan menggantung, dan unsur yang tidak mendukung kelengkapan teks."
+            },
+            {
+              "kode": "LBI-03-04",
+              "nama": "Prediksi dan Pengandaian",
+              "cakupan": "Menentukan akibat yang mungkin terjadi jika suatu keadaan dalam bacaan berubah."
+            },
+            {
+              "kode": "LBI-03-05",
+              "nama": "Analogi",
+              "cakupan": "Menentukan pernyataan atau situasi yang permasalahannya sama dengan kutipan teks."
+            },
+            {
+              "kode": "LBI-03-06",
+              "nama": "Tanggapan, Saran, dan Solusi",
+              "cakupan": "Merumuskan tanggapan, saran, dan solusi yang sesuai dengan isi teks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kode": "LBE",
+      "nama": "Literasi dalam Bahasa Inggris",
+      "topik": [
+        {
+          "kode": "LBE-01",
+          "nama": "General Information",
+          "subTopik": [
+            {
+              "kode": "LBE-01-01",
+              "nama": "Main Idea dan Purpose",
+              "cakupan": "Menentukan ide utama, topik, dan tujuan penulisan teks."
+            },
+            {
+              "kode": "LBE-01-02",
+              "nama": "Summary",
+              "cakupan": "Memilih ringkasan teks yang tidak terlalu umum, rinci, melenceng, atau berlawanan."
+            }
+          ]
+        },
+        {
+          "kode": "LBE-02",
+          "nama": "Specific Information",
+          "subTopik": [
+            {
+              "kode": "LBE-02-01",
+              "nama": "Detailed Information",
+              "cakupan": "Menemukan informasi yang dinyatakan, serta yang tidak dinyatakan atau tidak benar menurut teks."
+            },
+            {
+              "kode": "LBE-02-02",
+              "nama": "Paraphrase",
+              "cakupan": "Menentukan pernyataan yang menyatakan ulang makna kalimat dengan kata dan struktur berbeda."
+            },
+            {
+              "kode": "LBE-02-03",
+              "nama": "Referent",
+              "cakupan": "Menentukan acuan kata ganti dan frasa pada klausa atau kalimat sebelumnya."
+            },
+            {
+              "kode": "LBE-02-04",
+              "nama": "Synonym",
+              "cakupan": "Menentukan sinonim kata berdasarkan konteks kalimat dan kelas kata."
+            },
+            {
+              "kode": "LBE-02-05",
+              "nama": "Fact dan Opinion",
+              "cakupan": "Membedakan pernyataan fakta dan opini dalam teks berbahasa Inggris."
+            }
+          ]
+        },
+        {
+          "kode": "LBE-03",
+          "nama": "Implied Information",
+          "subTopik": [
+            {
+              "kode": "LBE-03-01",
+              "nama": "Inference",
+              "cakupan": "Menyimpulkan maksud tersirat dari kata kunci dan kalimat pendukung dalam teks."
+            },
+            {
+              "kode": "LBE-03-02",
+              "nama": "Hypothesis",
+              "cakupan": "Menentukan hipotesis atau prediksi yang paling sesuai berdasarkan informasi dalam teks."
+            },
+            {
+              "kode": "LBE-03-03",
+              "nama": "Tone",
+              "cakupan": "Menentukan nada positif, negatif, atau netral dan sikap penulis terhadap topik."
+            },
+            {
+              "kode": "LBE-03-04",
+              "nama": "Target Reader",
+              "cakupan": "Menentukan sasaran pembaca teks dari isi, gaya bahasa, dan nada."
+            },
+            {
+              "kode": "LBE-03-05",
+              "nama": "Relevant dan Irrelevant Statement",
+              "cakupan": "Menemukan komentar yang tidak relevan dengan topik diskusi pada unggahan forum."
+            },
+            {
+              "kode": "LBE-03-06",
+              "nama": "Koherensi Antarparagraf",
+              "cakupan": "Menentukan isi paragraf sebelum atau sesudah teks serta penghubung yang tepat."
+            },
+            {
+              "kode": "LBE-03-07",
+              "nama": "Koherensi Antarteks",
+              "cakupan": "Menentukan hubungan, persamaan, dan perbedaan dua teks yang berpasangan."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { parseSilabus, ringkasSilabus } = require('../src/services/silabus');
+const { parseSilabus, parseSilabusJson, ringkasSilabus } = require('../src/services/silabus');
 const { parseCsv, validasi } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
 
@@ -77,4 +77,27 @@ test('contoh di templat (CSV dan Word) memakai nama topik/subtopik yang ada di s
   assert.deepEqual(dariWord.galat, []);
   assert.equal(dariWord.soal.length, 4);
   assert.ok(dariWord.soal.every(cocok), 'templat Word memakai nama di luar silabus');
+});
+
+test('silabus-snbt.json (silabus baru): 5 subtes, 22 topik, 92 subtopik, tanpa galat, kode unik', () => {
+  const teks = fs.readFileSync(path.join(__dirname, '../seed/silabus-snbt.json'), 'utf8');
+  const { baris, galat, subtes } = parseSilabusJson(teks);
+  assert.deepEqual(galat, []);
+  assert.deepEqual(subtes.map((s) => s.kode), ['PU', 'KL', 'NUM', 'LBI', 'LBE']);
+  assert.equal(subtes.find((s) => s.kode === 'NUM').nama, 'Kemampuan Numerasi');
+  assert.equal(baris.length, 92);
+  assert.equal(new Set(baris.map((b) => `${b.subtes}|${b.topik}`)).size, 22);
+  assert.equal(new Set(baris.map((b) => b.kode)).size, 92);
+  assert.deepEqual(ringkasSilabus(baris).tunggal, []);
+});
+
+test('parseSilabusJson: galat untuk JSON rusak, kode kosong, dan kode ganda', () => {
+  assert.match(parseSilabusJson('{bukan json').galat[0].pesan, /tidak bisa dibaca/);
+  assert.match(parseSilabusJson('{}').galat[0].pesan, /larik "subtes"/);
+  const rusak = JSON.stringify({ subtes: [{ kode: 'PU', nama: 'Umum', topik: [{ nama: 'T', subTopik: [
+    { kode: 'A', nama: 'S1' }, { kode: 'A', nama: 'S2' }, { kode: '', nama: 'S3' }, { kode: 'B', nama: '' }] }] }] });
+  const pesan = parseSilabusJson(rusak).galat.map((g) => g.pesan).join(' | ');
+  assert.match(pesan, /kode ganda: A/);
+  assert.match(pesan, /subtopik tanpa kode/);
+  assert.match(pesan, /nama subtopik kosong/);
 });

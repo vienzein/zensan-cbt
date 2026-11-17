@@ -6,7 +6,7 @@ const { parseCsv, validasi, topikButuhDomain0 } = require('../src/services/impor
 
 const HEADER = 'tes,subtes,topik,subtopik,level,soal,opsi_a,opsi_b,opsi_c,opsi_d,opsi_e,kunci,waktu_detik,poin,domain0';
 const csv = (...baris) => [HEADER, ...baris].join('\n');
-const ok = 'SNBT,PM,Aljabar,Persamaan kuadrat,1,Akar x²−9=0?,3,-3,"3 dan -3",9,,C,,,';
+const ok = 'SNBT,NUM,Aljabar,Persamaan kuadrat,1,Akar x²−9=0?,3,-3,"3 dan -3",9,,C,,,';
 
 test('parseCsv: koma, kutip berisi koma, kutip ganda, baris baru di dalam kutip, BOM', () => {
   const t = `﻿a,b,c\r\n1,"x, y","dia bilang ""hai"""\r\n2,"baris1\nbaris2",z\r\n`;
@@ -31,7 +31,7 @@ test('parseCsv: baris kosong diabaikan', () => {
 test('baris valid: waktu bawaan mengikuti subtes dan level, poin bawaan 10', () => {
   const { soal, galat } = validasi(parseCsv(csv(ok)));
   assert.deepEqual(galat, []);
-  assert.equal(soal[0].waktu, 55); // PM level 1
+  assert.equal(soal[0].waktu, 55); // NUM level 1
   assert.equal(soal[0].poin, 10);
   assert.equal(soal[0].kunci, 'C');
   assert.deepEqual(soal[0].opsi.map((o) => o.kode), ['A', 'B', 'C', 'D']);
@@ -47,46 +47,46 @@ test('kolom pembahasan opsional dibaca bila ada', () => {
 });
 
 test('waktu_detik di file menimpa waktu bawaan', () => {
-  const { soal } = validasi(parseCsv(csv('SNBT,PM,A,S,1,q,a,b,,,,A,40,,')));
+  const { soal } = validasi(parseCsv(csv('SNBT,NUM,A,S,1,q,a,b,,,,A,40,,')));
   assert.equal(soal[0].waktu, 40);
 });
 
 test('semua level boleh 1 subtopik atau lebih; subtopik kosong ditolak; subtopik ganda dalam satu baris disatukan', () => {
   for (const level of [1, 2, 3, 4]) {
-    const satu = validasi(parseCsv(csv(`SNBT,PM,A,S1,${level},q,a,b,,,,A,,,`)));
+    const satu = validasi(parseCsv(csv(`SNBT,NUM,A,S1,${level},q,a,b,,,,A,,,`)));
     assert.deepEqual(satu.galat, [], `level ${level} dengan 1 subtopik`);
-    const dua = validasi(parseCsv(csv(`SNBT,PM,A,S1|S2,${level},q,a,b,,,,A,,,`)));
+    const dua = validasi(parseCsv(csv(`SNBT,NUM,A,S1|S2,${level},q,a,b,,,,A,,,`)));
     assert.deepEqual(dua.galat, [], `level ${level} dengan 2 subtopik`);
     assert.deepEqual(dua.soal[0].subtopik, ['S1', 'S2']);
   }
-  assert.deepEqual(validasi(parseCsv(csv('SNBT,PM,A,S1|S1,2,q,a,b,,,,A,,,'))).soal[0].subtopik, ['S1']);
-  assert.match(validasi(parseCsv(csv('SNBT,PM,A,,2,q,a,b,,,,A,,,'))).galat[0].pesan, /subtopik kosong/);
+  assert.deepEqual(validasi(parseCsv(csv('SNBT,NUM,A,S1|S1,2,q,a,b,,,,A,,,'))).soal[0].subtopik, ['S1']);
+  assert.match(validasi(parseCsv(csv('SNBT,NUM,A,,2,q,a,b,,,,A,,,'))).galat[0].pesan, /subtopik kosong/);
 });
 
 test('kunci harus cocok dengan opsi; opsi minimal A dan B; tidak boleh ada celah', () => {
-  assert.match(validasi(parseCsv(csv('SNBT,PM,A,S,1,q,a,b,,,,D,,,'))).galat[0].pesan, /kunci/);
-  assert.match(validasi(parseCsv(csv('SNBT,PM,A,S,1,q,a,,,,,A,,,'))).galat[0].pesan, /opsi A dan B/);
-  assert.match(validasi(parseCsv(csv('SNBT,PM,A,S,1,q,a,b,,d,,A,,,'))).galat.map((g) => g.pesan).join(' '), /tanpa celah/);
+  assert.match(validasi(parseCsv(csv('SNBT,NUM,A,S,1,q,a,b,,,,D,,,'))).galat[0].pesan, /kunci/);
+  assert.match(validasi(parseCsv(csv('SNBT,NUM,A,S,1,q,a,,,,,A,,,'))).galat[0].pesan, /opsi A dan B/);
+  assert.match(validasi(parseCsv(csv('SNBT,NUM,A,S,1,q,a,b,,d,,A,,,'))).galat.map((g) => g.pesan).join(' '), /tanpa celah/);
 });
 
 test('level di luar 1-4, waktu, poin, domain0 tidak valid dilaporkan beserta nomor baris', () => {
   const { galat } = validasi(parseCsv(csv(
-    'SNBT,PM,A,S,9,q,a,b,,,,A,,,',
-    'SNBT,PM,A,S,1,q,a,b,,,,A,2,,',
-    'SNBT,PM,A,S,1,q,a,b,,,,A,,0,',
-    'SNBT,PM,A,S,1,q,a,b,,,,A,,,mungkin',
+    'SNBT,NUM,A,S,9,q,a,b,,,,A,,,',
+    'SNBT,NUM,A,S,1,q,a,b,,,,A,2,,',
+    'SNBT,NUM,A,S,1,q,a,b,,,,A,,0,',
+    'SNBT,NUM,A,S,1,q,a,b,,,,A,,,mungkin',
   )));
   assert.deepEqual(galat.map((g) => g.baris), [2, 3, 4, 5]); // tepat satu pesan per baris salah
 });
 
 test('kolom wajib hilang dilaporkan', () => {
-  const { galat } = validasi(parseCsv('tes,subtes\nSNBT,PM'));
+  const { galat } = validasi(parseCsv('tes,subtes\nSNBT,NUM'));
   assert.match(galat[0].pesan, /Kolom wajib/);
 });
 
 test('aturan bawaan Domain 0 pada topik baru: matematika ya, lainnya tidak, bisa ditimpa', () => {
-  assert.equal(topikButuhDomain0({ subtes: 'PM', topikButuhDomain0: null }), true);
-  assert.equal(topikButuhDomain0({ subtes: 'PK', topikButuhDomain0: null }), true);
+  assert.equal(topikButuhDomain0({ subtes: 'NUM', topikButuhDomain0: null }), true);
   assert.equal(topikButuhDomain0({ subtes: 'PU', topikButuhDomain0: null }), false);
-  assert.equal(topikButuhDomain0({ subtes: 'PM', topikButuhDomain0: false }), false);
+  assert.equal(topikButuhDomain0({ subtes: 'KL', topikButuhDomain0: null }), false);
+  assert.equal(topikButuhDomain0({ subtes: 'NUM', topikButuhDomain0: false }), false);
 });

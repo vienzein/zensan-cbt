@@ -10,6 +10,10 @@ module.exports = Object.freeze({
   SPEED_BONUS_RATE: 0.2,      // +20% dari poin soal
   WRONG_PENALTY_RATE: 0.2,    // -20% dari poin soal
 
+  // Pengali kenaikan RR untuk jawaban BENAR menurut level soal (batas bar tetap 0..100, hanya naiknya lebih cepat).
+  // Level 1 dipercepat 1,5x; penalti salah tidak ikut dikali. ANGKA AWAL, silakan setel.
+  GAIN_MULTIPLIER: Object.freeze({ 1: 1.5, 2: 1, 3: 1, 4: 1 }),
+
   // Anti-tebak (PRD): < 10% batas waktu = ditandai tebakan, tidak dapat speed bonus
   GUESS_THRESHOLD: 0.1,
 
