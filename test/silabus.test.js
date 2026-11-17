@@ -53,18 +53,9 @@ test('ringkasSilabus: topik dengan satu subtopik dilaporkan (tidak bisa punya so
   ]);
 });
 
-test('silabus-snbt.md asli: terbaca tanpa galat, 7 subtes, 110 subtopik, hanya 1 topik bersubtopik tunggal', () => {
-  const md = fs.readFileSync(path.join(__dirname, '../seed/silabus-snbt.md'), 'utf8');
-  const { baris, galat } = parseSilabus(md);
-  assert.deepEqual(galat, []);
-  assert.equal(baris.length, 110);
-  assert.deepEqual([...new Set(baris.map((b) => b.subtes))], ['PU', 'PPU', 'PBM', 'PK', 'LBI', 'LBE', 'PM']);
-  assert.deepEqual(ringkasSilabus(baris).tunggal, [{ subtes: 'PPU', topik: 'Penalaran Pola Bahasa' }]);
-});
-
 test('contoh di templat (CSV dan Word) memakai nama topik/subtopik yang ada di silabus dan lolos validasi', () => {
-  const md = fs.readFileSync(path.join(__dirname, '../seed/silabus-snbt.md'), 'utf8');
-  const ada = new Set(parseSilabus(md).baris.map((b) => `${b.subtes}|${b.topik}|${b.subtopik}`));
+  const teks = fs.readFileSync(path.join(__dirname, '../seed/silabus-snbt.json'), 'utf8');
+  const ada = new Set(parseSilabusJson(teks).baris.map((b) => `${b.subtes}|${b.topik}|${b.subtopik}`));
   const cocok = (soal) => soal.subtopik.every((sub) => ada.has(`${soal.subtes}|${soal.topik}|${sub}`));
 
   const dariCsv = validasi(parseCsv(fs.readFileSync(path.join(__dirname, '../seed/templat-soal.csv'), 'utf8')));

@@ -4,7 +4,7 @@ Cocok bila soal lebih nyaman diketik di Word, atau dibuat dengan bantuan AI lalu
 
 ## Alur
 
-0. **Sekali saja:** masukkan silabus ke database (`npm run impor:silabus -- seed/silabus-snbt.md --tulis`, simulasi dulu tanpa `--tulis`). Setelah itu pakai nama topik dan subtopik **persis** dari `seed/silabus-snbt.md`.
+0. **Sekali saja:** masukkan silabus ke database (`npm run impor:silabus -- seed/silabus-snbt.json --tulis`, simulasi dulu tanpa `--tulis`). Setelah itu pakai nama topik dan subtopik **persis** dari `seed/silabus-snbt.json`.
 
 1. Buka `seed/templat-soal.docx`, simpan salinannya dengan nama sendiri (mis. `soal-pk-aljabar.docx`).
 2. Isi soal mengikuti pola di bawah (atau tempel hasil AI, lihat bagian prompt).
@@ -21,7 +21,7 @@ Cocok bila soal lebih nyaman diketik di Word, atau dibuat dengan bantuan AI lalu
 
 ```
 Tes: SNBT
-Subtes: PK
+Subtes: NUM
 Topik: Aljabar dan Fungsi
 Subtopik: Persamaan dan Fungsi Kuadrat
 Level: 2
@@ -89,7 +89,7 @@ Format lama `.doc` tidak didukung. Simpan sebagai `.docx`.
 
 Prompt lengkap (bahan dilampirkan, AI menganalisis lalu membuat soal variasi) ada di `seed/PROMPT-AI-BUAT-SOAL.md`. Versi pendek di bawah cukup untuk soal sederhana (isi bagian dalam kurung):
 
-> Buatkan **15 soal pilihan ganda** tipe UTBK-SNBT untuk subtes **(PK)**, topik **(Aljabar dan Fungsi)**, subtopik **(Persamaan dan Fungsi Kuadrat)**, **level (2)** dari skala 1 (dasar) sampai 4 (sangat sulit). Soal harus orisinal dan bukan salinan soal resmi.
+> Buatkan **15 soal pilihan ganda** tipe UTBK-SNBT untuk subtes **(NUM)**, topik **(Aljabar dan Fungsi)**, subtopik **(Persamaan dan Fungsi Kuadrat)**, **level (2)** dari skala 1 (dasar) sampai 4 (sangat sulit). Soal harus orisinal dan bukan salinan soal resmi.
 >
 > Tulis sebagai **teks polos tanpa markdown** (tanpa tanda **, #, atau tabel), memakai pola berikut persis untuk setiap soal, dan akhiri setiap soal dengan satu baris `---`:
 >
@@ -112,7 +112,7 @@ Prompt lengkap (bahan dilampirkan, AI menganalisis lalu membuat soal variasi) ad
 >
 > Tulis pangkat dengan karakter Unicode (x², x³) dan akar dengan √. Pastikan hanya ada **satu** jawaban benar, kunci cocok dengan hitungan di pembahasan, dan distraktor masuk akal. Untuk level 3-4, tulis `Subtopik:` dengan dua subtopik atau lebih dipisah `|`.
 
-Setelah AI selesai: salin hasilnya ke Word (tempel sebagai teks biasa, *Keep Text Only*), lalu **kerjakan ulang setiap soal sendiri** dan cocokkan dengan kunci dan pembahasan sebelum diimpor. AI bisa salah hitung, terutama untuk PM dan PK.
+Setelah AI selesai: salin hasilnya ke Word (tempel sebagai teks biasa, *Keep Text Only*), lalu **kerjakan ulang setiap soal sendiri** dan cocokkan dengan kunci dan pembahasan sebelum diimpor. AI bisa salah hitung, terutama untuk NUM.
 
 ## Pesan galat yang mungkin muncul
 

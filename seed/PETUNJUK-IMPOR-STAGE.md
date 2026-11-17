@@ -89,7 +89,7 @@ Pakai Prompt A di `PROMPT-AI-BUAT-SOAL.md` dengan perubahan ini pada bagian PARA
 1. Jalankan migrasi `migrations/010_d0_stage_progress.sql` di SQL Editor Supabase (tempel ISI berkas).
 2. Selama soal stage belum cukup, biarkan `DOMAIN0_MODE` kosong (gerbang memakai Domain 0 lama).
 3. Cek `npm run laporan:stage`; bila stage D0-01 sampai D0-05 sudah berstatus OK, tambahkan `DOMAIN0_MODE=stage` di `.env` server lalu mulai ulang server.
-4. Dalam mode stage, gerbang PK/PM terbuka setelah semua stage D0-01 sampai D0-05 lulus.
+4. Dalam mode stage, gerbang NUM (Kemampuan Numerasi) terbuka setelah semua stage D0-01 sampai D0-05 lulus.
 
 ## Impor soal stage dari JSON
 

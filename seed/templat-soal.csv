@@ -1,4 +1,4 @@
 tes;subtes;topik;subtopik;level;soal;opsi_a;opsi_b;opsi_c;opsi_d;opsi_e;kunci;waktu_detik;poin;domain0;butuh_domain0_topik;gambar_url;pembahasan;pembahasan_gambar_url
-SNBT;PK;Aljabar dan Fungsi;Persamaan dan Fungsi Kuadrat;1;[Contoh-hapus] Akar-akar x² − 9 = 0 adalah ...;3 saja;−3 saja;3 dan −3;9 dan −9;;C;;;ya;;;x² − 9 = 0 maka x² = 9, sehingga x = 3 atau x = −3.;
-SNBT;PU;Penalaran Deduktif;Silogisme dan Kuantor;2;[Contoh-hapus] Semua A adalah B. Sebagian B adalah C. Kesimpulan yang pasti benar adalah ...;Semua A adalah C;Sebagian A adalah C;Tidak ada A yang C;Tidak ada kesimpulan yang pasti;;D;;;;;;;
-SNBT;PK;Aljabar dan Fungsi;Persamaan dan Fungsi Kuadrat|Fungsi dan Operasi Fungsi;3;[Contoh-hapus] Diketahui f(x) = x² − 5x + 6 dan g(x) = x + 1. Nilai x yang memenuhi (f ∘ g)(x) = 0 adalah ...;1 dan 2;−1 dan −2;2 dan 3;1 dan 3;;A;;;;;;;
+SNBT;NUM;Aljabar dan Fungsi;Persamaan dan Fungsi Kuadrat;1;[Contoh-hapus] Akar-akar x² − 9 = 0 adalah ...;3 saja;−3 saja;3 dan −3;9 dan −9;;C;;;ya;;;x² − 9 = 0 maka x² = 9, sehingga x = 3 atau x = −3.;
+SNBT;PU;Penalaran Deduktif;Penalaran Logika;2;[Contoh-hapus] Semua A adalah B. Sebagian B adalah C. Kesimpulan yang pasti benar adalah ...;Semua A adalah C;Sebagian A adalah C;Tidak ada A yang C;Tidak ada kesimpulan yang pasti;;D;;;;;;;
+SNBT;NUM;Aljabar dan Fungsi;Persamaan dan Fungsi Kuadrat|Fungsi dan Operasi Fungsi;3;[Contoh-hapus] Diketahui f(x) = x² − 5x + 6 dan g(x) = x + 1. Nilai x yang memenuhi (f ∘ g)(x) = 0 adalah ...;1 dan 2;−1 dan −2;2 dan 3;1 dan 3;;A;;;;;;;
