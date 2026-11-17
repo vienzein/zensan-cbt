@@ -60,6 +60,12 @@ const tidak = (v) => ['', 'tidak', 'n', 'no', 'false', '0'].includes(String(v).t
  * Periksa dan normalkan semua baris. Mengembalikan { soal: [...], galat: [{baris, pesan}] }.
  * Aturan ikatan subtopik: semua level boleh 1 subtopik atau lebih (dalam topik yang sama); minimal 1.
  */
+// Penanda sementara yang ditulis AI/penulis di teks soal (gambar belum dipasang, rumus belum diketik ulang, bagian tak terbaca).
+// Soal bertanda tidak boleh sampai ke siswa.
+const POLA_PENANDA = /\[(GAMBAR DIPERLUKAN|RUMUS PERLU|TIDAK TERBACA)[^\]]*\]?/i;
+const adaPenanda = (r) => ['soal', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e', 'pembahasan']
+  .some((k) => typeof r[k] === 'string' && POLA_PENANDA.test(r[k]));
+
 function validasi({ kolom, baris }) {
   const galat = [];
   const hilang = (kolom.includes('stage') ? KOLOM_WAJIB_STAGE : KOLOM_WAJIB).filter((k) => !kolom.includes(k));
@@ -73,6 +79,11 @@ function validasi({ kolom, baris }) {
     const r = new Proxy(rAsli, { get: (o, k) => (k in o ? o[k] : (typeof k === 'string' && !k.startsWith('_') ? '' : undefined)) });
     const salah = (pesan) => galat.push({ baris: r._nomor, pesan });
     const n0 = galat.length;
+
+    if (adaPenanda(r)) {
+      salah('masih memuat penanda sementara ([GAMBAR DIPERLUKAN...], [RUMUS PERLU DIKETIK ULANG...], atau [TIDAK TERBACA...]); '
+        + 'pasang gambar/rumus aslinya lalu hapus penandanya, atau keluarkan soal ini dari berkas');
+    }
 
     const stage = r.stage ? r.stage.trim().toUpperCase() : '';
     if (stage && !POLA_STAGE.test(stage)) salah(`kode stage tidak dikenali ("${r.stage}"; contoh: D0-01-01.S1 atau D0-01.G)`);
@@ -182,4 +193,5 @@ function jsonKeBaris(teks, tes = 'SNBT') {
   return { kolom, baris };
 }
 
-module.exports = { jsonKeBaris, parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, KOLOM_WAJIB_STAGE, POIN_BAWAAN };
+module.exports = {
+  adaPenanda, jsonKeBaris, parseCsv, validasi, topikButuhDomain0, KOLOM_WAJIB, KOLOM_WAJIB_STAGE, POIN_BAWAAN };

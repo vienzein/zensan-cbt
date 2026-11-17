@@ -5,6 +5,8 @@
  *
  *   npm run impor:soal -- seed/soal-saya.csv            # SIMULASI: memeriksa semuanya, tidak menyimpan
  *   npm run impor:soal -- seed/soal-saya.csv --tulis    # menyimpan
+ *   --lewati-bertanda : soal yang masih memuat [GAMBAR DIPERLUKAN...] / [RUMUS PERLU...] / [TIDAK TERBACA...] dilewati (dilaporkan), sisanya diimpor.
+ *                       Tanpa opsi ini, soal bertanda dianggap galat dan tidak ada yang disimpan.
  *   npm run impor:soal -- seed/soal-saya.docx           # sama, dari dokumen Word (lihat PETUNJUK-IMPOR-WORD.md)
  *   npm run impor:soal -- seed/soal-d0.json             # soal stage dalam JSON (kodeStage, soal, opsi, kunci, pembahasan)
  *
@@ -19,7 +21,7 @@
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
+const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0, adaPenanda } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
 const { dariEnv } = require('../src/services/penyimpananGambar');
 
@@ -56,6 +58,17 @@ async function main() {
   }
   // Penunjuk lokasi masalah: nomor baris di spreadsheet, atau nomor soal (+ awal kalimatnya) di Word.
   const lokasi = (n) => (dariWord ? `soal ke-${n}${cuplikan.get(n) ? ` ("${cuplikan.get(n)}")` : ''}` : `baris ${n}`);
+
+  // --lewati-bertanda: soal yang masih bertanda [GAMBAR DIPERLUKAN...] dkk. tidak ikut diimpor (dilaporkan), sisanya jalan terus.
+  if (flag.includes('--lewati-bertanda')) {
+    const bertanda = terbaca.baris.filter((r) => adaPenanda(r));
+    terbaca = { ...terbaca, baris: terbaca.baris.filter((r) => !adaPenanda(r)) };
+    if (bertanda.length) {
+      console.log(`Dilewati karena masih bertanda sementara: ${bertanda.length} soal`);
+      bertanda.forEach((r) => console.log(`  ${lokasi(r._nomor)}`));
+      console.log('');
+    }
+  }
 
   const hasil = validasi(terbaca);
   const { soal } = hasil;
