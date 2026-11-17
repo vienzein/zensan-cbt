@@ -13,6 +13,7 @@
 
 const assert = require('node:assert/strict');
 const pool = require('../src/db');
+const RR = require('../src/config/rr');
 const { startDrill } = require('../src/services/drillStartService');
 const { submitDrill } = require('../src/services/drillSubmitService');
 
@@ -186,8 +187,17 @@ async function main() {
     const d = await mulai(nama, subIndex);
     assert.equal(d.soal.length, 5, 'sesi harus 5 soal');
     await mundurkanWaktu(d.attempt_id);
-    return submitDrill(pool, S.studentId, { attemptId: d.attempt_id, answers: jawaban(d.soal, benar, 10) });
+    const hasil = await submitDrill(pool, S.studentId, { attemptId: d.attempt_id, answers: jawaban(d.soal, benar, 10) });
+    hasil._soalSesi = d.soal;
+    return hasil;
   };
+  // Kenaikan RR satu jawaban benar cepat (durasi 10 dari target 60): 10 + bonus 2 = 12, Level 1 dikali pengali
+  const levelSoal = async (soal) => {
+    const { rows } = await pool.query('SELECT id, level_soal FROM questions WHERE id = ANY($1::bigint[])', [soal.map((x) => x.question_id)]);
+    const peta = new Map(rows.map((r) => [String(r.id), r.level_soal]));
+    return soal.map((x) => peta.get(String(x.question_id)));
+  };
+  const naikBenarCepat = (level) => Math.round(12 * (RR.GAIN_MULTIPLIER[level] || 1));
   const masteryDb = async (subId) => (await pool.query(
     'SELECT current_level, rank_rating, strike_count FROM student_mastery WHERE student_id = $1 AND subtopic_id = $2',
     [S.studentId, subId])).rows[0];
@@ -206,10 +216,12 @@ async function main() {
     assert.equal(m.level_before, 1);
     assert.equal(m.level_after, 2);
     assert.equal(m.naik_level, true);
-    // jawaban benar pertama: 95+12 -> 100 -> naik, RR 20; empat jawaban berikutnya +12 tiap kali
-    assert.equal(m.rr_after, 68);
+    // jawaban benar pertama: 95 + kenaikan -> 100 -> naik, RR 20; empat jawaban berikutnya menambah sesuai level soalnya
+    const lv = await levelSoal(r._soalSesi);
+    const harapan = 20 + lv.slice(1).reduce((j, l) => j + naikBenarCepat(l), 0);
+    assert.equal(m.rr_after, harapan);
     const db = await masteryDb(subIds[0]);
-    assert.deepEqual([db.current_level, db.rank_rating, db.strike_count], [2, 68, 0]);
+    assert.deepEqual([db.current_level, db.rank_rating, db.strike_count], [2, harapan, 0]);
   });
 
   await cek('L2->L3 tertahan: RR 100 di Level 2 saat Level 3 topik belum terbuka', async () => {
