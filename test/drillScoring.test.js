@@ -8,7 +8,7 @@ const { isAnswerCorrect } = require('../src/services/grading');
 const NOW = new Date('2026-11-14T00:00:00Z');
 
 const ans = (o) => ({
-  urutan: 1, questionId: '1', topicId: 'T1', levelSoal: 1, targetWaktu: 100,
+  urutan: 1, questionId: '1', topicId: 'T1', levelSoal: 2, targetWaktu: 100,
   poinReward: 10, durasi: 80, isCorrect: true, subtopicIds: ['S1'], ...o,
 });
 const sub = (o) => new Map([['S1', { current_level: 2, rank_rating: 50, strike_count: 0, ...o }]]);
@@ -311,4 +311,12 @@ test('klaim waktu habis tetapi ada jawaban: dinilai biasa', () => {
   const r = run([habis({ jawaban: 'B' })], { rank_rating: 40, current_level: 1 });
   assert.equal(r.results[0].efek, 'diterapkan');
   assert.equal(r.results[0].rrDelta, -2);
+});
+
+test('Level 1: kenaikan RR dipercepat 1,5x (juga speed bonus), penalti salah tetap, bar tetap maks 100', () => {
+  assert.equal(run([ans({ levelSoal: 1 })], { current_level: 1 }).results[0].rrDelta, 15);
+  assert.equal(run([ans({ levelSoal: 1, durasi: 49 })], { current_level: 1 }).results[0].rrDelta, 18);
+  assert.equal(run([ans({ levelSoal: 1, isCorrect: false })], { current_level: 1 }).results[0].rrDelta, -2);
+  const r = run([ans({ levelSoal: 1 })], { current_level: 1, rank_rating: 95 });
+  assert.ok(r.subtopicUpdates[0].rank_rating <= 100 || r.subtopicUpdates[0].current_level === 2);
 });

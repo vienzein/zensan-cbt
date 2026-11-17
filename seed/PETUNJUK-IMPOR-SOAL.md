@@ -9,11 +9,11 @@
 
 ## Daftar topik dan subtopik (silabus)
 
-Nama topik dan subtopik yang dipakai di dokumen soal harus **persis** sama dengan `silabus-snbt.md` (110 subtopik, 7 subtes SNBT). Sebelum mengimpor soal, masukkan dulu silabusnya sekali:
+Nama topik dan subtopik yang dipakai di dokumen soal harus **persis** sama dengan `silabus-snbt.json` (92 subtopik, 5 subtes SNBT). Sebelum mengimpor soal, masukkan dulu silabusnya sekali:
 
 ```
-npm run impor:silabus -- seed/silabus-snbt.md           # simulasi
-npm run impor:silabus -- seed/silabus-snbt.md --tulis   # menyimpan
+npm run impor:silabus -- seed/silabus-snbt.json         # simulasi
+npm run impor:silabus -- seed/silabus-snbt.json --tulis # menyimpan
 ```
 
 Setelah itu semua topik dan subtopik sudah ada, dan salah ketik nama di dokumen soal tidak lagi membuat topik dobel diam-diam (cek ringkasan "topik baru" saat simulasi impor soal: seharusnya 0).
@@ -23,8 +23,8 @@ Setelah itu semua topik dan subtopik sudah ada, dan salah ketik nama di dokumen 
 | Kolom | Wajib | Isi |
 |---|---|---|
 | `tes` | ya | Kode tes: `SNBT` atau `CPNS` |
-| `subtes` | ya | Kode subtes: SNBT = `PU` `PPU` `PBM` `PK` `LBI` `LBE` `PM`; CPNS = `TWK` `TIU` `TKP` |
-| `topik` | ya | Nama topik persis seperti di `silabus-snbt.md`, mis. `Aljabar dan Fungsi`. Topik yang belum ada dibuat otomatis, jadi salah ketik membuat topik dobel. Aman dan disarankan: jalankan `npm run impor:silabus` dulu (lihat bawah). |
+| `subtes` | ya | Kode subtes: SNBT = `PU` `KL` `NUM` `LBI` `LBE`; CPNS = `TWK` `TIU` `TKP` |
+| `topik` | ya | Nama topik persis seperti di `silabus-snbt.json`, mis. `Aljabar dan Fungsi`. Topik yang belum ada dibuat otomatis, jadi salah ketik membuat topik dobel. Aman dan disarankan: jalankan `npm run impor:silabus` dulu (lihat bawah). |
 | `subtopik` | ya | Nama subtopik persis seperti di silabus. Beberapa subtopik dipisah tanda `\|`, mis. `Persamaan dan Fungsi Kuadrat\|Fungsi dan Operasi Fungsi`. |
 | `level` | ya | `1` sampai `4` |
 | `soal` | ya | Teks soal |
@@ -34,7 +34,7 @@ Setelah itu semua topik dan subtopik sudah ada, dan salah ketik nama di dokumen 
 | `waktu_detik` | tidak | Waktu mengerjakan. Kosong = otomatis menurut subtes dan level (lihat di bawah) |
 | `poin` | tidak | Poin RR jika benar. Kosong = 10 |
 | `domain0` | tidak | `ya` bila soal ini bagian dari Ujian Kelayakan Dasar (prasyarat matematika). Kosong = tidak |
-| `butuh_domain0_topik` | tidak | Hanya berlaku bila topik baru dibuat: `ya` jika topik ini terkunci sampai lulus Domain 0. Kosong = ya untuk subtes PK dan PM, tidak untuk lainnya |
+| `butuh_domain0_topik` | tidak | Hanya berlaku bila topik baru dibuat: `ya` jika topik ini terkunci sampai lulus Domain 0. Kosong = ya untuk subtes NUM, tidak untuk lainnya |
 | `gambar_url` | tidak | Alamat gambar soal |
 | `pembahasan` | tidak | Penjelasan jawaban. Tampil di layar hasil **setelah** sesi selesai |
 | `pembahasan_gambar_url` | tidak | Alamat gambar untuk pembahasan |
@@ -48,10 +48,8 @@ Level 3 dan 4 memakai waktu asli SNBT per soal. Level 1 dan 2 lebih pendek karen
 
 | Subtes | L1 | L2 | L3 | L4 |
 |---|---|---|---|---|
-| PPU | 25 | 35 | 45 | 45 |
-| PU, PK | 35 | 50 | 60 | 60 |
-| PBM | 45 | 60 | 75 | 75 |
-| LBI, LBE, PM | 55 | 70 | 90 | 90 |
+| PU, KL | 35 | 50 | 60 | 60 |
+| LBI, LBE, NUM | 55 | 70 | 90 | 90 |
 | subtes lain (CPNS) | 35 | 50 | 60 | 60 |
 
 Soal Level 1-2 harus benar-benar bisa diselesaikan siswa pemula dalam waktu itu. Kalau terasa mepet, isi `waktu_detik` atau minta faktor levelnya dilonggarkan.

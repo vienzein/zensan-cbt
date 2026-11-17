@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Membaca silabus (seed/silabus-snbt.md) menjadi daftar subtopik. Bagian murni; penulisan ke database
+ * Membaca silabus (seed/silabus-snbt.json, atau tabel Markdown versi lama) menjadi daftar subtopik. Bagian murni; penulisan ke database
  * ada di scripts/impor-silabus.js.
  *
  * Bentuk berkas: judul "## KODE – Nama subtes", lalu tabel dengan kolom
@@ -12,6 +12,7 @@
 function parseSilabus(teks) {
   const baris = [];
   const galat = [];
+  const daftarSubtes = [];
   let subtes = null;
   let topik = null;
 
@@ -21,6 +22,7 @@ function parseSilabus(teks) {
     if (judul) {
       subtes = judul[1].toUpperCase();
       topik = null;
+      if (!daftarSubtes.some((d) => d.kode === subtes)) daftarSubtes.push({ kode: subtes, nama: judul[2].trim() });
       return;
     }
     if (!garis.trim().startsWith('|')) return;
@@ -44,7 +46,52 @@ function parseSilabus(teks) {
     if (lihat.has(k)) galat.push({ baris: 0, pesan: `sub topik ganda: ${b.subtes} / ${b.topik} / ${b.subtopik}` });
     lihat.add(k);
   });
-  return { baris, galat };
+  return { baris, galat, subtes: daftarSubtes };
+}
+
+/**
+ * Membaca silabus berbentuk JSON: { subtes: [ { kode, nama, topik: [ { kode, nama, subTopik: [ { kode, nama, cakupan } ] } ] } ] }.
+ * Hasilnya sama dengan parseSilabus (baris, galat, subtes) supaya skrip impor tidak perlu tahu bentuk berkasnya.
+ */
+function parseSilabusJson(teks) {
+  const baris = [];
+  const galat = [];
+  const daftarSubtes = [];
+  let data;
+  try { data = JSON.parse(String(teks).replace(/^\uFEFF/, '')); } catch (e) {
+    return { baris, galat: [{ baris: 0, pesan: `JSON tidak bisa dibaca: ${e.message}` }], subtes: daftarSubtes };
+  }
+  if (!data || !Array.isArray(data.subtes)) {
+    return { baris, galat: [{ baris: 0, pesan: 'JSON harus berisi larik "subtes".' }], subtes: daftarSubtes };
+  }
+  const t = (v) => (v === undefined || v === null ? '' : String(v).trim());
+  const kodeLihat = new Set();
+  data.subtes.forEach((st, i) => {
+    const kodeSubtes = t(st && st.kode).toUpperCase();
+    if (!kodeSubtes) { galat.push({ baris: 0, pesan: `subtes ke-${i + 1}: kode kosong` }); return; }
+    if (!t(st.nama)) galat.push({ baris: 0, pesan: `${kodeSubtes}: nama subtes kosong` });
+    daftarSubtes.push({ kode: kodeSubtes, nama: t(st.nama) });
+    (Array.isArray(st.topik) ? st.topik : []).forEach((tp) => {
+      const namaTopik = t(tp && tp.nama);
+      if (!namaTopik) { galat.push({ baris: 0, pesan: `${kodeSubtes}: ada topik tanpa nama` }); return; }
+      (Array.isArray(tp.subTopik) ? tp.subTopik : []).forEach((sb) => {
+        const kode = t(sb && sb.kode);
+        const nama = t(sb && sb.nama);
+        if (!kode) { galat.push({ baris: 0, pesan: `${kodeSubtes} / ${namaTopik}: ada subtopik tanpa kode` }); return; }
+        if (!nama) { galat.push({ baris: 0, pesan: `${kode}: nama subtopik kosong` }); return; }
+        if (kodeLihat.has(kode)) galat.push({ baris: 0, pesan: `kode ganda: ${kode}` });
+        kodeLihat.add(kode);
+        baris.push({ kode, subtes: kodeSubtes, topik: namaTopik, subtopik: nama, cakupan: t(sb.cakupan), tingkat: '' });
+      });
+    });
+  });
+  const lihat = new Set();
+  baris.forEach((b) => {
+    const k = `${b.subtes}|${b.topik}|${b.subtopik}`;
+    if (lihat.has(k)) galat.push({ baris: 0, pesan: `sub topik ganda: ${b.subtes} / ${b.topik} / ${b.subtopik}` });
+    lihat.add(k);
+  });
+  return { baris, galat, subtes: daftarSubtes };
 }
 
 /** Ringkasan per subtes -> topik -> jumlah subtopik, dan topik yang hanya punya 1 subtopik. */
@@ -60,4 +107,4 @@ function ringkasSilabus(baris) {
   return { peta, tunggal };
 }
 
-module.exports = { parseSilabus, ringkasSilabus };
+module.exports = { parseSilabus, parseSilabusJson, ringkasSilabus };

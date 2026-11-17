@@ -4,8 +4,11 @@
  * Memasukkan topik dan subtopik dari silabus ke database, supaya namanya PERSIS sama dengan yang
  * dipakai di dokumen soal.
  *
- *   npm run impor:silabus -- seed/silabus-snbt.md            # SIMULASI: tidak menyimpan
- *   npm run impor:silabus -- seed/silabus-snbt.md --tulis    # menyimpan
+ *   npm run impor:silabus -- seed/silabus-snbt.json            # SIMULASI: tidak menyimpan
+ *   npm run impor:silabus -- seed/silabus-snbt.json --tulis    # menyimpan
+ *
+ * Berkas boleh JSON (bentuk baru) atau tabel Markdown (bentuk lama). Subtes yang belum ada di database dibuat
+ * otomatis (kode, nama, dan urutan sesuai urutan di berkas).
  *
  * Aman dijalankan ulang: yang sudah ada dilewati. Tidak pernah menghapus atau mengubah topik yang sudah ada
  * (topik di database yang tidak ada di silabus hanya dilaporkan). Tes bawaan SNBT; ganti dengan --tes=CPNS.
@@ -13,7 +16,7 @@
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseSilabus } = require('../src/services/silabus');
+const { parseSilabus, parseSilabusJson } = require('../src/services/silabus');
 const { topikButuhDomain0 } = require('../src/services/imporSoal');
 
 const [, , berkas, ...flag] = process.argv;
@@ -26,10 +29,11 @@ function keluar(kode, pesan) {
 }
 
 async function main() {
-  if (!berkas) keluar(2, 'Pemakaian: npm run impor:silabus -- <silabus.md> [--tulis] [--tes=SNBT]');
+  if (!berkas) keluar(2, 'Pemakaian: npm run impor:silabus -- <silabus.json|md> [--tulis] [--tes=SNBT]');
   if (!fs.existsSync(berkas)) keluar(2, `Berkas tidak ditemukan: ${berkas}`);
 
-  const { baris, galat } = parseSilabus(fs.readFileSync(berkas, 'utf8'));
+  const teks = fs.readFileSync(berkas, 'utf8');
+  const { baris, galat, subtes: daftarSubtes } = /\.json$/i.test(berkas) ? parseSilabusJson(teks) : parseSilabus(teks);
   if (galat.length) {
     console.error(`Ada ${galat.length} masalah di silabus (belum ada yang disimpan):\n`);
     galat.forEach((g) => console.error(`  ${g.baris ? `baris ${g.baris}: ` : ''}${g.pesan}`));
@@ -38,7 +42,7 @@ async function main() {
   if (!baris.length) keluar(1, 'Tidak ada subtopik terbaca di silabus.');
 
   const c = await pool.connect();
-  const stat = { topikBaru: 0, topikAda: 0, subBaru: 0, subAda: 0 };
+  const stat = { subtesBaru: 0, topikBaru: 0, topikAda: 0, subBaru: 0, subAda: 0 };
   const perSubtes = new Map();
   const masalah = [];
   try {
@@ -51,7 +55,17 @@ async function main() {
     for (const b of baris) {
       if (!subjects.has(b.subtes)) {
         const r = await c.query('SELECT id FROM subjects WHERE curriculum_group_id = $1 AND upper(kode) = $2', [cg, b.subtes]);
-        subjects.set(b.subtes, r.rows[0]?.id ?? null);
+        let id = r.rows[0]?.id ?? null;
+        if (!id) {
+          const urutan = daftarSubtes.findIndex((d) => d.kode === b.subtes) + 1;
+          const info = daftarSubtes.find((d) => d.kode === b.subtes);
+          const baru = await c.query(
+            'INSERT INTO subjects (curriculum_group_id, kode, nama, urutan) VALUES ($1, $2, $3, $4) RETURNING id',
+            [cg, b.subtes, (info && info.nama) || b.subtes, urutan || 99]);
+          id = baru.rows[0].id;
+          stat.subtesBaru += 1;
+        }
+        subjects.set(b.subtes, id);
       }
       const subjectId = subjects.get(b.subtes);
       if (!subjectId) { masalah.push(`${b.kode}: subtes "${b.subtes}" belum ada di tes ${tes}`); continue; }
@@ -96,6 +110,7 @@ async function main() {
     else { await c.query('SET CONSTRAINTS ALL IMMEDIATE'); await c.query('ROLLBACK'); }
 
     console.log(tulis ? '\nTERSIMPAN' : '\nSIMULASI (tidak ada yang disimpan; tambahkan --tulis untuk menyimpan)');
+    if (stat.subtesBaru) console.log(`  subtes baru     : ${stat.subtesBaru}`);
     console.log(`  topik baru      : ${stat.topikBaru}  (sudah ada: ${stat.topikAda})`);
     console.log(`  subtopik baru   : ${stat.subBaru}  (sudah ada: ${stat.subAda})`);
     if (perSubtes.size) console.log(`  subtopik baru per subtes: ${[...perSubtes].map(([k, n]) => `${k} ${n}`).join(', ')}`);

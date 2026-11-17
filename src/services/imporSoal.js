@@ -150,8 +150,9 @@ function validasi({ kolom, baris }) {
   return { soal, galat };
 }
 
-// Subtes matematika (PK, PM) bawaannya butuh Domain 0, sesuai PRD.
-const SUBTES_MATEMATIKA = new Set(['PK', 'PM']);
+// Subtes matematika (NUM) bawaannya butuh Domain 0, sesuai PRD.
+// Subtes yang dikunci gerbang Domain 0. Silabus baru: PK dan PM melebur menjadi NUM (Kemampuan Numerasi).
+const SUBTES_MATEMATIKA = new Set(['NUM']);
 const topikButuhDomain0 = (s) => (s.topikButuhDomain0 !== null ? s.topikButuhDomain0 : SUBTES_MATEMATIKA.has(s.subtes));
 
 /**

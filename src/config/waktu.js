@@ -7,13 +7,11 @@
  * disimpan di `questions.target_waktu_detik` dan boleh ditimpa per soal.
  */
 const WAKTU_DASAR = Object.freeze({
-  PPU: 45, // 20 soal / 15 menit
   PU: 60, // 30 soal / 30 menit
-  PK: 60, // 20 soal / 20 menit
-  PBM: 75, // 20 soal / 25 menit
+  KL: 60, // gabungan PPU (45) dan PBM (75); usulan, tim akademik menetapkan angka asli
+  NUM: 90, // Level 3 = 90 detik (ditetapkan pengguna); Level 1/2 diturunkan lewat FAKTOR_LEVEL
   LBI: 90, // 30 soal / 45 menit
   LBE: 90, // 20 soal / 30 menit
-  PM: 90, // 20 soal / 30 menit
 });
 
 const FAKTOR_LEVEL = Object.freeze({ 1: 0.6, 2: 0.8, 3: 1, 4: 1 });

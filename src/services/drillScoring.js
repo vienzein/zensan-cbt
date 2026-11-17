@@ -15,16 +15,17 @@ const pct = (poin, rate) => (poin > 0 ? Math.max(1, Math.round(poin * rate)) : 0
 
 /**
  * Aturan 1 & 2: hitung delta RR untuk satu jawaban.
- *  - benar : +poin_reward (+20% jika durasi < 50% target dan bukan tebakan)
+ *  - benar : +poin_reward (+20% jika durasi < 50% target dan bukan tebakan), dikali GAIN_MULTIPLIER[level soal]
  *  - salah : -20% dari poin_reward
  */
-function scoreAnswer({ isCorrect, durasi, targetWaktu, poinReward }) {
+function scoreAnswer({ isCorrect, durasi, targetWaktu, poinReward, levelSoal }) {
   const isFlaggedGuess = durasi < targetWaktu * C.GUESS_THRESHOLD;
   const isSpeedBonus =
     isCorrect && !isFlaggedGuess && durasi < targetWaktu * C.SPEED_BONUS_THRESHOLD;
 
+  const pengali = C.GAIN_MULTIPLIER[levelSoal] || 1;
   const delta = isCorrect
-    ? poinReward + (isSpeedBonus ? pct(poinReward, C.SPEED_BONUS_RATE) : 0)
+    ? Math.round((poinReward + (isSpeedBonus ? pct(poinReward, C.SPEED_BONUS_RATE) : 0)) * pengali)
     : -pct(poinReward, C.WRONG_PENALTY_RATE);
 
   return { delta, isSpeedBonus, isFlaggedGuess };

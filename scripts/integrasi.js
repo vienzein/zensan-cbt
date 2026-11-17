@@ -10,6 +10,7 @@
 
 const assert = require('node:assert/strict');
 const pool = require('../src/db');
+const RR = require('../src/config/rr');
 const { startDomain0, submitDomain0 } = require('../src/services/domain0Service');
 const { startDrill } = require('../src/services/drillStartService');
 const { submitDrill } = require('../src/services/drillSubmitService');
@@ -200,12 +201,16 @@ async function main() {
       attemptId: drill.attempt_id, answers: jawaban(drill.soal, true, 10),
     });
     assert.equal(r.ringkasan.jumlah_benar, 5);
-    assert.equal(r.ringkasan.total_rr_delta, 60); // 5 x (10 + speed bonus 2)
+    // tiap jawaban benar cepat = 10 + bonus 2 = 12; soal Level 1 dikali GAIN_MULTIPLIER; susunan level sesi acak
+    const lvRows = (await pool.query('SELECT id, level_soal FROM questions WHERE id = ANY($1::bigint[])', [drill.soal.map((x) => x.question_id)])).rows;
+    const lvPeta = new Map(lvRows.map((x) => [String(x.id), x.level_soal]));
+    const harapan = drill.soal.reduce((j, x) => j + Math.round(12 * (RR.GAIN_MULTIPLIER[lvPeta.get(String(x.question_id))] || 1)), 0);
+    assert.equal(r.ringkasan.total_rr_delta, harapan);
     assert.ok(r.hasil.every((h) => h.is_speed_bonus), 'speed bonus tidak terpasang');
 
     const rr = await pool.query(
       'SELECT COALESCE(sum(rank_rating), 0)::int AS total FROM student_mastery WHERE student_id = $1', [S.studentId]);
-    assert.equal(rr.rows[0].total, 60);
+    assert.equal(rr.rows[0].total, harapan);
     const h = await pool.query(
       'SELECT count(*)::int AS n FROM student_answer_history WHERE attempt_id = $1', [drill.attempt_id]);
     assert.equal(h.rows[0].n, 5);
