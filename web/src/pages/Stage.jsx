@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Memuat, Galat } from '../components/Dasar.jsx';
+import LaporSoal from '../components/LaporSoal.jsx';
 
 const mmss = (d) => `${String(Math.floor(d / 60)).padStart(2, '0')}:${String(d % 60).padStart(2, '0')}`;
 const jam = (iso) => new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -214,6 +215,9 @@ function Kerjakan({ sesi, onSelesai }) {
               className="w-full rounded-2xl border border-line bg-card px-4 py-3.5 outline-none focus:border-aksen"
             />
           )}
+        </div>
+        <div className="mt-4 text-center">
+          <LaporSoal key={q.question_id} questionId={q.question_id} sedangUjian />
         </div>
       </section>
 

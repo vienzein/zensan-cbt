@@ -5,6 +5,7 @@ const pool = require('./db');
 const { createAuth } = require('./middleware/auth');
 const drillRouter = require('./routes/drill');
 const domain0Router = require('./routes/domain0');
+const soalRouter = require('./routes/soal');
 const tryoutRouter = require('./routes/tryout');
 const meRouter = require('./routes/me');
 const kurikulumRouter = require('./routes/kurikulum');
@@ -24,6 +25,7 @@ app.use('/api', createAuth({ pool }));
 
 app.use('/api/drill', drillRouter);
 app.use('/api/domain0', domain0Router);
+app.use('/api/soal', soalRouter);
 app.use('/api/tryout', tryoutRouter);
 app.use('/api/me', meRouter);
 app.use('/api/kurikulum', kurikulumRouter);

@@ -15,7 +15,8 @@
   "docx:csv": "node scripts/docx-ke-csv.js",
   "impor:silabus": "node --env-file=.env scripts/impor-silabus.js",
   "impor:stage": "node --env-file=.env scripts/impor-stage.js",
-  "laporan:stage": "node --env-file=.env scripts/laporan-stage.js"
+  "laporan:stage": "node --env-file=.env scripts/laporan-stage.js",
+  "laporan:soal": "node --env-file=.env scripts/laporan-soal.js"
 },
   "repository": {
     "type": "git",

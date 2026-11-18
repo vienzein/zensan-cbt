@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Galat } from '../components/Dasar.jsx';
+import LaporSoal from '../components/LaporSoal.jsx';
 
 // Halaman mengerjakan soal. Dipakai untuk drill dan Domain 0.
 // Server menilai semuanya sekali di akhir sesi; di sini kita hanya mencatat jawaban dan lama pengerjaan
@@ -197,6 +198,9 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
               className="w-full rounded-2xl border border-line bg-card px-4 py-3.5 outline-none focus:border-aksen"
             />
           )}
+        </div>
+        <div className="mt-4 text-center">
+          <LaporSoal key={q.question_id} questionId={q.question_id} sedangUjian />
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Layar } from '../components/Dasar.jsx';
+import LaporSoal from '../components/LaporSoal.jsx';
 
 function jam(iso) {
   return new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -152,6 +153,11 @@ function Tinjauan({ h }) {
         </div>
       ) : (
         <p className="mt-3 text-xs text-redup">Pembahasan untuk soal ini belum tersedia.</p>
+      )}
+      {h.question_id && (
+        <div className="mt-3 text-right">
+          <LaporSoal questionId={h.question_id} />
+        </div>
       )}
     </div>
   );
