@@ -14,7 +14,7 @@
  * (npm run impor:stage). Subtes, topik, subtopik, level, dan waktu soal diambil dari stage-nya.
  *
  * Aturan: tes dan subtes harus sudah ada; topik dan subtopik yang belum ada dibuat otomatis; soal yang
- * sama (topik + teks soal) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
+ * sama (topik + teks soal + gambar) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
  * Format kolom: lihat seed/PETUNJUK-IMPOR-SOAL.md dan seed/templat-soal.csv.
  * Format Word: lihat seed/PETUNJUK-IMPOR-WORD.md dan seed/templat-soal.docx.
  */
@@ -23,7 +23,7 @@ const fs = require('node:fs');
 const pool = require('../src/db');
 const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0, adaPenanda } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
-const { dariEnv } = require('../src/services/penyimpananGambar');
+const { dariEnv, hashGambar } = require('../src/services/penyimpananGambar');
 
 const [, , berkas, ...flag] = process.argv;
 const tulis = flag.includes('--tulis');
@@ -181,10 +181,17 @@ async function main() {
         }
       }
 
-      const kunciSoal = `${topicId.id}|${s.teks}`;
+      // Soal dianggap sama bila topik, teks, DAN gambarnya sama. Teks kembar dengan gambar berbeda (mis. "Banyak persegi
+      // pada bangun di atas") adalah soal berbeda. Tanpa gambar, perbandingannya tetap topik + teks.
+      const idGambar = s.gambarBerkas ? hashGambar(media.get(s.gambarBerkas)) : (s.gambarUrl || '');
+      const kunciSoal = `${topicId.id}|${s.teks}|${idGambar}`;
       if (dalamBerkas.has(kunciSoal)) { stat.kembar += 1; continue; }
       dalamBerkas.add(kunciSoal);
-      const sudah = await c.query('SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
+      const sudah = idGambar
+        ? await c.query(
+          `SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 AND COALESCE(soal_gambar_url, '') LIKE $3 LIMIT 1`,
+          [topicId.id, s.teks, `%${idGambar.replace(/[%_\\]/g, '\\$&')}%`])
+        : await c.query('SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
       if (sudah.rows.length) {
         stat.ada += 1;
         if (stageRow) { // pastikan soal lama tetap tertaut ke stage
