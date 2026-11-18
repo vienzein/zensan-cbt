@@ -5,6 +5,8 @@
  *
  *   npm run impor:soal -- seed/soal-saya.csv            # SIMULASI: memeriksa semuanya, tidak menyimpan
  *   npm run impor:soal -- seed/soal-saya.csv --tulis    # menyimpan
+ *   --lewati-bertanda : soal yang masih memuat [GAMBAR DIPERLUKAN...] / [RUMUS PERLU...] / [TIDAK TERBACA...] dilewati (dilaporkan), sisanya diimpor.
+ *                       Tanpa opsi ini, soal bertanda dianggap galat dan tidak ada yang disimpan.
  *   npm run impor:soal -- seed/soal-saya.docx           # sama, dari dokumen Word (lihat PETUNJUK-IMPOR-WORD.md)
  *   npm run impor:soal -- seed/soal-d0.json             # soal stage dalam JSON (kodeStage, soal, opsi, kunci, pembahasan)
  *
@@ -12,16 +14,16 @@
  * (npm run impor:stage). Subtes, topik, subtopik, level, dan waktu soal diambil dari stage-nya.
  *
  * Aturan: tes dan subtes harus sudah ada; topik dan subtopik yang belum ada dibuat otomatis; soal yang
- * sama (topik + teks soal) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
+ * sama (topik + teks soal + gambar) dilewati, jadi aman dijalankan ulang. Semua atau tidak sama sekali (satu transaksi).
  * Format kolom: lihat seed/PETUNJUK-IMPOR-SOAL.md dan seed/templat-soal.csv.
  * Format Word: lihat seed/PETUNJUK-IMPOR-WORD.md dan seed/templat-soal.docx.
  */
 
 const fs = require('node:fs');
 const pool = require('../src/db');
-const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0 } = require('../src/services/imporSoal');
+const { parseCsv, jsonKeBaris, validasi, topikButuhDomain0, adaPenanda } = require('../src/services/imporSoal');
 const { docxKeBaris } = require('../src/services/imporWord');
-const { dariEnv } = require('../src/services/penyimpananGambar');
+const { dariEnv, hashGambar } = require('../src/services/penyimpananGambar');
 
 const [, , berkas, ...flag] = process.argv;
 const tulis = flag.includes('--tulis');
@@ -56,6 +58,17 @@ async function main() {
   }
   // Penunjuk lokasi masalah: nomor baris di spreadsheet, atau nomor soal (+ awal kalimatnya) di Word.
   const lokasi = (n) => (dariWord ? `soal ke-${n}${cuplikan.get(n) ? ` ("${cuplikan.get(n)}")` : ''}` : `baris ${n}`);
+
+  // --lewati-bertanda: soal yang masih bertanda [GAMBAR DIPERLUKAN...] dkk. tidak ikut diimpor (dilaporkan), sisanya jalan terus.
+  if (flag.includes('--lewati-bertanda')) {
+    const bertanda = terbaca.baris.filter((r) => adaPenanda(r));
+    terbaca = { ...terbaca, baris: terbaca.baris.filter((r) => !adaPenanda(r)) };
+    if (bertanda.length) {
+      console.log(`Dilewati karena masih bertanda sementara: ${bertanda.length} soal`);
+      bertanda.forEach((r) => console.log(`  ${lokasi(r._nomor)}`));
+      console.log('');
+    }
+  }
 
   const hasil = validasi(terbaca);
   const { soal } = hasil;
@@ -168,10 +181,17 @@ async function main() {
         }
       }
 
-      const kunciSoal = `${topicId.id}|${s.teks}`;
+      // Soal dianggap sama bila topik, teks, DAN gambarnya sama. Teks kembar dengan gambar berbeda (mis. "Banyak persegi
+      // pada bangun di atas") adalah soal berbeda. Tanpa gambar, perbandingannya tetap topik + teks.
+      const idGambar = s.gambarBerkas ? hashGambar(media.get(s.gambarBerkas)) : (s.gambarUrl || '');
+      const kunciSoal = `${topicId.id}|${s.teks}|${idGambar}`;
       if (dalamBerkas.has(kunciSoal)) { stat.kembar += 1; continue; }
       dalamBerkas.add(kunciSoal);
-      const sudah = await c.query('SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
+      const sudah = idGambar
+        ? await c.query(
+          `SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 AND COALESCE(soal_gambar_url, '') LIKE $3 LIMIT 1`,
+          [topicId.id, s.teks, `%${idGambar.replace(/[%_\\]/g, '\\$&')}%`])
+        : await c.query('SELECT id FROM questions WHERE topic_id = $1 AND soal_teks = $2 LIMIT 1', [topicId.id, s.teks]);
       if (sudah.rows.length) {
         stat.ada += 1;
         if (stageRow) { // pastikan soal lama tetap tertaut ke stage

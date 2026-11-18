@@ -74,3 +74,11 @@ test('dariEnv: melaporkan pengaturan yang kurang; nama bucket bawaan "soal"; kun
   assert.equal(b.penyimpanan.bucket, 'gambar-soal');
   assert.deepEqual(b.kurang, []);
 });
+
+test('hashGambar: isi sama = identitas sama, isi beda = beda, 24 karakter heks', () => {
+  const { hashGambar } = require('../src/services/penyimpananGambar');
+  const a = hashGambar(Buffer.from('abc'));
+  assert.match(a, /^[0-9a-f]{24}$/);
+  assert.equal(a, hashGambar(Buffer.from('abc')));
+  assert.notEqual(a, hashGambar(Buffer.from('abd')));
+});
