@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Layar } from '../components/Dasar.jsx';
 import LaporSoal from '../components/LaporSoal.jsx';
+import TeksSoal from '../components/TeksSoal.jsx';
 
 function jam(iso) {
   return new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -120,7 +121,7 @@ function Tinjauan({ h }) {
   const kunci = typeof h.kunci_jawaban === 'string' ? h.kunci_jawaban : null;
   return (
     <div className="border-t border-line px-4 py-3">
-      {h.soal_teks && <p className="whitespace-pre-wrap leading-relaxed">{h.soal_teks}</p>}
+      {h.soal_teks && <TeksSoal teks={h.soal_teks} className="leading-relaxed" />}
       {opsi.length > 0 && (
         <div className="mt-3 space-y-1.5">
           {opsi.map((o) => {

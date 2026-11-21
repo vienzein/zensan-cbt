@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Galat } from '../components/Dasar.jsx';
 import LaporSoal from '../components/LaporSoal.jsx';
+import TeksSoal from '../components/TeksSoal.jsx';
 
 // Halaman mengerjakan soal. Dipakai untuk drill dan Domain 0.
 // Server menilai semuanya sekali di akhir sesi; di sini kita hanya mencatat jawaban dan lama pengerjaan
@@ -164,7 +165,7 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
       </p>
 
       <section className="mt-4 flex-1">
-        <p className="whitespace-pre-wrap text-base leading-relaxed">{q.soal_teks}</p>
+        <TeksSoal teks={q.soal_teks} />
         {q.soal_gambar_url && (
           <img src={q.soal_gambar_url} alt="" className="mt-4 max-h-64 w-full rounded-2xl object-contain" />
         )}

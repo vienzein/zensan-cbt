@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Memuat, Galat } from '../components/Dasar.jsx';
 import LaporSoal from '../components/LaporSoal.jsx';
+import TeksSoal from '../components/TeksSoal.jsx';
 
 const mmss = (d) => `${String(Math.floor(d / 60)).padStart(2, '0')}:${String(d % 60).padStart(2, '0')}`;
 const jam = (iso) => new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -194,7 +195,7 @@ function Kerjakan({ sesi, onSelesai }) {
       <p className="mt-2 text-xs text-redup">Soal {idx + 1} dari {soal.length}</p>
 
       <section className="mt-3 flex-1">
-        <p className="whitespace-pre-wrap text-base leading-relaxed">{q.soal_teks}</p>
+        <TeksSoal teks={q.soal_teks} />
         {q.soal_gambar_url && <img src={q.soal_gambar_url} alt="" className="mt-4 max-h-64 w-full rounded-2xl object-contain" />}
         <div className="mt-5 space-y-2.5">
           {opsi.length > 0 ? opsi.map((o) => (
