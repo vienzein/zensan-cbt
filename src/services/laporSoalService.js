@@ -1,7 +1,7 @@
 'use strict';
 
 const { HttpError } = require('../errors');
-const { BATAS_PER_HARI } = require('../config/laporanSoal');
+const { BATAS_PER_HARI, AMBANG_SEMBUNYI_OTOMATIS } = require('../config/laporanSoal');
 
 /**
  * Simpan laporan soal dari siswa. Hanya soal yang pernah muncul di sesi milik siswa itu yang boleh dilaporkan
@@ -48,7 +48,26 @@ async function laporSoal(pool, studentId, { questionId, alasan, catatan }) {
        RETURNING id`,
     [studentId, questionId, alasan, catatan],
   )).rows[0];
+  await sembunyikanBilaPerlu(pool, questionId);
   return { id: String(baru.id), sudah_pernah: false };
 }
 
-module.exports = { laporSoal };
+/**
+ * Bila jumlah siswa berbeda yang melapor soal ini (laporan yang belum selesai/ditolak) mencapai ambang,
+ * soal disembunyikan (is_active = false, hidden_reason = 'laporan_otomatis') sampai admin meninjaunya.
+ * Soal yang sudah nonaktif tidak disentuh.
+ */
+async function sembunyikanBilaPerlu(pool, questionId) {
+  const { rows } = await pool.query(
+    `UPDATE questions q
+        SET is_active = false, hidden_reason = 'laporan_otomatis', updated_at = now()
+      WHERE q.id = $1 AND q.is_active
+        AND (SELECT count(DISTINCT r.student_id) FROM question_reports r
+              WHERE r.question_id = q.id AND r.status IN ('baru', 'ditinjau')) >= $2
+  RETURNING q.id`,
+    [questionId, AMBANG_SEMBUNYI_OTOMATIS],
+  );
+  return rows.length > 0;
+}
+
+module.exports = { laporSoal, sembunyikanBilaPerlu };

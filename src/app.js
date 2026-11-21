@@ -9,6 +9,8 @@ const soalRouter = require('./routes/soal');
 const tryoutRouter = require('./routes/tryout');
 const meRouter = require('./routes/me');
 const kurikulumRouter = require('./routes/kurikulum');
+const adminRouter = require('./routes/admin');
+const { createRequireAdmin } = require('./middleware/admin');
 
 const app = express();
 app.use(express.json({ limit: '100kb' }));
@@ -29,6 +31,7 @@ app.use('/api/soal', soalRouter);
 app.use('/api/tryout', tryoutRouter);
 app.use('/api/me', meRouter);
 app.use('/api/kurikulum', kurikulumRouter);
+app.use('/api/admin', createRequireAdmin({ pool }), adminRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {

@@ -9,7 +9,7 @@ const { hitungStreak, ringkasTopik, levelNama } = require('./progress');
 /** GET /api/me */
 async function getMe(pool, studentId) {
   const { rows } = await pool.query(
-    `SELECT s.id, s.email, s.nama, s.active_curriculum_group_id,
+    `SELECT s.id, s.email, s.nama, s.is_admin, s.active_curriculum_group_id,
             cg.kode AS tes_kode, cg.nama AS tes_nama
        FROM students s
   LEFT JOIN curriculum_groups cg ON cg.id = s.active_curriculum_group_id AND cg.is_active
@@ -22,6 +22,7 @@ async function getMe(pool, studentId) {
     id: r.id,
     email: r.email,
     nama: r.nama,
+    is_admin: r.is_admin === true,
     paket: 'gratis',
     tes_aktif: r.tes_kode
       ? { id: r.active_curriculum_group_id, kode: r.tes_kode, nama: r.tes_nama }

@@ -17,5 +17,6 @@ module.exports = Object.freeze({
   ALASAN,
   KODE_ALASAN: Object.freeze(ALASAN.map((a) => a.kode)),
   CATATAN_MAKS: 500,
+  AMBANG_SEMBUNYI_OTOMATIS: 3, // jumlah siswa BERBEDA yang melapor soal yang sama (status baru/ditinjau) -> soal disembunyikan otomatis
   BATAS_PER_HARI: 40, // laporan baru per siswa per 24 jam, supaya tidak dipakai untuk membanjiri
 });
