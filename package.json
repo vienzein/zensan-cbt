@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
   "start": "node --env-file=.env src/app.js",
-  "test": "node --test test/*.test.js",
+  "test": "node --test test/*.test.js test/*.test.mjs",
   "test:integrasi": "node --env-file=.env scripts/integrasi.js",
   "test:level": "node --env-file=.env scripts/integrasi-level.js",
   "test:kalibrasi": "node --env-file=.env scripts/integrasi-kalibrasi.js",
