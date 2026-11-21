@@ -48,7 +48,7 @@ function KartuTopik({ t }) {
   );
 }
 
-export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage }) {
+export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage, onAdmin }) {
   const [data, setData] = useState(null);
   const [galat, setGalat] = useState('');
   const [sibukD0, setSibukD0] = useState(false);
@@ -164,9 +164,16 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage 
 
       <footer className="mt-10 flex items-center justify-between text-xs text-redup">
         <span>{me.email}</span>
-        <button onClick={() => supabase.auth.signOut()} className="underline">
-          Keluar
-        </button>
+        <span className="flex items-center gap-4">
+          {me.is_admin && (
+            <button onClick={onAdmin} className="font-semibold text-aksen underline">
+              Admin
+            </button>
+          )}
+          <button onClick={() => supabase.auth.signOut()} className="underline">
+            Keluar
+          </button>
+        </span>
       </footer>
     </Layar>
   );
