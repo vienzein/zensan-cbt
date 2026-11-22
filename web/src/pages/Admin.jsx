@@ -529,55 +529,124 @@ function Siswa() {
   );
 }
 
+const PILIH = 'w-full rounded-xl border border-line bg-card px-3 py-2.5 text-sm text-teks';
+
 function BankSoal() {
   const { data, galat, muat } = useMuat(() => api.adminBankSoal(), []);
+  const [tes, setTes] = useState('');
+  const [subtes, setSubtes] = useState('');
+  const [topik, setTopik] = useState('');
+  const [kosong, setKosong] = useState(false);
   if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
   if (!data) return <Memuat />;
-  const sel = (n) => (
-    <td className={`px-2 py-1 text-center ${n === 0 ? 'font-bold text-bahaya' : ''}`}>{n}</td>
+
+  const uniq = (baris, kunci) => [...new Set(baris.map((r) => r[kunci]))];
+  const daftarTes = [...new Map(data.subtopik.map((r) => [r.tes, r.tes_nama || r.tes])).entries()];
+  const tesPilih = tes || daftarTes[0]?.[0] || '';
+  const barisTes = data.subtopik.filter((r) => r.tes === tesPilih);
+  const daftarSubtes = uniq(barisTes, 'subtes');
+  const subtesPilih = daftarSubtes.includes(subtes) ? subtes : '';
+  const barisSubtes = subtesPilih ? barisTes.filter((r) => r.subtes === subtesPilih) : barisTes;
+  const daftarTopik = uniq(barisSubtes, 'topik');
+  const topikPilih = daftarTopik.includes(topik) ? topik : '';
+  const baris = (topikPilih ? barisSubtes.filter((r) => r.topik === topikPilih) : barisSubtes).filter(
+    (r) => !kosong || r.l1 === 0 || r.l2 === 0 || r.l3 === 0 || r.l4 === 0,
   );
-  let subtesIni = '';
+  const jumlah = baris.reduce((t, r) => t + r.l1 + r.l2 + r.l3 + r.l4, 0);
+  const sel = (n) => <td className={`px-2 py-1 text-center ${n === 0 ? 'font-bold text-bahaya' : ''}`}>{n}</td>;
+
   return (
     <div>
-      <p className="mb-2 text-xs text-redup">Soal aktif per level. Angka merah = kosong (siswa dialihkan ke subtopik lain).</p>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-xs text-redup">
-              <th className="px-2 py-1">Subtopik</th>
-              <th className="px-2 py-1">L1</th>
-              <th className="px-2 py-1">L2</th>
-              <th className="px-2 py-1">L3</th>
-              <th className="px-2 py-1">L4</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.subtopik.map((r, i) => {
-              const baru = r.subtes !== subtesIni;
-              subtesIni = r.subtes;
-              return [
-                baru && (
-                  <tr key={`h${r.subtes}`}>
-                    <td colSpan={5} className="pt-3 pb-1 text-xs font-bold uppercase tracking-wide text-aksen">
-                      {r.subtes}
-                    </td>
-                  </tr>
-                ),
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+        <label className="text-xs text-redup">
+          Jenis tes
+          <select
+            className={`${PILIH} mt-1`}
+            value={tesPilih}
+            onChange={(e) => {
+              setTes(e.target.value);
+              setSubtes('');
+              setTopik('');
+            }}
+          >
+            {daftarTes.map(([k, n]) => (
+              <option key={k} value={k}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs text-redup">
+          Subtes
+          <select
+            className={`${PILIH} mt-1`}
+            value={subtesPilih}
+            onChange={(e) => {
+              setSubtes(e.target.value);
+              setTopik('');
+            }}
+          >
+            <option value="">Semua subtes</option>
+            {daftarSubtes.map((k) => (
+              <option key={k} value={k}>
+                {k}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs text-redup">
+          Topik
+          <select className={`${PILIH} mt-1`} value={topikPilih} onChange={(e) => setTopik(e.target.value)}>
+            <option value="">Semua topik</option>
+            {daftarTopik.map((k) => (
+              <option key={k} value={k}>
+                {k}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label className="mt-3 flex items-center gap-2 text-sm">
+        <input type="checkbox" className="h-4 w-4 accent-lime" checked={kosong} onChange={(e) => setKosong(e.target.checked)} />
+        Hanya subtopik yang ada level kosong
+      </label>
+      <p className="mt-3 mb-2 text-xs text-redup">
+        {baris.length} subtopik · {jumlah} soal aktif. Angka merah = kosong (siswa dialihkan ke subtopik lain).
+      </p>
+      {!baris.length ? (
+        <p className="text-sm text-redup">Tidak ada subtopik yang cocok.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs text-redup">
+                <th className="px-2 py-1">Subtopik</th>
+                <th className="px-2 py-1">L1</th>
+                <th className="px-2 py-1">L2</th>
+                <th className="px-2 py-1">L3</th>
+                <th className="px-2 py-1">L4</th>
+              </tr>
+            </thead>
+            <tbody>
+              {baris.map((r, i) => (
                 <tr key={i} className="border-t border-line">
                   <td className="px-2 py-1">
-                    <span className="text-xs text-redup">{r.topik} · </span>
+                    <span className="text-xs text-redup">
+                      {subtesPilih ? '' : `${r.subtes} · `}
+                      {topikPilih ? '' : `${r.topik} · `}
+                    </span>
                     {r.subtopik}
                   </td>
                   {sel(r.l1)}
                   {sel(r.l2)}
                   {sel(r.l3)}
                   {sel(r.l4)}
-                </tr>,
-              ];
-            })}
-          </tbody>
-        </table>
-      </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
