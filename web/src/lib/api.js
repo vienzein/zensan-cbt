@@ -66,6 +66,7 @@ export const api = {
   adminUbahLembaga: (id, body) => panggil('PATCH', `/admin/lembaga/${id}`, body),
   adminTambahAdmin: (id, email) => panggil('POST', `/admin/lembaga/${id}/admin`, { email }),
   adminCabutAdmin: (id, studentId) => panggil('DELETE', `/admin/lembaga/${id}/admin/${studentId}`),
+  profil: () => panggil('GET', '/me/profil'),
   gabungLembaga: (kode) => panggil('POST', '/me/lembaga', { kode }),
   keluarLembaga: () => panggil('DELETE', '/me/lembaga'),
   mulaiDrill: (body) => panggil('POST', '/drill/start', body),

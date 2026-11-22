@@ -9,6 +9,7 @@ import Ujian from './pages/Ujian.jsx';
 import Hasil from './pages/Hasil.jsx';
 import Stage from './pages/Stage.jsx';
 import Admin from './pages/Admin.jsx';
+import Profil from './pages/Profil.jsx';
 import { Layar, Memuat, Galat } from './components/Dasar.jsx';
 
 export default function App() {
@@ -103,6 +104,9 @@ export default function App() {
   if (layar?.nama === 'stage') {
     return <Stage tesId={me.tes_aktif.id} onKembali={kembali} />;
   }
+  if (layar?.nama === 'profil') {
+    return <Profil me={me} onKembali={kembali} onMeBerubah={muatProfil} />;
+  }
   if (layar?.nama === 'hasil') {
     return <Hasil mode={layar.mode} hasil={layar.hasil} onKembali={kembali} />;
   }
@@ -114,6 +118,7 @@ export default function App() {
       onPilihDrill={(data) => setLayar({ nama: 'pilih', data })}
       onSesi={(sesi) => setLayar({ nama: 'ujian', sesi })}
       onStage={() => setLayar({ nama: 'stage' })}
+      onProfil={() => setLayar({ nama: 'profil' })}
     />
   );
 }

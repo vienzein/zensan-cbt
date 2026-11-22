@@ -6,6 +6,7 @@ const { HttpError } = require('../errors');
 const { parseCurriculumBody } = require('../validators/curriculum');
 const { getMe, setActiveTest } = require('../services/readService');
 const { gabungLembaga, keluarLembaga } = require('../services/lembagaService');
+const { profilSiswa } = require('../services/profilService');
 
 const router = express.Router();
 
@@ -18,6 +19,15 @@ const needStudent = (req) => {
 router.get('/', async (req, res, next) => {
   try {
     res.json(await getMe(pool, needStudent(req)));
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** GET /api/me/profil — profil pencapaian (level & RR, grafik, streak, lencana, rekomendasi) */
+router.get('/profil', async (req, res, next) => {
+  try {
+    res.json(await profilSiswa(pool, needStudent(req)));
   } catch (err) {
     next(err);
   }
