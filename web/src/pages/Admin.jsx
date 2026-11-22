@@ -1,55 +1,49 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Memuat, Galat } from '../components/Dasar.jsx';
 import FormSoal from '../components/FormSoal.jsx';
+import { useMuat, Kartu, tgl } from '../components/AdminDasar.jsx';
+import { Persetujuan, SoalSaya, Lembaga } from './AdminLembaga.jsx';
 
 // Halaman admin: ringkasan, laporan soal, siswa, dan jumlah soal per subtopik. Hanya muncul bila akun is_admin.
 
-const TAB = [
+const TAB_SUPER = [
   ['ringkasan', 'Ringkasan'],
+  ['persetujuan', 'Persetujuan'],
   ['laporan', 'Laporan'],
   ['input', 'Input soal'],
   ['siswa', 'Siswa'],
+  ['lembaga', 'Lembaga'],
   ['bank', 'Bank soal'],
 ];
-
-const tgl = (iso) =>
-  iso ? new Date(iso).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '-';
-
-// Memuat data sekali per layar, dengan tombol coba lagi.
-function useMuat(ambil, deps) {
-  const [data, setData] = useState(null);
-  const [galat, setGalat] = useState('');
-  const muat = useCallback(async () => {
-    setGalat('');
-    try {
-      setData(await ambil());
-    } catch (e) {
-      setGalat(e.message);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
-  useEffect(() => {
-    setData(null);
-    muat();
-  }, [muat]);
-  return { data, galat, muat };
-}
-
-function Kartu({ judul, nilai, catatan }) {
-  return (
-    <div className="rounded-2xl border border-line bg-card p-4">
-      <p className="text-xs text-redup">{judul}</p>
-      <p className="mt-1 text-2xl font-extrabold">{nilai}</p>
-      {catatan && <p className="mt-0.5 text-xs text-redup">{catatan}</p>}
-    </div>
-  );
-}
+const TAB_LEMBAGA = [
+  ['ringkasan', 'Ringkasan'],
+  ['input', 'Input soal'],
+  ['saya', 'Soal saya'],
+  ['siswa', 'Siswa'],
+];
 
 function Ringkasan() {
   const { data, galat, muat } = useMuat(() => api.adminRingkasan(), []);
   if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
   if (!data) return <Memuat />;
+  if (data.peran === 'admin_lembaga') {
+    return (
+      <div>
+        <p className="mb-3 text-sm text-redup">
+          {data.lembaga} · kode undangan siswa: <span className="font-mono font-bold tracking-widest text-teks">{data.kode_undangan}</span>
+        </p>
+        <div className="grid grid-cols-2 gap-3">
+          <Kartu judul="Siswa lembaga" nilai={data.siswa} />
+          <Kartu judul="Aktif 7 hari terakhir" nilai={data.siswa_aktif_7_hari} />
+          <Kartu judul="Jawaban 24 jam terakhir" nilai={data.jawaban_24_jam} />
+          <Kartu judul="Akurasi 30 hari" nilai={data.akurasi_30_hari === null ? '-' : `${data.akurasi_30_hari}%`} />
+          <Kartu judul="Soal menunggu" nilai={data.soal_menunggu} catatan="antre persetujuan" />
+          <Kartu judul="Soal disetujui" nilai={data.soal_disetujui} catatan={`${data.soal_ditolak} ditolak`} />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-2 gap-3">
       <Kartu judul="Siswa terdaftar" nilai={data.siswa} />
@@ -58,6 +52,8 @@ function Ringkasan() {
       <Kartu judul="Soal aktif" nilai={data.soal_aktif} />
       <Kartu judul="Laporan baru" nilai={data.laporan_baru} catatan={`${data.soal_dilaporkan_baru} soal`} />
       <Kartu judul="Soal tersembunyi" nilai={data.soal_tersembunyi} catatan="karena laporan / admin" />
+      <Kartu judul="Soal menunggu persetujuan" nilai={data.soal_menunggu} catatan="dari lembaga mitra" />
+      <Kartu judul="Lembaga mitra" nilai={data.lembaga} />
     </div>
   );
 }
@@ -519,7 +515,7 @@ function Siswa() {
           <button onClick={() => setBuka(s.id)} className="w-full rounded-2xl border border-line bg-card p-3 text-left">
             <p className="font-bold">
               {s.nama}
-              {s.admin && <span className="ml-2 text-xs text-aksen">admin</span>}
+              {s.lembaga && <span className="ml-2 text-xs text-aksen">{s.lembaga}</span>}
             </p>
             <p className="text-xs text-redup">{s.email}</p>
             <p className="mt-1 text-xs">
@@ -586,11 +582,15 @@ function BankSoal() {
   );
 }
 
-export default function Admin({ onKembali }) {
+export default function Admin({ me, onKeluar }) {
+  const super_ = me.role === 'super_admin';
+  const TAB = super_ ? TAB_SUPER : TAB_LEMBAGA;
   const [tab, setTab] = useState('ringkasan');
+  const [editId, setEditId] = useState(null);
   const [label, setLabel] = useState({});
 
   useEffect(() => {
+    if (!super_) return;
     api
       .alasanLapor()
       .then((r) => setLabel(Object.fromEntries(r.alasan.map((a) => [a.kode, a.label]))))
@@ -600,9 +600,12 @@ export default function Admin({ onKembali }) {
   return (
     <div className="mx-auto min-h-dvh w-full max-w-3xl px-5 pt-6 pb-10">
       <header className="flex items-center justify-between">
-        <h1 className="text-xl font-extrabold">Admin</h1>
-        <button onClick={onKembali} className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold">
-          Tutup
+        <div>
+          <h1 className="text-xl font-extrabold">{super_ ? 'Admin Zensan' : me.lembaga?.nama || 'Admin lembaga'}</h1>
+          <p className="text-xs text-redup">{me.email}</p>
+        </div>
+        <button onClick={onKeluar} className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold">
+          Keluar
         </button>
       </header>
       <nav className="mt-4 mb-5 flex gap-2 overflow-x-auto">
@@ -618,11 +621,20 @@ export default function Admin({ onKembali }) {
           </button>
         ))}
       </nav>
-      {tab === 'ringkasan' && <Ringkasan />}
-      {tab === 'laporan' && <Laporan label={label} />}
-      {tab === 'input' && <Input />}
-      {tab === 'siswa' && <Siswa />}
-      {tab === 'bank' && <BankSoal />}
+      {editId ? (
+        <EditSoal id={editId} onKembali={() => setEditId(null)} onSelesai={() => setEditId(null)} />
+      ) : (
+        <>
+          {tab === 'ringkasan' && <Ringkasan />}
+          {tab === 'persetujuan' && <Persetujuan onEdit={setEditId} />}
+          {tab === 'laporan' && <Laporan label={label} />}
+          {tab === 'input' && <Input />}
+          {tab === 'saya' && <SoalSaya onEdit={setEditId} />}
+          {tab === 'siswa' && <Siswa />}
+          {tab === 'lembaga' && <Lembaga />}
+          {tab === 'bank' && <BankSoal />}
+        </>
+      )}
     </div>
   );
 }

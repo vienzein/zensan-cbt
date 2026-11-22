@@ -2,17 +2,21 @@
 
 const { HttpError } = require('../errors');
 const { KODE_ALASAN } = require('../config/laporanSoal');
+const { PERAN } = require('../config/peran');
+
+const untukLembaga = (admin) => Boolean(admin) && admin.role === PERAN.ADMIN_LEMBAGA;
 
 const STATUS_LAPORAN = Object.freeze(['baru', 'ditinjau', 'selesai', 'ditolak']);
 const STATUS_TINDAK = Object.freeze(['ditinjau', 'selesai', 'ditolak']);
 
 const potong = (t, n) => String(t || '').replace(/\s+/g, ' ').trim().slice(0, n);
 
-/** GET /api/admin/ringkasan */
-async function ringkasan(pool) {
+/** GET /api/admin/ringkasan — super admin: seluruh aplikasi; admin lembaga: hanya lembaganya. */
+async function ringkasan(pool, admin) {
+  if (untukLembaga(admin)) return ringkasanLembaga(pool, admin.institutionId);
   const { rows } = await pool.query(
     `SELECT
-       (SELECT count(*)::int FROM students)                                              AS siswa,
+       (SELECT count(*)::int FROM students WHERE role = 'siswa')                         AS siswa,
        (SELECT count(DISTINCT student_id)::int FROM student_answer_history
          WHERE answered_at > now() - interval '7 days')                                  AS siswa_aktif_7_hari,
        (SELECT count(*)::int FROM student_answer_history
@@ -20,9 +24,33 @@ async function ringkasan(pool) {
        (SELECT count(*)::int FROM questions WHERE is_active AND NOT is_domain0)          AS soal_aktif,
        (SELECT count(*)::int FROM questions WHERE NOT is_active AND hidden_reason IS NOT NULL) AS soal_tersembunyi,
        (SELECT count(DISTINCT question_id)::int FROM question_reports WHERE status = 'baru') AS soal_dilaporkan_baru,
-       (SELECT count(*)::int FROM question_reports WHERE status = 'baru')                AS laporan_baru`,
+       (SELECT count(*)::int FROM question_reports WHERE status = 'baru')                AS laporan_baru,
+       (SELECT count(*)::int FROM institutions WHERE is_active)                          AS lembaga,
+       (SELECT count(*)::int FROM questions WHERE approval_status = 'menunggu')          AS soal_menunggu`,
   );
-  return rows[0];
+  return { peran: PERAN.SUPER_ADMIN, ...rows[0] };
+}
+
+async function ringkasanLembaga(pool, lembagaId) {
+  const { rows } = await pool.query(
+    `SELECT i.nama AS lembaga, i.kode_undangan,
+       (SELECT count(*)::int FROM students s WHERE s.institution_id = i.id AND s.role = 'siswa')  AS siswa,
+       (SELECT count(DISTINCT h.student_id)::int FROM student_answer_history h
+          JOIN students s ON s.id = h.student_id
+         WHERE s.institution_id = i.id AND s.role = 'siswa' AND h.answered_at > now() - interval '7 days') AS siswa_aktif_7_hari,
+       (SELECT count(*)::int FROM student_answer_history h JOIN students s ON s.id = h.student_id
+         WHERE s.institution_id = i.id AND s.role = 'siswa' AND h.answered_at > now() - interval '24 hours') AS jawaban_24_jam,
+       (SELECT CASE WHEN count(*) = 0 THEN NULL ELSE round(100.0 * count(*) FILTER (WHERE h.is_correct) / count(*))::int END
+          FROM student_answer_history h JOIN students s ON s.id = h.student_id
+         WHERE s.institution_id = i.id AND s.role = 'siswa' AND h.answered_at > now() - interval '30 days') AS akurasi_30_hari,
+       (SELECT count(*)::int FROM questions q WHERE q.institution_id = i.id AND q.approval_status = 'menunggu')  AS soal_menunggu,
+       (SELECT count(*)::int FROM questions q WHERE q.institution_id = i.id AND q.approval_status = 'disetujui') AS soal_disetujui,
+       (SELECT count(*)::int FROM questions q WHERE q.institution_id = i.id AND q.approval_status = 'ditolak')   AS soal_ditolak
+       FROM institutions i WHERE i.id = $1`,
+    [lembagaId],
+  );
+  if (!rows.length) throw new HttpError(404, 'LEMBAGA_TIDAK_DITEMUKAN', 'Lembaga tidak ditemukan');
+  return { peran: PERAN.ADMIN_LEMBAGA, ...rows[0] };
 }
 
 /** GET /api/admin/laporan?status=baru|semua — soal yang dilaporkan, dikelompokkan per soal. */
@@ -127,24 +155,28 @@ async function tindakLaporan(pool, questionId, { status, soalAktif }) {
 }
 
 /** GET /api/admin/siswa */
-async function daftarSiswa(pool) {
+async function daftarSiswa(pool, admin) {
+  const lembaga = untukLembaga(admin);
   const { rows } = await pool.query(
-    `SELECT s.id, s.email, s.nama, s.created_at, s.is_admin, cg.kode AS tes_kode,
+    `SELECT s.id, s.email, s.nama, s.created_at, s.role, cg.kode AS tes_kode, i.nama AS lembaga,
             a.sesi, a.terakhir, h.jawaban, h.benar
        FROM students s
   LEFT JOIN curriculum_groups cg ON cg.id = s.active_curriculum_group_id
+  LEFT JOIN institutions i ON i.id = s.institution_id
   LEFT JOIN LATERAL (SELECT count(*)::int AS sesi, max(started_at) AS terakhir
                        FROM student_attempts WHERE student_id = s.id) a ON true
   LEFT JOIN LATERAL (SELECT count(*)::int AS jawaban, (count(*) FILTER (WHERE is_correct))::int AS benar
                        FROM student_answer_history WHERE student_id = s.id) h ON true
+      WHERE s.role = 'siswa' AND ($1::bigint IS NULL OR s.institution_id = $1)
       ORDER BY a.terakhir DESC NULLS LAST, s.created_at DESC
       LIMIT 300`,
+    [lembaga ? admin.institutionId : null],
   );
   return rows.map((r) => ({
     id: r.id,
     nama: r.nama,
     email: r.email,
-    admin: r.is_admin,
+    lembaga: r.lembaga,
     tes: r.tes_kode,
     daftar: r.created_at,
     terakhir_latihan: r.terakhir,
@@ -155,12 +187,12 @@ async function daftarSiswa(pool) {
 }
 
 /** GET /api/admin/siswa/:id — penguasaan per subtopik + sesi terakhir. */
-async function detailSiswa(pool, studentId) {
+async function detailSiswa(pool, studentId, admin) {
   const s = (await pool.query(
     `SELECT s.id, s.nama, s.email, s.created_at, cg.kode AS tes_kode
        FROM students s LEFT JOIN curriculum_groups cg ON cg.id = s.active_curriculum_group_id
-      WHERE s.id = $1::uuid`,
-    [studentId],
+      WHERE s.id = $1::uuid AND s.role = 'siswa' AND ($2::bigint IS NULL OR s.institution_id = $2)`,
+    [studentId, untukLembaga(admin) ? admin.institutionId : null],
   )).rows[0];
   if (!s) throw new HttpError(404, 'SISWA_TIDAK_DITEMUKAN', 'Siswa tidak ditemukan');
 

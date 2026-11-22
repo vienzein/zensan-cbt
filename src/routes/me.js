@@ -5,6 +5,7 @@ const pool = require('../db');
 const { HttpError } = require('../errors');
 const { parseCurriculumBody } = require('../validators/curriculum');
 const { getMe, setActiveTest } = require('../services/readService');
+const { gabungLembaga, keluarLembaga } = require('../services/lembagaService');
 
 const router = express.Router();
 
@@ -28,6 +29,24 @@ router.put('/tes', async (req, res, next) => {
     const studentId = needStudent(req);
     const { curriculumGroupId } = parseCurriculumBody(req.body);
     res.json(await setActiveTest(pool, studentId, curriculumGroupId));
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** POST /api/me/lembaga  { "kode": "K7M2PQ9X" } — gabung ke lembaga lewat kode undangan */
+router.post('/lembaga', async (req, res, next) => {
+  try {
+    res.json(await gabungLembaga(pool, needStudent(req), req.body));
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** DELETE /api/me/lembaga — keluar dari lembaga */
+router.delete('/lembaga', async (req, res, next) => {
+  try {
+    res.json(await keluarLembaga(pool, needStudent(req)));
   } catch (err) {
     next(err);
   }

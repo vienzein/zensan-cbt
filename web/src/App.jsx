@@ -63,6 +63,9 @@ export default function App() {
   }
   if (!me) return <Memuat />;
 
+  // Akun admin tidak pernah melihat halaman drill: langsung ke ruang admin sesuai perannya.
+  if (me.is_admin) return <Admin me={me} onKeluar={() => supabase.auth.signOut()} />;
+
   if (!me.tes_aktif || ganti) {
     return (
       <PilihTes
@@ -100,9 +103,6 @@ export default function App() {
   if (layar?.nama === 'stage') {
     return <Stage tesId={me.tes_aktif.id} onKembali={kembali} />;
   }
-  if (layar?.nama === 'admin' && me.is_admin) {
-    return <Admin onKembali={kembali} />;
-  }
   if (layar?.nama === 'hasil') {
     return <Hasil mode={layar.mode} hasil={layar.hasil} onKembali={kembali} />;
   }
@@ -114,7 +114,6 @@ export default function App() {
       onPilihDrill={(data) => setLayar({ nama: 'pilih', data })}
       onSesi={(sesi) => setLayar({ nama: 'ujian', sesi })}
       onStage={() => setLayar({ nama: 'stage' })}
-      onAdmin={() => setLayar({ nama: 'admin' })}
     />
   );
 }
