@@ -4,6 +4,7 @@ const express = require('express');
 const pool = require('../db');
 const { HttpError } = require('../errors');
 const svc = require('../services/adminService');
+const soalSvc = require('../services/adminSoalService');
 
 const router = express.Router();
 
@@ -39,5 +40,26 @@ router.get('/siswa/:id', jalan(async (req, res) => {
 }));
 
 router.get('/bank-soal', jalan(async (req, res) => res.json({ subtopik: await svc.bankSoal(pool) })));
+
+// ---------- Input dan edit soal ----------
+
+// Isi berkas (docx / gambar) dikirim apa adanya sebagai badan permintaan.
+const berkasMentah = (batas) => express.raw({ type: () => true, limit: batas });
+const flag = (v) => v === '1' || v === 'true';
+
+router.get('/pilihan', jalan(async (req, res) => res.json({ subtes: await soalSvc.pilihan(pool) })));
+
+router.post('/impor/docx', berkasMentah('30mb'), jalan(async (req, res) => {
+  if (!Buffer.isBuffer(req.body) || !req.body.length) throw new HttpError(400, 'BAD_REQUEST', 'Berkas .docx kosong');
+  res.json(await soalSvc.imporDocx(pool, req.body, { tulis: flag(req.query.tulis), lewatiBertanda: flag(req.query.lewati_bertanda) }));
+}));
+
+router.post('/gambar', berkasMentah('6mb'), jalan(async (req, res) => res.json(await soalSvc.unggahGambar(req.body))));
+
+router.post('/soal', jalan(async (req, res) => res.status(201).json(await soalSvc.buatSoal(pool, req.body))));
+
+router.get('/soal/:id', jalan(async (req, res) => res.json(await soalSvc.ambilSoal(pool, idSoal(req.params.id)))));
+
+router.put('/soal/:id', jalan(async (req, res) => res.json(await soalSvc.ubahSoal(pool, idSoal(req.params.id), req.body))));
 
 module.exports = router;

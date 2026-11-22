@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Memuat, Galat } from '../components/Dasar.jsx';
+import FormSoal from '../components/FormSoal.jsx';
 
 // Halaman admin: ringkasan, laporan soal, siswa, dan jumlah soal per subtopik. Hanya muncul bila akun is_admin.
 
 const TAB = [
   ['ringkasan', 'Ringkasan'],
   ['laporan', 'Laporan'],
+  ['input', 'Input soal'],
   ['siswa', 'Siswa'],
   ['bank', 'Bank soal'],
 ];
@@ -60,7 +62,7 @@ function Ringkasan() {
   );
 }
 
-function DetailLaporan({ id, label, onKembali, onSelesai }) {
+function DetailLaporan({ id, label, onKembali, onSelesai, onEdit }) {
   const { data, galat, muat } = useMuat(() => api.adminLaporanDetail(id), [id]);
   const [sibuk, setSibuk] = useState(false);
   const [galatAksi, setGalatAksi] = useState('');
@@ -106,6 +108,12 @@ function DetailLaporan({ id, label, onKembali, onSelesai }) {
         <b>Kunci tersimpan:</b> {kunci}
       </p>
       {soal.pembahasan && <p className="mt-2 whitespace-pre-wrap text-xs text-redup">{soal.pembahasan}</p>}
+      <button
+        onClick={() => onEdit(soal.id)}
+        className="mt-3 w-full rounded-xl border border-aksen py-3 text-sm font-bold text-aksen"
+      >
+        Edit soal ini
+      </button>
 
       <h3 className="mt-5 mb-2 text-sm font-bold uppercase tracking-wide text-redup">Laporan ({laporan.length})</h3>
       <ul className="space-y-2">
@@ -163,14 +171,28 @@ function DetailLaporan({ id, label, onKembali, onSelesai }) {
 function Laporan({ label }) {
   const [semua, setSemua] = useState(false);
   const [buka, setBuka] = useState(null);
+  const [edit, setEdit] = useState(null);
   const { data, galat, muat } = useMuat(() => api.adminLaporan(semua), [semua]);
 
+  if (edit) {
+    return (
+      <EditSoal
+        id={edit}
+        onKembali={() => setEdit(null)}
+        onSelesai={() => {
+          setEdit(null);
+          muat();
+        }}
+      />
+    );
+  }
   if (buka) {
     return (
       <DetailLaporan
         id={buka}
         label={label}
         onKembali={() => setBuka(null)}
+        onEdit={setEdit}
         onSelesai={() => {
           setBuka(null);
           muat();
@@ -207,6 +229,233 @@ function Laporan({ label }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+
+// Memuat soal + pilihan lalu menampilkan form edit.
+function EditSoal({ id, onKembali, onSelesai }) {
+  const { data, galat, muat } = useMuat(async () => {
+    const [soal, pil] = await Promise.all([api.adminSoal(id), api.adminPilihan()]);
+    return { soal, pilihan: pil.subtes };
+  }, [id]);
+  const [selesai, setSelesai] = useState(false);
+  if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
+  if (!data) return <Memuat />;
+  if (selesai) {
+    return (
+      <div>
+        <p className="rounded-xl bg-lime/10 p-3 text-sm text-lime">Soal #{id} sudah diperbarui.</p>
+        <button onClick={onSelesai} className="mt-4 w-full rounded-xl bg-card-2 py-3 text-sm font-bold">
+          Kembali
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <button onClick={onKembali} className="mb-3 text-sm text-aksen underline">
+        ← Batal
+      </button>
+      <FormSoal pilihan={data.pilihan} awal={data.soal} onSelesai={() => setSelesai(true)} />
+    </div>
+  );
+}
+
+// ---------- Input soal ----------
+
+function UnggahDocx() {
+  const [file, setFile] = useState(null);
+  const [lewati, setLewati] = useState(false);
+  const [sibuk, setSibuk] = useState(false);
+  const [galat, setGalat] = useState('');
+  const [hasil, setHasil] = useState(null);
+
+  async function jalan(tulis) {
+    setSibuk(true);
+    setGalat('');
+    try {
+      setHasil({ ...(await api.adminImporDocx(file, { tulis, lewatiBertanda: lewati })) });
+    } catch (e) {
+      setGalat(e.message);
+    }
+    setSibuk(false);
+  }
+
+  const siapSimpan = hasil?.ok && !hasil.tulis && hasil.stat.baru > 0;
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-redup">
+        Unggah berkas Word berformat kesepakatan (gambar tertanam ikut terbawa). Soal diperiksa dulu tanpa disimpan; setelah
+        hasilnya benar, tekan Simpan.
+      </p>
+      <input
+        type="file"
+        accept=".docx"
+        onChange={(e) => {
+          setFile(e.target.files?.[0] || null);
+          setHasil(null);
+          setGalat('');
+        }}
+        className="block w-full text-sm"
+      />
+      <label className="flex items-center gap-2 text-xs text-redup">
+        <input type="checkbox" checked={lewati} onChange={(e) => { setLewati(e.target.checked); setHasil(null); }} />
+        Lewati soal yang masih bertanda sementara ([GAMBAR DIPERLUKAN…] dan sejenisnya)
+      </label>
+      <button
+        disabled={!file || sibuk}
+        onClick={() => jalan(false)}
+        className="w-full rounded-xl bg-card-2 py-3 text-sm font-bold disabled:opacity-40"
+      >
+        {sibuk ? 'Memproses…' : 'Periksa dulu (simulasi)'}
+      </button>
+      {galat && <p className="text-sm font-semibold text-bahaya">{galat}</p>}
+
+      {hasil && !hasil.ok && (
+        <div className="rounded-xl border border-bahaya/50 p-3 text-sm">
+          <p className="font-bold text-bahaya">Ada masalah, belum ada yang disimpan.</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {hasil.galat.map((g, i) => (
+              <li key={i}>
+                <b>{g.lokasi}:</b> {g.pesan}
+              </li>
+            ))}
+          </ul>
+          {hasil.jumlahGalat > hasil.galat.length && (
+            <p className="mt-2 text-xs text-redup">…dan {hasil.jumlahGalat - hasil.galat.length} masalah lainnya.</p>
+          )}
+        </div>
+      )}
+
+      {hasil?.ok && (
+        <div className="rounded-xl border border-line bg-card p-3 text-sm">
+          <p className={`font-bold ${hasil.tulis ? 'text-lime' : 'text-aksen'}`}>
+            {hasil.tulis ? 'TERSIMPAN' : 'Simulasi (belum disimpan)'}
+          </p>
+          <ul className="mt-2 space-y-0.5">
+            <li>Soal baru: <b>{hasil.stat.baru}</b></li>
+            <li>Sudah ada (dilewati): {hasil.stat.ada}</li>
+            {hasil.stat.kembar > 0 && <li>Kembar di berkas: {hasil.stat.kembar}</li>}
+            <li>Topik baru: {hasil.stat.topikBaru} · Subtopik baru: {hasil.stat.subBaru}</li>
+            {hasil.gambar > 0 && <li>Gambar: {hasil.gambar}</li>}
+          </ul>
+          {hasil.perKelompok.length > 0 && (
+            <div className="mt-2 text-xs text-redup">
+              {hasil.perKelompok.map(([k, n]) => (
+                <p key={k}>
+                  {k}: {n}
+                </p>
+              ))}
+            </div>
+          )}
+          {hasil.dilewati.length > 0 && (
+            <p className="mt-2 text-xs text-emas">Dilewati karena masih bertanda: {hasil.dilewati.join('; ')}</p>
+          )}
+          {hasil.peringatan.length > 0 && (
+            <ul className="mt-2 list-disc pl-5 text-xs text-emas">
+              {hasil.peringatan.slice(0, 20).map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+      {siapSimpan && (
+        <button
+          disabled={sibuk}
+          onClick={() => jalan(true)}
+          className="w-full rounded-xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+        >
+          {sibuk ? 'Menyimpan…' : `Simpan ${hasil.stat.baru} soal baru`}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function TulisSoal() {
+  const { data, galat, muat } = useMuat(() => api.adminPilihan(), []);
+  const [kunciForm, setKunciForm] = useState(0); // naik = form dikosongkan lagi
+  const [tersimpan, setTersimpan] = useState(null);
+  if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
+  if (!data) return <Memuat />;
+  return (
+    <div>
+      {tersimpan && (
+        <p className="mb-4 rounded-xl bg-lime/10 p-3 text-sm text-lime">Soal #{tersimpan} tersimpan. Formulir sudah dikosongkan.</p>
+      )}
+      <FormSoal
+        key={kunciForm}
+        pilihan={data.subtes}
+        awal={null}
+        onSelesai={(id) => {
+          setTersimpan(id);
+          setKunciForm((n) => n + 1);
+          window.scrollTo({ top: 0 });
+        }}
+      />
+    </div>
+  );
+}
+
+function CariEdit({ onEdit }) {
+  const [nomor, setNomor] = useState('');
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (/^\d+$/.test(nomor.trim())) onEdit(nomor.trim());
+      }}
+      className="flex gap-2"
+    >
+      <input
+        value={nomor}
+        onChange={(e) => setNomor(e.target.value)}
+        inputMode="numeric"
+        placeholder="Nomor soal, mis. 5773"
+        className="flex-1 rounded-xl border border-line bg-card px-3 py-2.5 text-sm outline-none focus:border-aksen"
+      />
+      <button type="submit" className="rounded-xl bg-card-2 px-4 text-sm font-bold">
+        Edit
+      </button>
+    </form>
+  );
+}
+
+function Input() {
+  const [mode, setMode] = useState('docx');
+  const [edit, setEdit] = useState(null);
+  if (edit) return <EditSoal id={edit} onKembali={() => setEdit(null)} onSelesai={() => setEdit(null)} />;
+  const MODE = [
+    ['docx', 'Unggah docx'],
+    ['tulis', 'Tulis soal'],
+    ['edit', 'Edit soal'],
+  ];
+  return (
+    <div>
+      <div className="mb-4 flex gap-2">
+        {MODE.map(([k, n]) => (
+          <button
+            key={k}
+            onClick={() => setMode(k)}
+            className={`flex-1 rounded-xl py-2.5 text-sm font-semibold ${
+              mode === k ? 'bg-card-2 text-aksen' : 'border border-line text-redup'
+            }`}
+          >
+            {n}
+          </button>
+        ))}
+      </div>
+      {mode === 'docx' && <UnggahDocx />}
+      {mode === 'tulis' && <TulisSoal />}
+      {mode === 'edit' && (
+        <div className="space-y-3">
+          <p className="text-sm text-redup">Masukkan nomor soal (tampil sebagai #nomor di daftar laporan).</p>
+          <CariEdit onEdit={setEdit} />
+        </div>
+      )}
     </div>
   );
 }
@@ -371,6 +620,7 @@ export default function Admin({ onKembali }) {
       </nav>
       {tab === 'ringkasan' && <Ringkasan />}
       {tab === 'laporan' && <Laporan label={label} />}
+      {tab === 'input' && <Input />}
       {tab === 'siswa' && <Siswa />}
       {tab === 'bank' && <BankSoal />}
     </div>

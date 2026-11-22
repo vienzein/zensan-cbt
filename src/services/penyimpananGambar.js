@@ -12,6 +12,11 @@
 const crypto = require('node:crypto');
 const { TIPE_GAMBAR } = require('./imporWord');
 
+/** Identitas isi gambar (24 heks pertama SHA-256); sama dengan nama berkas di bucket, jadi gambar kembar = nama sama. */
+function hashGambar(isi) {
+  return crypto.createHash('sha256').update(isi).digest('hex').slice(0, 24);
+}
+
 function buatPenyimpanan({ url, kunci, bucket = 'soal', fetchFn = globalThis.fetch }) {
   const dasar = String(url).replace(/\/+$/, '');
   const header = (tambahan = {}) => ({
@@ -54,7 +59,7 @@ function buatPenyimpanan({ url, kunci, bucket = 'soal', fetchFn = globalThis.fet
     async unggah(isi, ekstensi) {
       const tipe = TIPE_GAMBAR[String(ekstensi).toLowerCase()];
       if (!tipe) throw new Error(`Format gambar .${ekstensi} tidak didukung`);
-      const nama = `${crypto.createHash('sha256').update(isi).digest('hex').slice(0, 24)}.${String(ekstensi).toLowerCase()}`;
+      const nama = `${hashGambar(isi)}.${String(ekstensi).toLowerCase()}`;
       const r = await panggil(`${dasar}/storage/v1/object/${encodeURIComponent(bucket)}/${nama}`, {
         method: 'POST',
         headers: header({ 'Content-Type': tipe, 'x-upsert': 'true', 'cache-control': 'max-age=31536000' }),
@@ -80,4 +85,4 @@ function dariEnv(env = process.env, fetchFn = globalThis.fetch) {
   };
 }
 
-module.exports = { buatPenyimpanan, dariEnv };
+module.exports = { buatPenyimpanan, dariEnv, hashGambar };

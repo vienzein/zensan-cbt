@@ -90,3 +90,11 @@ test('aturan bawaan Domain 0 pada topik baru: matematika ya, lainnya tidak, bisa
   assert.equal(topikButuhDomain0({ subtes: 'KL', topikButuhDomain0: null }), false);
   assert.equal(topikButuhDomain0({ subtes: 'NUM', topikButuhDomain0: false }), false);
 });
+
+test('soal yang masih memuat penanda sementara ditolak (gambar/rumus belum dipasang)', () => {
+  for (const sisip of ['[GAMBAR DIPERLUKAN: grafik garis] Perhatikan grafik.', '[RUMUS PERLU DIKETIK ULANG DI WORD] Nilai x ...', 'Nilai x [TIDAK TERBACA: baris 2]']) {
+    const r = validasi(parseCsv(csv(ok.replace('Akar x²−9=0?', sisip))));
+    assert.ok(r.galat.some((g) => /penanda sementara/.test(g.pesan)), sisip);
+  }
+  assert.deepEqual(validasi(parseCsv(csv(ok))).galat, []);
+});
