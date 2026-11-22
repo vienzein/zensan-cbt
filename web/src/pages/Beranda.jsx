@@ -48,7 +48,7 @@ function KartuTopik({ t }) {
   );
 }
 
-export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage }) {
+export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage, onProfil }) {
   const [data, setData] = useState(null);
   const [galat, setGalat] = useState('');
   const [sibukD0, setSibukD0] = useState(false);
@@ -96,12 +96,17 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage 
     <Layar>
       <header className="flex items-center justify-between">
         <Logo className="h-8" />
+        <div className="flex items-center gap-2">
+          <button onClick={onProfil} className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold">
+            Profil
+          </button>
         <button
           onClick={onGantiTes}
           className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold text-aksen"
         >
           {me.tes_aktif.nama} ▾
         </button>
+        </div>
       </header>
 
       <section className="mt-6 rounded-3xl bg-card-2 p-5">
