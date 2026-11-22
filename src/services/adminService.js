@@ -222,19 +222,20 @@ async function detailSiswa(pool, studentId, admin) {
 /** GET /api/admin/bank-soal — jumlah soal AKTIF per subtopik dan level (soal multi-subtopik dihitung di tiap subtopiknya). */
 async function bankSoal(pool) {
   const { rows } = await pool.query(
-    `SELECT s.kode AS subtes, t.nama AS topik, st.nama AS subtopik,
+    `SELECT cg.kode AS tes, cg.nama AS tes_nama, s.kode AS subtes, t.nama AS topik, st.nama AS subtopik,
             (count(q.id) FILTER (WHERE q.level_soal = 1))::int AS l1,
             (count(q.id) FILTER (WHERE q.level_soal = 2))::int AS l2,
             (count(q.id) FILTER (WHERE q.level_soal = 3))::int AS l3,
             (count(q.id) FILTER (WHERE q.level_soal = 4))::int AS l4
        FROM subjects s
+       JOIN curriculum_groups cg ON cg.id = s.curriculum_group_id
        JOIN topics t     ON t.subject_id = s.id AND t.is_active
        JOIN subtopics st ON st.topic_id = t.id AND st.is_active
   LEFT JOIN question_subtopics qs ON qs.subtopic_id = st.id
   LEFT JOIN questions q ON q.id = qs.question_id AND q.is_active AND NOT q.is_domain0
       WHERE s.is_active
-      GROUP BY s.id, s.urutan, t.id, st.id
-      ORDER BY s.urutan, s.id, t.id, st.id`,
+      GROUP BY cg.id, s.id, s.urutan, t.id, st.id
+      ORDER BY cg.id, s.urutan, s.id, t.id, st.id`,
   );
   return rows;
 }
