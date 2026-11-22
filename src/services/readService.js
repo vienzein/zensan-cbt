@@ -9,10 +9,11 @@ const { hitungStreak, ringkasTopik, levelNama } = require('./progress');
 /** GET /api/me */
 async function getMe(pool, studentId) {
   const { rows } = await pool.query(
-    `SELECT s.id, s.email, s.nama, s.is_admin, s.active_curriculum_group_id,
-            cg.kode AS tes_kode, cg.nama AS tes_nama
+    `SELECT s.id, s.email, s.nama, s.role, s.institution_id, s.active_curriculum_group_id,
+            cg.kode AS tes_kode, cg.nama AS tes_nama, i.nama AS lembaga_nama
        FROM students s
   LEFT JOIN curriculum_groups cg ON cg.id = s.active_curriculum_group_id AND cg.is_active
+  LEFT JOIN institutions i ON i.id = s.institution_id
       WHERE s.id = $1::uuid`,
     [studentId],
   );
@@ -22,7 +23,9 @@ async function getMe(pool, studentId) {
     id: r.id,
     email: r.email,
     nama: r.nama,
-    is_admin: r.is_admin === true,
+    role: r.role,
+    is_admin: r.role !== 'siswa', // boleh membuka ruang admin
+    lembaga: r.institution_id ? { id: String(r.institution_id), nama: r.lembaga_nama } : null,
     paket: 'gratis',
     tes_aktif: r.tes_kode
       ? { id: r.active_curriculum_group_id, kode: r.tes_kode, nama: r.tes_nama }

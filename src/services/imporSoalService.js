@@ -31,7 +31,9 @@ async function siapkanGambar(soal, env = process.env) {
  * @returns {Promise<{masalah:{baris,pesan}[], stat:object, perKelompok:[string,number][], gambar:number}>}
  * Melempar Error bila database menolak (transaksi sudah dibatalkan).
  */
-async function simpanSoal(pool, { soal, media = new Map(), tulis, simpanGambar }) {
+async function simpanSoal(pool, { soal, media = new Map(), tulis, simpanGambar, lembagaId = null }) {
+  // Soal dari admin lembaga: berstatus 'menunggu' dan TIDAK aktif sampai super admin menyetujuinya.
+  const menunggu = lembagaId !== null;
   const cacheGambar = new Map(); // nama berkas di dokumen -> alamat publik
   const gambarSiap = new Set();
   const alamatGambar = async (nama) => {
@@ -138,11 +140,11 @@ async function simpanSoal(pool, { soal, media = new Map(), tulis, simpanGambar }
       const q = await c.query(
         `INSERT INTO questions (topic_id, level_soal, soal_teks, soal_gambar_url, opsi_jawaban, kunci_jawaban,
                                 target_waktu_detik, poin_reward, poin_penalty, is_domain0,
-                                pembahasan, pembahasan_gambar_url)
-         VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11, $12) RETURNING id`,
+                                pembahasan, pembahasan_gambar_url, institution_id, approval_status, is_active)
+         VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING id`,
         [topicId.id, level, s.teks, gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci),
           waktu, s.poin, Math.max(1, Math.round(s.poin * 0.2)), stageRow ? true : s.domain0,
-          s.pembahasan, pembahasanGambarUrl],
+          s.pembahasan, pembahasanGambarUrl, lembagaId, menunggu ? 'menunggu' : 'disetujui', !menunggu],
       );
       for (const sid of subIds) {
         await c.query('INSERT INTO question_subtopics (question_id, subtopic_id) VALUES ($1, $2)', [q.rows[0].id, sid]);

@@ -15,12 +15,17 @@ const jalankan = async (mw, req) => {
   return hasil;
 };
 
-test('requireAdmin: lolos hanya untuk is_admin = true', async () => {
-  const pool = (isAdmin) => ({ query: async () => ({ rows: isAdmin === null ? [] : [{ is_admin: isAdmin }] }) });
-  assert.equal(await jalankan(createRequireAdmin({ pool: pool(true) }), { user: { id: 'x' } }), 'lolos');
-  assert.equal((await jalankan(createRequireAdmin({ pool: pool(false) }), { user: { id: 'x' } })).status, 403);
+test('requireAdmin: lolos untuk admin lembaga dan super admin, menolak siswa; req.admin terisi', async () => {
+  const pool = (role, inst = null) => ({ query: async () => ({ rows: role === null ? [] : [{ role, institution_id: inst }] }) });
+  const req1 = { user: { id: 'x' } };
+  assert.equal(await jalankan(createRequireAdmin({ pool: pool('super_admin') }), req1), 'lolos');
+  assert.deepEqual(req1.admin, { id: 'x', role: 'super_admin', institutionId: null });
+  const req2 = { user: { id: 'y' } };
+  assert.equal(await jalankan(createRequireAdmin({ pool: pool('admin_lembaga', 7) }), req2), 'lolos');
+  assert.equal(req2.admin.institutionId, '7');
+  assert.equal((await jalankan(createRequireAdmin({ pool: pool('siswa') }), { user: { id: 'x' } })).status, 403);
   assert.equal((await jalankan(createRequireAdmin({ pool: pool(null) }), { user: { id: 'x' } })).status, 403);
-  assert.equal((await jalankan(createRequireAdmin({ pool: pool(true) }), {})).status, 401);
+  assert.equal((await jalankan(createRequireAdmin({ pool: pool('super_admin') }), {})).status, 401);
 });
 
 test('parseTindak: status wajib sah, soal_aktif harus boolean', () => {

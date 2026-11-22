@@ -11,6 +11,10 @@ const { docxKeBaris } = require('./imporWord');
 const { simpanSoal, siapkanGambar } = require('./imporSoalService');
 const { dariEnv } = require('./penyimpananGambar');
 const { waktuSoal } = require('../config/waktu');
+const { PERAN } = require('../config/peran');
+
+/** Admin lembaga: soal baru berstatus 'menunggu' (tidak aktif). Super admin: langsung aktif. */
+const lembagaIdDari = (admin) => (admin && admin.role === PERAN.ADMIN_LEMBAGA ? admin.institutionId : null);
 
 const TES_BAWAAN = 'SNBT';
 const HURUF = ['A', 'B', 'C', 'D', 'E'];
@@ -44,7 +48,7 @@ async function pilihan(pool) {
  * @param {Buffer} isi  isi berkas .docx
  * @returns {Promise<object>} { ok:false, galat:[{lokasi,pesan}] } atau { ok:true, tulis, stat, perKelompok, gambar, dilewati, peringatan }
  */
-async function imporDocx(pool, isi, { tulis, lewatiBertanda }, env = process.env) {
+async function imporDocx(pool, isi, { tulis, lewatiBertanda, admin }, env = process.env) {
   let w;
   try {
     w = docxKeBaris(isi);
@@ -75,7 +79,7 @@ async function imporDocx(pool, isi, { tulis, lewatiBertanda }, env = process.env
 
   let r;
   try {
-    r = await simpanSoal(pool, { soal: hasil.soal, media: w.media, tulis, simpanGambar });
+    r = await simpanSoal(pool, { soal: hasil.soal, media: w.media, tulis, simpanGambar, lembagaId: lembagaIdDari(admin) });
   } catch (e) {
     return { ok: false, galat: [{ lokasi: 'database', pesan: `Dibatalkan, tidak ada yang disimpan: ${e.message}` }] };
   }
@@ -166,7 +170,7 @@ async function namaTopikDanSubtopik(pool, topikId, subtopikIds) {
 }
 
 /** POST /api/admin/soal — soal baru dari form. */
-async function buatSoal(pool, body) {
+async function buatSoal(pool, body, admin) {
   const n = parseFormSoal(body);
   const nama = await namaTopikDanSubtopik(pool, n.topikId, n.subtopikIds);
   if (nama.subtes !== n.subtes) throw new HttpError(422, 'VALIDATION_ERROR', 'Topik bukan milik subtes itu', ['topik bukan milik subtes yang dipilih']);
@@ -176,26 +180,40 @@ async function buatSoal(pool, body) {
   }
   let r;
   try {
-    r = await simpanSoal(pool, { soal: hasil.soal, tulis: true, simpanGambar: null });
+    r = await simpanSoal(pool, { soal: hasil.soal, tulis: true, simpanGambar: null, lembagaId: lembagaIdDari(admin) });
   } catch (e) {
     throw new HttpError(422, 'GAGAL_SIMPAN', `Dibatalkan, tidak ada yang disimpan: ${e.message}`);
   }
   if (r.masalah.length) throw new HttpError(422, 'VALIDATION_ERROR', 'Soal tidak valid', r.masalah.map((g) => g.pesan));
   if (!r.idBaru.length) throw new HttpError(409, 'SOAL_SUDAH_ADA', 'Soal yang sama (topik, teks, dan gambar) sudah ada di bank soal');
-  return { id: r.idBaru[0] };
+  return { id: r.idBaru[0], status: lembagaIdDari(admin) !== null ? 'menunggu' : 'disetujui' };
 }
 
 // ---------- Edit satu soal ----------
 
+/**
+ * Admin lembaga hanya boleh melihat/mengubah soal milik lembaganya yang belum disetujui (menunggu / ditolak).
+ * Soal yang sudah disetujui menjadi soal umum dan hanya bisa diubah super admin. Tanpa `admin` (dipakai tes): tanpa batas.
+ */
+function izinSoal(admin, q) {
+  if (!admin || admin.role === PERAN.SUPER_ADMIN) return;
+  const milik = q.institution_id !== null && String(q.institution_id) === String(admin.institutionId);
+  if (!milik) throw new HttpError(404, 'SOAL_TIDAK_DITEMUKAN', 'Soal tidak ditemukan');
+  if (q.approval_status === 'disetujui') {
+    throw new HttpError(403, 'SOAL_SUDAH_DISETUJUI', 'Soal yang sudah disetujui tidak bisa diubah admin lembaga');
+  }
+}
+
 /** GET /api/admin/soal/:id — data lengkap untuk form edit. */
-async function ambilSoal(pool, id) {
+async function ambilSoal(pool, id, admin) {
   const q = (await pool.query(
     `SELECT q.id, q.topic_id, q.level_soal, q.soal_teks, q.soal_gambar_url, q.opsi_jawaban, q.kunci_jawaban,
             q.pembahasan, q.pembahasan_gambar_url, q.target_waktu_detik, q.is_active, q.hidden_reason, q.is_domain0,
-            t.nama AS topik, s.kode AS subtes
+            q.institution_id, q.approval_status, q.approval_catatan, t.nama AS topik, s.kode AS subtes
        FROM questions q JOIN topics t ON t.id = q.topic_id JOIN subjects s ON s.id = t.subject_id
       WHERE q.id = $1`, [id])).rows[0];
   if (!q) throw new HttpError(404, 'SOAL_TIDAK_DITEMUKAN', 'Soal tidak ditemukan');
+  izinSoal(admin, q);
   const subs = (await pool.query('SELECT subtopic_id FROM question_subtopics WHERE question_id = $1', [id])).rows;
   const opsi = {};
   HURUF.forEach((h) => { opsi[h] = ''; });
@@ -207,12 +225,15 @@ async function ambilSoal(pool, id) {
     pembahasan: q.pembahasan, pembahasan_gambar_url: q.pembahasan_gambar_url, waktu_detik: q.target_waktu_detik,
     subtopik_ids: subs.map((r) => String(r.subtopic_id)), aktif: q.is_active, tersembunyi_karena: q.hidden_reason,
     domain0: q.is_domain0,
+    status: q.approval_status, catatan_persetujuan: q.approval_catatan,
+    lembaga_id: q.institution_id === null ? null : String(q.institution_id),
   };
 }
 
 /** PUT /api/admin/soal/:id — ubah isi soal. Topik tidak berubah (pindah topik = soal baru). */
-async function ubahSoal(pool, id, body) {
-  const lama = await ambilSoal(pool, id);
+async function ubahSoal(pool, id, body, admin) {
+  const lama = await ambilSoal(pool, id, admin);
+  const lembaga = Boolean(admin) && admin.role === PERAN.ADMIN_LEMBAGA;
   if (lama.domain0) {
     throw new HttpError(409, 'SOAL_STAGE', 'Soal diagnostik Domain 0 tidak diedit dari sini');
   }
@@ -235,6 +256,9 @@ async function ubahSoal(pool, id, body) {
         WHERE id = $1`,
       [id, s.level, s.teks, s.gambarUrl, JSON.stringify(s.opsi), JSON.stringify(s.kunci), s.pembahasan, s.pembahasanGambarUrl, waktu],
     );
+    if (lembaga) { // soal lembaga yang diperbaiki masuk antrean lagi
+      await c.query(`UPDATE questions SET approval_status = 'menunggu', approval_catatan = NULL, is_active = false WHERE id = $1`, [id]);
+    }
     await c.query('DELETE FROM question_subtopics WHERE question_id = $1', [id]);
     for (const sid of n.subtopikIds) {
       await c.query('INSERT INTO question_subtopics (question_id, subtopic_id) VALUES ($1, $2)', [id, sid]);
