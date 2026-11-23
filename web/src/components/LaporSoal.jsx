@@ -48,7 +48,7 @@ export default function LaporSoal({ questionId, sedangUjian = false, className =
         disabled={terkirim}
         className={`text-xs ${terkirim ? 'text-lime' : 'text-redup underline decoration-dotted underline-offset-4'} ${className}`}
       >
-        {terkirim ? '✓ Terima kasih, laporan terkirim' : '⚑ Laporkan soal ini'}
+        {terkirim ? '✓ Terima kasih, laporan terkirim' : 'Laporkan soal ini'}
       </button>
 
       {buka && (
@@ -56,12 +56,12 @@ export default function LaporSoal({ questionId, sedangUjian = false, className =
           <div
             role="dialog"
             aria-label="Laporkan soal"
-            className="max-h-[85dvh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-card p-5 pb-6"
+            className="max-h-[85dvh] w-full max-w-md overflow-y-auto rounded-t-3xl border-t border-line bg-card p-5 pb-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between">
               <div>
-                <h2 className="text-lg font-extrabold">Laporkan soal</h2>
+                <h2 className="text-[19px] font-extrabold tracking-tight">Laporkan soal</h2>
                 <p className="text-xs text-redup">
                   Ada masalah di soal ini?{sedangUjian ? ' Waktu soal tetap berjalan.' : ''}
                 </p>
@@ -76,7 +76,7 @@ export default function LaporSoal({ questionId, sedangUjian = false, className =
                 <label
                   key={a.kode}
                   className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-3 text-sm ${
-                    alasan === a.kode ? 'border-aksen bg-card-2' : 'border-line'
+                    alasan === a.kode ? 'border-lime bg-card-2' : 'border-line'
                   }`}
                 >
                   <input
@@ -85,7 +85,7 @@ export default function LaporSoal({ questionId, sedangUjian = false, className =
                     value={a.kode}
                     checked={alasan === a.kode}
                     onChange={() => setAlasan(a.kode)}
-                    className="accent-[#5cc0d6]"
+                    className="accent-[#52c5b4]"
                   />
                   {a.label}
                 </label>
@@ -109,7 +109,7 @@ export default function LaporSoal({ questionId, sedangUjian = false, className =
             <button
               onClick={kirim}
               disabled={!alasan || perluCatatan || mengirim}
-              className="mt-4 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+              className="mt-4 min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg disabled:opacity-40"
             >
               {mengirim ? 'Mengirim…' : 'Kirim laporan'}
             </button>

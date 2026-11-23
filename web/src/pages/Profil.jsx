@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Memuat, Galat, Batang } from '../components/Dasar.jsx';
 import { useMuat, tgl } from '../components/AdminDasar.jsx';
+import MenuBawah, { TombolTema } from '../components/MenuBawah.jsx';
+import { supabase } from '../lib/supabase.js';
 
 // Profil pencapaian siswa: ringkasan, streak & lencana, grafik 30 hari, level & RR per subtes/topik, riwayat sesi, rekomendasi, lembaga.
 
@@ -50,6 +52,87 @@ function Grafik({ data }) {
         <span className="flex items-center gap-1.5"><i className="inline-block h-2 w-3 rounded-sm bg-line" /> jawaban / hari (maks {maks})</span>
         <span className="flex items-center gap-1.5"><i className="inline-block h-0.5 w-3 bg-lime" /> akurasi</span>
       </div>
+    </div>
+  );
+}
+
+/** Pecah nama subtes jadi dua baris pendek untuk label radar. */
+function duaBaris(nama) {
+  const k = String(nama).split(' ');
+  if (k.length < 2) return [nama, ''];
+  const tengah = Math.ceil(k.length / 2);
+  return [k.slice(0, tengah).join(' '), k.slice(tengah).join(' ')];
+}
+
+/** Radar kemampuan: RR rata-rata per subtes (skala 0-100) plus daftar nilainya. Perlu minimal 3 subtes. */
+function Radar({ subtes }) {
+  const n = subtes.length;
+  if (n < 3) return null;
+  const cx = 160;
+  const cy = 150;
+  const r = 98;
+  const titik = (i, v) => {
+    const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+    return [cx + Math.cos(a) * r * (v / 100), cy + Math.sin(a) * r * (v / 100)];
+  };
+  const poligon = (v) => Array.from({ length: n }, (_, i) => titik(i, v).map((x) => x.toFixed(1)).join(',')).join(' ');
+  const nilai = subtes.map((s) => Math.round(s.rr_rata));
+  return (
+    <div className="rounded-[18px] border border-line bg-card p-5">
+      <h3 className="text-xl font-extrabold tracking-tight">Radar kemampuan</h3>
+      <p className="mt-1 text-xs text-redup">Peta kekuatanmu di {n} subtes · skala 0–100</p>
+      <svg
+        viewBox="0 0 320 310"
+        className="mx-auto mt-3 block h-auto w-full max-w-[380px] overflow-visible"
+        role="img"
+        aria-label={`Radar kemampuan: ${subtes.map((s, i) => `${s.nama} ${nilai[i]} dari 100`).join(', ')}`}
+      >
+        {[25, 50, 75, 100].map((v) => (
+          <polygon key={v} points={poligon(v)} fill="none" stroke="var(--color-line)" strokeWidth="1.2" />
+        ))}
+        {subtes.map((s, i) => {
+          const [x, y] = titik(i, 100);
+          return <line key={s.kode} x1={cx} y1={cy} x2={x} y2={y} stroke="var(--color-line)" strokeWidth="1.2" />;
+        })}
+        <polygon
+          points={nilai.map((v, i) => titik(i, v).map((x) => x.toFixed(1)).join(',')).join(' ')}
+          fill="var(--color-lime)"
+          fillOpacity="0.24"
+          stroke="var(--color-lime)"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        {nilai.map((v, i) => {
+          const [x, y] = titik(i, v);
+          return <circle key={subtes[i].kode} cx={x} cy={y} r="4.5" fill="var(--color-aksen)" stroke="var(--color-card)" strokeWidth="2" />;
+        })}
+        {subtes.map((s, i) => {
+          const [x, y] = titik(i, 100);
+          const [b1, b2] = duaBaris(s.nama);
+          const atas = y < cy - 5;
+          const sisi = x < cx - 5 ? 'end' : x > cx + 5 ? 'start' : 'middle';
+          const dx = sisi === 'end' ? -12 : sisi === 'start' ? 12 : 0;
+          const dy = atas ? -(b2 ? 26 : 14) : y > cy + 5 ? 16 : -4;
+          return (
+            <text key={s.kode} x={x + dx} y={y + dy} textAnchor={sisi} fontSize="11" fontWeight="700" fill="var(--color-teks)">
+              <tspan x={x + dx}>{b1}</tspan>
+              {b2 && (
+                <tspan x={x + dx} dy="13">
+                  {b2}
+                </tspan>
+              )}
+            </text>
+          );
+        })}
+      </svg>
+      <ul className="mt-3 grid gap-x-5 sm:grid-cols-2">
+        {subtes.map((s, i) => (
+          <li key={s.kode} className="flex justify-between gap-3 border-b border-line py-2 text-xs">
+            <span className="text-redup">{s.nama}</span>
+            <strong className="whitespace-nowrap text-lime">{nilai[i]}/100</strong>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -167,13 +250,13 @@ function Lembaga({ me, onBerubah }) {
   );
 }
 
-export default function Profil({ me, onKembali, onMeBerubah }) {
+export default function Profil({ me, onNav, onMeBerubah }) {
   const { data, galat, muat } = useMuat(() => api.profil(), []);
   if (galat) {
     return (
       <Layar>
         <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />
-        <button onClick={onKembali} className="mt-4 text-sm text-redup underline">Kembali</button>
+        <button onClick={() => onNav('beranda')} className="mt-4 text-sm text-redup underline">Kembali</button>
       </Layar>
     );
   }
@@ -182,10 +265,13 @@ export default function Profil({ me, onKembali, onMeBerubah }) {
   const diraih = lencana.filter((l) => l.diraih);
 
   return (
-    <Layar>
+    <Layar denganMenu>
       <header className="flex items-center justify-between">
-        <button onClick={onKembali} className="text-sm text-aksen underline">← Beranda</button>
-        <span className="text-xs text-redup">{data.tes?.nama}</span>
+        <div>
+          <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Pemain ZenQuest · {data.tes?.nama}</p>
+          <h1 className="mt-1 text-[31px] leading-tight font-extrabold tracking-tight">Profil</h1>
+        </div>
+        <TombolTema />
       </header>
 
       <section className="mt-5 rounded-3xl bg-card-2 p-5">
@@ -216,6 +302,7 @@ export default function Profil({ me, onKembali, onMeBerubah }) {
 
       <Bagian judul="Level & RR per subtes">
         <div className="space-y-2.5">
+          <Radar subtes={subtes} />
           {subtes.map((sj) => (
             <SubtesKartu key={sj.kode} sj={sj} />
           ))}
@@ -282,6 +369,11 @@ export default function Profil({ me, onKembali, onMeBerubah }) {
       <Bagian judul="Sekolah / lembaga">
         <Lembaga me={me} onBerubah={onMeBerubah} />
       </Bagian>
+
+      <button onClick={() => supabase.auth.signOut()} className="mt-8 text-center text-xs text-redup underline lg:hidden">
+        Keluar ({me.email})
+      </button>
+      <MenuBawah aktif="profil" onPilih={onNav} email={me.email} />
     </Layar>
   );
 }

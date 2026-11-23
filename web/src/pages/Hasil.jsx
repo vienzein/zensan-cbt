@@ -9,9 +9,9 @@ function jam(iso) {
 
 function Angka({ nilai, label, warna = 'text-teks' }) {
   return (
-    <div className="rounded-2xl bg-card p-3 text-center">
-      <p className={`text-2xl font-extrabold ${warna}`}>{nilai}</p>
-      <p className="mt-0.5 text-xs text-redup">{label}</p>
+    <div className="rounded-2xl border border-line bg-card px-2.5 py-3">
+      <p className="text-[11px] font-extrabold tracking-[0.12em] text-redup uppercase">{label}</p>
+      <p className={`mt-1.5 text-[26px] leading-none font-extrabold tracking-tight ${warna}`}>{nilai}</p>
     </div>
   );
 }
@@ -22,9 +22,16 @@ export default function Hasil({ mode, hasil, onKembali }) {
   if (mode === 'domain0') {
     return (
       <Layar>
-        <div className="flex flex-1 flex-col justify-center text-center">
-          <p className="text-5xl">{hasil.lulus ? '🎉' : '💪'}</p>
-          <h1 className="mt-4 text-2xl font-extrabold">
+        <div className="flex flex-1 flex-col items-center justify-center text-center">
+          <span
+            className={`grid h-20 w-20 place-items-center rounded-full text-4xl font-extrabold ${
+              hasil.lulus ? 'bg-lime text-bg' : 'bg-card-2 text-aksen'
+            }`}
+            aria-hidden="true"
+          >
+            {hasil.lulus ? '✓' : '↻'}
+          </span>
+          <h1 className="mt-5 text-[26px] font-extrabold tracking-tight">
             {hasil.lulus ? 'Lulus Ujian Kelayakan Dasar' : 'Belum lulus'}
           </h1>
           <p className="mt-2 text-sm text-redup">
@@ -36,7 +43,7 @@ export default function Hasil({ mode, hasil, onKembali }) {
                 }`}
           </p>
         </div>
-        <button onClick={onKembali} className="w-full rounded-2xl bg-lime py-3.5 font-bold text-bg">
+        <button onClick={onKembali} className="min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg">
           Kembali ke Beranda
         </button>
       </Layar>
@@ -52,8 +59,9 @@ export default function Hasil({ mode, hasil, onKembali }) {
 
   return (
     <Layar>
-      <h1 className="text-2xl font-extrabold">Sesi selesai</h1>
-      <p className="mt-1 text-sm text-redup">
+      <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Hasil sesi</p>
+      <h1 className="mt-1 text-[31px] leading-[1.13] font-extrabold tracking-tight">Sesi selesai</h1>
+      <p className="mt-1.5 text-sm text-redup">
         {delta > 0 ? 'Progres Anda naik.' : delta < 0 ? 'RR turun, tetap semangat.' : 'RR tidak berubah.'}
       </p>
 
@@ -64,23 +72,23 @@ export default function Hasil({ mode, hasil, onKembali }) {
       </div>
 
       {naik > 0 && (
-        <p className="mt-4 rounded-2xl bg-lime/10 p-3 text-sm text-lime">
-          🚀 {naik} subtopik naik level!
+        <p className="mt-4 rounded-2xl border border-lime/40 bg-lime/10 p-3 text-sm font-bold text-lime">
+          ↑ {naik} subtopik naik level!
         </p>
       )}
       {turun > 0 && (
-        <p className="mt-4 rounded-2xl bg-bahaya/10 p-3 text-sm text-bahaya">
-          ⚠️ {turun} subtopik turun level{strike2 ? ' karena Strike 2' : ''}.
+        <p className="mt-4 rounded-2xl border border-bahaya/40 bg-bahaya/10 p-3 text-sm font-bold text-bahaya">
+          ↓ {turun} subtopik turun level{strike2 ? ' karena Strike 2' : ''}.
         </p>
       )}
       {cooldown && (
         <p className="mt-4 rounded-2xl bg-card-2 p-3 text-sm">⏳ Topik dijeda sampai {jam(cooldown.cooldown_until)}.</p>
       )}
 
-      <h2 className="mt-6 mb-2 text-sm font-bold uppercase tracking-wide text-redup">Per soal</h2>
+      <h2 className="mt-7 mb-3 text-[19px] font-extrabold tracking-tight">Per soal</h2>
       <div className="space-y-2">
         {hasil.hasil.map((h) => (
-          <div key={h.urutan} className="rounded-2xl bg-card text-sm">
+          <div key={h.urutan} className="rounded-2xl border border-line bg-card text-sm">
             <button
               onClick={() => setBuka(buka === h.urutan ? null : h.urutan)}
               className="flex w-full items-center justify-between px-4 py-2.5 text-left"
@@ -108,7 +116,7 @@ export default function Hasil({ mode, hasil, onKembali }) {
         ))}
       </div>
 
-      <button onClick={onKembali} className="mt-8 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg">
+      <button onClick={onKembali} className="mt-8 min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg">
         Kembali ke Beranda
       </button>
     </Layar>
@@ -146,7 +154,7 @@ function Tinjauan({ h }) {
       {!h.jawaban_siswa && <p className="mt-2 text-xs text-redup">Tidak dijawab.</p>}
       {h.pembahasan ? (
         <div className="mt-3 rounded-xl bg-card-2 p-3">
-          <p className="text-xs font-bold uppercase tracking-wide text-aksen">Pembahasan</p>
+          <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Pembahasan</p>
           <p className="mt-1 whitespace-pre-wrap leading-relaxed">{h.pembahasan}</p>
           {h.pembahasan_gambar_url && (
             <img src={h.pembahasan_gambar_url} alt="" className="mt-2 max-h-56 w-full rounded-xl object-contain" />

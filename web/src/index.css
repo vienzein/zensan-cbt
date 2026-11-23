@@ -2,18 +2,37 @@
 
 /* Warna dari logo Zensan: teal, lime, charcoal. Mode gelap adalah tampilan utama. */
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --color-bg: #0e1b21;
-  --color-card: #15262e;
-  --color-card-2: #1f4452;
-  --color-line: #24404d;
+  --font-sans: 'Arimo', system-ui, sans-serif;
+  --color-bg: #091a20;
+  --color-card: #10272e;
+  --color-card-2: #17343b;
+  --color-line: #2a484c;
   --color-teal: #1d6a7e;
-  --color-aksen: #5cc0d6;
-  --color-lime: #8cc63f;
-  --color-teks: #e8f1f4;
-  --color-redup: #8fa7b0;
-  --color-bahaya: #ef6a6a;
+  --color-aksen: #52c5b4;
+  --color-lime: #b9f267;
+  --color-teks: #f4faf8;
+  --color-redup: #9eb8b7;
+  --color-bahaya: #f08081;
   --color-emas: #f0b840;
+}
+
+/* Mode terang: hanya mengganti nilai warna; seluruh layar mengikuti. Dipilih dari tombol tema (disimpan di peramban). */
+html.light {
+  --color-bg: #eef5f2;
+  --color-card: #ffffff;
+  --color-card-2: #e5f3ed;
+  --color-line: #cee0d9;
+  --color-aksen: #117e71;
+  --color-lime: #659e28;
+  --color-teks: #142b30;
+  --color-redup: #577274;
+  --color-bahaya: #bd4149;
+  --color-emas: #a87908;
+}
+html.light .logo-img {
+  background: #fff;
+  border-radius: 12px;
+  padding: 4px 10px;
 }
 
 html,
