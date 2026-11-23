@@ -69,16 +69,16 @@ export default function Stage({ tesId, onKembali }) {
   return (
     <Layar>
       <header className="flex items-center justify-between">
-        <button onClick={onKembali} className="text-sm text-redup">← Kembali</button>
-        <span className="text-xs font-semibold text-redup">Tes Diagnostik</span>
+        <button onClick={onKembali} className="p-1 text-sm font-extrabold text-aksen">← Kembali</button>
+        <span className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Tes diagnostik</span>
       </header>
-      <h1 className="mt-4 text-xl font-extrabold">Peta Stage</h1>
+      <h1 className="mt-4 text-[26px] leading-tight font-extrabold tracking-tight">Peta Stage</h1>
       <p className="mt-1 text-sm text-redup">
         {peta.jumlah_lulus} dari {peta.total_stage} stage lulus. Tiap stage: 3 soal, semua harus benar. Setiap
         soal punya batas waktu sendiri.
       </p>
       {peta.gerbang_terbuka && (
-        <p className="mt-3 rounded-2xl bg-lime/15 p-3 text-sm font-semibold text-lime">
+        <p className="mt-3 rounded-2xl bg-lime/15 p-3 text-sm font-bold text-lime">
           Topik PK dan PM sudah terbuka. Stage lanjutan boleh dilanjutkan kapan saja.
         </p>
       )}
@@ -88,25 +88,25 @@ export default function Stage({ tesId, onKembali }) {
         <button
           onClick={mulai}
           disabled={sibuk || jeda}
-          className="mt-4 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+          className="mt-4 min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg disabled:opacity-40"
         >
           {jeda ? `Jeda sampai ${jam(peta.cooldown_until)}` : sibuk ? 'Menyiapkan…' : 'Mulai Stage Berikutnya'}
         </button>
       )}
-      {!peta.stage_berikutnya_id && <p className="mt-4 text-sm font-semibold">Semua stage sudah lulus. 🎉</p>}
+      {!peta.stage_berikutnya_id && <p className="mt-4 text-sm font-semibold">Semua stage sudah lulus.</p>}
 
       <ul className="mt-5 space-y-2">
         {peta.stages.map((s) => (
           <li
             key={s.id}
-            className={`rounded-2xl border p-3 text-sm ${
+            className={`rounded-[14px] border px-3.5 py-3 text-sm ${
               s.status === 'lulus' ? 'border-lime/40 bg-card' : s.status === 'berikutnya' ? 'border-aksen bg-card-2' : 'border-line bg-card opacity-60'
             }`}
           >
             <div className="flex items-center justify-between">
               <span className="font-bold">{s.kode}</span>
               <span className="text-xs text-redup">
-                {s.status === 'lulus' ? '✓ Lulus' : s.status === 'berikutnya' ? 'Berikutnya' : '🔒'} · {s.target_detik_per_soal} dtk/soal
+                {s.status === 'lulus' ? '✓ Lulus' : s.status === 'berikutnya' ? 'Berikutnya' : 'Terkunci'} · {s.target_detik_per_soal} dtk/soal
               </span>
             </div>
             <p className="text-redup">{s.nama_topik} — {s.indikator}</p>
@@ -182,41 +182,43 @@ function Kerjakan({ sesi, onSelesai }) {
   return (
     <Layar>
       <header className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-redup">{sesi.stage.kode}</span>
-        <span className={`rounded-full px-3 py-1 text-sm font-bold tabular-nums ${sisa <= 5 ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'}`}>
+        <span className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Stage {sesi.stage.kode}</span>
+        <span className={`rounded-full px-3 py-1.5 text-sm font-extrabold tabular-nums ${sisa <= 5 ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'}`}>
           {mmss(sisa)}
         </span>
       </header>
       <div className="mt-4 flex gap-1">
         {soal.map((s, i) => (
-          <div key={s.question_id} className={`h-1.5 flex-1 rounded-full ${i < idx ? 'bg-lime' : i === idx ? 'bg-aksen' : 'bg-line'}`} />
+          <div key={s.question_id} className={`h-1.5 flex-1 rounded-full ${i < idx ? 'bg-lime' : i === idx ? 'bg-aksen' : 'bg-card-2'}`} />
         ))}
       </div>
       <p className="mt-2 text-xs text-redup">Soal {idx + 1} dari {soal.length}</p>
 
       <section className="mt-3 flex-1">
-        <TeksSoal teks={q.soal_teks} />
+       <div className="rounded-[20px] border border-line bg-card p-[19px]">
+        <TeksSoal teks={q.soal_teks} className="text-[19px] leading-[1.5] font-bold" />
         {q.soal_gambar_url && <img src={q.soal_gambar_url} alt="" className="mt-4 max-h-64 w-full rounded-2xl object-contain" />}
-        <div className="mt-5 space-y-2.5">
+        <div className="mt-5 space-y-[11px]">
           {opsi.length > 0 ? opsi.map((o) => (
             <button
               key={o.kode}
               onClick={() => setPilihan(o.kode)}
               disabled={mengirim}
-              className={`flex w-full items-start gap-3 rounded-2xl border p-3.5 text-left ${pilihan === o.kode ? 'border-aksen bg-card-2' : 'border-line bg-card'}`}
+              className={`flex min-h-[57px] w-full items-center gap-3 rounded-[13px] border px-[15px] py-[13px] text-left font-bold ${pilihan === o.kode ? 'border-lime bg-card-2' : 'border-line bg-card-2'}`}
             >
-              <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${pilihan === o.kode ? 'bg-aksen text-bg' : 'bg-line text-redup'}`}>{o.kode}</span>
-              <span className="pt-0.5">{o.teks}</span>
+              <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg text-sm font-bold ${pilihan === o.kode ? 'bg-lime text-bg' : 'bg-card text-aksen'}`}>{o.kode}</span>
+              <span>{o.teks}</span>
             </button>
           )) : (
             <input
               value={pilihan}
               onChange={(e) => setPilihan(e.target.value)}
               placeholder="Ketik jawaban"
-              className="w-full rounded-2xl border border-line bg-card px-4 py-3.5 outline-none focus:border-aksen"
+              className="w-full rounded-[13px] border border-line bg-card-2 px-4 py-3.5 outline-none focus:border-lime"
             />
           )}
         </div>
+       </div>
         <div className="mt-4 text-center">
           <LaporSoal key={q.question_id} questionId={q.question_id} sedangUjian />
         </div>
@@ -228,9 +230,9 @@ function Kerjakan({ sesi, onSelesai }) {
         <button
           onClick={lanjut}
           disabled={mengirim}
-          className="w-full rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+          className="min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg disabled:opacity-40"
         >
-          {mengirim ? 'Mengirim…' : terakhir ? 'Selesai' : 'Lanjut'}
+          {mengirim ? 'Mengirim…' : terakhir ? 'Selesai' : 'Lanjut →'}
         </button>
       </footer>
     </Layar>
@@ -243,8 +245,13 @@ function HasilStage({ sesi, hasil, onLanjut, onBerhenti }) {
   return (
     <Layar>
       <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <p className="text-5xl">{hasil.lulus ? '🎉' : '💪'}</p>
-        <h1 className="mt-3 text-2xl font-extrabold">{hasil.lulus ? 'Stage lulus!' : 'Belum lulus'}</h1>
+        <span
+          className={`grid h-20 w-20 place-items-center rounded-full text-4xl font-extrabold ${hasil.lulus ? 'bg-lime text-bg' : 'bg-card-2 text-aksen'}`}
+          aria-hidden="true"
+        >
+          {hasil.lulus ? '✓' : '↻'}
+        </span>
+        <h1 className="mt-4 text-[28px] font-extrabold tracking-tight">{hasil.lulus ? 'Stage lulus!' : 'Belum lulus'}</h1>
         <p className="mt-2 text-sm text-redup">
           {sesi.stage.kode} · {hasil.jumlah_benar}/{hasil.jumlah_soal} benar · {Math.round(hasil.durasi_detik)} dtk
         </p>
@@ -259,11 +266,11 @@ function HasilStage({ sesi, hasil, onLanjut, onBerhenti }) {
       </div>
       <div className="space-y-3">
         {!jeda && (hasil.lulus ? hasil.stage_berikutnya_id : true) && (
-          <button onClick={onLanjut} className="w-full rounded-2xl bg-lime py-3.5 font-bold text-bg">
+          <button onClick={onLanjut} className="min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg">
             {hasil.lulus ? 'Lanjut ke stage berikutnya' : 'Ulangi stage'}
           </button>
         )}
-        <button onClick={onBerhenti} className="w-full rounded-2xl border border-line py-3.5 font-semibold text-redup">
+        <button onClick={onBerhenti} className="min-h-[52px] w-full rounded-[14px] border border-line bg-card-2 py-3 text-[15px] font-extrabold">
           Berhenti dulu
         </button>
       </div>

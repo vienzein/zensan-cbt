@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '../lib/api.js';
 import { Layar, Galat } from '../components/Dasar.jsx';
+import MenuBawah from '../components/MenuBawah.jsx';
 
 const MAKS_SOAL = 10; // batas satu sesi drill
 
@@ -9,7 +10,7 @@ function jam(iso) {
 }
 
 // Siswa memilih subtes, mencentang topik, dan jumlah soal; lalu sesi dimulai di server.
-export default function PilihDrill({ data, onMulai, onBatal }) {
+export default function PilihDrill({ data, onMulai, onBatal, onNav, email }) {
   const [subtes, setSubtes] = useState(data.subtes[0]?.id ?? null);
   const [topik, setTopik] = useState([]);
   const [jumlah, setJumlah] = useState(5);
@@ -45,10 +46,13 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
   }
 
   return (
-    <Layar>
+    <Layar denganMenu>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-extrabold">Mau latihan apa?</h1>
-        <button onClick={onBatal} className="text-sm text-redup">
+        <div>
+          <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Mode ranked</p>
+          <h1 className="mt-1 text-[26px] leading-tight font-extrabold tracking-tight">Mau latihan apa?</h1>
+        </div>
+        <button onClick={onBatal} className="p-1 text-sm font-extrabold text-aksen">
           Batal
         </button>
       </div>
@@ -58,7 +62,7 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
           <button
             key={s.id}
             onClick={() => ganti(s.id)}
-            className={`shrink-0 rounded-full border px-4 py-2 text-sm font-semibold ${
+            className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-bold ${
               s.id === subtes ? 'border-aksen bg-card-2 text-aksen' : 'border-line bg-card text-redup'
             }`}
           >
@@ -67,7 +71,7 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
         ))}
       </div>
 
-      <p className="mt-5 mb-2 text-sm font-bold">{aktif?.nama}</p>
+      <p className="mt-5 mb-2 text-[17px] font-extrabold tracking-tight">{aktif?.nama}</p>
       <div className="space-y-2.5">
         {aktif?.topik.length === 0 && (
           <p className="rounded-2xl bg-card p-4 text-sm text-redup">Belum ada topik di subtes ini.</p>
@@ -80,21 +84,21 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
               key={t.id}
               disabled={!ok}
               onClick={() => centang(t.id)}
-              className={`flex w-full items-center gap-3 rounded-2xl border p-3.5 text-left ${
-                dipilih ? 'border-aksen bg-card-2' : 'border-line bg-card'
+              className={`flex w-full items-center gap-3 rounded-[14px] border px-3.5 py-3 text-left ${
+                dipilih ? 'border-lime bg-card-2' : 'border-line bg-card'
               } ${ok ? '' : 'opacity-50'}`}
             >
               <span
-                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-sm font-bold ${
-                  dipilih ? 'border-aksen bg-aksen text-bg' : 'border-line'
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-sm font-bold ${
+                  dipilih ? 'border-lime bg-lime text-bg' : 'border-line'
                 }`}
               >
                 {dipilih ? '✓' : ''}
               </span>
               <span className="flex-1">
-                <span className="block font-semibold leading-snug">{t.nama}</span>
-                {t.terkunci_domain0 && <span className="text-xs text-redup">🔒 Perlu lulus Ujian Kelayakan Dasar</span>}
-                {t.cooldown_aktif && <span className="text-xs text-redup">⏳ Jeda sampai {jam(t.cooldown_until)}</span>}
+                <span className="block text-sm leading-snug font-bold">{t.nama}</span>
+                {t.terkunci_domain0 && <span className="text-xs text-redup">Terkunci · perlu lulus Ujian Kelayakan Dasar</span>}
+                {t.cooldown_aktif && <span className="text-xs text-redup">Jeda sampai {jam(t.cooldown_until)}</span>}
               </span>
             </button>
           );
@@ -102,7 +106,7 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
       </div>
 
       <div className="mt-6 flex items-center justify-between">
-        <p className="text-sm font-bold">Jumlah soal</p>
+        <p className="text-[17px] font-extrabold tracking-tight">Jumlah soal</p>
         <span className="text-xs text-redup">maksimal {MAKS_SOAL} per sesi</span>
       </div>
       <div className="mt-3 flex items-center gap-4 rounded-2xl border border-line bg-card p-3">
@@ -110,7 +114,7 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
           onClick={() => setJumlah((n) => Math.max(1, n - 1))}
           disabled={jumlah <= 1}
           aria-label="Kurangi"
-          className="h-11 w-11 shrink-0 rounded-xl bg-line text-xl font-bold disabled:opacity-30"
+          className="h-11 w-11 shrink-0 rounded-xl bg-card-2 text-xl font-bold disabled:opacity-30"
         >
           −
         </button>
@@ -123,14 +127,14 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
             value={jumlah}
             onChange={(e) => setJumlah(Number(e.target.value))}
             aria-label="Jumlah soal"
-            className="mt-1 w-full accent-[#5cc0d6]"
+            className="mt-1 w-full accent-[#52c5b4]"
           />
         </div>
         <button
           onClick={() => setJumlah((n) => Math.min(MAKS_SOAL, n + 1))}
           disabled={jumlah >= MAKS_SOAL}
           aria-label="Tambah"
-          className="h-11 w-11 shrink-0 rounded-xl bg-line text-xl font-bold disabled:opacity-30"
+          className="h-11 w-11 shrink-0 rounded-xl bg-card-2 text-xl font-bold disabled:opacity-30"
         >
           +
         </button>
@@ -145,10 +149,11 @@ export default function PilihDrill({ data, onMulai, onBatal }) {
       <button
         onClick={mulai}
         disabled={sibuk || topik.length === 0}
-        className="mt-6 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+        className="mt-6 min-h-[52px] w-full rounded-[14px] bg-lime py-3 text-[15px] font-extrabold text-bg disabled:opacity-40"
       >
         {sibuk ? 'Menyiapkan soal…' : 'Mulai'}
       </button>
+      <MenuBawah aktif="latihan" onPilih={onNav} email={email} />
     </Layar>
   );
 }

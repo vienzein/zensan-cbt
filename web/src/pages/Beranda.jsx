@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase.js';
 import { api } from '../lib/api.js';
 import { Layar, Logo, Memuat, Galat, Batang } from '../components/Dasar.jsx';
+import MenuBawah, { TombolTema } from '../components/MenuBawah.jsx';
 
 const WARNA_LEVEL = {
   1: 'bg-aksen/20 text-aksen',
@@ -28,27 +29,29 @@ function KartuTopik({ t }) {
     catatan = '🔒 Level 3 terbuka saat minimal separuh subtopik sudah di Level 2';
 
   return (
-    <div className={`rounded-3xl border border-line bg-card p-4 ${terkunci ? 'opacity-60' : ''}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="font-bold leading-snug">{t.nama}</p>
-          <p className="mt-0.5 text-xs text-redup">
-            {r.jumlah_subtopik} subtopik
-            {!t.is_elite && r.di_level > 0 ? ` · ${r.di_level} sudah di atas Level 1` : ''}
+    <div className={`rounded-2xl border border-line bg-card p-4 ${terkunci ? 'opacity-60' : ''}`}>
+      <div className="flex items-center gap-3">
+        <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-xs font-extrabold ${warna}`}>
+          {t.is_elite ? 'EL' : `L${r.level_terendah}`}
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-bold leading-snug">{t.nama}</p>
+          <p className="text-[11px] text-redup">
+            {label} · {r.jumlah_subtopik} subtopik
+            {!t.is_elite && r.di_level > 0 ? ` · ${r.di_level} di atas Level 1` : ''}
           </p>
         </div>
-        <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${warna}`}>{label}</span>
+        <span className={`shrink-0 text-sm font-extrabold ${t.is_elite ? 'text-emas' : 'text-lime'}`}>{Math.round(persen)} RR</span>
       </div>
-      <div className="mt-3 flex items-center gap-3">
-        <Batang persen={persen} warna={t.is_elite ? 'bg-emas' : 'bg-lime'} />
-        <span className="w-12 shrink-0 text-right text-xs text-redup">RR {Math.round(persen)}</span>
+      <div className="mt-3">
+        <Batang persen={persen} warna={t.is_elite ? 'bg-emas' : 'bg-lime'} tinggi="h-1.5" />
       </div>
       {catatan && <p className="mt-3 text-xs text-redup">{catatan}</p>}
     </div>
   );
 }
 
-export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage, onProfil }) {
+export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage, onNav }) {
   const [data, setData] = useState(null);
   const [galat, setGalat] = useState('');
   const [sibukD0, setSibukD0] = useState(false);
@@ -93,47 +96,69 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
   const perluDomain0 = domain0.diperlukan && !domain0.lulus;
 
   return (
-    <Layar>
-      <header className="flex items-center justify-between">
-        <Logo className="h-8" />
-        <div className="flex items-center gap-2">
-          <button onClick={onProfil} className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold">
-            Profil
+    <Layar denganMenu>
+      <header className="flex items-center justify-between gap-3">
+        <Logo className="h-8 lg:hidden" />
+        <div className="flex items-center gap-2 lg:ml-auto">
+          <button
+            onClick={onGantiTes}
+            className="rounded-xl border border-line bg-card px-3 py-2.5 text-xs font-bold text-aksen"
+          >
+            {me.tes_aktif.nama} ▾
           </button>
-        <button
-          onClick={onGantiTes}
-          className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-semibold text-aksen"
-        >
-          {me.tes_aktif.nama} ▾
-        </button>
+          <TombolTema />
         </div>
       </header>
 
-      <section className="mt-6 rounded-3xl bg-card-2 p-5">
-        <div className="flex items-start justify-between">
+      <section className="mt-6">
+        <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">{me.tes_aktif.nama} · Lobby</p>
+        <h1 className="mt-1.5 text-[31px] leading-[1.13] font-extrabold tracking-tight">
+          Halo, {String(me.nama || '').trim().split(/\s+/)[0] || 'siswa'} 👋
+        </h1>
+        <p className="mt-1.5 text-sm text-redup">Satu sesi lagi, satu langkah lebih dekat.</p>
+      </section>
+
+      <section className="relative mt-5 overflow-hidden rounded-[20px] border border-line bg-gradient-to-br from-card-2 to-card p-5">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-lg font-extrabold">Siap drill hari ini?</p>
-            <p className="mt-0.5 text-xs text-redup">
+            <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Siap drill hari ini?</p>
+            <p className="mt-1 text-sm text-redup">
               {kuota.sisa > 0 ? `${kuota.sisa} soal ranked tersisa hari ini` : 'Kuota ranked hari ini habis'}
             </p>
           </div>
-          <span className="rounded-full bg-bg/40 px-3 py-1 text-xs font-bold text-emas">
-            🔥 {streak} hari
-          </span>
+          <span className="shrink-0 rounded-full bg-bg/40 px-3 py-1.5 text-xs font-extrabold text-emas">🔥 {streak} hari</span>
         </div>
         <div className="mt-4 flex items-center gap-3">
-          <Batang persen={(kuota.terpakai / kuota.batas) * 100} warna="bg-aksen" />
+          <Batang persen={(kuota.terpakai / kuota.batas) * 100} warna="bg-lime" />
           <span className="shrink-0 text-xs text-redup">
             {kuota.terpakai}/{kuota.batas}
           </span>
         </div>
         <button
           onClick={() => onPilihDrill(data)}
-          className="mt-4 w-full rounded-2xl bg-lime py-3.5 font-bold text-bg"
+          className="mt-4 flex min-h-[50px] w-full items-center justify-center gap-2 rounded-[13px] bg-lime px-4 py-3 text-sm font-extrabold text-bg"
         >
-          Mulai Drill
+          Mulai Drill <span aria-hidden="true">→</span>
         </button>
       </section>
+
+      <div className="mt-3 grid grid-cols-3 gap-2.5">
+        <div className="rounded-2xl border border-line bg-card px-2.5 py-3">
+          <p className="text-[11px] text-redup">🔥 STREAK</p>
+          <p className="mt-1.5 text-[22px] font-extrabold leading-none tracking-tight">{streak} hari</p>
+          <p className="mt-1 text-[11px] text-redup">Terus jaga!</p>
+        </div>
+        <div className="rounded-2xl border border-line bg-card px-2.5 py-3">
+          <p className="text-[11px] text-redup">✦ SISA SOAL</p>
+          <p className="mt-1.5 text-[22px] font-extrabold leading-none tracking-tight text-lime">{kuota.sisa}</p>
+          <p className="mt-1 text-[11px] text-redup">hari ini</p>
+        </div>
+        <div className="rounded-2xl border border-line bg-card px-2.5 py-3">
+          <p className="text-[11px] text-redup">↗ TOPIK</p>
+          <p className="mt-1.5 text-[22px] font-extrabold leading-none tracking-tight">{data.subtes.reduce((n, x) => n + x.topik.length, 0)}</p>
+          <p className="mt-1 text-[11px] text-redup">tersedia</p>
+        </div>
+      </div>
 
       {perluDomain0 && (
         <section className="mt-4 rounded-3xl border border-aksen/40 bg-card p-5">
@@ -153,12 +178,12 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
         </section>
       )}
 
-      <h2 className="mt-7 mb-3 text-sm font-bold uppercase tracking-wide text-redup">Peta penguasaan</h2>
+      <h2 className="mt-7 mb-3 text-[19px] font-extrabold tracking-tight">Peta penguasaan</h2>
       <div className="space-y-6">
         {data.subtes.map((s) => (
           <div key={s.id}>
-            <p className="mb-2 font-bold">{s.nama}</p>
-            <div className="space-y-3">
+            <p className="mb-2 text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">{s.nama}</p>
+            <div className="grid gap-3 lg:grid-cols-2">
               {s.topik.map((t) => (
                 <KartuTopik key={t.id} t={t} />
               ))}
@@ -167,7 +192,7 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
         ))}
       </div>
 
-      <footer className="mt-10 flex items-center justify-between text-xs text-redup">
+      <footer className="mt-10 flex items-center justify-between text-xs text-redup lg:hidden">
         <span>{me.email}</span>
         <span className="flex items-center gap-4">
           <button onClick={() => supabase.auth.signOut()} className="underline">
@@ -175,6 +200,7 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
           </button>
         </span>
       </footer>
+      <MenuBawah aktif="beranda" onPilih={onNav} email={me.email} />
     </Layar>
   );
 }

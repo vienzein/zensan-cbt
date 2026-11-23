@@ -1,13 +1,20 @@
-// Komponen dasar yang dipakai semua layar: bingkai HP, logo, loading, dan pesan galat.
+// Komponen dasar yang dipakai semua layar: bingkai HP (di laptop melebar dan menyisakan ruang untuk sidebar), logo, loading, dan pesan galat.
 
-export function Layar({ children }) {
+// denganMenu: sisakan ruang di bawah untuk bilah menu bawah.
+export function Layar({ children, denganMenu = false }) {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-8 pb-6">{children}</div>
+    <div
+      className={`mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-8 ${
+        denganMenu ? 'pb-28 lg:max-w-6xl lg:pr-10 lg:pb-10 lg:pl-[17rem]' : 'pb-6 lg:max-w-3xl'
+      }`}
+    >
+      {children}
+    </div>
   );
 }
 
 export function Logo({ className = 'h-9' }) {
-  return <img src="/logo-zensan-gelap.png" alt="Zensan Institute" className={className} />;
+  return <img src="/logo-zensan-gelap.png" alt="Zensan Institute" className={`logo-img ${className}`} />;
 }
 
 export function Memuat({ teks = 'Memuat…' }) {

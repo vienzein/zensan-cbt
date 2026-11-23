@@ -139,66 +139,77 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
       {umpan && <Popup u={umpan} />}
 
       <header className="flex items-center justify-between">
-        <button onClick={() => window.confirm('Keluar dari sesi? Jawaban yang belum dikirim hilang.') && onKeluar()} className="text-sm text-redup">
-          ✕ Keluar
-        </button>
-        <span className="text-xs font-semibold text-redup">{judul}</span>
-        <span
-          className={`rounded-full px-3 py-1 text-sm font-bold tabular-nums ${
-            genting ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'
-          }`}
+        <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Sesi {mode === 'domain0' ? 'ujian dasar' : 'drill'}</p>
+        <button
+          onClick={() => window.confirm('Keluar dari sesi? Jawaban yang belum dikirim hilang.') && onKeluar()}
+          className="p-1 text-xs font-extrabold text-aksen"
         >
-          {menit}:{detik}
-        </span>
+          Tutup ✕
+        </button>
       </header>
 
-      <div className="mt-4 flex gap-1">
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <h2 className="text-[21px] font-extrabold tracking-tight">
+          Soal {idx + 1} <span className="text-redup">/ {total}</span>
+        </h2>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-card-2 px-2.5 py-1.5 text-[11px] font-extrabold whitespace-nowrap text-aksen">{judul}</span>
+          <span
+            className={`rounded-full px-3 py-1.5 text-sm font-extrabold tabular-nums ${
+              genting ? 'bg-bahaya/20 text-bahaya' : 'bg-card-2 text-aksen'
+            }`}
+          >
+            {menit}:{detik}
+          </span>
+        </div>
+      </div>
+
+      <div className="my-[18px] flex gap-1.5" aria-label="Progres soal">
         {soal.map((s, i) => (
           <div
             key={s.question_id}
-            className={`h-1.5 flex-1 rounded-full ${i < idx ? 'bg-lime' : i === idx ? 'bg-aksen' : 'bg-line'}`}
+            className={`h-1.5 flex-1 rounded-full ${i < idx ? 'bg-lime' : i === idx ? 'bg-aksen' : 'bg-card-2'}`}
           />
         ))}
       </div>
-      <p className="mt-2 text-xs text-redup">
-        Soal {idx + 1} dari {total}
-      </p>
 
-      <section className="mt-4 flex-1">
-        <TeksSoal teks={q.soal_teks} />
-        {q.soal_gambar_url && (
-          <img src={q.soal_gambar_url} alt="" className="mt-4 max-h-64 w-full rounded-2xl object-contain" />
-        )}
+      <section className="flex-1">
+        <div className="rounded-[20px] border border-line bg-card p-[19px]">
+          <TeksSoal teks={q.soal_teks} className="text-[19px] leading-[1.5] font-bold" />
+          {q.soal_gambar_url && (
+            <img src={q.soal_gambar_url} alt="" className="mt-4 max-h-64 w-full rounded-2xl object-contain" />
+          )}
 
-        <div className="mt-5 space-y-2.5">
-          {opsi.length > 0 ? (
-            opsi.map((o) => (
-              <button
-                key={o.kode}
-                onClick={() => setPilihan(o.kode)}
-                disabled={mengirim}
-                className={`flex w-full items-start gap-3 rounded-2xl border p-3.5 text-left transition active:scale-[0.99] ${
-                  pilihan === o.kode ? 'border-aksen bg-card-2' : 'border-line bg-card'
-                }`}
-              >
-                <span
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                    pilihan === o.kode ? 'bg-aksen text-bg' : 'bg-line text-redup'
+          <div className="mt-5 space-y-[11px]" role="group" aria-label="Pilihan jawaban">
+            {opsi.length > 0 ? (
+              opsi.map((o) => (
+                <button
+                  key={o.kode}
+                  onClick={() => setPilihan(o.kode)}
+                  disabled={mengirim}
+                  className={`flex min-h-[57px] w-full items-center gap-3 rounded-[13px] border px-[15px] py-[13px] text-left font-bold transition active:scale-[0.99] ${
+                    pilihan === o.kode ? 'border-lime bg-card-2' : 'border-line bg-card-2'
                   }`}
                 >
-                  {o.kode}
-                </span>
-                <span className="pt-0.5">{o.teks}</span>
-              </button>
-            ))
-          ) : (
-            <input
-              value={pilihan ?? ''}
-              onChange={(e) => setPilihan(e.target.value)}
-              placeholder="Ketik jawaban"
-              className="w-full rounded-2xl border border-line bg-card px-4 py-3.5 outline-none focus:border-aksen"
-            />
-          )}
+                  <span
+                    className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg text-sm font-bold ${
+                      pilihan === o.kode ? 'bg-lime text-bg' : 'bg-card text-aksen'
+                    }`}
+                  >
+                    {o.kode}
+                  </span>
+                  <span>{o.teks}</span>
+                </button>
+              ))
+            ) : (
+              <input
+                value={pilihan ?? ''}
+                onChange={(e) => setPilihan(e.target.value)}
+                placeholder="Ketik jawaban"
+                className="w-full rounded-[13px] border border-line bg-card-2 px-4 py-3.5 outline-none focus:border-lime"
+              />
+            )}
+          </div>
         </div>
         <div className="mt-4 text-center">
           <LaporSoal key={q.question_id} questionId={q.question_id} sedangUjian />
@@ -215,16 +226,16 @@ export default function Ujian({ sesi, onSelesai, onKeluar }) {
         <button
           onClick={() => lanjut('')}
           disabled={mengirim}
-          className="rounded-2xl border border-line px-5 py-3.5 font-semibold text-redup disabled:opacity-50"
+          className="min-h-[50px] rounded-[13px] border border-line bg-card-2 px-5 py-3 text-sm font-extrabold text-teks disabled:opacity-50"
         >
           Lewati
         </button>
         <button
           onClick={() => lanjut(pilihan ?? '')}
           disabled={mengirim || !pilihan}
-          className="flex-1 rounded-2xl bg-lime py-3.5 font-bold text-bg disabled:opacity-40"
+          className="min-h-[50px] flex-1 rounded-[13px] bg-lime py-3 text-sm font-extrabold text-bg disabled:opacity-40"
         >
-          {mengirim ? 'Mengirim…' : terakhir ? 'Selesai' : 'Lanjut'}
+          {mengirim ? 'Mengirim…' : terakhir ? 'Selesai' : 'Lanjut →'}
         </button>
       </footer>
     </Layar>

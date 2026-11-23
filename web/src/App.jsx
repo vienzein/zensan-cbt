@@ -82,11 +82,27 @@ export default function App() {
 
   const kembali = () => setLayar(null);
 
+  // Menu bawah: Beranda, Latihan (pilih drill), Profil.
+  async function pindah(kunci) {
+    if (kunci === 'beranda') return setLayar(null);
+    if (kunci === 'profil') return setLayar({ nama: 'profil' });
+    if (kunci === 'latihan') {
+      try {
+        setLayar({ nama: 'pilih', data: await api.beranda(me.tes_aktif.id) });
+      } catch (e) {
+        setGalat(e.message);
+      }
+    }
+    return undefined;
+  }
+
   if (layar?.nama === 'pilih') {
     return (
       <PilihDrill
         data={layar.data}
         onBatal={kembali}
+        onNav={pindah}
+        email={me.email}
         onMulai={(sesi) => setLayar({ nama: 'ujian', sesi })}
       />
     );
@@ -105,7 +121,7 @@ export default function App() {
     return <Stage tesId={me.tes_aktif.id} onKembali={kembali} />;
   }
   if (layar?.nama === 'profil') {
-    return <Profil me={me} onKembali={kembali} onMeBerubah={muatProfil} />;
+    return <Profil me={me} onNav={pindah} onMeBerubah={muatProfil} />;
   }
   if (layar?.nama === 'hasil') {
     return <Hasil mode={layar.mode} hasil={layar.hasil} onKembali={kembali} />;
@@ -118,7 +134,7 @@ export default function App() {
       onPilihDrill={(data) => setLayar({ nama: 'pilih', data })}
       onSesi={(sesi) => setLayar({ nama: 'ujian', sesi })}
       onStage={() => setLayar({ nama: 'stage' })}
-      onProfil={() => setLayar({ nama: 'profil' })}
+      onNav={pindah}
     />
   );
 }
