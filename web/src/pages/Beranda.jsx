@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase.js';
 import { api } from '../lib/api.js';
 import { Layar, Logo, Memuat, Galat, Batang } from '../components/Dasar.jsx';
 import MenuBawah, { TombolTema } from '../components/MenuBawah.jsx';
+import PanelKanan from '../components/PanelKanan.jsx';
 
 const WARNA_LEVEL = {
   1: 'bg-aksen/20 text-aksen',
@@ -110,6 +111,9 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
         </div>
       </header>
 
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-8">
+      <div className="min-w-0">
+
       <section className="mt-6">
         <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">{me.tes_aktif.nama} · Lobby</p>
         <h1 className="mt-1.5 text-[31px] leading-[1.13] font-extrabold tracking-tight">
@@ -190,6 +194,12 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
             </div>
           </div>
         ))}
+      </div>
+
+      </div>
+      <div className="lg:mt-6">
+        <PanelKanan onPilihDrill={() => onPilihDrill(data)} />
+      </div>
       </div>
 
       <footer className="mt-10 flex items-center justify-between text-xs text-redup lg:hidden">
