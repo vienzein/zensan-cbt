@@ -625,7 +625,7 @@ export default function Admin({ me, onKeluar }) {
   }, []);
 
   return (
-    <div className={`mx-auto min-h-dvh w-full px-5 pt-6 pb-10 ${(tab === 'laporan_siswa' || tab === 'siswa') ? 'max-w-6xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto min-h-dvh w-full px-5 pt-6 pb-10 print:max-w-none print:p-0 ${(tab === 'laporan_siswa' || tab === 'siswa') ? 'max-w-6xl' : 'max-w-3xl'}`}>
       <header className="flex items-center justify-between print:hidden">
         <div>
           <h1 className="text-xl font-extrabold">{super_ ? 'Admin Zensan' : me.lembaga?.nama || 'Admin lembaga'}</h1>
