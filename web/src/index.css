@@ -29,6 +29,25 @@ html.light {
   --color-bahaya: #bd4149;
   --color-emas: #a87908;
 }
+/* Cetak / simpan PDF: selalu pakai warna terang agar terbaca di kertas. */
+@media print {
+  html {
+    --color-bg: #ffffff;
+    --color-card: #ffffff;
+    --color-card-2: #f1f6f4;
+    --color-line: #cee0d9;
+    --color-aksen: #117e71;
+    --color-lime: #4d7e1a;
+    --color-teks: #142b30;
+    --color-redup: #577274;
+    --color-bahaya: #bd4149;
+    --color-emas: #a87908;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
 html.light .logo-img {
   background: #fff;
   border-radius: 12px;

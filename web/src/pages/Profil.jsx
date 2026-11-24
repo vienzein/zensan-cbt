@@ -29,7 +29,7 @@ function Bagian({ judul, children }) {
 }
 
 /** Grafik batang jawaban per hari (30 hari terakhir) dengan garis akurasi. SVG inline, tanpa pustaka. */
-function Grafik({ data }) {
+export function Grafik({ data }) {
   if (!data.length) return <p className="text-sm text-redup">Belum ada data. Mulai drill untuk melihat perkembanganmu.</p>;
   const W = 320;
   const H = 120;
@@ -65,7 +65,7 @@ function duaBaris(nama) {
 }
 
 /** Radar kemampuan: RR rata-rata per subtes (skala 0-100) plus daftar nilainya. Perlu minimal 3 subtes. */
-function Radar({ subtes }) {
+export function Radar({ subtes }) {
   const n = subtes.length;
   if (n < 3) return null;
   const cx = 160;
@@ -137,7 +137,7 @@ function Radar({ subtes }) {
   );
 }
 
-function SubtesKartu({ sj }) {
+export function SubtesKartu({ sj }) {
   const [buka, setBuka] = useState(false);
   return (
     <div className="rounded-2xl border border-line bg-card">
