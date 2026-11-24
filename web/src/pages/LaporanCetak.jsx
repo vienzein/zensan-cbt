@@ -131,11 +131,11 @@ function Butir({ judul, sub, warna }) {
 
 function Tabel({ kolom, baris }) {
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 10.5 }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', fontSize: 10.5 }}>
       <thead>
         <tr style={{ borderBottom: `1.5px solid ${TEAL}` }}>
           {kolom.map((k) => (
-            <th key={k.judul} style={{ width: k.lebar, textAlign: k.kanan ? 'right' : 'left', fontSize: 8.5, fontWeight: 700, letterSpacing: '.1em', color: MUT, textTransform: 'uppercase', padding: '0 6px 5px' }}>
+            <th key={k.judul} style={{ width: k.lebar, textAlign: k.kanan ? 'right' : 'left', fontSize: 8.5, fontWeight: 700, letterSpacing: '.1em', color: MUT, textTransform: 'uppercase', padding: '0 6px 5px', whiteSpace: 'nowrap' }}>
               {k.judul}
             </th>
           ))}
@@ -218,7 +218,7 @@ const STATUS = {
 };
 function ChipCetak({ status }) {
   const [t, c] = STATUS[status] || STATUS.belum_mulai;
-  return <span style={{ fontSize: 9, fontWeight: 700, color: c, border: `1px solid ${c}`, borderRadius: 99, padding: '2px 7px' }}>{t}</span>;
+  return <span style={{ fontSize: 9, fontWeight: 700, color: c, border: `1px solid ${c}`, borderRadius: 99, padding: '2px 7px', whiteSpace: 'nowrap' }}>{t}</span>;
 }
 
 function AktivitasCetak({ data }) {
@@ -271,13 +271,13 @@ export function CetakKelas({ data }) {
         <div style={{ marginTop: 12 }}>
           <Tabel
             kolom={[
-              { judul: 'Siswa', lebar: '30%' },
-              { judul: 'Sesi', lebar: '8%', kanan: true },
-              { judul: 'Akurasi', lebar: '11%', kanan: true },
-              { judul: 'Streak', lebar: '12%', kanan: true },
+              { judul: 'Siswa', lebar: '25%' },
+              { judul: 'Sesi', lebar: '7%', kanan: true },
+              { judul: 'Akurasi', lebar: '10%', kanan: true },
+              { judul: 'Streak', lebar: '11%', kanan: true },
               { judul: 'RR rata', lebar: '10%', kanan: true },
               { judul: 'Terakhir aktif', lebar: '15%', kanan: true },
-              { judul: 'Status', lebar: '14%', kanan: true },
+              { judul: 'Status', lebar: '22%', kanan: true },
             ]}
             baris={rows}
           />
