@@ -3,6 +3,7 @@ import { api } from '../lib/api.js';
 import { Memuat, Galat, Batang } from '../components/Dasar.jsx';
 import { useMuat, Kartu, tgl } from '../components/AdminDasar.jsx';
 import { Radar, Grafik, SubtesKartu } from './Profil.jsx';
+import { CetakSiswa, CetakKelas } from './LaporanCetak.jsx';
 
 // Laporan untuk sekolah / bimbel: keseluruhan siswa (tabel + ringkasan), lalu laporan per siswa setelah nama diklik.
 // Admin lembaga hanya melihat siswa lembaganya (dijaga di server).
@@ -96,7 +97,9 @@ export function DetailSiswaLaporan({ id, onKembali, labelKembali = 'Laporan kese
   if (!data) return <Memuat />;
   const { siswa, ringkasan: r, streak, subtes, grafik, sesi, rekomendasi, terkuat } = data;
   return (
-    <div>
+    <>
+    <CetakSiswa data={data} />
+    <div className="print:hidden">
       <p className="text-sm text-redup print:hidden">
         <button onClick={onKembali} className="font-bold text-aksen underline">← {labelKembali}</button>
         {' / '}
@@ -191,6 +194,7 @@ export function DetailSiswaLaporan({ id, onKembali, labelKembali = 'Laporan kese
         )}
       </Blok>
     </div>
+    </>
   );
 }
 
@@ -213,7 +217,9 @@ export default function LaporanSiswa() {
   );
 
   return (
-    <div>
+    <>
+    <CetakKelas data={data} />
+    <div className="print:hidden">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-extrabold">Laporan keseluruhan siswa</h1>
@@ -305,5 +311,6 @@ export default function LaporanSiswa() {
         <p className="mt-3 text-xs font-bold text-aksen print:hidden">Klik nama siswa untuk membuka laporan per siswa.</p>
       </Blok>
     </div>
+    </>
   );
 }

@@ -30,6 +30,10 @@ html.light {
   --color-emas: #a87908;
 }
 /* Cetak / simpan PDF: selalu pakai warna terang agar terbaca di kertas. */
+@page {
+  size: A4;
+  margin: 0;
+}
 @media print {
   html {
     --color-bg: #ffffff;
