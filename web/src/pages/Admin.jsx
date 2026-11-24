@@ -4,6 +4,7 @@ import { Memuat, Galat } from '../components/Dasar.jsx';
 import FormSoal from '../components/FormSoal.jsx';
 import { useMuat, Kartu, tgl } from '../components/AdminDasar.jsx';
 import { Persetujuan, SoalSaya, Lembaga } from './AdminLembaga.jsx';
+import LaporanSiswa from './AdminLaporanSiswa.jsx';
 
 // Halaman admin: ringkasan, laporan soal, siswa, dan jumlah soal per subtopik. Hanya muncul bila akun is_admin.
 
@@ -12,6 +13,7 @@ const TAB_SUPER = [
   ['persetujuan', 'Persetujuan'],
   ['laporan', 'Laporan'],
   ['input', 'Input soal'],
+  ['laporan_siswa', 'Laporan siswa'],
   ['siswa', 'Siswa'],
   ['lembaga', 'Lembaga'],
   ['bank', 'Bank soal'],
@@ -20,6 +22,7 @@ const TAB_LEMBAGA = [
   ['ringkasan', 'Ringkasan'],
   ['input', 'Input soal'],
   ['saya', 'Soal saya'],
+  ['laporan_siswa', 'Laporan siswa'],
   ['siswa', 'Siswa'],
 ];
 
@@ -667,8 +670,8 @@ export default function Admin({ me, onKeluar }) {
   }, []);
 
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-3xl px-5 pt-6 pb-10">
-      <header className="flex items-center justify-between">
+    <div className={`mx-auto min-h-dvh w-full px-5 pt-6 pb-10 ${tab === 'laporan_siswa' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+      <header className="flex items-center justify-between print:hidden">
         <div>
           <h1 className="text-xl font-extrabold">{super_ ? 'Admin Zensan' : me.lembaga?.nama || 'Admin lembaga'}</h1>
           <p className="text-xs text-redup">{me.email}</p>
@@ -677,7 +680,7 @@ export default function Admin({ me, onKeluar }) {
           Keluar
         </button>
       </header>
-      <nav className="mt-4 mb-5 flex gap-2 overflow-x-auto">
+      <nav className="mt-4 mb-5 flex gap-2 overflow-x-auto print:hidden">
         {TAB.map(([k, n]) => (
           <button
             key={k}
@@ -699,6 +702,7 @@ export default function Admin({ me, onKeluar }) {
           {tab === 'laporan' && <Laporan label={label} />}
           {tab === 'input' && <Input />}
           {tab === 'saya' && <SoalSaya onEdit={setEditId} />}
+          {tab === 'laporan_siswa' && <LaporanSiswa />}
           {tab === 'siswa' && <Siswa />}
           {tab === 'lembaga' && <Lembaga />}
           {tab === 'bank' && <BankSoal />}

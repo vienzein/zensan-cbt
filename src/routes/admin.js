@@ -7,6 +7,7 @@ const svc = require('../services/adminService');
 const soalSvc = require('../services/adminSoalService');
 const lembagaSvc = require('../services/lembagaService');
 const persetujuanSvc = require('../services/persetujuanService');
+const laporanLembagaSvc = require('../services/laporanLembagaService');
 const { requireSuper } = require('../middleware/admin');
 
 const router = express.Router();
@@ -40,6 +41,13 @@ router.get('/siswa', jalan(async (req, res) => res.json({ siswa: await svc.dafta
 router.get('/siswa/:id', jalan(async (req, res) => {
   if (!UUID_RE.test(req.params.id)) throw new HttpError(422, 'VALIDATION_ERROR', 'id siswa tidak valid');
   res.json(await svc.detailSiswa(pool, req.params.id, req.admin));
+}));
+
+router.get('/laporan-siswa', jalan(async (req, res) => res.json(await laporanLembagaSvc.laporanKeseluruhan(pool, req.admin))));
+
+router.get('/siswa/:id/profil', jalan(async (req, res) => {
+  if (!UUID_RE.test(req.params.id)) throw new HttpError(422, 'VALIDATION_ERROR', 'id siswa tidak valid');
+  res.json(await laporanLembagaSvc.profilUntukAdmin(pool, req.params.id, req.admin));
 }));
 
 router.get('/bank-soal', jalan(async (req, res) => res.json({ subtopik: await svc.bankSoal(pool) })));

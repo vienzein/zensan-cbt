@@ -51,6 +51,8 @@ export const api = {
   adminTindak: (id, body) => panggil('POST', `/admin/laporan/${id}/tindak`, body),
   adminSiswa: () => panggil('GET', '/admin/siswa'),
   adminSiswaDetail: (id) => panggil('GET', `/admin/siswa/${id}`),
+  adminLaporanSiswa: () => panggil('GET', '/admin/laporan-siswa'),
+  adminSiswaProfil: (id) => panggil('GET', `/admin/siswa/${id}/profil`),
   adminPilihan: () => panggil('GET', '/admin/pilihan'),
   adminImporDocx: (file, { tulis, lewatiBertanda }) =>
     panggil('POST', `/admin/impor/docx?tulis=${tulis ? 1 : 0}&lewati_bertanda=${lewatiBertanda ? 1 : 0}`, undefined, file),
