@@ -4,7 +4,7 @@ import { Memuat, Galat } from '../components/Dasar.jsx';
 import FormSoal from '../components/FormSoal.jsx';
 import { useMuat, Kartu, tgl } from '../components/AdminDasar.jsx';
 import { Persetujuan, SoalSaya, Lembaga } from './AdminLembaga.jsx';
-import LaporanSiswa from './AdminLaporanSiswa.jsx';
+import LaporanSiswa, { DetailSiswaLaporan } from './AdminLaporanSiswa.jsx';
 
 // Halaman admin: ringkasan, laporan soal, siswa, dan jumlah soal per subtopik. Hanya muncul bila akun is_admin.
 
@@ -459,55 +459,10 @@ function Input() {
   );
 }
 
-function DetailSiswa({ id, onKembali }) {
-  const { data, galat, muat } = useMuat(() => api.adminSiswaDetail(id), [id]);
-  if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
-  if (!data) return <Memuat />;
-  const { siswa, subtopik, sesi } = data;
-  return (
-    <div>
-      <button onClick={onKembali} className="mb-3 text-sm text-aksen underline">
-        ← Daftar siswa
-      </button>
-      <p className="text-lg font-extrabold">{siswa.nama}</p>
-      <p className="text-xs text-redup">
-        {siswa.email} · daftar {tgl(siswa.daftar)} · tes {siswa.tes || '-'}
-      </p>
-
-      <h3 className="mt-5 mb-2 text-sm font-bold uppercase tracking-wide text-redup">Penguasaan subtopik</h3>
-      {!subtopik.length && <p className="text-sm text-redup">Belum ada latihan.</p>}
-      <ul className="space-y-1.5">
-        {subtopik.map((m, i) => (
-          <li key={i} className="flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-3 py-2 text-sm">
-            <span>
-              <span className="text-xs text-redup">{m.subtes} · </span>
-              {m.subtopik}
-            </span>
-            <span className="shrink-0 text-xs font-bold">
-              L{m.level} · RR {m.rr}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <h3 className="mt-5 mb-2 text-sm font-bold uppercase tracking-wide text-redup">Sesi terakhir</h3>
-      <ul className="space-y-1.5">
-        {sesi.map((a, i) => (
-          <li key={i} className="rounded-xl border border-line bg-card px-3 py-2 text-xs">
-            {tgl(a.started_at)} · {a.mode}
-            {a.subtes ? ` · ${a.subtes}` : ''} · {a.status} · {a.jumlah_benar}/{a.jumlah_soal} benar · RR {a.total_rr_delta >= 0 ? '+' : ''}
-            {a.total_rr_delta}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 function Siswa() {
   const [buka, setBuka] = useState(null);
   const { data, galat, muat } = useMuat(() => api.adminSiswa(), []);
-  if (buka) return <DetailSiswa id={buka} onKembali={() => setBuka(null)} />;
+  if (buka) return <DetailSiswaLaporan id={buka} onKembali={() => setBuka(null)} labelKembali="Daftar siswa" />;
   if (galat) return <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />;
   if (!data) return <Memuat />;
   if (!data.siswa.length) return <p className="text-sm text-redup">Belum ada siswa.</p>;
@@ -670,7 +625,7 @@ export default function Admin({ me, onKeluar }) {
   }, []);
 
   return (
-    <div className={`mx-auto min-h-dvh w-full px-5 pt-6 pb-10 ${tab === 'laporan_siswa' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+    <div className={`mx-auto min-h-dvh w-full px-5 pt-6 pb-10 ${(tab === 'laporan_siswa' || tab === 'siswa') ? 'max-w-6xl' : 'max-w-3xl'}`}>
       <header className="flex items-center justify-between print:hidden">
         <div>
           <h1 className="text-xl font-extrabold">{super_ ? 'Admin Zensan' : me.lembaga?.nama || 'Admin lembaga'}</h1>

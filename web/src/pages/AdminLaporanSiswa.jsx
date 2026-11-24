@@ -83,12 +83,12 @@ const terakhirTeks = (s) => {
   return `${s.hari_sejak} hari lalu`;
 };
 
-function DetailSiswaLaporan({ id, onKembali }) {
+export function DetailSiswaLaporan({ id, onKembali, labelKembali = 'Laporan keseluruhan siswa' }) {
   const { data, galat, muat } = useMuat(() => api.adminSiswaProfil(id), [id]);
   if (galat) {
     return (
       <div>
-        <button onClick={onKembali} className="mb-3 text-sm text-aksen underline">← Laporan keseluruhan siswa</button>
+        <button onClick={onKembali} className="mb-3 text-sm text-aksen underline">← {labelKembali}</button>
         <Galat pesan={galat} aksi="Coba lagi" onAksi={muat} />
       </div>
     );
@@ -98,7 +98,7 @@ function DetailSiswaLaporan({ id, onKembali }) {
   return (
     <div>
       <p className="text-sm text-redup print:hidden">
-        <button onClick={onKembali} className="font-bold text-aksen underline">← Laporan keseluruhan siswa</button>
+        <button onClick={onKembali} className="font-bold text-aksen underline">← {labelKembali}</button>
         {' / '}
         {siswa.nama}
       </p>
