@@ -26,7 +26,8 @@ async function ringkasan(pool, admin) {
        (SELECT count(DISTINCT question_id)::int FROM question_reports WHERE status = 'baru') AS soal_dilaporkan_baru,
        (SELECT count(*)::int FROM question_reports WHERE status = 'baru')                AS laporan_baru,
        (SELECT count(*)::int FROM institutions WHERE is_active)                          AS lembaga,
-       (SELECT count(*)::int FROM questions WHERE approval_status = 'menunggu')          AS soal_menunggu`,
+       (SELECT count(*)::int FROM questions WHERE approval_status = 'menunggu')          AS soal_menunggu,
+       (SELECT count(*)::int FROM payments WHERE status = 'menunggu_verifikasi')         AS pembayaran_menunggu`,
   );
   return { peran: PERAN.SUPER_ADMIN, ...rows[0] };
 }
