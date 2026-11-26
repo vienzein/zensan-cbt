@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase.js';
 import { Logo } from '../components/Dasar.jsx';
 import { Ikon, TombolTema } from '../components/MenuBawah.jsx';
-import { rupiah, sisaHari, tglPanjang } from '../lib/rupiah.js';
+import { api } from '../lib/api.js';
+import { rupiah, sisaHari, tglPanjang, jadwalKelas } from '../lib/rupiah.js';
 
 // Beranda utama Zensan Institute ("super app"): status akses siswa dan pintu ke semua modul.
 // Modul baru cukup menambah satu kartu di MODUL dan satu baris di tabel programs.
@@ -43,7 +45,12 @@ function KartuModul({ ikon, judul, deskripsi, chip, onKlik, nonaktif }) {
   );
 }
 
-export default function Portal({ me, akses, onBukaCbt, onBayar }) {
+export default function Portal({ me, akses, onBukaCbt, onBukaKelas, onBayar }) {
+  const [kelas, setKelas] = useState(null);
+  useEffect(() => {
+    api.kelas().then(setKelas).catch(() => setKelas([]));
+  }, []);
+  const berikut = kelas && kelas[0];
   const nama = me.nama || me.email.split('@')[0];
   const cbt = akses?.find((p) => p.kode === 'cbt');
   const gratis = Boolean(cbt?.terbatas);
@@ -95,9 +102,13 @@ export default function Portal({ me, akses, onBukaCbt, onBayar }) {
         <KartuModul
           ikon="kelas"
           judul="Kelas Mendatang"
-          deskripsi="Jadwal kelas dan link Google Meet akan tampil di sini."
-          chip={<span className="rounded-full bg-card-2 px-2.5 py-1 text-[11px] font-bold text-redup">Segera hadir</span>}
-          nonaktif
+          deskripsi={berikut ? `${berikut.judul} · ${jadwalKelas(berikut.mulai_pada, berikut.selesai_pada)}` : 'Jadwal kelas dan link Google Meet dari program yang kamu ikuti.'}
+          chip={
+            <span className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${berikut ? 'bg-lime/15 text-lime' : 'bg-card-2 text-redup'}`}>
+              {kelas === null ? 'Memuat…' : kelas.length ? `${kelas.length} kelas mendatang` : 'Belum ada jadwal'}
+            </span>
+          }
+          onKlik={onBukaKelas}
         />
         <KartuModul
           ikon="bayar"

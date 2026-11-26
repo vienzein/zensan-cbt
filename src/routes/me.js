@@ -8,6 +8,7 @@ const { getMe, setActiveTest } = require('../services/readService');
 const { gabungLembaga, keluarLembaga } = require('../services/lembagaService');
 const { profilSiswa } = require('../services/profilService');
 const { programSiswa } = require('../services/aksesService');
+const { kelasSiswa } = require('../services/kelasService');
 
 const router = express.Router();
 
@@ -40,6 +41,15 @@ router.get('/akses', async (req, res, next) => {
     const id = needStudent(req);
     const me = await getMe(pool, id);
     res.json({ program: await programSiswa(pool, id, me.role) });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** GET /api/me/kelas — kelas online mendatang dari program yang aksesnya aktif */
+router.get('/kelas', async (req, res, next) => {
+  try {
+    res.json({ kelas: await kelasSiswa(pool, needStudent(req)) });
   } catch (err) {
     next(err);
   }
