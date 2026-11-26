@@ -108,7 +108,7 @@ function BarisPesanan({ p, onSelesai }) {
   );
 }
 
-export default function Pembayaran() {
+export default function Pembayaran({ onUbah }) {
   const [semua, setSemua] = useState(false);
   const { data, galat, muat } = useMuat(() => api.adminPembayaran(semua), [semua]);
 
@@ -130,7 +130,7 @@ export default function Pembayaran() {
       {!data.pesanan.length && <p className="text-sm text-redup">Tidak ada pesanan.</p>}
       <ul className="space-y-3">
         {data.pesanan.map((p) => (
-          <BarisPesanan key={p.id} p={p} onSelesai={muat} />
+          <BarisPesanan key={p.id} p={p} onSelesai={async () => { await muat(); if (onUbah) onUbah(); }} />
         ))}
       </ul>
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import { Memuat, Galat } from '../components/Dasar.jsx';
 import FormSoal from '../components/FormSoal.jsx';
@@ -51,6 +51,12 @@ function Ringkasan() {
   }
   return (
     <div className="grid grid-cols-2 gap-3">
+      {data.pembayaran_menunggu > 0 && (
+        <div className="col-span-2 rounded-2xl border border-emas/40 bg-card p-4">
+          <p className="font-bold text-emas">{data.pembayaran_menunggu} pembayaran menunggu dicek</p>
+          <p className="mt-0.5 text-xs text-redup">Buka tab Pembayaran, cocokkan dengan mutasi rekening, lalu setujui atau tolak.</p>
+        </div>
+      )}
       <Kartu judul="Siswa terdaftar" nilai={data.siswa} />
       <Kartu judul="Aktif 7 hari terakhir" nilai={data.siswa_aktif_7_hari} />
       <Kartu judul="Jawaban 24 jam terakhir" nilai={data.jawaban_24_jam} />
@@ -617,6 +623,20 @@ export default function Admin({ me, onKeluar }) {
   const [tab, setTab] = useState('ringkasan');
   const [editId, setEditId] = useState(null);
   const [label, setLabel] = useState({});
+  const [menungguBayar, setMenungguBayar] = useState(0); // penanda di tab Pembayaran (khusus super admin)
+
+  const muatMenungguBayar = useCallback(() => {
+    if (!super_) return;
+    api
+      .adminRingkasan()
+      .then((r) => setMenungguBayar(r.pembayaran_menunggu || 0))
+      .catch(() => {}); // penanda hanya pelengkap; abaikan bila gagal
+  }, [super_]);
+
+  // Dimuat saat halaman dibuka dan setiap kali pindah tab, supaya angkanya ikut turun setelah pesanan diputuskan.
+  useEffect(() => {
+    muatMenungguBayar();
+  }, [tab, muatMenungguBayar]);
 
   useEffect(() => {
     if (!super_) return;
@@ -647,6 +667,11 @@ export default function Admin({ me, onKeluar }) {
             }`}
           >
             {n}
+            {k === 'pembayaran' && menungguBayar > 0 && (
+              <span className={`ml-2 rounded-full px-2 py-0.5 text-[11px] font-extrabold ${tab === k ? 'bg-bg/30 text-bg' : 'bg-emas text-bg'}`}>
+                {menungguBayar}
+              </span>
+            )}
           </button>
         ))}
       </nav>
@@ -661,7 +686,7 @@ export default function Admin({ me, onKeluar }) {
           {tab === 'saya' && <SoalSaya onEdit={setEditId} />}
           {tab === 'laporan_siswa' && <LaporanSiswa />}
           {tab === 'siswa' && <Siswa />}
-          {tab === 'pembayaran' && <Pembayaran />}
+          {tab === 'pembayaran' && <Pembayaran onUbah={muatMenungguBayar} />}
           {tab === 'lembaga' && <Lembaga />}
           {tab === 'bank' && <BankSoal />}
         </>
