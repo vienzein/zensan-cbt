@@ -7,6 +7,7 @@ const { parseCurriculumBody } = require('../validators/curriculum');
 const { getMe, setActiveTest } = require('../services/readService');
 const { gabungLembaga, keluarLembaga } = require('../services/lembagaService');
 const { profilSiswa } = require('../services/profilService');
+const { programSiswa } = require('../services/aksesService');
 
 const router = express.Router();
 
@@ -28,6 +29,17 @@ router.get('/', async (req, res, next) => {
 router.get('/profil', async (req, res, next) => {
   try {
     res.json(await profilSiswa(pool, needStudent(req)));
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** GET /api/me/akses — program yang tersedia, status akses siswa, dan apakah wajib bayar */
+router.get('/akses', async (req, res, next) => {
+  try {
+    const id = needStudent(req);
+    const me = await getMe(pool, id);
+    res.json({ program: await programSiswa(pool, id, me.role) });
   } catch (err) {
     next(err);
   }

@@ -17,7 +17,7 @@ function hashGambar(isi) {
   return crypto.createHash('sha256').update(isi).digest('hex').slice(0, 24);
 }
 
-function buatPenyimpanan({ url, kunci, bucket = 'soal', fetchFn = globalThis.fetch }) {
+function buatPenyimpanan({ url, kunci, bucket = 'soal', pribadi = false, fetchFn = globalThis.fetch }) {
   const dasar = String(url).replace(/\/+$/, '');
   const header = (tambahan = {}) => ({
     apikey: kunci,
@@ -49,7 +49,10 @@ function buatPenyimpanan({ url, kunci, bucket = 'soal', fetchFn = globalThis.fet
       if (!r.ok) return { ok: false, pesan: `Storage menjawab HTTP ${r.status}: ${ringkas(await r.text())}` };
       let info = {};
       try { info = await r.json(); } catch { /* abaikan */ }
-      if (info.public === false) {
+      if (pribadi && info.public === true) {
+        return { ok: false, pesan: `Bucket "${bucket}" bersifat Public, padahal isinya bukti transfer. Ubah ke Private di Storage > ${bucket} > Edit bucket.` };
+      }
+      if (!pribadi && info.public === false) {
         return { ok: false, pesan: `Bucket "${bucket}" tidak bersifat Public, sehingga gambar tidak akan tampil untuk siswa. Ubah ke Public di Storage > ${bucket} > Edit bucket.` };
       }
       return { ok: true, pesan: '' };
@@ -68,6 +71,33 @@ function buatPenyimpanan({ url, kunci, bucket = 'soal', fetchFn = globalThis.fet
       if (!r.ok) throw new Error(`Gagal mengunggah gambar (HTTP ${r.status}): ${ringkas(await r.text())}`);
       return `${dasar}/storage/v1/object/public/${encodeURIComponent(bucket)}/${nama}`;
     },
+
+    /** Mengunggah berkas ke bucket privat dengan nama yang ditentukan pemanggil; mengembalikan nama itu (bukan alamat publik). */
+    async unggahPribadi(isi, nama, ekstensi) {
+      const tipe = TIPE_GAMBAR[String(ekstensi).toLowerCase()];
+      if (!tipe) throw new Error(`Format gambar .${ekstensi} tidak didukung`);
+      const r = await panggil(`${dasar}/storage/v1/object/${encodeURIComponent(bucket)}/${nama}`, {
+        method: 'POST',
+        headers: header({ 'Content-Type': tipe, 'x-upsert': 'true' }),
+        body: isi,
+      });
+      if (!r.ok) throw new Error(`Gagal mengunggah berkas (HTTP ${r.status}): ${ringkas(await r.text())}`);
+      return nama;
+    },
+
+    /** Tautan sementara untuk membuka berkas di bucket privat. */
+    async tautanSementara(nama, detik = 300) {
+      const r = await panggil(`${dasar}/storage/v1/object/sign/${encodeURIComponent(bucket)}/${nama}`, {
+        method: 'POST',
+        headers: header({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({ expiresIn: detik }),
+      });
+      if (!r.ok) throw new Error(`Gagal membuat tautan berkas (HTTP ${r.status}): ${ringkas(await r.text())}`);
+      const j = await r.json();
+      const rel = String(j.signedURL || j.signedUrl || '');
+      if (!rel) throw new Error('Supabase tidak mengembalikan tautan berkas');
+      return rel.startsWith('http') ? rel : `${dasar}/storage/v1${rel.startsWith('/') ? '' : '/'}${rel}`;
+    },
   };
 }
 
@@ -85,4 +115,18 @@ function dariEnv(env = process.env, fetchFn = globalThis.fetch) {
   };
 }
 
-module.exports = { buatPenyimpanan, dariEnv, hashGambar };
+/** Penyimpanan bucket PRIVAT untuk bukti transfer (SUPABASE_BUCKET_BUKTI, bawaan 'bukti-transfer'). */
+function dariEnvBukti(env = process.env, fetchFn = globalThis.fetch) {
+  const url = env.SUPABASE_URL || '';
+  const kunci = env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const kurang = [];
+  if (!url) kurang.push('SUPABASE_URL');
+  if (!kunci) kurang.push('SUPABASE_SECRET_KEY');
+  if (kurang.length) return { penyimpanan: null, kurang };
+  return {
+    penyimpanan: buatPenyimpanan({ url, kunci: kunci.trim(), bucket: env.SUPABASE_BUCKET_BUKTI || 'bukti-transfer', pribadi: true, fetchFn }),
+    kurang,
+  };
+}
+
+module.exports = { buatPenyimpanan, dariEnv, dariEnvBukti, hashGambar };

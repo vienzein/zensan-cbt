@@ -10,6 +10,8 @@ import Hasil from './pages/Hasil.jsx';
 import Stage from './pages/Stage.jsx';
 import Admin from './pages/Admin.jsx';
 import Profil from './pages/Profil.jsx';
+import Portal from './pages/Portal.jsx';
+import Bayar from './pages/Bayar.jsx';
 import { Layar, Memuat, Galat } from './components/Dasar.jsx';
 
 export default function App() {
@@ -19,6 +21,10 @@ export default function App() {
   const [ganti, setGanti] = useState(false); // true = tampilkan layar pilih tes
   // Layar di atas Beranda: null | {nama:'pilih', data} | {nama:'ujian', sesi} | {nama:'hasil', mode, hasil}
   const [layar, setLayar] = useState(null);
+  // Kerangka super app: 'home' (Portal) | 'cbt' (Drill Soal) | 'bayar'. Modul baru tinggal menambah nilai di sini.
+  const [modul, setModul] = useState('home');
+  const [bayar, setBayar] = useState({ program: null, dari: null });
+  const [akses, setAkses] = useState(null);
 
   useEffect(() => {
     if (!supabaseSiap) return undefined;
@@ -36,10 +42,37 @@ export default function App() {
     }
   }, []);
 
+  const muatAkses = useCallback(async () => {
+    try {
+      setAkses(await api.akses());
+    } catch {
+      setAkses(null); // Portal tetap tampil tanpa status akses
+    }
+  }, []);
+
   useEffect(() => {
-    if (sesi) muatProfil();
-    else setMe(null);
-  }, [sesi, muatProfil]);
+    if (sesi) {
+      muatProfil();
+      muatAkses();
+    } else {
+      setMe(null);
+      setAkses(null);
+      setModul('home');
+    }
+  }, [sesi, muatProfil, muatAkses]);
+
+  const bukaBayar = useCallback((program = null, dari = null) => {
+    setLayar(null);
+    setBayar({ program, dari });
+    setModul('bayar');
+  }, []);
+
+  // Server menjawab 402 bila akses program belum aktif: arahkan ke halaman bayar.
+  useEffect(() => {
+    const dengar = (e) => bukaBayar(e.detail?.program || 'cbt', e.detail?.program || 'cbt');
+    window.addEventListener('zq-akses', dengar);
+    return () => window.removeEventListener('zq-akses', dengar);
+  }, [bukaBayar]);
 
   if (!supabaseSiap) {
     return (
@@ -67,6 +100,39 @@ export default function App() {
   // Akun admin tidak pernah melihat halaman drill: langsung ke ruang admin sesuai perannya.
   if (me.is_admin) return <Admin me={me} onKeluar={() => supabase.auth.signOut()} />;
 
+  const keHome = () => {
+    setLayar(null);
+    setModul('home');
+    muatAkses();
+  };
+
+  if (modul === 'bayar') {
+    return (
+      <Bayar
+        programAwal={bayar.program}
+        dariModul={bayar.dari}
+        onKembali={keHome}
+        onBukaCbt={() => {
+          setModul('cbt');
+          muatAkses();
+        }}
+      />
+    );
+  }
+  if (modul === 'home') {
+    return (
+      <Portal
+        me={me}
+        akses={akses}
+        onBukaCbt={() => {
+          if (akses?.find((p) => p.kode === 'cbt')?.perlu_bayar) bukaBayar('cbt', 'cbt');
+          else setModul('cbt');
+        }}
+        onBayar={(program) => bukaBayar(program || null, null)}
+      />
+    );
+  }
+
   if (!me.tes_aktif || ganti) {
     return (
       <PilihTes
@@ -84,13 +150,14 @@ export default function App() {
 
   // Menu bawah: Beranda, Latihan (pilih drill), Profil.
   async function pindah(kunci) {
+    if (kunci === 'home') return keHome();
     if (kunci === 'beranda') return setLayar(null);
     if (kunci === 'profil') return setLayar({ nama: 'profil' });
     if (kunci === 'latihan') {
       try {
         setLayar({ nama: 'pilih', data: await api.beranda(me.tes_aktif.id) });
       } catch (e) {
-        setGalat(e.message);
+        if (e.code !== 'AKSES_DIPERLUKAN') setGalat(e.message); // 402 sudah mengarahkan ke halaman bayar
       }
     }
     return undefined;

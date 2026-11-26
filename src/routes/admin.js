@@ -8,6 +8,7 @@ const soalSvc = require('../services/adminSoalService');
 const lembagaSvc = require('../services/lembagaService');
 const persetujuanSvc = require('../services/persetujuanService');
 const laporanLembagaSvc = require('../services/laporanLembagaService');
+const aksesSvc = require('../services/aksesService');
 const { requireSuper } = require('../middleware/admin');
 
 const router = express.Router();
@@ -97,6 +98,20 @@ router.post('/lembaga/:id/admin', requireSuper, jalan(async (req, res) => res.st
 router.delete('/lembaga/:id/admin/:studentId', requireSuper, jalan(async (req, res) => {
   if (!UUID_RE.test(req.params.studentId)) throw new HttpError(422, 'VALIDATION_ERROR', 'id akun tidak valid');
   res.json(await lembagaSvc.cabutAdmin(pool, idLembaga(req.params.id), req.params.studentId));
+}));
+
+// ---------- Pembayaran (transfer manual) ----------
+
+router.get('/pembayaran', requireSuper, jalan(async (req, res) => {
+  res.json({ pesanan: await aksesSvc.daftarPembayaran(pool, req.query.status === 'semua' ? 'semua' : 'menunggu') });
+}));
+
+router.get('/pembayaran/:id/bukti', requireSuper, jalan(async (req, res) => {
+  res.json(await aksesSvc.urlBukti(pool, req.params.id));
+}));
+
+router.post('/pembayaran/:id/keputusan', requireSuper, jalan(async (req, res) => {
+  res.json(await aksesSvc.putuskanPembayaran(pool, req.admin.id, req.params.id, req.body));
 }));
 
 module.exports = router;
