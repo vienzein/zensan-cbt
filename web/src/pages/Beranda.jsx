@@ -127,17 +127,23 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
           <div>
             <p className="text-[11px] font-extrabold tracking-[0.16em] text-aksen uppercase">Siap drill hari ini?</p>
             <p className="mt-1 text-sm text-redup">
-              {kuota.sisa > 0 ? `${kuota.sisa} soal ranked tersisa hari ini` : 'Kuota ranked hari ini habis'}
+              {kuota.tanpa_batas
+                ? 'Latihan tanpa batas hari ini'
+                : kuota.sisa > 0
+                  ? `${kuota.sisa} soal gratis tersisa hari ini`
+                  : 'Jatah gratis hari ini habis'}
             </p>
           </div>
           <span className="shrink-0 rounded-full bg-bg/40 px-3 py-1.5 text-xs font-extrabold text-emas">🔥 {streak} hari</span>
         </div>
-        <div className="mt-4 flex items-center gap-3">
-          <Batang persen={(kuota.terpakai / kuota.batas) * 100} warna="bg-lime" />
-          <span className="shrink-0 text-xs text-redup">
-            {kuota.terpakai}/{kuota.batas}
-          </span>
-        </div>
+        {!kuota.tanpa_batas && (
+          <div className="mt-4 flex items-center gap-3">
+            <Batang persen={(kuota.terpakai / kuota.batas) * 100} warna="bg-lime" />
+            <span className="shrink-0 text-xs text-redup">
+              {kuota.terpakai}/{kuota.batas}
+            </span>
+          </div>
+        )}
         <button
           onClick={() => onPilihDrill(data)}
           className="mt-4 flex min-h-[50px] w-full items-center justify-center gap-2 rounded-[13px] bg-lime px-4 py-3 text-sm font-extrabold text-bg"
@@ -154,7 +160,7 @@ export default function Beranda({ me, onGantiTes, onPilihDrill, onSesi, onStage,
         </div>
         <div className="rounded-2xl border border-line bg-card px-2.5 py-3">
           <p className="text-[11px] text-redup">✦ SISA SOAL</p>
-          <p className="mt-1.5 text-[22px] font-extrabold leading-none tracking-tight text-lime">{kuota.sisa}</p>
+          <p className="mt-1.5 text-[22px] font-extrabold leading-none tracking-tight text-lime">{kuota.tanpa_batas ? '∞' : kuota.sisa}</p>
           <p className="mt-1 text-[11px] text-redup">hari ini</p>
         </div>
         <div className="rounded-2xl border border-line bg-card px-2.5 py-3">

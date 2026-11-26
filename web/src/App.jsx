@@ -23,7 +23,7 @@ export default function App() {
   const [layar, setLayar] = useState(null);
   // Kerangka super app: 'home' (Portal) | 'cbt' (Drill Soal) | 'bayar'. Modul baru tinggal menambah nilai di sini.
   const [modul, setModul] = useState('home');
-  const [bayar, setBayar] = useState({ program: null, dari: null });
+  const [bayar, setBayar] = useState({ program: null, dari: null, alasan: null });
   const [akses, setAkses] = useState(null);
 
   useEffect(() => {
@@ -61,15 +61,15 @@ export default function App() {
     }
   }, [sesi, muatProfil, muatAkses]);
 
-  const bukaBayar = useCallback((program = null, dari = null) => {
+  const bukaBayar = useCallback((program = null, dari = null, alasan = null) => {
     setLayar(null);
-    setBayar({ program, dari });
+    setBayar({ program, dari, alasan });
     setModul('bayar');
   }, []);
 
   // Server menjawab 402 bila akses program belum aktif: arahkan ke halaman bayar.
   useEffect(() => {
-    const dengar = (e) => bukaBayar(e.detail?.program || 'cbt', e.detail?.program || 'cbt');
+    const dengar = (e) => bukaBayar(e.detail?.program || 'cbt', e.detail?.program || 'cbt', e.detail?.alasan || null);
     window.addEventListener('zq-akses', dengar);
     return () => window.removeEventListener('zq-akses', dengar);
   }, [bukaBayar]);
@@ -111,6 +111,7 @@ export default function App() {
       <Bayar
         programAwal={bayar.program}
         dariModul={bayar.dari}
+        alasan={bayar.alasan}
         onKembali={keHome}
         onBukaCbt={() => {
           setModul('cbt');
@@ -124,10 +125,7 @@ export default function App() {
       <Portal
         me={me}
         akses={akses}
-        onBukaCbt={() => {
-          if (akses?.find((p) => p.kode === 'cbt')?.perlu_bayar) bukaBayar('cbt', 'cbt');
-          else setModul('cbt');
-        }}
+        onBukaCbt={() => setModul('cbt')}
         onBayar={(program) => bukaBayar(program || null, null)}
       />
     );

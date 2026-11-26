@@ -2,6 +2,7 @@
 
 const { HttpError } = require('../errors');
 const plan = require('../config/plan');
+const { jatahHarian } = require('./aksesService');
 const stageCfg = require('../config/stage');
 const { hasPassedDomain0 } = require('./domain0Service');
 const { hitungStreak, ringkasTopik, levelNama } = require('./progress');
@@ -150,13 +151,8 @@ async function getBeranda(pool, studentId, curriculumGroupId) {
 
   // Kuota harian (zona Asia/Jakarta) dan hari beruntun
   const tz = plan.TIMEZONE;
-  const kuota = await pool.query(
-    `SELECT COALESCE(sum(COALESCE(jumlah_benar, 0) + COALESCE(jumlah_salah, 0)), 0)::int AS n
-       FROM student_attempts
-      WHERE student_id = $1::uuid AND mode = 'drill_ranked' AND status = 'selesai'
-        AND finished_at >= (date_trunc('day', now() AT TIME ZONE $2) AT TIME ZONE $2)`,
-    [studentId, tz],
-  );
+  const peran = (await pool.query('SELECT role FROM students WHERE id = $1::uuid', [studentId])).rows[0];
+  const kuota = await jatahHarian(pool, studentId, peran ? peran.role : 'siswa');
   const hari = await pool.query(
     `SELECT DISTINCT to_char(finished_at AT TIME ZONE $2, 'YYYY-MM-DD') AS d
        FROM student_attempts
@@ -168,15 +164,10 @@ async function getBeranda(pool, studentId, curriculumGroupId) {
   const today = (await pool.query(
     `SELECT to_char(now() AT TIME ZONE $1, 'YYYY-MM-DD') AS d`, [tz])).rows[0].d;
 
-  const terpakai = kuota.rows[0].n;
   return {
     tes: cg.rows[0],
-    paket: 'gratis',
-    kuota: {
-      batas: plan.FREE_DAILY_QUESTIONS,
-      terpakai,
-      sisa: Math.max(plan.FREE_DAILY_QUESTIONS - terpakai, 0),
-    },
+    paket: kuota.tanpa_batas ? 'tanpa_batas' : 'gratis',
+    kuota,
     streak_hari: hitungStreak(hari.rows.map((r) => r.d), today),
     domain0: {
       mode: stageCfg.mode(),

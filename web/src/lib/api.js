@@ -35,7 +35,7 @@ async function panggil(method, path, body, berkas) {
     const e = json?.error;
     // 402 = akses program belum aktif: App mengarahkan siswa ke halaman bayar (lihat App.jsx).
     if (res.status === 402 && e?.code === 'AKSES_DIPERLUKAN') {
-      window.dispatchEvent(new CustomEvent('zq-akses', { detail: { program: e.details?.program } }));
+      window.dispatchEvent(new CustomEvent('zq-akses', { detail: { program: e.details?.program, alasan: e.details?.alasan } }));
     }
     throw new ApiError(res.status, e?.code || 'ERROR', e?.message || `Permintaan gagal (${res.status})`, e?.details);
   }
