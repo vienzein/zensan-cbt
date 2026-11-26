@@ -16,8 +16,12 @@ function ChipAkses({ p }) {
       </span>
     );
   }
-  if (p.perlu_bayar) {
-    return <span className="rounded-full bg-emas/15 px-2.5 py-1 text-[11px] font-bold text-emas">Perlu pembayaran</span>;
+  if (p.terbatas) {
+    return (
+      <span className="rounded-full bg-emas/15 px-2.5 py-1 text-[11px] font-bold text-emas">
+        {p.jatah ? `Gratis · ${p.jatah.sisa} soal tersisa hari ini` : 'Paket gratis'}
+      </span>
+    );
   }
   return <span className="rounded-full bg-card-2 px-2.5 py-1 text-[11px] font-bold text-redup">Belum aktif</span>;
 }
@@ -42,7 +46,7 @@ function KartuModul({ ikon, judul, deskripsi, chip, onKlik, nonaktif }) {
 export default function Portal({ me, akses, onBukaCbt, onBayar }) {
   const nama = me.nama || me.email.split('@')[0];
   const cbt = akses?.find((p) => p.kode === 'cbt');
-  const perluBayar = Boolean(cbt?.perlu_bayar);
+  const gratis = Boolean(cbt?.terbatas);
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 pt-6 pb-10 lg:max-w-5xl lg:pt-8">
@@ -67,12 +71,14 @@ export default function Portal({ me, akses, onBukaCbt, onBayar }) {
         {me.lembaga && <p className="mt-1 text-sm text-redup">{me.lembaga.nama}</p>}
       </section>
 
-      {perluBayar && (
+      {gratis && (
         <section className="mt-6 rounded-3xl border border-emas/40 bg-card p-5">
-          <p className="font-bold">Akses Drill Soal belum aktif</p>
-          <p className="mt-1 text-sm text-redup">Selesaikan pembayaran untuk mulai berlatih.</p>
+          <p className="font-bold">Paket gratis: {cbt.jatah ? cbt.jatah.batas : ''} soal latihan per hari</p>
+          <p className="mt-1 text-sm text-redup">
+            {cbt.jatah ? `Terpakai ${cbt.jatah.terpakai} dari ${cbt.jatah.batas} hari ini. ` : ''}Berlangganan untuk latihan tanpa batas.
+          </p>
           <button onClick={() => onBayar('cbt')} className="mt-3 rounded-2xl bg-lime px-5 py-3 font-bold text-bg">
-            Bayar sekarang
+            Berlangganan
           </button>
         </section>
       )}

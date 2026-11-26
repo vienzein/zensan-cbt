@@ -153,7 +153,7 @@ function Pesanan({ p, rekening, onUbah }) {
   );
 }
 
-export default function Bayar({ programAwal, dariModul, onKembali, onBukaCbt }) {
+export default function Bayar({ programAwal, dariModul, alasan, onKembali, onBukaCbt }) {
   const [data, setData] = useState(null); // { rekening, pesanan[] }
   const [akses, setAkses] = useState(null);
   const [galat, setGalat] = useState('');
@@ -214,7 +214,9 @@ export default function Bayar({ programAwal, dariModul, onKembali, onBukaCbt }) 
 
       {dariModul === 'cbt' && cbt && !cbt.aktif && (
         <p className="mt-3 rounded-2xl border border-emas/40 bg-card p-4 text-sm">
-          Drill Soal butuh akses aktif. Selesaikan pembayaran di bawah, lalu kamu bisa langsung berlatih.
+          {alasan === 'jatah_habis'
+            ? `Jatah gratis hari ini (${cbt.jatah?.batas ?? ''} soal) sudah habis. Berlangganan untuk lanjut berlatih tanpa batas.`
+            : 'Berlangganan untuk latihan tanpa batas. Selesaikan pembayaran di bawah, lalu kamu bisa langsung berlatih.'}
         </p>
       )}
       {cbt?.aktif && dariModul === 'cbt' && (

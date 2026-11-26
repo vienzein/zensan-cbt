@@ -11,9 +11,8 @@ const meRouter = require('./routes/me');
 const kurikulumRouter = require('./routes/kurikulum');
 const adminRouter = require('./routes/admin');
 const { createRequireAdmin } = require('./middleware/admin');
-const { createWajibAkses } = require('./middleware/akses');
+const { createJatahHarian } = require('./middleware/akses');
 const pembayaranRouter = require('./routes/pembayaran');
-const akses = require('./config/akses');
 
 const app = express();
 app.use(express.json({ limit: '100kb' }));
@@ -28,11 +27,12 @@ app.use('/api', (req, res, next) => {
 // Semua endpoint /api wajib login (token Supabase); middleware mengisi req.user.id
 app.use('/api', createAuth({ pool }));
 
-// Gerbang akses program 'cbt': aktif hanya bila WAJIB_BAYAR_CBT=1 (lihat src/config/akses.js).
-const wajibCbt = createWajibAkses({ pool, kode: akses.PROGRAM_CBT });
+// Jatah gratis harian untuk memulai sesi drill; aktif hanya bila WAJIB_BAYAR_CBT=1 (lihat src/config/akses.js).
+// Sesi yang sudah berjalan (jawab/submit) dan Domain 0 tidak dibatasi.
+app.post('/api/drill/start', createJatahHarian({ pool }));
 
-app.use('/api/drill', wajibCbt, drillRouter);
-app.use('/api/domain0', wajibCbt, domain0Router);
+app.use('/api/drill', drillRouter);
+app.use('/api/domain0', domain0Router);
 app.use('/api/soal', soalRouter);
 app.use('/api/tryout', tryoutRouter);
 app.use('/api/me', meRouter);

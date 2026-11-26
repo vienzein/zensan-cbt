@@ -6,6 +6,7 @@ const crypto = require('node:crypto');
 const { HttpError } = require('../errors');
 const { withTx, advisoryLock } = require('./tx');
 const akses = require('../config/akses');
+const plan = require('../config/plan');
 const { aksesAktif, hitungBerlakuSampai, kodeUnikDari, nominalTransfer, bebasAkses } = require('./aksesLogic');
 const { dariEnvBukti, hashGambar } = require('./penyimpananGambar');
 const { jenisGambar } = require('./adminSoalService');
@@ -43,7 +44,28 @@ function pesananJson(r) {
 const KOLOM_PESANAN = `p.id, p.program_kode, g.nama AS program_nama, p.harga_rupiah, p.kode_unik, p.status,
        p.nama_pengirim, p.bukti_path, p.catatan_siswa, p.catatan_admin, p.dilapor_pada, p.diputuskan_pada, p.created_at`;
 
-/** GET /api/me/akses — daftar program, status akses siswa, dan apakah wajib bayar. */
+/**
+ * Jatah latihan harian. Akun dengan akses aktif (atau admin, atau saat pembatasan belum dinyalakan) tanpa batas.
+ * Selain itu: FREE_DAILY_QUESTIONS soal per hari (zona Asia/Jakarta), dihitung dari jumlah soal sesi drill
+ * (ranked dan bebas) yang DIMULAI hari ini, termasuk sesi yang belum selesai agar tidak bisa dihindari.
+ */
+async function jatahHarian(pool, studentId, role) {
+  if (await punyaAkses(pool, studentId, akses.PROGRAM_CBT, role)) {
+    return { tanpa_batas: true, batas: null, terpakai: null, sisa: null };
+  }
+  const { rows } = await pool.query(
+    `SELECT COALESCE(sum(jumlah_soal), 0)::int AS n
+       FROM student_attempts
+      WHERE student_id = $1::uuid AND mode IN ('drill_ranked', 'drill_free')
+        AND started_at >= (date_trunc('day', now() AT TIME ZONE $2) AT TIME ZONE $2)`,
+    [studentId, plan.TIMEZONE],
+  );
+  const terpakai = rows[0].n;
+  const batas = plan.FREE_DAILY_QUESTIONS;
+  return { tanpa_batas: false, batas, terpakai, sisa: Math.max(batas - terpakai, 0) };
+}
+
+/** GET /api/me/akses — daftar program, status akses siswa, dan apakah paket gratis (terbatas) yang berlaku. */
 async function programSiswa(pool, studentId, role) {
   const { rows } = await pool.query(
     `SELECT g.kode, g.nama, g.deskripsi, g.harga_rupiah, g.durasi_hari,
@@ -55,8 +77,9 @@ async function programSiswa(pool, studentId, role) {
     [studentId],
   );
   const bebas = bebasAkses(role);
-  return rows.map((r) => {
+  return Promise.all(rows.map(async (r) => {
     const aktif = bebas || (r.punya_baris && aksesAktif(r.berlaku_sampai));
+    const terbatas = akses.wajibBayar(r.kode) && !aktif;
     return {
       kode: r.kode,
       nama: r.nama,
@@ -66,9 +89,10 @@ async function programSiswa(pool, studentId, role) {
       aktif,
       berlaku_sampai: bebas ? null : r.berlaku_sampai,
       pernah_punya: r.punya_baris,
-      perlu_bayar: akses.wajibBayar(r.kode) && !aktif,
+      terbatas, // true = berlaku paket gratis (jatah harian), belum berlangganan
+      jatah: terbatas && r.kode === akses.PROGRAM_CBT ? await jatahHarian(pool, studentId, role) : null,
     };
-  });
+  }));
 }
 
 /** True bila siswa boleh memakai program. Dipakai gerbang akses. */
@@ -292,6 +316,6 @@ async function putuskanPembayaran(pool, adminId, id, body) {
 }
 
 module.exports = {
-  programSiswa, punyaAkses, buatPesanan, riwayat, konfirmasiPesanan, batalkanPesanan, unggahBukti,
+  programSiswa, punyaAkses, jatahHarian, buatPesanan, riwayat, konfirmasiPesanan, batalkanPesanan, unggahBukti,
   daftarPembayaran, putuskanPembayaran, urlBukti,
 };

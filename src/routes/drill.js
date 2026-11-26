@@ -19,6 +19,8 @@ router.post('/start', async (req, res, next) => {
     if (!studentId) throw new HttpError(401, 'UNAUTHORIZED', 'Harus login');
 
     const payload = parseStartBody(req.body);
+    // Paket gratis: jumlah soal dipotong sesuai sisa jatah harian (diisi middleware jatah).
+    if (req.jatahSisa !== undefined) payload.jumlahSoal = Math.min(payload.jumlahSoal, req.jatahSisa);
     const result = await startDrill(pool, studentId, payload);
     res.status(201).json(result);
   } catch (err) {
