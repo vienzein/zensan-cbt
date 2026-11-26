@@ -5,6 +5,7 @@ import FormSoal from '../components/FormSoal.jsx';
 import { useMuat, Kartu, tgl } from '../components/AdminDasar.jsx';
 import { Persetujuan, SoalSaya, Lembaga } from './AdminLembaga.jsx';
 import LaporanSiswa, { DetailSiswaLaporan } from './AdminLaporanSiswa.jsx';
+import Pembayaran from './AdminPembayaran.jsx';
 
 // Halaman admin: ringkasan, laporan soal, siswa, dan jumlah soal per subtopik. Hanya muncul bila akun is_admin.
 
@@ -15,6 +16,7 @@ const TAB_SUPER = [
   ['input', 'Input soal'],
   ['laporan_siswa', 'Laporan siswa'],
   ['siswa', 'Siswa'],
+  ['pembayaran', 'Pembayaran'],
   ['lembaga', 'Lembaga'],
   ['bank', 'Bank soal'],
 ];
@@ -659,6 +661,7 @@ export default function Admin({ me, onKeluar }) {
           {tab === 'saya' && <SoalSaya onEdit={setEditId} />}
           {tab === 'laporan_siswa' && <LaporanSiswa />}
           {tab === 'siswa' && <Siswa />}
+          {tab === 'pembayaran' && <Pembayaran />}
           {tab === 'lembaga' && <Lembaga />}
           {tab === 'bank' && <BankSoal />}
         </>

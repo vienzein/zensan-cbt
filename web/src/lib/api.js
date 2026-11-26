@@ -33,6 +33,10 @@ async function panggil(method, path, body, berkas) {
   }
   if (!res.ok) {
     const e = json?.error;
+    // 402 = akses program belum aktif: App mengarahkan siswa ke halaman bayar (lihat App.jsx).
+    if (res.status === 402 && e?.code === 'AKSES_DIPERLUKAN') {
+      window.dispatchEvent(new CustomEvent('zq-akses', { detail: { program: e.details?.program } }));
+    }
     throw new ApiError(res.status, e?.code || 'ERROR', e?.message || `Permintaan gagal (${res.status})`, e?.details);
   }
   return json;
@@ -69,6 +73,15 @@ export const api = {
   adminTambahAdmin: (id, email) => panggil('POST', `/admin/lembaga/${id}/admin`, { email }),
   adminCabutAdmin: (id, studentId) => panggil('DELETE', `/admin/lembaga/${id}/admin/${studentId}`),
   profil: () => panggil('GET', '/me/profil'),
+  akses: async () => (await panggil('GET', '/me/akses')).program,
+  pembayaran: () => panggil('GET', '/pembayaran'),
+  buatPesanan: (program) => panggil('POST', '/pembayaran', { program }),
+  konfirmasiPesanan: (id, body) => panggil('POST', `/pembayaran/${id}/konfirmasi`, body),
+  batalPesanan: (id) => panggil('POST', `/pembayaran/${id}/batal`),
+  unggahBukti: (id, berkas) => panggil('POST', `/pembayaran/${id}/bukti`, undefined, berkas),
+  adminBuktiUrl: (id) => panggil('GET', `/admin/pembayaran/${id}/bukti`),
+  adminPembayaran: (semua) => panggil('GET', `/admin/pembayaran${semua ? '?status=semua' : ''}`),
+  adminPutuskanBayar: (id, body) => panggil('POST', `/admin/pembayaran/${id}/keputusan`, body),
   gabungLembaga: (kode) => panggil('POST', '/me/lembaga', { kode }),
   keluarLembaga: () => panggil('DELETE', '/me/lembaga'),
   mulaiDrill: (body) => panggil('POST', '/drill/start', body),

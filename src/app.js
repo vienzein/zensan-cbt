@@ -11,6 +11,9 @@ const meRouter = require('./routes/me');
 const kurikulumRouter = require('./routes/kurikulum');
 const adminRouter = require('./routes/admin');
 const { createRequireAdmin } = require('./middleware/admin');
+const { createWajibAkses } = require('./middleware/akses');
+const pembayaranRouter = require('./routes/pembayaran');
+const akses = require('./config/akses');
 
 const app = express();
 app.use(express.json({ limit: '100kb' }));
@@ -25,11 +28,15 @@ app.use('/api', (req, res, next) => {
 // Semua endpoint /api wajib login (token Supabase); middleware mengisi req.user.id
 app.use('/api', createAuth({ pool }));
 
-app.use('/api/drill', drillRouter);
-app.use('/api/domain0', domain0Router);
+// Gerbang akses program 'cbt': aktif hanya bila WAJIB_BAYAR_CBT=1 (lihat src/config/akses.js).
+const wajibCbt = createWajibAkses({ pool, kode: akses.PROGRAM_CBT });
+
+app.use('/api/drill', wajibCbt, drillRouter);
+app.use('/api/domain0', wajibCbt, domain0Router);
 app.use('/api/soal', soalRouter);
 app.use('/api/tryout', tryoutRouter);
 app.use('/api/me', meRouter);
+app.use('/api/pembayaran', pembayaranRouter);
 app.use('/api/kurikulum', kurikulumRouter);
 app.use('/api/admin', createRequireAdmin({ pool }), adminRouter);
 

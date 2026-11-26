@@ -6,6 +6,9 @@ import { Logo } from './Dasar.jsx';
 // Bilah menu bawah (HP) yang berubah jadi sidebar kiri di layar laptop (lebar >= 1024px), plus tombol tema.
 
 const IKON = {
+  home: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  kelas: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4m8-4v4"/>',
+  bayar: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
   beranda: '<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-6h6v6"/>',
   latihan: '<path d="m8 5 11 7-11 7z"/>',
   profil: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
@@ -44,6 +47,7 @@ export function TombolTema() {
 }
 
 const MENU = [
+  ['home', 'Home', 'home'],
   ['beranda', 'Beranda', 'beranda'],
   ['latihan', 'Latihan', 'latihan'],
   ['profil', 'Profil', 'profil'],
@@ -54,7 +58,7 @@ export default function MenuBawah({ aktif, onPilih, email }) {
   return (
     <nav
       aria-label="Navigasi utama"
-      className="fixed bottom-0 left-1/2 z-20 grid w-full max-w-md -translate-x-1/2 grid-cols-3 border-t border-line bg-card px-2 pt-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] lg:top-0 lg:left-0 lg:flex lg:w-60 lg:max-w-none lg:translate-x-0 lg:flex-col lg:gap-1 lg:border-t-0 lg:border-r lg:p-4"
+      className="fixed bottom-0 left-1/2 z-20 grid w-full max-w-md -translate-x-1/2 grid-cols-4 border-t border-line bg-card px-2 pt-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] lg:top-0 lg:left-0 lg:flex lg:w-60 lg:max-w-none lg:translate-x-0 lg:flex-col lg:gap-1 lg:border-t-0 lg:border-r lg:p-4"
     >
       <div className="hidden rounded-xl bg-white px-3 py-2 lg:mb-6 lg:block">
         <Logo className="mx-auto h-10" />
