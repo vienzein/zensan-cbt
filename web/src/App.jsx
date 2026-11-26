@@ -12,6 +12,7 @@ import Admin from './pages/Admin.jsx';
 import Profil from './pages/Profil.jsx';
 import Portal from './pages/Portal.jsx';
 import Bayar from './pages/Bayar.jsx';
+import Kelas from './pages/Kelas.jsx';
 import { Layar, Memuat, Galat } from './components/Dasar.jsx';
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
   const [ganti, setGanti] = useState(false); // true = tampilkan layar pilih tes
   // Layar di atas Beranda: null | {nama:'pilih', data} | {nama:'ujian', sesi} | {nama:'hasil', mode, hasil}
   const [layar, setLayar] = useState(null);
-  // Kerangka super app: 'home' (Portal) | 'cbt' (Drill Soal) | 'bayar'. Modul baru tinggal menambah nilai di sini.
+  // Kerangka super app: 'home' (Portal) | 'cbt' (Drill Soal) | 'kelas' | 'bayar'. Modul baru tinggal menambah nilai di sini.
   const [modul, setModul] = useState('home');
   const [bayar, setBayar] = useState({ program: null, dari: null, alasan: null });
   const [akses, setAkses] = useState(null);
@@ -120,12 +121,14 @@ export default function App() {
       />
     );
   }
+  if (modul === 'kelas') return <Kelas onKembali={keHome} />;
   if (modul === 'home') {
     return (
       <Portal
         me={me}
         akses={akses}
         onBukaCbt={() => setModul('cbt')}
+        onBukaKelas={() => setModul('kelas')}
         onBayar={(program) => bukaBayar(program || null, null)}
       />
     );

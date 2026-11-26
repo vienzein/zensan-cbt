@@ -9,6 +9,7 @@ const lembagaSvc = require('../services/lembagaService');
 const persetujuanSvc = require('../services/persetujuanService');
 const laporanLembagaSvc = require('../services/laporanLembagaService');
 const aksesSvc = require('../services/aksesService');
+const kelasSvc = require('../services/kelasService');
 const { requireSuper } = require('../middleware/admin');
 
 const router = express.Router();
@@ -113,5 +114,20 @@ router.get('/pembayaran/:id/bukti', requireSuper, jalan(async (req, res) => {
 router.post('/pembayaran/:id/keputusan', requireSuper, jalan(async (req, res) => {
   res.json(await aksesSvc.putuskanPembayaran(pool, req.admin.id, req.params.id, req.body));
 }));
+
+// ---------- Kelas online dan program (super admin) ----------
+
+router.get('/kelas', requireSuper, jalan(async (req, res) => {
+  res.json({ kelas: await kelasSvc.daftarKelas(pool, req.query.status === 'semua' ? 'semua' : 'mendatang') });
+}));
+router.post('/kelas', requireSuper, jalan(async (req, res) => res.status(201).json(await kelasSvc.buatKelas(pool, req.admin.id, req.body))));
+router.put('/kelas/:id', requireSuper, jalan(async (req, res) => res.json(await kelasSvc.ubahKelas(pool, req.params.id, req.body))));
+router.post('/kelas/:id/batal', requireSuper, jalan(async (req, res) => res.json(await kelasSvc.batalkanKelas(pool, req.params.id))));
+
+router.get('/program', requireSuper, jalan(async (req, res) => res.json({ program: await kelasSvc.daftarProgram(pool) })));
+router.post('/program', requireSuper, jalan(async (req, res) => res.status(201).json(await kelasSvc.buatProgram(pool, req.body))));
+// Rute tetap '/program/akses' harus sebelum '/program/:kode'
+router.post('/program/akses', requireSuper, jalan(async (req, res) => res.json(await kelasSvc.beriAkses(pool, req.body))));
+router.patch('/program/:kode', requireSuper, jalan(async (req, res) => res.json(await kelasSvc.ubahProgram(pool, req.params.kode, req.body))));
 
 module.exports = router;
